@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sookpam</string>
+    <string name="message_info_category_default">기타</string>
 </resources>
