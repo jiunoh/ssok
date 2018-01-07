@@ -6,17 +6,13 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.telephony.SmsMessage
-import android.util.Log
+import android.widget.Toast
 import com.example.jiun.sookpam.model.data.SmsVO
 import io.realm.Realm
 import io.realm.RealmResults
-import java.util.*
 
-class SmsReceiver() : BroadcastReceiver() {
-    private lateinit var realm:Realm
-    constructor(realm: Realm) : this() {
-        this.realm = realm
-    }
+class SmsReceiver : BroadcastReceiver() {
+    private var realm: Realm = Realm.getDefaultInstance()
     private val smsList: RealmResults<SmsVO> = getSmsList()
     private fun getSmsList(): RealmResults<SmsVO> {
         return realm.where(SmsVO::class.java).findAll()
@@ -28,28 +24,26 @@ class SmsReceiver() : BroadcastReceiver() {
 
     private fun receiveSms(context: Context, intent: Intent) {
         val extras: Bundle = intent.extras
-        val smsExtras = extras.get("pdus") as ArrayList<*>
+        val smsExtras = extras.get("pdus") as Array<*>
 
-        for (i: Int in 0..smsExtras.size) {
+        for (i: Int in 0 until smsExtras.size) {
             val sms: SmsMessage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 SmsMessage.createFromPdu(smsExtras[i] as ByteArray, extras.getString("format"))
             } else {
                 SmsMessage.createFromPdu(smsExtras[i] as ByteArray)
             }
+            Toast.makeText(context, "ID: " + smsList.size + " PhoneNumber: " + sms.displayOriginatingAddress + " Body: " + sms.messageBody, Toast.LENGTH_LONG).show()
             addSmsToList(sms.displayOriginatingAddress, sms.messageBody)
         }
-
     }
 
     private fun addSmsToList(phoneNumber: String, body: String) {
         realm.beginTransaction()
-        val sms: SmsVO = realm.createObject(SmsVO::class.java)
+        val sms: SmsVO = realm.createObject(SmsVO::class.java, smsList.size.toLong())
         sms.apply {
-            id = smsList.size.toLong()
             this.phoneNumber = phoneNumber
             this.body = body
         }
-        Log.v("SMS", "ID: " + sms.id + " PhoneNumber: " + sms.phoneNumber + " Body: " + sms.body)
         realm.commitTransaction()
     }
 }
