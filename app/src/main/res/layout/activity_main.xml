@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:paddingLeft="40dp"
-            android:text="장학"
+            android:text="@string/janghak"
             android:textSize="24dp" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:paddingLeft="40dp"
-            android:text="등록"
+            android:text="@string/deungrok"
             android:textSize="24dp" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
             android:paddingLeft="40dp"
-            android:text="사회봉사"
+            android:text="@string/bongsa"
             android:textSize="24dp" />
 
         <TextView
