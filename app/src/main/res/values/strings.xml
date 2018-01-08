@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Sookpam</string>
+    <string name="janghak">장학</string>
+    <string name="bongsa">사회봉사</string>
+    <string name="deungrok">등록</string>
+
 </resources>
