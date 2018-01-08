@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.jiun.sookpam.model.data.SmsVO
 import io.realm.Realm
 import io.realm.RealmResults
+import java.util.*
 
 class SmsReceiver : BroadcastReceiver() {
     private var realm: Realm = Realm.getDefaultInstance()
@@ -35,21 +36,18 @@ class SmsReceiver : BroadcastReceiver() {
                 SmsMessage.createFromPdu(smsExtras[i] as ByteArray)
             }
             Toast.makeText(context, "ID: " + smsList.size + " PhoneNumber: " + sms.displayOriginatingAddress + " Body: " + sms.messageBody, Toast.LENGTH_LONG).show()
-            addSmsToList(sms.displayOriginatingAddress, sms.messageBody)
+            addSmsToList(sms.displayOriginatingAddress, Date(sms.timestampMillis) , sms.messageBody)
         }
     }
 
-    private fun addSmsToList(phoneNumber: String, body: String) {
+    private fun addSmsToList(phoneNumber: String, date: Date, body: String) {
         realm.beginTransaction()
         val sms: SmsVO = realm.createObject(SmsVO::class.java, smsList.size.toLong())
         sms.apply {
             this.phoneNumber = phoneNumber
+            this.date = date
             this.body = body
         }
         realm.commitTransaction()
-        val allSms = realm.where(SmsVO::class.java).findAll()
-        allSms.forEach{smsData->
-            println("ID: ${smsData.id} : PhoneNumber: ${smsData.phoneNumber} : Body: ${smsData.body}")
-        }
     }
 }

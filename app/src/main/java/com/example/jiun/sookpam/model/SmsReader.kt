@@ -26,9 +26,8 @@ class SmsReader {
                 val date: String = cursor.getString(cursor.getColumnIndexOrThrow("date"))
                 val smsDayTime = Date(java.lang.Long.valueOf(date))
                 val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
-                val type: String = cursor.getString(cursor.getColumnIndexOrThrow("type"))
 
-                addSmsToList(phoneNumber, body)
+                addSmsToList(phoneNumber, smsDayTime, body)
                 cursor.moveToNext()
             }
         }
@@ -36,15 +35,16 @@ class SmsReader {
 
         val allSms = realm.where(SmsVO::class.java).findAll()
         allSms.forEach { smsData ->
-            println("ID: ${smsData.id} : PhoneNumber: ${smsData.phoneNumber} : Body: ${smsData.body}")
+            println("ID: ${smsData.id} : Date: ${smsData.date} PhoneNumber: ${smsData.phoneNumber} : Body: ${smsData.body}")
         }
     }
 
-    private fun addSmsToList(phoneNumber: String, body: String) {
+    private fun addSmsToList(phoneNumber: String, date:Date, body: String) {
         realm.beginTransaction()
         val sms: SmsVO = realm.createObject(SmsVO::class.java, smsList.size.toLong())
         sms.apply {
             this.phoneNumber = phoneNumber
+            this.date = date
             this.body = body
         }
         realm.commitTransaction()
