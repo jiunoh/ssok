@@ -45,5 +45,9 @@ class SmsReceiver : BroadcastReceiver() {
             this.body = body
         }
         realm.commitTransaction()
+        val allSms = realm.where(SmsVO::class.java).findAll()
+        allSms.forEach{smsData->
+            println("ID: ${smsData.id} : PhoneNumber: ${smsData.phoneNumber} : Body: ${smsData.body}")
+        }
     }
 }
