@@ -5,8 +5,8 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.jiun.sookpam.model.SmsReader;
-import com.example.jiun.sookpam.model.SmsReceiver;
+import com.example.jiun.sookpam.model.sms.SmsReader;
+import com.example.jiun.sookpam.model.sms.SmsReceiver;
 
 import io.realm.Realm;
 
