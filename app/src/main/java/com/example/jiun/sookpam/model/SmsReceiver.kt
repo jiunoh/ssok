@@ -19,7 +19,9 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        receiveSms(context, intent)
+        if(intent.action == "android.provider.Telephony.SMS_RECEIVED") {
+            receiveSms(context, intent)
+        }
     }
 
     private fun receiveSms(context: Context, intent: Intent) {

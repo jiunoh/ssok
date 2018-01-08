@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.jiun.sookpam.model.SmsReader;
 import com.example.jiun.sookpam.model.SmsReceiver;
 
 import io.realm.Realm;
@@ -12,16 +13,20 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
     BroadcastReceiver receiver;
 
+    SmsReader smsReader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Realm.init(this);
+        smsReader = new SmsReader();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        smsReader.getSmsDetails(this);
         registerSmsReceiver();
     }
 
