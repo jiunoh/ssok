@@ -1,10 +1,12 @@
 package com.example.jiun.sookpam;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,8 +28,12 @@ public class MainListviewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.main_listview_item, viewGroup, false);
         }
 
+        ImageView button = (ImageView) convertView.findViewById(R.id.main_button);
         TextView category = (TextView) convertView.findViewById(R.id.main_list_item);
+
         MainListItem mainListItem = mainItemList.get(position);
+
+        button.setImageDrawable(mainListItem.getButton());
         category.setText(mainListItem.getCategory());
 
         return convertView;
@@ -43,11 +49,11 @@ public class MainListviewAdapter extends BaseAdapter {
         return mainItemList.get(position) ;
     }
 
-    public void addItem(String category) {
+    public void addItem(Drawable image, String category) {
         MainListItem item = new MainListItem();
         item.setCategory(category);
+        item.setButton(image);
         mainItemList.add(item);
     }
-
 
 }

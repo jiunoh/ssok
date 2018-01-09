@@ -3,40 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:clickable="true"
-        android:id="@+id/item"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/main_list_item"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        >
+        android:layout_weight="0.85"
+        android:paddingLeft="40dp"
+        android:text="demo item"
+        android:textSize="24dp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.85"
-            android:paddingLeft="40dp"
-            android:text="demo item"
-            android:textSize="24dp"
-            android:id="@+id/main_list_item"
-            />
+    <ImageView
+        android:id="@+id/main_button"
+        android:layout_width="0dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
+        android:background="@drawable/arrow" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="28dp"
-            android:layout_weight="0.05"
-            android:background="@drawable/arrow"
-            android:layout_gravity="center"
-            android:id="@+id/main_button"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"
-            android:paddingLeft="40dp"
-            />
-
-    </LinearLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:paddingLeft="40dp" />
 
 </LinearLayout>
