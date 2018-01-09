@@ -4,6 +4,13 @@
     android:orientation="vertical"
     >
 
+    <ListView
+        android:id="@+id/category_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:choiceMode="multipleChoice"
+        />
+
     <LinearLayout
         android:paddingLeft="25dp"
         android:layout_marginTop="30dp"
