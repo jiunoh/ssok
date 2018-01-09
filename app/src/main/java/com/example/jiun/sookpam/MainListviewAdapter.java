@@ -4,60 +4,50 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainListviewAdapter extends ArrayAdapter implements View.OnClickListener {
+public class MainListviewAdapter extends BaseAdapter {
+    private ArrayList<MainListItem> mainItemList = new ArrayList<MainListItem>() ;
 
-    public interface ListClickListener {
-        void onCategoryButtonClicked();
-    }
-
-    private int resourceId;
-    private ListClickListener listClickListener;
-
-    MainListviewAdapter(Context context, int resource, ArrayList<CategoryListItem> list, ListClickListener listClickListener) {
-        super(context, resource, list);
-        this.resourceId = resource;
-        this.listClickListener = listClickListener;
+    @Override
+    public int getCount() {
+        return mainItemList.size() ;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position ;
-        final Context context = parent.getContext();
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        final Context context = viewGroup.getContext();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(this.resourceId, parent, false);
+            convertView = inflater.inflate(R.layout.main_listview_item, viewGroup, false);
         }
 
-        final TextView category = (TextView) convertView.findViewById(R.id.main_list_item);
-        final CategoryListItem mainListviewItem = (CategoryListItem) getItem(position);
-
-        // 아이템 내 각 위젯에 데이터 반영
-        category.setText(mainListviewItem.getCategory());
-
-        Button button = (Button) convertView.findViewById(R.id.main_button);
-        button.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                // * * *
-                //
-                // * * *
-            }
-        });
+        TextView category = (TextView) convertView.findViewById(R.id.main_list_item);
+        MainListItem mainListItem = mainItemList.get(position);
+        category.setText(mainListItem.getCategory());
 
         return convertView;
     }
 
-
-    public void onClick(View v) {
-        // * * *
-        //
-        // * * *
+    @Override
+    public long getItemId(int position) {
+        return position ;
     }
+
+    @Override
+    public Object getItem(int position) {
+        return mainItemList.get(position) ;
+    }
+
+    public void addItem(String category) {
+        MainListItem item = new MainListItem();
+        item.setCategory(category);
+        mainItemList.add(item);
+    }
+
 
 }

@@ -1,7 +1,18 @@
 package com.example.jiun.sookpam;
 
+import android.graphics.drawable.Drawable;
+
 public class MainListItem {
+    private Drawable button;
     private String category;
+
+    public Drawable getButton() {
+        return button;
+    }
+
+    public void setButton(Drawable button) {
+        this.button = button;
+    }
 
     public String getCategory() {
         return category;
