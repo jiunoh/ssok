@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.recipes4dev.examples.customchoicelistviewexample1.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.jiun.sookpam.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="30dp"
     android:paddingLeft="25dp">
 
     <CheckBox
@@ -22,4 +21,4 @@
         android:id="@+id/category"
         />
 
-</com.recipes4dev.examples.customchoicelistviewexample1.CheckableLinearLayout>
+</com.example.jiun.sookpam.CheckableLinearLayout>

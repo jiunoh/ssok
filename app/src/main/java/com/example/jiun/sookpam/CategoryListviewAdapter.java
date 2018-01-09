@@ -18,22 +18,19 @@ public class CategoryListviewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final int pos = position;
-        final Context context = parent.getContext();
+    public View getView(int position, View convertView, ViewGroup viewGroup) {
+        final Context context = viewGroup.getContext();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.category_listview_item, parent, false);
+            convertView = inflater.inflate(R.layout.category_listview_item, viewGroup, false);
         }
 
-//        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.category_checkbox);
         TextView category = (TextView) convertView.findViewById(R.id.category) ;
 
         CategoryListItem categoryListItem = categoryItemList.get(position);
 
         category.setText(categoryListItem.getCategory());
-  //      checkBox.setChecked(categoryListItem.getCheckBox());
 
         return convertView;
     }
