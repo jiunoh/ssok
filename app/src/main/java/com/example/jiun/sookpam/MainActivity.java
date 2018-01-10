@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //smsReader.getSmsDetails(this);
+        smsReader.setSms(this);
         registerSmsReceiver();
-        mmsReader.getMmsDetails(this);
+        mmsReader.setMms(this);
     }
 
     private void registerSmsReceiver() {

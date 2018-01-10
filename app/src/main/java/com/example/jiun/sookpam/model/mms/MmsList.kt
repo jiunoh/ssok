@@ -24,9 +24,9 @@ class MmsList {
         realm.commitTransaction()
     }
 
-    fun getSizeOfRow(body: String) : Int {
-        val body = realm.where(MmsVO::class.java).contains("body", body).findAll()
-        return body.size
+    fun getSizeOfBody(body: String) : Int {
+        val selectedBody = realm.where(MmsVO::class.java).contains("body", body).findAll()
+        return selectedBody.size
     }
 
     fun printMmsList() {

@@ -8,22 +8,27 @@ import java.util.*
 class SmsReader {
     private var smsList: SmsList = SmsList()
 
-    fun getSmsDetails(context: Context) {
+    fun setSms(context: Context) {
         val uri: Uri = Uri.parse("content://sms/inbox")
-        val cursor: Cursor = context.contentResolver.query(uri, null, null, null, null)
+        val contentResolver = context.contentResolver
+        val cursor: Cursor = contentResolver.query(uri, null, null, null, null)
 
         if (cursor.moveToFirst()) {
             for (i: Int in smsList.getSmsList().size until cursor.count) {
-                val phoneNumber: String = cursor.getString(cursor.getColumnIndexOrThrow("address"))
-                val date: String = cursor.getString(cursor.getColumnIndexOrThrow("date"))
-                val smsDayTime = Date(java.lang.Long.valueOf(date))
-                val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
-
-                smsList.addSmsToList(phoneNumber, smsDayTime, body)
+                setSmsField(cursor)
                 cursor.moveToNext()
             }
             smsList.printSmsList()
         }
         cursor.close()
+    }
+
+    private fun setSmsField(cursor: Cursor) {
+        val phoneNumber: String = cursor.getString(cursor.getColumnIndexOrThrow("address"))
+        val date: String = cursor.getString(cursor.getColumnIndexOrThrow("date"))
+        val smsDayTime = Date(java.lang.Long.valueOf(date))
+        val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
+
+        smsList.addSmsToList(phoneNumber, smsDayTime, body)
     }
 }

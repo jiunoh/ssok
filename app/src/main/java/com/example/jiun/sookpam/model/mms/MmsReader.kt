@@ -2,20 +2,20 @@ package com.example.jiun.sookpam.model.mms
 
 import android.content.ContentResolver
 import android.content.Context
+import android.database.Cursor
 import android.net.Uri
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.util.*
-import kotlin.properties.Delegates
 
 class MmsReader {
     private var mmsList = MmsList()
     private val idList = ArrayList<String>()
     private val uri = Uri.parse("content://mms/inbox")
 
-    fun getMmsDetails(context: Context) {
+    fun setMms(context: Context) {
         val projection = arrayOf("_id", "ct_t", "date")
         val contentResolver = context.contentResolver
         val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
@@ -23,43 +23,48 @@ class MmsReader {
         setIdList(contentResolver)
 
         if (cursor.moveToFirst()) {
-            do {
-                val mmsId = cursor.getString(cursor.getColumnIndexOrThrow("_id"))
-                val date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
-                val mmsDayTime = Date(java.lang.Long.valueOf(date))
-                val mmsType = cursor.getString(cursor.getColumnIndexOrThrow("ct_t"))
-
-                if (mmsType.startsWith("application/vnd.wap.multipart")) {
-                    val phoneNumber = getPhoneNumber(contentResolver, mmsId)
-                    val selection = "mid=$mmsId"
-                    val partUri = Uri.parse("content://mms/part")
-                    val partCursor = contentResolver.query(partUri, null, selection, null, null)
-
-                    if (partCursor.moveToFirst()) {
-                        do {
-                            val partId = partCursor.getString(partCursor.getColumnIndexOrThrow("_id"))
-                            val type = partCursor.getString(partCursor.getColumnIndexOrThrow("ct"))
-                            var body: String by Delegates.notNull()
-                            if (type == "text/plain") {
-                                val data = partCursor.getString(partCursor.getColumnIndexOrThrow("_data"))
-                                body = if (data != null) {
-                                    getMmsText(contentResolver, partId)
-                                } else {
-                                    partCursor.getString(partCursor.getColumnIndexOrThrow("text"))
-                                }
-                                if (mmsList.getSizeOfRow(body) == 0) {
-                                    mmsList.addMmsToList(phoneNumber, mmsDayTime, body)
-                                }
-
-                            }
-                        } while (partCursor.moveToNext())
-                    }
-                    partCursor.close()
-                }
-            } while (cursor.moveToNext())
+            for (i: Int in mmsList.getMmsList().size until cursor.count) {
+                setMmsField(cursor, contentResolver)
+                cursor.moveToNext()
+            }
             cursor.close()
             mmsList.printMmsList()
         }
+    }
+
+    private fun setMmsField(cursor: Cursor, contentResolver: ContentResolver) {
+        val mmsId = cursor.getString(cursor.getColumnIndexOrThrow("_id"))
+        // If you do not multiply 1000 to date, then all year of mms printed 1970
+        val date = cursor.getLong(cursor.getColumnIndexOrThrow("date")) * 1000
+        val mmsDayTime = Date(java.lang.Long.valueOf(date))
+        val phoneNumber = getPhoneNumber(contentResolver, mmsId)
+        val selection = "mid=$mmsId"
+        val partUri = Uri.parse("content://mms/part")
+        val partCursor = contentResolver.query(partUri, null, selection, null, null)
+
+        if (partCursor.moveToFirst()) {
+            do {
+                val type = partCursor.getString(partCursor.getColumnIndexOrThrow("ct"))
+                if (type == "text/plain") {
+                    val body = setMmsToRealm(partCursor, contentResolver)
+                    if (mmsList.getSizeOfBody(body) == 0) {
+                        mmsList.addMmsToList(phoneNumber, mmsDayTime, body)
+                    }
+                }
+            } while (partCursor.moveToNext())
+        }
+        partCursor.close()
+    }
+
+    private fun setMmsToRealm(partCursor: Cursor, contentResolver: ContentResolver): String {
+        val partId = partCursor.getString(partCursor.getColumnIndexOrThrow("_id"))
+        val data = partCursor.getString(partCursor.getColumnIndexOrThrow("_data"))
+        return if (data != null) {
+            getMmsText(contentResolver, partId)
+        } else {
+            partCursor.getString(partCursor.getColumnIndexOrThrow("text"))
+        }
+
     }
 
     private fun setIdList(contentResolver: ContentResolver) {
