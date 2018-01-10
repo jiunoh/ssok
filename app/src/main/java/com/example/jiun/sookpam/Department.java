@@ -42,9 +42,10 @@ public class Department extends Application {
                     try {
                         br = new BufferedReader(new InputStreamReader(getAssets().open(csvFile)));
 
-                        ContactRecord user = bgRealm.createObject(ContactRecord.class);
+                        //ContactRecord user = bgRealm.createObject(ContactRecord.class);
                         while ((line = br.readLine()) != null) {
                             // use comma as separator
+                            ContactRecord user = bgRealm.createObject(ContactRecord.class);
                             final String[] record = line.split(cvsSplitBy);
                             user.setClass1(record[0]);
                             user.setClass2(record[1]);
