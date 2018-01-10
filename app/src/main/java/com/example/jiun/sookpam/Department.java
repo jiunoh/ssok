@@ -38,13 +38,14 @@ public class Department extends Application {
                     String cvsSplitBy = ",";
                     try {
                         br = new BufferedReader(new InputStreamReader(getAssets().open(csvFile)));
+
                         ContactRecord user = bgRealm.createObject(ContactRecord.class);
                         while ((line = br.readLine()) != null) {
                             // use comma as separator
                             final String[] record = line.split(cvsSplitBy);
-                            user.setClass1(record[1]);
-                            user.setClass2(record[2]);
-                            user.setPhone(record[3]);
+                            user.setClass1(record[0]);
+                            user.setClass2(record[1]);
+                            user.setPhone(record[2]);
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
