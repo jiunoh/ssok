@@ -2,7 +2,6 @@ package com.example.jiun.sookpam.model.mms
 
 import com.example.jiun.sookpam.model.data.MmsVO
 import io.realm.Realm
-import io.realm.RealmQuery
 import io.realm.RealmResults
 import java.util.*
 
