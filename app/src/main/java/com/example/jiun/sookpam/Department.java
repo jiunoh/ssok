@@ -69,7 +69,7 @@ public class Department extends Application {
             }, new Realm.Transaction.OnSuccess() {
                 @Override
                 public void onSuccess() {
-                    RealmResults<ContactRecord> results = realm.where(ContactRecord.class).equalTo("class1","대외협력처").findAll();
+                    RealmResults<ContactRecord> results = realm.where(ContactRecord.class).findAll();
                     Log.v("SUCCESS", "size : "+results.size());
                     for (ContactRecord record : results) {
                         Log.v(TAG,record .getClass1()+"/"+record .getClass2()+"/"+record .getPhone()); //test 코드
