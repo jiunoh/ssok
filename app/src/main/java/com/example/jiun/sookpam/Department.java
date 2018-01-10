@@ -14,7 +14,7 @@ import io.realm.RealmResults;
 
 
 public class Department extends Application {
-    private  static String TAG = "Department";
+    private  static String TAG = "TOTAL";
     private Realm realm;
 
     @Override
@@ -35,7 +35,7 @@ public class Department extends Application {
             realm.executeTransactionAsync(new Realm.Transaction() {
                 @Override
                 public void execute(Realm bgRealm) {
-                    String csvFile = "department.csv";
+                    String csvFile = "total.csv";
                     BufferedReader br = null;
                     String line = "";
                     String cvsSplitBy = ",";
