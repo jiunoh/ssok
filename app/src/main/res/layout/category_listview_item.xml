@@ -3,7 +3,9 @@
     android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="25dp">
+    android:paddingLeft="25dp"
+    android:id="@+id/checkable_layout_id"
+    >
 
     <CheckBox
         android:layout_width="0dp"

@@ -26,10 +26,8 @@ public class CategoryListviewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.category_listview_item, viewGroup, false);
         }
 
-        TextView category = (TextView) convertView.findViewById(R.id.category) ;
-
+        TextView category = (TextView) convertView.findViewById(R.id.category);
         CategoryListItem categoryListItem = categoryItemList.get(position);
-
         category.setText(categoryListItem.getCategory());
 
         return convertView;
@@ -37,7 +35,7 @@ public class CategoryListviewAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position ;
+        return position;
     }
 
     @Override
@@ -50,6 +48,5 @@ public class CategoryListviewAdapter extends BaseAdapter {
         item.setCategory(category);
         categoryItemList.add(item);
     }
-
 
 }
