@@ -12,11 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainListviewAdapter extends BaseAdapter {
-    private ArrayList<MainListItem> mainItemList = new ArrayList<MainListItem>() ;
+    private ArrayList<MainListItem> mainItemList = new ArrayList<MainListItem>();
 
     @Override
     public int getCount() {
-        return mainItemList.size() ;
+        return mainItemList.size();
     }
 
     @Override
@@ -41,12 +41,12 @@ public class MainListviewAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position ;
+        return position;
     }
 
     @Override
     public Object getItem(int position) {
-        return mainItemList.get(position) ;
+        return mainItemList.get(position);
     }
 
     public void addItem(Drawable image, String category) {

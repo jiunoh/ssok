@@ -3,7 +3,7 @@ package com.example.jiun.sookpam;
 public class CategoryListItem {
     private String category;
 
-    public String getCategory () {
+    public String getCategory() {
         return category;
     }
 

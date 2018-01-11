@@ -14,19 +14,19 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
     @Override
     public boolean isChecked() {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox) ;
+        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox);
         return checkBox.isChecked();
     }
 
     @Override
     public void toggle() {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox) ;
+        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox);
         setChecked(checkBox.isChecked() ? false : true);
     }
 
     @Override
     public void setChecked(boolean isChecked) {
-        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox) ;
+        CheckBox checkBox = (CheckBox) findViewById(R.id.category_checkbox);
 
         if (checkBox.isChecked() != isChecked) {
             checkBox.setChecked(isChecked);
