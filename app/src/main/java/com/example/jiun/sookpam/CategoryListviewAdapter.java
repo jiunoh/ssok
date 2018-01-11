@@ -17,18 +17,28 @@ public class CategoryListviewAdapter extends BaseAdapter {
         return categoryItemList.size() ;
     }
 
+    public static class ViewHolder {
+        TextView category;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         final Context context = viewGroup.getContext();
+        ViewHolder holder;
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.category_listview_item, viewGroup, false);
-        }
 
-        TextView category = (TextView) convertView.findViewById(R.id.category);
+            holder = new ViewHolder();
+            holder.category = (TextView) convertView.findViewById(R.id.category);
+            convertView.setTag(holder);
+        }
+        else
+            holder = (ViewHolder) convertView.getTag();
+
         CategoryListItem categoryListItem = categoryItemList.get(position);
-        category.setText(categoryListItem.getCategory());
+        holder.category.setText(categoryListItem.getCategory());
 
         return convertView;
     }
