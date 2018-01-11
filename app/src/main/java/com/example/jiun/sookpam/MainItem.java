@@ -2,7 +2,7 @@ package com.example.jiun.sookpam;
 
 import android.graphics.drawable.Drawable;
 
-public class MainListItem {
+public class MainItem {
     private Drawable button;
     private String category;
 

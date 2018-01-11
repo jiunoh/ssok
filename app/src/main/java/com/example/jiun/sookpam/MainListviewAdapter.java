@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainListviewAdapter extends BaseAdapter {
-    private ArrayList<MainListItem> mainItemList = new ArrayList<MainListItem>();
+    private ArrayList<MainItem> mainItemList = new ArrayList<MainItem>();
 
     @Override
     public int getCount() {
@@ -31,7 +31,7 @@ public class MainListviewAdapter extends BaseAdapter {
         ImageView button = (ImageView) convertView.findViewById(R.id.main_button);
         TextView category = (TextView) convertView.findViewById(R.id.main_list_item);
 
-        MainListItem mainListItem = mainItemList.get(position);
+        MainItem mainListItem = mainItemList.get(position);
 
         button.setImageDrawable(mainListItem.getButton());
         category.setText(mainListItem.getCategory());
@@ -50,7 +50,7 @@ public class MainListviewAdapter extends BaseAdapter {
     }
 
     public void addItem(Drawable image, String category) {
-        MainListItem item = new MainListItem();
+        MainItem item = new MainItem();
         item.setCategory(category);
         item.setButton(image);
         mainItemList.add(item);
