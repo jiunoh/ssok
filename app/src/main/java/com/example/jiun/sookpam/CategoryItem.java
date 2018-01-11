@@ -1,6 +1,6 @@
 package com.example.jiun.sookpam;
 
-public class CategoryListItem {
+public class CategoryItem {
     private String category;
 
     public String getCategory() {

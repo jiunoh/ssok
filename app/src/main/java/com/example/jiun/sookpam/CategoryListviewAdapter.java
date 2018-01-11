@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class CategoryListviewAdapter extends BaseAdapter {
-    private ArrayList<CategoryListItem> categoryItemList = new ArrayList<CategoryListItem>() ;
+    private ArrayList<CategoryItem> categoryItemList = new ArrayList<CategoryItem>() ;
 
     @Override
     public int getCount() {
@@ -37,7 +37,7 @@ public class CategoryListviewAdapter extends BaseAdapter {
         else
             holder = (ViewHolder) convertView.getTag();
 
-        CategoryListItem categoryListItem = categoryItemList.get(position);
+        CategoryItem categoryListItem = categoryItemList.get(position);
         holder.category.setText(categoryListItem.getCategory());
 
         return convertView;
@@ -54,7 +54,7 @@ public class CategoryListviewAdapter extends BaseAdapter {
     }
 
     public void addItem(String category) {
-        CategoryListItem item = new CategoryListItem();
+        CategoryItem item = new CategoryItem();
         item.setCategory(category);
         categoryItemList.add(item);
     }
