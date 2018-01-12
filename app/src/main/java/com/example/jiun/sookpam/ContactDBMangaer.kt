@@ -15,52 +15,60 @@ import io.realm.RealmResults
 
 class ContactDBMangaer : Application() {
 
+    lateinit private var bufferedReader: BufferedReader
+
+    companion object {
+        private val TAG = "ContactDBManager"
+        private var realm: Realm? = null
+    }
+
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
         realm = Realm.getDefaultInstance()
 
-        //adding to db satrt
         if (!realm!!.isEmpty) {
             Log.v("DB", "already there!!")
         } else {
             Log.v("DB", "Not Found!!")
             realm!!.executeTransactionAsync({ bgRealm ->
-                val csvFile = "total.csv"
-                var br: BufferedReader? = null
-                var line = ""
-                val cvsSplitBy = ","
                 try {
-                    br = BufferedReader(InputStreamReader(assets.open(csvFile)))
-
-                    //ContactRecord user = bgRealm.createObject(ContactRecord.class);
-                    while (true) {
-                        line = br.readLine() ?: break;
-                        // use comma as separator
-                        val record = bgRealm.createObject(ContactRecord::class.java)
-                        val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        record.class1 = value[0]
-                        record.class2 = value[1]
-                        record.phone = value[2]
-                        //Log.i(TAG,user.getClass1()+"/"+user.getClass2()+"/"+user.getPhone()); //test 코드
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Log.i(TAG, "file Not found wrong directory")
+                    parseStringToRealm(bgRealm)
+                } catch (exception: IOException) {
+                    exception.printStackTrace()
                 } finally {
-                    if (br != null) {
-                        try {
-                            br.close()
-                        } catch (e: IOException) {
-                            e.printStackTrace()
-                        }
-
-                    }
+                    closeBufferedReader()
                 }
             }, { printLogInSuccess() }) { error ->
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
+        }
+    }
+
+    private fun parseStringToRealm(backgroundRealm: Realm) {
+        val cvsSplitBy = ","
+        val csvFile = "total.csv"
+        bufferedReader = BufferedReader(InputStreamReader(assets.open(csvFile)))
+
+        while (true) {
+            var line = bufferedReader.readLine() ?: break;
+            val record = backgroundRealm.createObject(ContactRecord::class.java)
+            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            record.class1 = value[0]
+            record.class2 = value[1]
+            record.phone = value[2]
+        }
+    }
+
+    private fun closeBufferedReader() {
+        if (bufferedReader != null) {
+            try {
+                bufferedReader.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
         }
     }
 
@@ -80,11 +88,6 @@ class ContactDBMangaer : Application() {
         }
         val temp = results.toTypedArray() as Array<ContactRecord>
         val list = ArrayList(Arrays.asList(*temp))
-    }
-
-    companion object {
-        private val TAG = "ContactDBManager"
-        private var realm: Realm? = null
     }
 
 
