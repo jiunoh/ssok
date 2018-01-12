@@ -1,18 +1,14 @@
 package com.example.jiun.sookpam;
 
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.jiun.sookpam.model.mms.MmsReader;
 import com.example.jiun.sookpam.model.sms.SmsReader;
-import com.example.jiun.sookpam.model.sms.SmsReceiver;
 
 import io.realm.Realm;
 
 public class MainActivity extends AppCompatActivity {
-    BroadcastReceiver receiver;
     SmsReader smsReader;
     MmsReader mmsReader;
 
@@ -29,20 +25,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         smsReader.setSms(this);
-        registerSmsReceiver();
         mmsReader.setMms(this);
-    }
-
-    private void registerSmsReceiver() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.provider.Telephony.SMS_RECEIVED");
-        receiver = new SmsReceiver();
-        registerReceiver(receiver, filter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(receiver);
     }
 }
