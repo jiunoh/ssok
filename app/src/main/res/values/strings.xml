@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Sookpam</string>
     <string name="message_info_category_default">기타</string>
+    <string name="action_synchronization">동기화</string>
 </resources>
