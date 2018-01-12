@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        Realm.init(this)
+        //Realm.init(this)
         smsReader = SmsReader()
         mmsReader = MmsReader()
         toolbar = main_toolbar
