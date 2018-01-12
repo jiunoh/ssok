@@ -10,8 +10,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 import com.example.jiun.sookpam.model.mms.MmsReader
 import com.example.jiun.sookpam.model.sms.SmsReader
+import com.gun0912.tedpermission.PermissionListener
 
 import io.realm.Realm
+import com.gun0912.tedpermission.TedPermission
 
 class MainActivity : AppCompatActivity() {
     private lateinit var smsReader: SmsReader
@@ -22,7 +24,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initialize()
-        readMessageList()
+        checkMessagePermission()
+    }
+
+    private fun checkMessagePermission() {
+        val permissionListener = object : PermissionListener {
+            override fun onPermissionGranted() {
+                readMessageList()
+            }
+
+            override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
+                finish()
+            }
+        }
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleTitle(getString(R.string.read_sms_request_title))
+                .setRationaleMessage(getString(R.string.read_sms_request_detail))
+                .setDeniedTitle(getString(R.string.denied_read_sms_title))
+                .setDeniedMessage(getString(R.string.denied_read_sms_detail))
+                .setGotoSettingButtonText(getString(R.string.move_setting))
+                .setPermissions(android.Manifest.permission.READ_SMS)
+                .check()
     }
 
     private fun initialize() {
