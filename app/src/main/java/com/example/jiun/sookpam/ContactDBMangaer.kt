@@ -75,9 +75,6 @@ class ContactDBMangaer : Application() {
     private fun printLogInSuccess() {
         val results = realm!!.where(ContactRecord::class.java).findAll()
         Log.v("SUCCESS", "size : " + results.size)
-        for (record in results) {
-            Log.v(TAG, record.class1 + "/" + record.class2 + "/" + record.phone) //test 코드
-        }
     }
 
     fun getRequest(column: String, value: String) {
