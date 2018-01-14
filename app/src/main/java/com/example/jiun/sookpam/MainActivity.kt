@@ -18,6 +18,7 @@ import com.gun0912.tedpermission.TedPermission
 class MainActivity : AppCompatActivity() {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
+    private lateinit var categoryParser : CategoryParser
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initialize()
         checkMessagePermission()
-        CategoryParser().categorizeSMS()
     }
 
     private fun checkMessagePermission() {
@@ -57,11 +57,13 @@ class MainActivity : AppCompatActivity() {
         toolbar = main_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
+        categoryParser = CategoryParser()
     }
 
     private fun readMessageList() {
         smsReader.setSms(this)
         mmsReader.setMms(this)
+        categoryParser.categorizeSMS(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
