@@ -14,13 +14,8 @@ import io.realm.RealmConfiguration
 
 
 class ContactDBMangaer : Application() {
-
     lateinit private var bufferedReader: BufferedReader
-
-    companion object {
-        private val TAG = "ContactDBManager"
-        private var realm: Realm? = null
-    }
+    lateinit var realm: Realm
 
     override fun onCreate() {
         super.onCreate()
@@ -78,16 +73,5 @@ class ContactDBMangaer : Application() {
         val results = realm!!.where(ContactVO::class.java).findAll()
         Log.v("SUCCESS", "size : " + results.size)
     }
-
-    fun getRequest(column: String, value: String) {
-        val results = realm!!.where(ContactVO::class.java).distinctValues("class2").findAll()
-        Log.v("SUCCESS", "size : " + results.size)
-        for (record in results) {
-            Log.v(TAG, record.class1 + "/" + record.class2 + "/" + record.phone) //test 코드
-        }
-        val temp = results.toTypedArray() as Array<ContactVO>
-        val list = ArrayList(Arrays.asList(*temp))
-    }
-
 
 }
