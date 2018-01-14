@@ -7,7 +7,7 @@ import java.util.*
 open class SmsVO : RealmObject() {
     @PrimaryKey
     var id: Long = 0
-    var phoneNumber: String? = null
+    lateinit var phoneNumber : String
     var date: Date? = null
     var body: String? = null
 }
