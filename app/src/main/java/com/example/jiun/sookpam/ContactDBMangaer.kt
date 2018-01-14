@@ -10,6 +10,7 @@ import java.util.ArrayList
 import java.util.Arrays
 
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 
 class ContactDBMangaer : Application() {
@@ -25,6 +26,8 @@ class ContactDBMangaer : Application() {
         super.onCreate()
         Realm.init(this)
         realm = Realm.getDefaultInstance()
+        //var config : RealmConfiguration = RealmConfiguration.Builder().migration(ContactMigration()).build()
+        //realm = Realm.getInstance(config)
 
         if (!realm!!.isEmpty) {
             Log.v("DB", "already there!!")
