@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initialize()
         checkMessagePermission()
+        CategoryParser().categorizeSMS()
     }
 
     private fun checkMessagePermission() {
