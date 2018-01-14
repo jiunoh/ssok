@@ -7,8 +7,8 @@ import io.realm.annotations.RealmClass
 import io.realm.annotations.Required
 
 @RealmClass
-open class ContactRecord : RealmModel {
-    var class1: String? = null
-    var class2: String? = null
-    var phone: String? = null
+open class ContactVO : RealmModel {
+    lateinit var class1: String
+    lateinit var class2: String
+    lateinit var phone: String
 }

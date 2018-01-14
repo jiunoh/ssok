@@ -10,7 +10,6 @@ import java.util.ArrayList
 import java.util.Arrays
 
 import io.realm.Realm
-import io.realm.RealmResults
 
 
 class ContactDBMangaer : Application() {
@@ -53,7 +52,7 @@ class ContactDBMangaer : Application() {
 
         while (true) {
             var line = bufferedReader.readLine() ?: break;
-            val record = backgroundRealm.createObject(ContactRecord::class.java)
+            val record = backgroundRealm.createObject(ContactVO::class.java)
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.class1 = value[0]
             record.class2 = value[1]
@@ -73,17 +72,17 @@ class ContactDBMangaer : Application() {
     }
 
     private fun printLogInSuccess() {
-        val results = realm!!.where(ContactRecord::class.java).findAll()
+        val results = realm!!.where(ContactVO::class.java).findAll()
         Log.v("SUCCESS", "size : " + results.size)
     }
 
     fun getRequest(column: String, value: String) {
-        val results = realm!!.where(ContactRecord::class.java).distinctValues("class2").findAll()
+        val results = realm!!.where(ContactVO::class.java).distinctValues("class2").findAll()
         Log.v("SUCCESS", "size : " + results.size)
         for (record in results) {
             Log.v(TAG, record.class1 + "/" + record.class2 + "/" + record.phone) //test 코드
         }
-        val temp = results.toTypedArray() as Array<ContactRecord>
+        val temp = results.toTypedArray() as Array<ContactVO>
         val list = ArrayList(Arrays.asList(*temp))
     }
 
