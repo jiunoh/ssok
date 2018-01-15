@@ -10,8 +10,9 @@ import io.realm.Realm
 
 class CategoryParser {
     private var realm: Realm = Realm.getDefaultInstance()
-
+    private lateinit var context : ContactDBMangaer
     fun categorizeMessages(context: Context){
+        this.context=context as ContactDBMangaer
         categorizeSMS()
         categorizeMMS()
     }
@@ -28,7 +29,7 @@ class CategoryParser {
     fun createSMSCategory(sms: SmsVO) {
         realm.executeTransaction { realm ->
             var categoryRecord: CategoryVO = realm.createObject(CategoryVO::class.java)
-            val category: String? = getCategory(sms.phoneNumber)
+            val category: String? = context.getCategory(sms.phoneNumber)
             categoryRecord.category = category
             categoryRecord.sms = sms
         }
@@ -43,18 +44,11 @@ class CategoryParser {
     fun createMMSCategory(mms: MmsVO) {
         realm.executeTransaction { realm ->
             var categoryRecord: CategoryVO = realm.createObject(CategoryVO::class.java)
-            val category: String? = getCategory(mms.phoneNumber)
+            val category: String? = context.getCategory(mms.phoneNumber)
             categoryRecord.category = category
             categoryRecord.mms = mms
         }
     }
 
-    fun getCategory(value: String?): String {
-        val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
-        Log.v("PHONE", value + "/" + record!!.phone)
-        if (record == null)
-            return "학교"
-        else
-            return record.class2
-    }
+
 }

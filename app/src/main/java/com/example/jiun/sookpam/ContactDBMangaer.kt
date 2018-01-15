@@ -74,4 +74,12 @@ class ContactDBMangaer : Application() {
         Log.v("SUCCESS", "size : " + results.size)
     }
 
+    fun getCategory(value: String?): String {
+        val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
+        Log.v("PHONE", value + "/" + record!!.phone)
+        if (record == null)
+            return "학교"
+        else
+            return record.class2
+    }
 }
