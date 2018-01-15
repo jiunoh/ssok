@@ -25,12 +25,13 @@ class CategoryManager {
     fun categorizeSMS() {
         var smsList = SmsList().getSmsList()
         for (sms in smsList) {
+            if(doesSMSNotExist(sms.body))
                 createSMSCategory(sms)
         }
     }
 
     fun doesSMSNotExist(value: String?): Boolean {
-        var result = realm.where(CategoryVO::class.java).contains("sms.body", value).findAll()
+        var result = realm.where(CategoryVO::class.java).equalTo("sms.body", value).findFirst()
         if (result == null)
             return true
         else
@@ -50,12 +51,13 @@ class CategoryManager {
     fun categorizeMMS() {
         var mmsList = MmsList().getMmsList()
         for (mms in mmsList) {
+            if(doesMMSNotExist(mms.body))
                 createMMSCategory(mms)
         }
     }
 
     fun doesMMSNotExist(value: String?): Boolean {
-        var result = realm.where(CategoryVO::class.java).contains("mms.body", value).findAll()
+        var result = realm.where(CategoryVO::class.java).equalTo("mms.body", value).findFirst()
         if (result == null)
             return true
         else
