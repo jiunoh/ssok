@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
+import android.provider.Telephony
 import android.util.Log
 import com.example.jiun.sookpam.model.data.CategoryVO
 import com.example.jiun.sookpam.model.data.ContactVO
@@ -24,7 +25,6 @@ class CategoryManager {
     fun categorizeSMS() {
         var smsList = SmsList().getSmsList()
         for (sms in smsList) {
-            if (doesSMSNotExist(sms.body))
                 createSMSCategory(sms)
         }
     }
@@ -50,7 +50,6 @@ class CategoryManager {
     fun categorizeMMS() {
         var mmsList = MmsList().getMmsList()
         for (mms in mmsList) {
-            if (doesMMSNotExist(mms.body))
                 createMMSCategory(mms)
         }
     }
@@ -84,4 +83,21 @@ class CategoryManager {
         return categoryVOLists
     }
 
+    fun getMessageByCategory(request : String) : ArrayList<String> {
+        var messageList = realm.where(CategoryVO::class.java).equalTo("category",request).findAll()
+        var responseList : ArrayList<String> = ArrayList<String>()
+
+        for(record in messageList) {
+            if(record.mms!=null) {
+                val msgBody : String by lazy <String> {(record.mms as MmsVO).body as String}
+                responseList.add(msgBody)
+            }
+            else {
+                val msgBody : String by lazy <String> {(record.mms as SmsVO).body as String}
+                responseList.add(msgBody)
+            }
+        }
+
+        return responseList
+    }
 }

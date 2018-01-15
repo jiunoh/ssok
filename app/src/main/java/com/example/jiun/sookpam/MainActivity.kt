@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,7 +23,7 @@ import com.gun0912.tedpermission.TedPermission
 class MainActivity : AppCompatActivity() {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
-    private lateinit var categoryParser : CategoryManager
+    private lateinit var categoryManager: CategoryManager
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = main_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
-        categoryParser = CategoryManager()
+        categoryManager = CategoryManager()
     }
 
     private fun go() {
@@ -82,7 +83,8 @@ class MainActivity : AppCompatActivity() {
     private fun readMessageList() {
         smsReader.setSms(this)
         mmsReader.setMms(this)
-        categoryParser.categorizeMessages(applicationContext)
+        categoryManager.categorizeMessages(applicationContext)
+        onClick()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -99,4 +101,11 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+   fun onClick() {
+        var response = categoryManager.getMessageByCategory("소프트웨어학부")
+        for(record in response)
+            Log.v("ONCLICK",record)
+    }
+
 }
