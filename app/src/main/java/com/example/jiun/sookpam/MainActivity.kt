@@ -17,13 +17,12 @@ import com.example.jiun.sookpam.model.mms.MmsReader
 import com.example.jiun.sookpam.model.sms.SmsReader
 import com.gun0912.tedpermission.PermissionListener
 
-import io.realm.Realm
 import com.gun0912.tedpermission.TedPermission
 
 class MainActivity : AppCompatActivity() {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
-    private lateinit var categoryParser : CategoryParser
+    private lateinit var categoryParser : CategoryManager
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = main_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
-        categoryParser = CategoryParser()
+        categoryParser = CategoryManager()
     }
 
     private fun go() {

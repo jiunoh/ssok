@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.widget.ListView;
+import com.example.jiun.sookpam.model.data.ContactVO;
+import io.realm.RealmResults;
 
 public class CategoryActivity extends AppCompatActivity {
     private final String CATEGORY = "category";
+    private  CategoryManager categoryManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +20,10 @@ public class CategoryActivity extends AppCompatActivity {
         CategoryListviewAdapter adapter = new CategoryListviewAdapter();
         listView.setAdapter(adapter);
 
-        adapter.addItem("demo category 1");
-        adapter.addItem("demo category 2");
-        adapter.addItem("demo category 3");
-        adapter.addItem("demo category 4");
+        categoryManager = new CategoryManager();
+        RealmResults<ContactVO> results = categoryManager.getCategoryList();
+        for(ContactVO record : results )
+            adapter.addItem(record.class2);
     }
 
     @Override

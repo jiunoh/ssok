@@ -3,6 +3,7 @@ package com.example.jiun.sookpam
 import android.content.Context
 import android.util.Log
 import com.example.jiun.sookpam.model.data.CategoryVO
+import com.example.jiun.sookpam.model.data.ContactVO
 import com.example.jiun.sookpam.model.data.MmsVO
 import com.example.jiun.sookpam.model.data.SmsVO
 import com.example.jiun.sookpam.model.mms.MmsList
@@ -10,7 +11,7 @@ import com.example.jiun.sookpam.model.sms.SmsList
 import io.realm.Realm
 import io.realm.RealmResults
 
-class CategoryParser {
+class CategoryManager {
     private var realm: Realm = Realm.getDefaultInstance()
     private lateinit var context: ContactDBManager
     fun categorizeMessages(context: Context) {
@@ -78,7 +79,9 @@ class CategoryParser {
             Log.v("Categories", sms.category)
     }
 
-    fun callByCategory(category: String) {
-        var categoryLists: RealmResults<CategoryVO> = realm.where(CategoryVO::class.java).equalTo("class2", category).findAll()
+    fun getCategoryList() : RealmResults<ContactVO>  {
+        var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
+        return categoryVOLists
     }
+
 }
