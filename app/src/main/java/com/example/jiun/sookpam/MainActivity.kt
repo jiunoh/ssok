@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
    fun callMessageBYCategoryNeeded() {
         var response = categoryManager.getMessageByCategory("소프트웨어학부")
         for(record in response)
-            Log.v("ONCLICK",record)
+            Log.v("문자내용",record)
     }
 
 }
