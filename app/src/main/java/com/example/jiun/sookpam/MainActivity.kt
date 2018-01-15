@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
         smsReader.setSms(this)
         mmsReader.setMms(this)
         categoryManager.categorizeMessages(applicationContext)
-        onClick()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-   fun onClick() {
+   fun callMessageBYCategoryNeeded() {
         var response = categoryManager.getMessageByCategory("소프트웨어학부")
         for(record in response)
             Log.v("ONCLICK",record)
