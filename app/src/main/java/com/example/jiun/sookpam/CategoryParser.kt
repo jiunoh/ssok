@@ -15,15 +15,13 @@ class CategoryParser {
         this.context=context as ContactDBMangaer
         categorizeSMS()
         categorizeMMS()
+        testParser()
     }
 
     fun categorizeSMS() {
         var smsList = SmsList().getSmsList()
-        Log.v("SIZE", "smsList size : " + smsList.size)
         for (sms in smsList)
             createSMSCategory(sms)
-
-        Log.v("Category", realm.where(CategoryVO::class.java).findFirst()?.category)
     }
 
     fun createSMSCategory(sms: SmsVO) {
@@ -50,5 +48,11 @@ class CategoryParser {
         }
     }
 
+    fun testParser() {
+        var messageList = realm.where(CategoryVO::class.java).findAll()
+        Log.v("SIZE", "smsList size : " + messageList.size)
+        for (sms in messageList)
+            Log.v("Categories",sms.category)
+    }
 
 }

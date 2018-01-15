@@ -54,7 +54,7 @@ class ContactDBMangaer : Application() {
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.class1 = value[0]
             record.class2 = value[1]
-            record.phone = value[2]
+            record.phone = "02"+value[2]
         }
     }
 
@@ -76,9 +76,8 @@ class ContactDBMangaer : Application() {
 
     fun getCategory(value: String?): String {
         val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
-        Log.v("PHONE", value + "/" + record!!.phone)
         if (record == null)
-            return "학교"
+            return "기타"
         else
             return record.class2
     }
