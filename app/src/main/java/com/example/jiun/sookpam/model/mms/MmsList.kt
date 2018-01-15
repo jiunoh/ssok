@@ -28,11 +28,4 @@ class MmsList {
         val selectedBody = realm.where(MmsVO::class.java).contains("body", body).findAll()
         return selectedBody.size
     }
-
-    fun printMmsList() {
-        val allMms = realm.where(MmsVO::class.java).findAll()
-        allMms.forEach { mmsData ->
-            println("ID: ${mmsData.id} : Date: ${mmsData.date} PhoneNumber: ${mmsData.phoneNumber} : Body: ${mmsData.body}")
-        }
-    }
 }

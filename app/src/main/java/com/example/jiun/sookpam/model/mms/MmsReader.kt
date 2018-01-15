@@ -28,7 +28,6 @@ class MmsReader {
                 cursor.moveToNext()
             }
             cursor.close()
-            mmsList.printMmsList()
         }
     }
 

@@ -18,7 +18,6 @@ class SmsReader {
                 setSmsField(cursor)
                 cursor.moveToNext()
             }
-            smsList.printSmsList()
         }
         cursor.close()
     }

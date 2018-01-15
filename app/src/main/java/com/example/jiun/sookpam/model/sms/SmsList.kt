@@ -23,11 +23,4 @@ class SmsList {
         }
         realm.commitTransaction()
     }
-
-    fun printSmsList() {
-        val allSms = realm.where(SmsVO::class.java).findAll()
-        allSms.forEach { smsData ->
-            println("ID: ${smsData.id} : Date: ${smsData.date} PhoneNumber: ${smsData.phoneNumber} : Body: ${smsData.body}")
-        }
-    }
 }
