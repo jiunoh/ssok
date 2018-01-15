@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam
+package com.example.jiun.sookpam.model.data
 
 import com.example.jiun.sookpam.model.data.MmsVO
 import com.example.jiun.sookpam.model.data.SmsVO

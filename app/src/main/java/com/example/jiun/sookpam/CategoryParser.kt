@@ -2,6 +2,7 @@ package com.example.jiun.sookpam
 
 import android.content.Context
 import android.util.Log
+import com.example.jiun.sookpam.model.data.CategoryVO
 import com.example.jiun.sookpam.model.data.MmsVO
 import com.example.jiun.sookpam.model.data.SmsVO
 import com.example.jiun.sookpam.model.mms.MmsList

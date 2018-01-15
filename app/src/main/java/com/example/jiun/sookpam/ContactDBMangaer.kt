@@ -2,15 +2,13 @@ package com.example.jiun.sookpam
 
 import android.app.Application
 import android.util.Log
+import com.example.jiun.sookpam.model.data.ContactVO
 
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.ArrayList
-import java.util.Arrays
 
 import io.realm.Realm
-import io.realm.RealmConfiguration
 
 
 class ContactDBMangaer : Application() {
