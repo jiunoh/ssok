@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.model.sms
+package com.example.jiun.sookpam.message.sms
 
 import android.content.Context
 import android.database.Cursor
@@ -14,7 +14,7 @@ class SmsReader {
         val cursor: Cursor = contentResolver.query(uri, null, null, null, null)
 
         if (cursor.moveToFirst()) {
-            for (i: Int in smsList.getSmsList().size until cursor.count) {
+            for (i: Int in smsList.getList().size until cursor.count) {
                 setSmsField(cursor)
                 cursor.moveToNext()
             }
@@ -28,8 +28,8 @@ class SmsReader {
         val smsDayTime = Date(java.lang.Long.valueOf(date))
         val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
 
-        if (smsList.getNumbersOfBody(body) == 0) {
-            smsList.addSmsToList(phoneNumber, smsDayTime, body)
+        if (smsList.getBodyNumbersSameWith(body) == 0) {
+            smsList.addToList(phoneNumber, smsDayTime, body)
         }
     }
 }

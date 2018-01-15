@@ -8,8 +8,8 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 
-import com.example.jiun.sookpam.model.mms.MmsReader
-import com.example.jiun.sookpam.model.sms.SmsReader
+import com.example.jiun.sookpam.message.mms.MmsReader
+import com.example.jiun.sookpam.message.sms.SmsReader
 import com.gun0912.tedpermission.PermissionListener
 
 import io.realm.Realm

@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.model.mms
+package com.example.jiun.sookpam.message.mms
 
 import android.content.ContentResolver
 import android.content.Context
@@ -23,7 +23,7 @@ class MmsReader {
         setIdList(contentResolver)
 
         if (cursor.moveToFirst()) {
-            for (i: Int in mmsList.getMmsList().size until cursor.count) {
+            for (i: Int in mmsList.getList().size until cursor.count) {
                 setMmsField(cursor, contentResolver)
                 cursor.moveToNext()
             }
@@ -36,7 +36,7 @@ class MmsReader {
         // If you do not multiply 1000 to date, then all year of mms printed 1970
         val date = cursor.getLong(cursor.getColumnIndexOrThrow("date")) * 1000
         val mmsDayTime = Date(java.lang.Long.valueOf(date))
-        val phoneNumber = getPhoneNumber(contentResolver, mmsId)
+        val phoneNumber: String = getPhoneNumber(contentResolver, mmsId)
         val selection = "mid=$mmsId"
         val partUri = Uri.parse("content://mms/part")
         val partCursor = contentResolver.query(partUri, null, selection, null, null)
@@ -46,8 +46,8 @@ class MmsReader {
                 val type = partCursor.getString(partCursor.getColumnIndexOrThrow("ct"))
                 if (type == "text/plain") {
                     val body = setMmsToRealm(partCursor, contentResolver)
-                    if (mmsList.getSizeOfBody(body) == 0) {
-                        mmsList.addMmsToList(phoneNumber, mmsDayTime, body)
+                    if (mmsList.getBodyNumbersSameWith(body) == 0) {
+                        mmsList.addToList(phoneNumber, mmsDayTime, body)
                     }
                 }
             } while (partCursor.moveToNext())
