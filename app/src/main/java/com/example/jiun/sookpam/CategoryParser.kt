@@ -7,6 +7,7 @@ import com.example.jiun.sookpam.model.data.SmsVO
 import com.example.jiun.sookpam.model.mms.MmsList
 import com.example.jiun.sookpam.model.sms.SmsList
 import io.realm.Realm
+import io.realm.RealmResults
 
 class CategoryParser {
     private var realm: Realm = Realm.getDefaultInstance()
@@ -55,4 +56,7 @@ class CategoryParser {
             Log.v("Categories",sms.category)
     }
 
+    fun callByCategory(category: String){
+        var categoryLists : RealmResults<CategoryVO> = realm.where(CategoryVO::class.java).equalTo("class2",category).findAll()
+    }
 }
