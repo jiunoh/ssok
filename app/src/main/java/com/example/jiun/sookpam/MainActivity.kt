@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readMessageList() {
-        smsReader.setSms(this)
-        mmsReader.setMms(this)
+        smsReader.gatherMessages(this)
+        mmsReader.gatherMessages(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

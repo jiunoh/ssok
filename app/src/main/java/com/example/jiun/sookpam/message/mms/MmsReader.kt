@@ -4,69 +4,20 @@ import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import com.example.jiun.sookpam.message.MessageReader
 import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStream
 import java.io.InputStreamReader
 import java.util.*
+import kotlin.properties.Delegates
 
-class MmsReader {
-    private var mmsList = MmsList()
+class MmsReader : MessageReader<MmsList> {
+    override var messageList: MmsList = MmsList()
     private val idList = ArrayList<String>()
     private val uri = Uri.parse("content://mms/inbox")
+    private var contentResolver: ContentResolver by Delegates.notNull()
 
-    fun setMms(context: Context) {
-        val projection = arrayOf("_id", "ct_t", "date")
-        val contentResolver = context.contentResolver
-        val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
-
-        setIdList(contentResolver)
-
-        if (cursor.moveToFirst()) {
-            for (i: Int in mmsList.getList().size until cursor.count) {
-                setMmsField(cursor, contentResolver)
-                cursor.moveToNext()
-            }
-            cursor.close()
-        }
-    }
-
-    private fun setMmsField(cursor: Cursor, contentResolver: ContentResolver) {
-        val mmsId = cursor.getString(cursor.getColumnIndexOrThrow("_id"))
-        // If you do not multiply 1000 to date, then all year of mms printed 1970
-        val date = cursor.getLong(cursor.getColumnIndexOrThrow("date")) * 1000
-        val mmsDayTime = Date(java.lang.Long.valueOf(date))
-        val phoneNumber: String = getPhoneNumber(contentResolver, mmsId)
-        val selection = "mid=$mmsId"
-        val partUri = Uri.parse("content://mms/part")
-        val partCursor = contentResolver.query(partUri, null, selection, null, null)
-
-        if (partCursor.moveToFirst()) {
-            do {
-                val type = partCursor.getString(partCursor.getColumnIndexOrThrow("ct"))
-                if (type == "text/plain") {
-                    val body = setMmsToRealm(partCursor, contentResolver)
-                    if (mmsList.getBodyNumbersSameWith(body) == 0) {
-                        mmsList.addToList(phoneNumber, mmsDayTime, body)
-                    }
-                }
-            } while (partCursor.moveToNext())
-        }
-        partCursor.close()
-    }
-
-    private fun setMmsToRealm(partCursor: Cursor, contentResolver: ContentResolver): String {
-        val partId = partCursor.getString(partCursor.getColumnIndexOrThrow("_id"))
-        val data = partCursor.getString(partCursor.getColumnIndexOrThrow("_data"))
-        return if (data != null) {
-            getMmsText(contentResolver, partId)
-        } else {
-            partCursor.getString(partCursor.getColumnIndexOrThrow("text"))
-        }
-
-    }
-
-    private fun setIdList(contentResolver: ContentResolver) {
+    private fun setIdList() {
         val projection: Array<String> = arrayOf("_id")
         val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
 
@@ -80,35 +31,79 @@ class MmsReader {
         cursor.close()
     }
 
-    private fun getMmsText(contentResolver: ContentResolver, id: String): String {
-        val partUri = Uri.parse("content://mms/part/$id")
-        var inputStream: InputStream? = null
-        val stringBuilder = StringBuilder()
+    override fun gatherMessages(context: Context) {
+        val projection = arrayOf("_id", "ct_t", "date")
+        contentResolver = context.contentResolver
+        val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
 
-        try {
-            inputStream = contentResolver.openInputStream(partUri)
-            if (inputStream != null) {
-                val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
-                val bufferedReader = BufferedReader(inputStreamReader)
-                var temp = bufferedReader.readLine()
-                while (temp != null) {
-                    stringBuilder.append(temp)
-                    temp = bufferedReader.readLine()
-                }
+        setIdList()
+
+        if (cursor.moveToFirst()) {
+            for (i: Int in messageList.getList().size until cursor.count) {
+                setDbFieldsFromMessageInbox(cursor)
+                cursor.moveToNext()
             }
-        } catch (e: IOException) {
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (e: IOException) {
-                }
-            }
+            cursor.close()
         }
+    }
+
+    override fun setDbFieldsFromMessageInbox(cursor: Cursor) {
+        val mmsId = cursor.getString(cursor.getColumnIndexOrThrow("_id"))
+        // If you do not multiply 1000 to date, then all year of mms printed 1970
+        val date = cursor.getLong(cursor.getColumnIndexOrThrow("date")) * 1000
+        val mmsDate = Date(java.lang.Long.valueOf(date))
+        val phoneNumber: String = getPhoneNumber(mmsId)
+        val selection = "mid=$mmsId"
+        val partUri = Uri.parse("content://mms/part")
+        val partCursor = contentResolver.query(partUri, null, selection, null, null)
+
+        if (partCursor.moveToFirst()) {
+            do {
+                val type = partCursor.getString(partCursor.getColumnIndexOrThrow("ct"))
+                if (type == "text/plain") {
+                    val body = getMmsBody(partCursor)
+                    if (messageList.getBodyNumbersSameWith(body) == 0) {
+                        messageList.addToList(phoneNumber, mmsDate, body)
+                    }
+                }
+            } while (partCursor.moveToNext())
+        }
+        partCursor.close()
+    }
+
+    private fun getMmsBody(partCursor: Cursor): String {
+        val partId = partCursor.getString(partCursor.getColumnIndexOrThrow("_id"))
+        val data = partCursor.getString(partCursor.getColumnIndexOrThrow("_data"))
+        return if (data != null) {
+            getMessageText(contentResolver, partId)
+        } else {
+            partCursor.getString(partCursor.getColumnIndexOrThrow("text"))
+        }
+
+    }
+
+    @Throws(IOException::class)
+    private fun getMessageText(contentResolver: ContentResolver, id: String): String {
+        val partUri = Uri.parse("content://mms/part/$id")
+        val stringBuilder = StringBuilder()
+        val inputStream = contentResolver.openInputStream(partUri)
+
+        if (inputStream != null) {
+            val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
+            val bufferedReader = BufferedReader(inputStreamReader)
+            var temp = bufferedReader.readLine()
+            while (temp != null) {
+                stringBuilder.append(temp)
+                temp = bufferedReader.readLine()
+            }
+            inputStream.close()
+        }
+
         return stringBuilder.toString()
     }
 
-    private fun getPhoneNumber(contentResolver: ContentResolver, id: String): String {
+    @Throws(NumberFormatException::class)
+    private fun getPhoneNumber(id: String): String {
         val selection = "msg_id=$id"
         val phoneNumberUri = Uri.parse("content://mms/$id/addr")
         val cursor = contentResolver.query(phoneNumberUri, null, selection, null, null)
@@ -118,13 +113,7 @@ class MmsReader {
             do {
                 val address = cursor.getString(cursor.getColumnIndexOrThrow("address"))
                 if (address != null) {
-                    try {
-                        phoneNumber = address.replace("-", "")
-                    } catch (numberFormatException: NumberFormatException) {
-                        if (phoneNumber == null) {
-                            phoneNumber = address
-                        }
-                    }
+                    phoneNumber = address.replace("-", "")
                 }
             } while (cursor.moveToNext())
         }
