@@ -28,6 +28,8 @@ class SmsReader {
         val smsDayTime = Date(java.lang.Long.valueOf(date))
         val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
 
-        smsList.addSmsToList(phoneNumber, smsDayTime, body)
+        if (smsList.getNumbersOfBody(body) == 0) {
+            smsList.addSmsToList(phoneNumber, smsDayTime, body)
+        }
     }
 }

@@ -23,4 +23,9 @@ class SmsList {
         }
         realm.commitTransaction()
     }
+
+    fun getNumbersOfBody(body: String) : Int {
+        val selectedBody = realm.where(SmsVO::class.java).contains("body", body).findAll()
+        return selectedBody.size
+    }
 }
