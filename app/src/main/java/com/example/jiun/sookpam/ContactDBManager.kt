@@ -11,7 +11,7 @@ import java.io.InputStreamReader
 import io.realm.Realm
 
 
-class ContactDBMangaer : Application() {
+class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
 
@@ -19,8 +19,6 @@ class ContactDBMangaer : Application() {
         super.onCreate()
         Realm.init(this)
         realm = Realm.getDefaultInstance()
-        //var config : RealmConfiguration = RealmConfiguration.Builder().migration(ContactMigration()).build()
-        //realm = Realm.getInstance(config)
 
         if (!realm!!.isEmpty) {
             Log.v("DB", "already there!!")
@@ -47,7 +45,7 @@ class ContactDBMangaer : Application() {
         bufferedReader = BufferedReader(InputStreamReader(assets.open(csvFile)))
 
         while (true) {
-            var line = bufferedReader.readLine() ?: break;
+            var line = bufferedReader.readLine() ?: break
             val record = backgroundRealm.createObject(ContactVO::class.java)
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.class1 = value[0]

@@ -12,9 +12,9 @@ import io.realm.RealmResults
 
 class CategoryParser {
     private var realm: Realm = Realm.getDefaultInstance()
-    private lateinit var context : ContactDBMangaer
-    fun categorizeMessages(context: Context){
-        this.context=context as ContactDBMangaer
+    private lateinit var context: ContactDBManager
+    fun categorizeMessages(context: Context) {
+        this.context = context as ContactDBManager
         categorizeSMS()
         categorizeMMS()
         testParser()
@@ -22,9 +22,20 @@ class CategoryParser {
 
     fun categorizeSMS() {
         var smsList = SmsList().getSmsList()
-        for (sms in smsList)
-            createSMSCategory(sms)
+        for (sms in smsList) {
+            if (doesSMSNotExist(sms.body))
+                createSMSCategory(sms)
+        }
     }
+
+    fun doesSMSNotExist(value: String?): Boolean {
+        var result = realm.where(CategoryVO::class.java).contains("sms.body", value).findAll()
+        if (result == null)
+            return true
+        else
+            return false
+    }
+
 
     fun createSMSCategory(sms: SmsVO) {
         realm.executeTransaction { realm ->
@@ -37,8 +48,18 @@ class CategoryParser {
 
     fun categorizeMMS() {
         var mmsList = MmsList().getMmsList()
-        for (mms in mmsList)
-            createMMSCategory(mms)
+        for (mms in mmsList) {
+            if (doesMMSNotExist(mms.body))
+                createMMSCategory(mms)
+        }
+    }
+
+    fun doesMMSNotExist(value: String?): Boolean {
+        var result = realm.where(CategoryVO::class.java).contains("mms.body", value).findAll()
+        if (result == null)
+            return true
+        else
+            return false
     }
 
     fun createMMSCategory(mms: MmsVO) {
@@ -54,10 +75,10 @@ class CategoryParser {
         var messageList = realm.where(CategoryVO::class.java).findAll()
         Log.v("SIZE", "smsList size : " + messageList.size)
         for (sms in messageList)
-            Log.v("Categories",sms.category)
+            Log.v("Categories", sms.category)
     }
 
-    fun callByCategory(category: String){
-        var categoryLists : RealmResults<CategoryVO> = realm.where(CategoryVO::class.java).equalTo("class2",category).findAll()
+    fun callByCategory(category: String) {
+        var categoryLists: RealmResults<CategoryVO> = realm.where(CategoryVO::class.java).equalTo("class2", category).findAll()
     }
 }
