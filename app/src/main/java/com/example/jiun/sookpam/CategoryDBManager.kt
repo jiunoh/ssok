@@ -89,7 +89,7 @@ class CategoryDBManager {
                 val msgBody: String by lazy<String> { (record.mms as MmsVO).body as String }
                 responseList.add(msgBody)
             } else {
-                val msgBody: String by lazy<String> { (record.mms as SmsVO).body as String }
+                val msgBody: String by lazy<String> { (record.sms as SmsVO).body as String }
                 responseList.add(msgBody)
             }
         }
