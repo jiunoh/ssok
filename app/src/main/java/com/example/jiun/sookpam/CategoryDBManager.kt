@@ -19,7 +19,7 @@ class CategoryDBManager {
         this.context = context as ContactDBManager
         categorizeSMS()
         categorizeMMS()
-        //testParser()
+        testParser()
     }
 
     fun categorizeSMS() {
@@ -54,6 +54,13 @@ class CategoryDBManager {
             if (doesMMSNotExist(mms.body))
                 createMMSCategory(mms)
         }
+    }
+
+    fun testParser() {
+        var messageList = realm.where(CategoryVO::class.java).findAll()
+        Log.v("SIZE", "smsList size : " + messageList.size)
+        for (sms in messageList)
+            Log.v("Categories", sms.category)
     }
 
     fun doesMMSNotExist(value: String?): Boolean {

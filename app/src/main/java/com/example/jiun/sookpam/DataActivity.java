@@ -3,6 +3,7 @@ package com.example.jiun.sookpam;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -14,19 +15,30 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data);
         String category = getIntent().getStringExtra("category");
         Log.v("DataActivity",category);
-        getDataByCategory(category);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.data_recycler_view);
+        ArrayList<DataItem> dataItems = new ArrayList<DataItem>();
+        ArrayList<String> response =  getDataByCategory(category);
+        for (String data : response){
+            DataItem dataItem = new DataItem();
+            dataItem.setTitle(category);
+            dataItem.setBody(data);
+            dataItems.add(dataItem);
+        }
+        DataRecyclerAdapter adapter = new DataRecyclerAdapter(dataItems);
+        recyclerView.setAdapter(adapter);
     }
 
-    private void getDataByCategory(String category) {
+
+    private ArrayList<String> getDataByCategory(String category) {
         categoryManager = new CategoryDBManager();
         ArrayList<String> response = new ArrayList<String>();
-        if(category.equals("학교"))
-            response = handleCategoryUniv();
-        else
+        if(!category.equals("학교"))
             response = categoryManager.getDataByCategory(category);
+        else
+            response = handleCategoryUniv();
 
-        for (String data : response)
-            Log.v("문자 내용", data);
+
+       return response;
     }
 
     private ArrayList<String> handleCategoryUniv() {
