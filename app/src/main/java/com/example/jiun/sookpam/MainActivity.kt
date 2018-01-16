@@ -23,7 +23,7 @@ import com.gun0912.tedpermission.TedPermission
 class MainActivity : AppCompatActivity() {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
-    private lateinit var categoryManager: CategoryManager
+    private lateinit var categoryManager: CategoryDBManager
     private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = main_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
-        categoryManager = CategoryManager()
+        categoryManager = CategoryDBManager()
     }
 
     private fun go() {
@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_synchronization -> {
                 readMessageList()
+                categoryManager.refreshCategories()
                 true
             }
             else -> super.onOptionsItemSelected(item)

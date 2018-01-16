@@ -2,14 +2,18 @@ package com.example.jiun.sookpam;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.example.jiun.sookpam.model.data.ContactVO;
 import io.realm.RealmResults;
 
 public class CategoryActivity extends AppCompatActivity {
     private final String CATEGORY = "category";
-    private  CategoryManager categoryManager;
+    private ContactDBManager contactDBManager;
+    private CategoryListviewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +21,11 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         ListView listView = (ListView) findViewById(R.id.category_listView);
-        CategoryListviewAdapter adapter = new CategoryListviewAdapter();
+        adapter = new CategoryListviewAdapter();
         listView.setAdapter(adapter);
 
-        categoryManager = new CategoryManager();
-        RealmResults<ContactVO> results = categoryManager.getCategoryList();
+        contactDBManager = (ContactDBManager)getApplicationContext();
+        RealmResults<ContactVO> results = contactDBManager.getCategoryList();
         for(ContactVO record : results )
             adapter.addItem(record.class2);
     }
@@ -34,13 +38,14 @@ public class CategoryActivity extends AppCompatActivity {
         final int size = listView.getAdapter().getCount();
 
         for (int i = 0; i < size; i++) {
+            String category =  ((CategoryItem) adapter.getItem(i)).getCategory();
             if (checked.get(i)) {
-                SharedPreferenceUtil.set(this, CATEGORY + i, true);
+                SharedPreferenceUtil.set(this, category, true);
             } else {
-                SharedPreferenceUtil.set(this, CATEGORY + i, false);
+                SharedPreferenceUtil.set(this, category, false);
             }
+            Log.v("CategoryActivity",category);
         }
-
     }
 
     @Override
@@ -49,7 +54,8 @@ public class CategoryActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.category_listView);
         final int size = listView.getAdapter().getCount();
         for (int i = 0; i < size; i++) {
-            final boolean value = SharedPreferenceUtil.get(this, CATEGORY + i, false);
+            String category =  ((CategoryItem) adapter.getItem(i)).getCategory();
+            final boolean value = SharedPreferenceUtil.get(this, category , false);
             listView.setItemChecked(i, value);
         }
     }

@@ -12,7 +12,7 @@ import com.example.jiun.sookpam.model.sms.SmsList
 import io.realm.Realm
 import io.realm.RealmResults
 
-class CategoryManager {
+class CategoryDBManager {
     private var realm: Realm = Realm.getDefaultInstance()
     private lateinit var context: ContactDBManager
     fun categorizeMessages(context: Context) {
@@ -25,7 +25,7 @@ class CategoryManager {
     fun categorizeSMS() {
         var smsList = SmsList().getSmsList()
         for (sms in smsList) {
-            if(doesSMSNotExist(sms.body))
+            if (doesSMSNotExist(sms.body))
                 createSMSCategory(sms)
         }
     }
@@ -51,7 +51,7 @@ class CategoryManager {
     fun categorizeMMS() {
         var mmsList = MmsList().getMmsList()
         for (mms in mmsList) {
-            if(doesMMSNotExist(mms.body))
+            if (doesMMSNotExist(mms.body))
                 createMMSCategory(mms)
         }
     }
@@ -80,26 +80,32 @@ class CategoryManager {
             Log.v("Categories", sms.category)
     }
 
-    fun getCategoryList() : RealmResults<ContactVO>  {
-        var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
-        return categoryVOLists
-    }
+    fun getMessageByCategory(request: String): ArrayList<String> {
+        var messageList = realm.where(CategoryVO::class.java).equalTo("category", request).findAll()
+        var responseList: ArrayList<String> = ArrayList<String>()
 
-    fun getMessageByCategory(request : String) : ArrayList<String> {
-        var messageList = realm.where(CategoryVO::class.java).equalTo("category",request).findAll()
-        var responseList : ArrayList<String> = ArrayList<String>()
-
-        for(record in messageList) {
-            if(record.mms!=null) {
-                val msgBody : String by lazy <String> {(record.mms as MmsVO).body as String}
+        for (record in messageList) {
+            if (record.mms != null) {
+                val msgBody: String by lazy<String> { (record.mms as MmsVO).body as String }
                 responseList.add(msgBody)
-            }
-            else {
-                val msgBody : String by lazy <String> {(record.mms as SmsVO).body as String}
+            } else {
+                val msgBody: String by lazy<String> { (record.mms as SmsVO).body as String }
                 responseList.add(msgBody)
             }
         }
 
         return responseList
+    }
+
+    fun refreshCategories() {
+        realm.executeTransaction { realm ->
+            var messageList = realm.where(CategoryVO::class.java).findAll()
+            for (record in messageList) {
+                if (record.mms != null)
+                    record.category = context.getCategory((record.mms)?.phoneNumber)
+                else
+                    record.category = context.getCategory((record.sms)?.phoneNumber)
+            }
+        }
     }
 }

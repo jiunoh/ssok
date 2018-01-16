@@ -9,6 +9,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 import io.realm.Realm
+import io.realm.RealmResults
 
 
 class ContactDBManager : Application() {
@@ -50,7 +51,7 @@ class ContactDBManager : Application() {
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.class1 = value[0]
             record.class2 = value[1]
-            record.phone = "02"+value[2]
+            record.phone = "02" + value[2]
         }
     }
 
@@ -61,7 +62,6 @@ class ContactDBManager : Application() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
         }
     }
 
@@ -74,7 +74,24 @@ class ContactDBManager : Application() {
         val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
             return "기타"
-        else
+        else if (isInterest())
             return record.class2
+        else
+            return "학교"
+    }
+
+    fun isInterest(): Boolean {
+        var categoryVOLists = getCategoryList()
+        for (record in categoryVOLists) {
+            var checked = SharedPreferenceUtil.get(applicationContext, record.class2, false)
+            if (checked)
+                return true
+        }
+        return false
+    }
+
+   fun getCategoryList(): RealmResults<ContactVO> {
+        var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
+        return categoryVOLists
     }
 }
