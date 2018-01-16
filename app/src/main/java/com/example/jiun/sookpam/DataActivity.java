@@ -12,12 +12,14 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+        String category = getIntent().getStringExtra("category");
+        Log.v("DataActivity",category);
         categoryManager = new CategoryDBManager();
-        getDataByCategory();
+        getDataByCategory(category);
     }
 
-    private void getDataByCategory() {
-        ArrayList<String> response = categoryManager.getDateByCategory("소프트웨어학부");
+    private void getDataByCategory(String category) {
+        ArrayList<String> response = categoryManager.getDateByCategory(category);
         for (String data : response)
             Log.v("문자 내용", data);
     }

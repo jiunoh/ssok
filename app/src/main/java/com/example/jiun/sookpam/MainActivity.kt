@@ -35,11 +35,16 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
         initialize()
         checkMessagePermission()
-        listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id -> go() }
+        listView.onItemClickListener = AdapterView.OnItemClickListener {
+            adapterView, view, position, id ->
+            var selectedMain = listView.getItemAtPosition(position) as MainItem
+            go(selectedMain.category)
+
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         adapter.clear()
         scatterCheckedCategories()
     }
@@ -85,8 +90,9 @@ class MainActivity : AppCompatActivity() {
         categoryManager = CategoryDBManager()
     }
 
-    private fun go() {
+    private fun go(category: String) {
         val intent = Intent(this, DataActivity::class.java)
+        intent.putExtra("category", category);
         startActivity(intent)
     }
 
@@ -108,14 +114,13 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_plus -> {
-                val intent = Intent(this,CategoryActivity::class.java)
+                val intent = Intent(this, CategoryActivity::class.java)
                 startActivity(intent)
-                false
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
 }
