@@ -19,7 +19,7 @@ class CategoryDBManager {
         this.context = context as ContactDBManager
         categorizeSMS()
         categorizeMMS()
-        testParser()
+        //testParser()
     }
 
     fun categorizeSMS() {
@@ -80,7 +80,7 @@ class CategoryDBManager {
             Log.v("Categories", sms.category)
     }
 
-    fun getMessageByCategory(request: String): ArrayList<String> {
+    fun getDateByCategory(request: String): ArrayList<String> {
         var messageList = realm.where(CategoryVO::class.java).equalTo("category", request).findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
@@ -93,7 +93,6 @@ class CategoryDBManager {
                 responseList.add(msgBody)
             }
         }
-
         return responseList
     }
 

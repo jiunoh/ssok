@@ -25,22 +25,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mmsReader: MmsReader
     private lateinit var categoryManager: CategoryDBManager
     private lateinit var toolbar: Toolbar
+    private lateinit var adapter: MainListviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val adapter = MainListviewAdapter()
+        adapter = MainListviewAdapter()
         val listView = findViewById<View>(R.id.main_listView) as ListView
         listView.adapter = adapter
         initialize()
         checkMessagePermission()
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "demo category")
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "demo category")
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "demo category")
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "demo category")
-
         listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id -> go() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.clear()
+        scatterCheckedCategories()
+    }
+
+    private fun scatterCheckedCategories() {
+        val contactDBManager = applicationContext as ContactDBManager
+        val categoryList = contactDBManager.getCategoryList()
+        for (category in categoryList) {
+            if (SharedPreferenceUtil.get(applicationContext, category, false))
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
+        }
     }
 
     private fun checkMessagePermission() {
@@ -76,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun go() {
-        val intent = Intent(this, CategoryActivity::class.java)
+        val intent = Intent(this, DataActivity::class.java)
         startActivity(intent)
     }
 
@@ -97,14 +107,15 @@ class MainActivity : AppCompatActivity() {
                 readMessageList()
                 true
             }
+            R.id.action_plus -> {
+                val intent = Intent(this,CategoryActivity::class.java)
+                startActivity(intent)
+                false
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-   fun getDataByCategory() {
-        var response = categoryManager.getMessageByCategory("소프트웨어학부")
-        for(record in response)
-            Log.v("문자내용",record)
-    }
+
 
 }

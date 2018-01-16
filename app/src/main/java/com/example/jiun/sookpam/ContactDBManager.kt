@@ -81,15 +81,19 @@ class ContactDBManager : Application() {
     fun isInterest(): Boolean {
         var categoryVOLists = getCategoryList()
         for (record in categoryVOLists) {
-            var checked = SharedPreferenceUtil.get(applicationContext, record.class2, false)
+            var checked = SharedPreferenceUtil.get(applicationContext, record, false)
             if (checked)
                 return true
         }
         return false
     }
 
-    fun getCategoryList(): RealmResults<ContactVO> {
+    fun getCategoryList(): ArrayList<String> {
         var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
-        return categoryVOLists
+        var responseList: ArrayList<String> = ArrayList<String>()
+
+        for (record in categoryVOLists)
+            responseList.add(record.class2)
+        return responseList
     }
 }

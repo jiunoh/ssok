@@ -5,7 +5,8 @@ import io.realm.Realm
 import io.realm.kotlin.deleteFromRealm
 import org.junit.*
 
-class CategoryTestor {
+class CategoryDBTestor {
+
 
     @BeforeClass
     fun setUp() {
@@ -17,7 +18,7 @@ class CategoryTestor {
     }
 
     @Test
-    fun testCreateCategoy() {
+    fun testCreateCategory() {
 
     }
 

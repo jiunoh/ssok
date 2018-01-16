@@ -56,4 +56,7 @@ public class MainListviewAdapter extends BaseAdapter {
         mainItemList.add(item);
     }
 
+    public void clear() {
+        mainItemList.clear();
+    }
 }

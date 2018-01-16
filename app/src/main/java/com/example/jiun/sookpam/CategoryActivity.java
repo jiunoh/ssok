@@ -8,6 +8,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.jiun.sookpam.model.data.ContactVO;
+
+import java.util.ArrayList;
+
 import io.realm.RealmResults;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -24,10 +27,10 @@ public class CategoryActivity extends AppCompatActivity {
         adapter = new CategoryListviewAdapter();
         listView.setAdapter(adapter);
 
-        contactDBManager = (ContactDBManager)getApplicationContext();
-        RealmResults<ContactVO> results = contactDBManager.getCategoryList();
-        for(ContactVO record : results )
-            adapter.addItem(record.class2);
+        contactDBManager = (ContactDBManager) getApplicationContext();
+        ArrayList<String> categoryList = contactDBManager.getCategoryList();
+        for (String category : categoryList)
+            adapter.addItem(category);
     }
 
     @Override
@@ -35,12 +38,11 @@ public class CategoryActivity extends AppCompatActivity {
         super.onPause();
         ListView listView = (ListView) findViewById(R.id.category_listView);
         SparseBooleanArray checked = listView.getCheckedItemPositions();
-        CategoryListviewAdapter adapter =  (CategoryListviewAdapter) listView.getAdapter();
+        CategoryListviewAdapter adapter = (CategoryListviewAdapter) listView.getAdapter();
         final int size = adapter.getCount();
         String category;
 
         for (int i = 0; i < size; i++) {
-
             CategoryItem item = (CategoryItem) adapter.getItem(i);
             category = item.getCategory();
             if (checked.get(i)) {
@@ -48,7 +50,6 @@ public class CategoryActivity extends AppCompatActivity {
             } else {
                 SharedPreferenceUtil.set(this, category, false);
             }
-            Log.v("CategoryActivity",category);
         }
     }
 
@@ -56,7 +57,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         ListView listView = (ListView) findViewById(R.id.category_listView);
-        CategoryListviewAdapter adapter =  (CategoryListviewAdapter) listView.getAdapter();
+        CategoryListviewAdapter adapter = (CategoryListviewAdapter) listView.getAdapter();
         final int size = adapter.getCount();
         String category;
 
