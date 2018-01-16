@@ -35,10 +35,14 @@ public class CategoryActivity extends AppCompatActivity {
         super.onPause();
         ListView listView = (ListView) findViewById(R.id.category_listView);
         SparseBooleanArray checked = listView.getCheckedItemPositions();
-        final int size = listView.getAdapter().getCount();
+        CategoryListviewAdapter adapter =  (CategoryListviewAdapter) listView.getAdapter();
+        final int size = adapter.getCount();
+        String category;
 
         for (int i = 0; i < size; i++) {
-            String category =  ((CategoryItem) adapter.getItem(i)).getCategory();
+
+            CategoryItem item = (CategoryItem) adapter.getItem(i);
+            category = item.getCategory();
             if (checked.get(i)) {
                 SharedPreferenceUtil.set(this, category, true);
             } else {
@@ -52,10 +56,14 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         ListView listView = (ListView) findViewById(R.id.category_listView);
-        final int size = listView.getAdapter().getCount();
+        CategoryListviewAdapter adapter =  (CategoryListviewAdapter) listView.getAdapter();
+        final int size = adapter.getCount();
+        String category;
+
         for (int i = 0; i < size; i++) {
-            String category =  ((CategoryItem) adapter.getItem(i)).getCategory();
-            final boolean value = SharedPreferenceUtil.get(this, category , false);
+            CategoryItem item = (CategoryItem) adapter.getItem(i);
+            category = item.getCategory();
+            final boolean value = SharedPreferenceUtil.get(this, category, false);
             listView.setItemChecked(i, value);
         }
     }
