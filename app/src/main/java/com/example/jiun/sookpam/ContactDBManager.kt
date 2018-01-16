@@ -9,7 +9,6 @@ import java.io.IOException
 import java.io.InputStreamReader
 
 import io.realm.Realm
-import io.realm.RealmResults
 
 
 class ContactDBManager : Application() {
@@ -42,7 +41,7 @@ class ContactDBManager : Application() {
 
     private fun parseStringToRealm(backgroundRealm: Realm) {
         val cvsSplitBy = ","
-        val csvFile = "total.csv"
+        val csvFile = "contact.csv"
         bufferedReader = BufferedReader(InputStreamReader(assets.open(csvFile)))
 
         while (true) {
