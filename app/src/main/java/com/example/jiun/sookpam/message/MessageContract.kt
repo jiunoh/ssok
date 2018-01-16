@@ -14,9 +14,9 @@ interface MessageContract {
     }
 
     interface Presenter : BasePresenter {
-        fun readMessageList()
+        fun readAndSaveMessageList()
 
-        fun checkPermission()
+        fun performTaskOrFinishByPermission()
 
         fun cancelMessageAsyncTask()
     }

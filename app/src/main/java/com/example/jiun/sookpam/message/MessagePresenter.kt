@@ -23,10 +23,10 @@ class MessagePresenter(
     }
 
     override fun start() {
-        checkPermission()
+        performTaskOrFinishByPermission()
     }
 
-    override fun checkPermission() {
+    override fun performTaskOrFinishByPermission() {
         val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
                 MessageAsyncTask().execute()
@@ -43,7 +43,7 @@ class MessagePresenter(
         MessageAsyncTask().cancel(true)
     }
 
-    override fun readMessageList() {
+    override fun readAndSaveMessageList() {
         smsReader.gatherMessages(context)
         mmsReader.gatherMessages(context)
     }
@@ -65,7 +65,7 @@ class MessagePresenter(
                 realm = Realm.getDefaultInstance()
                 smsReader = SmsReader(realm)
                 mmsReader = MmsReader(realm)
-                readMessageList()
+                readAndSaveMessageList()
             } finally {
                 if (realm != null) {
                     realm.close()
