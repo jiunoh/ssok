@@ -35,7 +35,7 @@ public class DataActivity extends AppCompatActivity {
         ArrayList<String> response = new ArrayList<String>();
         for (String category :categoryList) {
             if (!SharedPreferenceUtil.get(this, category, false))
-                response = categoryManager.getDataByCategory(category);
+                response.addAll(categoryManager.getDataByCategory(category));
         }
         return response;
     }
