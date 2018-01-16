@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.example.jiun.sookpam.message.MessageContract
 import com.example.jiun.sookpam.message.MessagePresenter
 import com.gun0912.tedpermission.PermissionListener
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
                 .setGotoSettingButtonText(getString(R.string.move_setting))
                 .setPermissions(android.Manifest.permission.READ_SMS)
                 .check()
+    }
+
+    override fun showToastMessage(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
     }
 
     override fun finishActivity() {

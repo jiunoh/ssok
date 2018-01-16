@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
+import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.message.mms.MmsReader
 import com.example.jiun.sookpam.message.sms.SmsReader
 import com.gun0912.tedpermission.PermissionListener
@@ -51,6 +52,8 @@ class MessagePresenter(
     inner class MessageAsyncTask : AsyncTask<Unit, Unit, Unit>() {
         override fun onPreExecute() {
             super.onPreExecute()
+            messagePermissionView
+                    .showToastMessage(context.getString(R.string.start_message_synchronization))
             progressbar.visibility = View.VISIBLE
         }
 
@@ -64,7 +67,7 @@ class MessagePresenter(
                 mmsReader = MmsReader(realm)
                 readMessageList()
             } finally {
-                if(realm!=null) {
+                if (realm != null) {
                     realm.close()
                 }
             }
@@ -72,6 +75,8 @@ class MessagePresenter(
 
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
+            messagePermissionView
+                    .showToastMessage(context.getString(R.string.end_message_synchronization))
             progressbar.visibility = View.INVISIBLE
         }
     }
