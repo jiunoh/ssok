@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             adapterView, view, position, id ->
             var selectedMain = listView.getItemAtPosition(position) as MainItem
             go(selectedMain.category)
-
         }
     }
 
@@ -56,6 +55,8 @@ class MainActivity : AppCompatActivity() {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
         }
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "학교")
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "기타")
     }
 
     private fun checkMessagePermission() {

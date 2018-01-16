@@ -73,14 +73,7 @@ class CategoryDBManager {
         }
     }
 
-    fun testParser() {
-        var messageList = realm.where(CategoryVO::class.java).findAll()
-        Log.v("SIZE", "smsList size : " + messageList.size)
-        for (sms in messageList)
-            Log.v("Categories", sms.category)
-    }
-
-    fun getDateByCategory(request: String): ArrayList<String> {
+    fun getDataByCategory(request: String): ArrayList<String> {
         var messageList = realm.where(CategoryVO::class.java).equalTo("category", request).findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
@@ -96,15 +89,5 @@ class CategoryDBManager {
         return responseList
     }
 
-    fun refreshCategories() {
-        realm.executeTransaction { realm ->
-            var messageList = realm.where(CategoryVO::class.java).findAll()
-            for (record in messageList) {
-                if (record.mms != null)
-                    record.category = context.getCategory((record.mms)?.phoneNumber)
-                else
-                    record.category = context.getCategory((record.sms)?.phoneNumber)
-            }
-        }
-    }
+
 }
