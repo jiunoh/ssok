@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void go() {
-        Intent intent = new Intent(this, CategoryActivity.class);
+        Intent intent = new Intent(this, SettingActivity.class);
         startActivity(intent);
     }
 
