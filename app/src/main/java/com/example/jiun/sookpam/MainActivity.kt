@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ProgressBar
 import com.example.jiun.sookpam.message.MessageContract
 import com.example.jiun.sookpam.message.MessagePresenter
 import com.gun0912.tedpermission.PermissionListener
@@ -17,6 +18,7 @@ import io.realm.Realm
 class MainActivity : AppCompatActivity(), MessageContract.View {
     override lateinit var presenter: MessageContract.Presenter
     private lateinit var toolbar: Toolbar
+    private lateinit var progressbar: ProgressBar
 
     override fun showPermissionMessage(permissionListener: PermissionListener) {
         TedPermission.with(this)
@@ -41,9 +43,19 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
         presenter.start()
     }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.cancelMessageAsyncTask()
+    }
+
     private fun initialize() {
         Realm.init(this)
-        presenter = MessagePresenter(this, this)
+        progressbar = main_message_prograssbar
+        presenter = MessagePresenter(this, this, progressbar)
+        setToolbar()
+    }
+
+    private fun setToolbar() {
         toolbar = main_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(Color.WHITE)
@@ -58,7 +70,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_synchronization -> {
-                presenter.readMessageList()
+                presenter.start()
                 true
             }
             else -> super.onOptionsItemSelected(item)

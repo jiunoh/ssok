@@ -5,14 +5,15 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import com.example.jiun.sookpam.message.MessageReader
+import io.realm.Realm
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 import kotlin.properties.Delegates
 
-class MmsReader : MessageReader<MmsList> {
-    override var messageList: MmsList = MmsList()
+class MmsReader(realm: Realm) : MessageReader<MmsList> {
+    override var messageList: MmsList = MmsList(realm)
     private val idList = ArrayList<String>()
     private val uri = Uri.parse("content://mms/inbox")
     private var contentResolver: ContentResolver by Delegates.notNull()

@@ -4,10 +4,11 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import com.example.jiun.sookpam.message.MessageReader
+import io.realm.Realm
 import java.util.*
 
-class SmsReader : MessageReader<SmsList> {
-    override var messageList: SmsList=SmsList()
+class SmsReader(realm: Realm) : MessageReader<SmsList> {
+    override var messageList: SmsList=SmsList(realm)
 
     override fun gatherMessages(context: Context) {
         val uri: Uri = Uri.parse("content://sms/inbox")

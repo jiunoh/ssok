@@ -15,5 +15,7 @@ interface MessageContract {
         fun readMessageList()
 
         fun checkPermission()
+
+        fun cancelMessageAsyncTask()
     }
 }

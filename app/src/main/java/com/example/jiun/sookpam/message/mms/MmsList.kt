@@ -6,8 +6,7 @@ import io.realm.Realm
 import io.realm.RealmResults
 import java.util.*
 
-class MmsList : MessageList<MmsVO> {
-    override var realm: Realm = Realm.getDefaultInstance()
+class MmsList(override var realm: Realm) : MessageList<MmsVO> {
     override val messageList: RealmResults<MmsVO> = getList()
 
     override fun getList(): RealmResults<MmsVO> {
