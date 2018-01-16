@@ -74,10 +74,8 @@ class ContactDBManager : Application() {
         val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
             return "기타"
-        else if (isInterest())
-            return record.class2
         else
-            return "학교"
+            return record.class2
     }
 
     fun isInterest(): Boolean {
@@ -90,7 +88,7 @@ class ContactDBManager : Application() {
         return false
     }
 
-   fun getCategoryList(): RealmResults<ContactVO> {
+    fun getCategoryList(): RealmResults<ContactVO> {
         var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
         return categoryVOLists
     }

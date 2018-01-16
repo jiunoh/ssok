@@ -95,14 +95,13 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_synchronization -> {
                 readMessageList()
-                categoryManager.refreshCategories()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-   fun callMessageBYCategoryNeeded() {
+   fun getDataByCategory() {
         var response = categoryManager.getMessageByCategory("소프트웨어학부")
         for(record in response)
             Log.v("문자내용",record)
