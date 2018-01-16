@@ -43,15 +43,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        adapter.clear()
+    override fun onResume() {
+        super. onResume()
         scatterCheckedCategories()
     }
 
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
         val categoryList = contactDBManager.getCategoryList()
+        adapter.clear()
         for (category in categoryList) {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_synchronization -> {
+                scatterCheckedCategories()
                 readMessageList()
                 true
             }
