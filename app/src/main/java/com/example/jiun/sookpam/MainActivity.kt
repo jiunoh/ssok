@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
         val categoryList = contactDBManager.getCategoryList()
+        adapter.clear()
         for (category in categoryList) {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
