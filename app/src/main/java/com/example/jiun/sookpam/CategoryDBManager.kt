@@ -1,82 +1,36 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
-import android.provider.Telephony
-import android.util.Log
-import com.example.jiun.sookpam.model.data.CategoryVO
-import com.example.jiun.sookpam.model.data.ContactVO
-import com.example.jiun.sookpam.model.data.MmsVO
-import com.example.jiun.sookpam.model.data.SmsVO
-import com.example.jiun.sookpam.model.mms.MmsList
-import com.example.jiun.sookpam.model.sms.SmsList
+import com.example.jiun.sookpam.message.MessageList
+import com.example.jiun.sookpam.model.data.*
 import io.realm.Realm
-import io.realm.RealmResults
 
-class CategoryDBManager {
-    private var realm: Realm = Realm.getDefaultInstance()
+class CategoryDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
     fun categorizeMessages(context: Context) {
         this.context = context as ContactDBManager
-        categorizeSMS()
-        categorizeMMS()
-        testParser()
-    }
-
-    fun categorizeSMS() {
-        var smsList = SmsList().getSmsList()
-        for (sms in smsList) {
-            if (doesSMSNotExist(sms.body))
-                createSMSCategory(sms)
+        var messageList = MessageList(realm).getList()
+        for (message in messageList) {
+            if (doesMessageNotExist(message.body))
+                createMessageCategory(message)
         }
     }
 
-    fun doesSMSNotExist(value: String?): Boolean {
-        var result = realm.where(CategoryVO::class.java).equalTo("sms.body", value).findFirst()
+
+    fun doesMessageNotExist(value: String?): Boolean {
+        var result = realm.where(CategoryVO::class.java).equalTo("message.body", value).findFirst()
         if (result == null)
             return true
         else
             return false
     }
 
-
-    fun createSMSCategory(sms: SmsVO) {
+    fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
             var categoryRecord: CategoryVO = realm.createObject(CategoryVO::class.java)
-            val category: String? = context.getCategory(sms.phoneNumber)
+            val category: String? = context.getCategory(message.phoneNumber, realm)
             categoryRecord.category = category
-            categoryRecord.sms = sms
-        }
-    }
-
-    fun categorizeMMS() {
-        var mmsList = MmsList().getMmsList()
-        for (mms in mmsList) {
-            if (doesMMSNotExist(mms.body))
-                createMMSCategory(mms)
-        }
-    }
-
-    fun testParser() {
-        var messageList = realm.where(CategoryVO::class.java).findAll()
-        Log.v("SIZE", "smsList size : " + messageList.size)
-        for (sms in messageList)
-            Log.v("Categories", sms.category)
-    }
-
-    fun doesMMSNotExist(value: String?): Boolean {
-        var result = realm.where(CategoryVO::class.java).equalTo("mms.body", value).findFirst()
-        if (result == null)
-            return true
-        else
-            return false
-    }
-
-    fun createMMSCategory(mms: MmsVO) {
-        realm.executeTransaction { realm ->
-            var categoryRecord: CategoryVO = realm.createObject(CategoryVO::class.java)
-            val category: String? = context.getCategory(mms.phoneNumber)
-            categoryRecord.category = category
-            categoryRecord.mms = mms
+            categoryRecord.message = message
         }
     }
 
@@ -85,16 +39,12 @@ class CategoryDBManager {
         var responseList: ArrayList<String> = ArrayList<String>()
 
         for (record in messageList) {
-            if (record.mms != null) {
-                val msgBody: String by lazy<String> { (record.mms as MmsVO).body as String }
-                responseList.add(msgBody)
-            } else {
-                val msgBody: String by lazy<String> { (record.sms as SmsVO).body as String }
+            if (record.message != null) {
+                val msgBody: String by lazy<String> { (record.message as MessageVO).body }
+
                 responseList.add(msgBody)
             }
         }
         return responseList
     }
-
-
 }

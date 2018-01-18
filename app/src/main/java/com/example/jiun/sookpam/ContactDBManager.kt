@@ -3,11 +3,9 @@ package com.example.jiun.sookpam
 import android.app.Application
 import android.util.Log
 import com.example.jiun.sookpam.model.data.ContactVO
-
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-
 import io.realm.Realm
 
 
@@ -69,8 +67,8 @@ class ContactDBManager : Application() {
         Log.v("SUCCESS", "size : " + results.size)
     }
 
-    fun getCategory(value: String?): String {
-        val record = realm!!.where(ContactVO::class.java).equalTo("phone", value).findFirst()
+    fun getCategory(value: String, realm: Realm): String {
+        val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
             return "기타"
         else

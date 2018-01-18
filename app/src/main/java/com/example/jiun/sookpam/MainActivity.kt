@@ -8,20 +8,24 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ProgressBar
+import android.widget.Toast
+import com.example.jiun.sookpam.message.MessageContract
+import com.example.jiun.sookpam.message.MessagePresenter
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
-import kotlinx.android.synthetic.main.activity_main.*
-import com.example.jiun.sookpam.model.mms.MmsReader
-import com.example.jiun.sookpam.model.sms.SmsReader
+import com.example.jiun.sookpam.R.id.main_message_prograssbar
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var smsReader: SmsReader
-    private lateinit var mmsReader: MmsReader
-    private lateinit var categoryManager: CategoryDBManager
+import io.realm.Realm
+
+class MainActivity : AppCompatActivity(), MessageContract.View {
+    override lateinit var presenter: MessageContract.Presenter
     private lateinit var toolbar: Toolbar
+    private lateinit var progressbar: ProgressBar
     private lateinit var adapter: MainListviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +35,15 @@ class MainActivity : AppCompatActivity() {
         val listView = findViewById<View>(R.id.main_listView) as ListView
         listView.adapter = adapter
         initialize()
-        checkMessagePermission()
-        listView.onItemClickListener = AdapterView.OnItemClickListener {
-            adapterView, view, position, id ->
+        presenter.start()
+        listView.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
             var selectedMain = listView.getItemAtPosition(position) as MainItem
             go(selectedMain.category)
         }
     }
 
     override fun onResume() {
-        super. onResume()
+        super.onResume()
         scatterCheckedCategories()
     }
 
@@ -57,17 +60,44 @@ class MainActivity : AppCompatActivity() {
         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "기타")
     }
 
-    private fun checkMessagePermission() {
-        val permissionListener = object : PermissionListener {
-            override fun onPermissionGranted() {
-                readMessageList()
-            }
+    override fun showToastMessage(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
+    }
 
-            override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                finish()
-            }
-        }
+    override fun finishActivity() {
+        finish()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.cancelMessageAsyncTask()
+    }
+
+    private fun initialize() {
+        Realm.init(this)
+        progressbar = main_message_prograssbar
+        presenter = MessagePresenter(applicationContext, this, progressbar)
+        setToolbar()
+    }
+
+    private fun setToolbar() {
+        toolbar = main_toolbar
+        setSupportActionBar(toolbar)
+        toolbar.setTitleTextColor(Color.WHITE)
+    }
+
+    private fun go(category: String) {
+        val intent = Intent(this, DataActivity::class.java)
+        intent.putExtra("category", category);
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun showPermissionMessage(permissionListener: PermissionListener) {
         TedPermission.with(this)
                 .setPermissionListener(permissionListener)
                 .setRationaleTitle(getString(R.string.read_sms_request_title))
@@ -79,37 +109,11 @@ class MainActivity : AppCompatActivity() {
                 .check()
     }
 
-    private fun initialize() {
-        smsReader = SmsReader()
-        mmsReader = MmsReader()
-        toolbar = main_toolbar
-        setSupportActionBar(toolbar)
-        toolbar.setTitleTextColor(Color.WHITE)
-        categoryManager = CategoryDBManager()
-    }
-
-    private fun go(category: String) {
-        val intent = Intent(this, DataActivity::class.java)
-        intent.putExtra("category", category);
-        startActivity(intent)
-    }
-
-    private fun readMessageList() {
-        smsReader.setSms(this)
-        mmsReader.setMms(this)
-        categoryManager.categorizeMessages(applicationContext)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_synchronization -> {
+                presenter.start()
                 scatterCheckedCategories()
-                readMessageList()
                 true
             }
             R.id.action_setting -> {
@@ -120,6 +124,4 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 }
