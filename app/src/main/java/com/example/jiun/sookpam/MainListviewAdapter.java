@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MainListviewAdapter extends BaseAdapter {
     private ArrayList<MainItem> mainItemList = new ArrayList<MainItem>();
 
+
     @Override
     public int getCount() {
         return mainItemList.size();

@@ -59,7 +59,6 @@ class ContactDBManager : Application() {
             try {
                 bufferedReader.close()
                 inputStreamReader.close()
-                assets.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
