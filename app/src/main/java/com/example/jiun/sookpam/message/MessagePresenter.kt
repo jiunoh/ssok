@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
+import com.example.jiun.sookpam.CategoryDBManager
 import com.example.jiun.sookpam.R
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm
@@ -15,6 +16,7 @@ class MessagePresenter(
         private val progressbar: ProgressBar) : MessageContract.Presenter {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
+    private lateinit var categoryManager : CategoryDBManager
 
     init {
         messagePermissionView.presenter = this
@@ -63,7 +65,9 @@ class MessagePresenter(
                 realm = Realm.getDefaultInstance()
                 smsReader = SmsReader(realm)
                 mmsReader = MmsReader(realm)
+                categoryManager = CategoryDBManager(realm)
                 readAndSaveMessageList()
+                categoryManager.categorizeMessages(context)
             } finally {
                 if (realm != null) {
                     realm.close()
