@@ -1,19 +1,20 @@
-package com.example.jiun.sookpam.message.sms
+package com.example.jiun.sookpam.message
 
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import com.example.jiun.sookpam.message.MessageReader
+import com.example.jiun.sookpam.model.data.MessageVO
 import io.realm.Realm
 import java.util.*
 
-class SmsReader(realm: Realm) : MessageReader<SmsList> {
-    override var messageList: SmsList=SmsList(realm)
+class SmsReader(realm: Realm) : MessageReader {
+    override var messageList: MessageList = MessageList(realm)
 
     override fun gatherMessages(context: Context) {
         val uri: Uri = Uri.parse("content://sms/inbox")
         val contentResolver = context.contentResolver
-        val cursor: Cursor = contentResolver.query(uri, null, null, null, null)
+        val cursor: Cursor
+                = contentResolver.query(uri, null, null, null, null)
 
         if (cursor.moveToFirst()) {
             for (i: Int in messageList.getList().size until cursor.count) {
@@ -31,7 +32,7 @@ class SmsReader(realm: Realm) : MessageReader<SmsList> {
         val body: String = cursor.getString(cursor.getColumnIndexOrThrow("body"))
 
         if (messageList.getBodyNumbersSameWith(body) == 0) {
-            messageList.addToList(phoneNumber, smsDayTime, body)
+            messageList.addToList(phoneNumber, smsDayTime, body, MessageVO.TYPE_SMS)
         }
     }
 }

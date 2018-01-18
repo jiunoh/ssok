@@ -1,16 +1,32 @@
 package com.example.jiun.sookpam.message
 
+import com.example.jiun.sookpam.model.data.MessageVO
 import io.realm.Realm
 import io.realm.RealmResults
 import java.util.*
 
-interface MessageList<T> {
-    var realm: Realm
-    val messageList: RealmResults<T>
+class MessageList(var realm: Realm) {
+    private val messageList: RealmResults<MessageVO> = getList()
 
-    fun getList(): RealmResults<T>
+    fun getList(): RealmResults<MessageVO> {
+        return realm.where(MessageVO::class.java).findAll()
+    }
 
-    fun addToList(phoneNumber: String, date: Date, body: String)
+    fun addToList(phoneNumber: String, date: Date, body: String, messageType: Boolean) {
+        realm.beginTransaction()
+        val mms: MessageVO = realm.createObject(MessageVO::class.java, messageList.size.toLong())
+        mms.apply {
+            this.phoneNumber = phoneNumber
+            this.date = date
+            this.body = body
+            this.messageType = messageType
 
-    fun getBodyNumbersSameWith(body: String): Int
+        }
+        realm.commitTransaction()
+    }
+
+    fun getBodyNumbersSameWith(body: String): Int {
+        val selectedBody = realm.where(MessageVO::class.java).contains("body", body).findAll()
+        return selectedBody.size
+    }
 }

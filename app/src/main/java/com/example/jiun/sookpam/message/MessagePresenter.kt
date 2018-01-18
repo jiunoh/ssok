@@ -6,8 +6,6 @@ import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.message.mms.MmsReader
-import com.example.jiun.sookpam.message.sms.SmsReader
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm
 

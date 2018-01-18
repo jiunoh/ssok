@@ -1,10 +1,10 @@
-package com.example.jiun.sookpam.message.mms
+package com.example.jiun.sookpam.message
 
 import android.content.ContentResolver
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import com.example.jiun.sookpam.message.MessageReader
+import com.example.jiun.sookpam.model.data.MessageVO
 import io.realm.Realm
 import java.io.BufferedReader
 import java.io.IOException
@@ -12,15 +12,16 @@ import java.io.InputStreamReader
 import java.util.*
 import kotlin.properties.Delegates
 
-class MmsReader(realm: Realm) : MessageReader<MmsList> {
-    override var messageList: MmsList = MmsList(realm)
+class MmsReader(realm: Realm) : MessageReader {
+    override var messageList: MessageList = MessageList(realm)
     private val idList = ArrayList<String>()
     private val uri = Uri.parse("content://mms/inbox")
     private var contentResolver: ContentResolver by Delegates.notNull()
 
     private fun setIdList() {
         val projection: Array<String> = arrayOf("_id")
-        val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
+        val cursor =
+                contentResolver.query(uri, projection, null, null, "date DESC")
 
         if (cursor.moveToFirst()) {
             do {
@@ -35,7 +36,8 @@ class MmsReader(realm: Realm) : MessageReader<MmsList> {
     override fun gatherMessages(context: Context) {
         val projection = arrayOf("_id", "ct_t", "date")
         contentResolver = context.contentResolver
-        val cursor = contentResolver.query(uri, projection, null, null, "date DESC")
+        val cursor =
+                contentResolver.query(uri, projection, null, null, "date DESC")
 
         setIdList()
 
@@ -56,7 +58,8 @@ class MmsReader(realm: Realm) : MessageReader<MmsList> {
         val phoneNumber: String = getPhoneNumber(mmsId)
         val selection = "mid=$mmsId"
         val partUri = Uri.parse("content://mms/part")
-        val partCursor = contentResolver.query(partUri, null, selection, null, null)
+        val partCursor =
+                contentResolver.query(partUri, null, selection, null, null)
 
         if (partCursor.moveToFirst()) {
             do {
@@ -64,7 +67,7 @@ class MmsReader(realm: Realm) : MessageReader<MmsList> {
                 if (type == "text/plain") {
                     val body = getMmsBody(partCursor)
                     if (messageList.getBodyNumbersSameWith(body) == 0) {
-                        messageList.addToList(phoneNumber, mmsDate, body)
+                        messageList.addToList(phoneNumber, mmsDate, body, MessageVO.TYPE_MMS)
                     }
                 }
             } while (partCursor.moveToNext())
@@ -107,7 +110,8 @@ class MmsReader(realm: Realm) : MessageReader<MmsList> {
     private fun getPhoneNumber(id: String): String {
         val selection = "msg_id=$id"
         val phoneNumberUri = Uri.parse("content://mms/$id/addr")
-        val cursor = contentResolver.query(phoneNumberUri, null, selection, null, null)
+        val cursor =
+                contentResolver.query(phoneNumberUri, null, selection, null, null)
         var phoneNumber: String? = null
 
         if (cursor.moveToFirst()) {
