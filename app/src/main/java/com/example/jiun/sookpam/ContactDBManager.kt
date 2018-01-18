@@ -12,6 +12,7 @@ import io.realm.Realm
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
+    lateinit var inputStreamReader : InputStreamReader
 
     override fun onCreate() {
         super.onCreate()
@@ -40,7 +41,8 @@ class ContactDBManager : Application() {
     private fun parseStringToRealm(backgroundRealm: Realm) {
         val cvsSplitBy = ","
         val csvFile = "contact.csv"
-        bufferedReader = BufferedReader(InputStreamReader(assets.open(csvFile)))
+        inputStreamReader = InputStreamReader(assets.open(csvFile))
+        bufferedReader = BufferedReader(inputStreamReader)
 
         while (true) {
             var line = bufferedReader.readLine() ?: break
@@ -56,6 +58,8 @@ class ContactDBManager : Application() {
         if (bufferedReader != null) {
             try {
                 bufferedReader.close()
+                inputStreamReader.close()
+                assets.close()
             } catch (e: IOException) {
                 e.printStackTrace()
             }

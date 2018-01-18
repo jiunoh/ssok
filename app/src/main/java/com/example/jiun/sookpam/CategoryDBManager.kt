@@ -16,7 +16,6 @@ class CategoryDBManager(val realm: Realm) {
         }
     }
 
-
     fun doesMessageNotExist(value: String?): Boolean {
         var result = realm.where(CategoryVO::class.java).equalTo("message.body", value).findFirst()
         if (result == null)
