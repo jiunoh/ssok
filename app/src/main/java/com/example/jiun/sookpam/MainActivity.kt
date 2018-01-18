@@ -12,11 +12,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_main.*
-
 import com.example.jiun.sookpam.model.mms.MmsReader
 import com.example.jiun.sookpam.model.sms.SmsReader
 import com.gun0912.tedpermission.PermissionListener
-
 import com.gun0912.tedpermission.TedPermission
 
 class MainActivity : AppCompatActivity() {
@@ -50,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         val contactDBManager = applicationContext as ContactDBManager
         val categoryList = contactDBManager.getCategoryList()
         adapter.clear()
+        adapter.notifyDataSetChanged()
         for (category in categoryList) {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
