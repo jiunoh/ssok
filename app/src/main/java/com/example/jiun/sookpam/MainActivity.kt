@@ -113,11 +113,6 @@ class MainActivity : AppCompatActivity() {
                 readMessageList()
                 true
             }
-            R.id.action_plus -> {
-                val intent = Intent(this, CategoryActivity::class.java)
-                startActivity(intent)
-                true
-            }
             R.id.action_setting -> {
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
