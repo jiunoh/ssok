@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,7 +20,7 @@ public class DataActivity extends AppCompatActivity {
         Log.v("DataActivity", category);
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
 
-        ArrayList<DataItem> dataItems = new ArrayList<>();
+        final ArrayList<DataItem> dataItems = new ArrayList<>();
         ArrayList<String> response = getDataByCategory(category);
         for (String data : response) {
             DataItem dataItem = new DataItem();
@@ -34,13 +35,17 @@ public class DataActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showMessageBody();
+                DataItem data = dataItems.get(position);
+                showMessageBody(data);
             }
         }));
     }
 
-    private void showMessageBody() {
-
+    private void showMessageBody(DataItem data) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("title", data.getTitle());
+        intent.putExtra("body", data.getBody());
+        startActivity(intent);
     }
 
     private ArrayList<String> getDataByCategory(String category) {

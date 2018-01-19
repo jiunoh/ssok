@@ -39,9 +39,6 @@
                 android:layout_weight="0.9"
                 android:text="BODY BODY BODYBODY BODY BODY BODY BODY"
                 android:textSize="18dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:clickable="true"
                 />
 
             <TextView
