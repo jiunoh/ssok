@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -13,21 +14,34 @@ public class DataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
+
         String category = getIntent().getStringExtra("category");
-        Log.v("DataActivity",category);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.data_recycler_view);
-        ArrayList<DataItem> dataItems = new ArrayList<DataItem>();
-        ArrayList<String> response =  getDataByCategory(category);
-        for (String data : response){
+        Log.v("DataActivity", category);
+        final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
+
+        ArrayList<DataItem> dataItems = new ArrayList<>();
+        ArrayList<String> response = getDataByCategory(category);
+        for (String data : response) {
             DataItem dataItem = new DataItem();
             dataItem.setTitle(category);
             dataItem.setBody(data);
             dataItems.add(dataItem);
         }
+
         DataRecyclerAdapter adapter = new DataRecyclerAdapter(dataItems);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                showMessageBody();
+            }
+        }));
     }
 
+    private void showMessageBody() {
+
+    }
 
     private ArrayList<String> getDataByCategory(String category) {
         categoryManager = new CategoryDBManager();
