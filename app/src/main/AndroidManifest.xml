@@ -32,10 +32,7 @@
         <activity android:name=".CategoryActivity" />
         <activity android:name=".DataActivity" />
         <activity android:name=".SettingActivity" />
-<<<<<<< HEAD
-=======
         <activity android:name=".DetailActivity" />
->>>>>>> 138850e7dd9fcab1595db7a89b4ce9878f826606
     </application>
 
 </manifest>
