@@ -27,16 +27,12 @@ public class DataActivity extends AppCompatActivity {
 
             if (data.contains("[Web발신]\n"))
                 data = data.replace("[Web발신]\n", "");
-            if (data.contains("안녕하세요"))
-                data = data.replace("안녕하세요", "");
 
             String title = data.substring(0, 20);
             title = title.replace("\r\n", "");
             dataItem.setTitle(title);
             String body = data.substring(20, data.length()-1);
-            if (body.charAt(0) == '\n')
-                body = body.replace("\n", "");
-            dataItem.setBody(body);
+            dataItem.setBody(data);
 
             dataItems.add(dataItem);
         }
