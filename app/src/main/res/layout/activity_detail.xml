@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="15dp"
+    android:paddingTop="30dp"
     >
 
     <TextView
@@ -18,7 +18,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/message_title"
+            android:id="@+id/detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TITLE"
@@ -29,27 +29,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
             >
 
-        <TextView
-            android:id="@+id/message_body"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.9"
-            android:paddingTop="5dp"
-            android:text="BODY BODY BODYBODY BODY BODY BODY BODY"
-            android:textSize="18dp"
-            android:maxLines="3"
-            android:ellipsize="end"
-            />
+            <TextView
+                android:id="@+id/detail_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:text="BODY BODY BODYBODY BODY BODY BODY BODY"
+                android:textSize="18dp"
+                />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                />
+                android:layout_weight="0.1" />
 
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
