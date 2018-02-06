@@ -15,7 +15,6 @@ import com.example.jiun.sookpam.message.MessagePresenter
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
-import com.example.jiun.sookpam.R.id.main_message_prograssbar
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
 
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
-        val categoryList = contactDBManager.getCategoryList()
+        val categoryList = contactDBManager.getKeywordList()
         adapter.clear()
         adapter.notifyDataSetChanged()
         for (category in categoryList) {

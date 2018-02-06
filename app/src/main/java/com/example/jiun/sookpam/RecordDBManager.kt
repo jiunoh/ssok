@@ -5,7 +5,7 @@ import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.data.*
 import io.realm.Realm
 
-class CategoryDBManager(val realm: Realm) {
+class RecordDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
     fun categorizeMessages(context: Context) {
         this.context = context as ContactDBManager
@@ -17,24 +17,22 @@ class CategoryDBManager(val realm: Realm) {
     }
 
     fun doesMessageNotExist(value: String?): Boolean {
-        var result = realm.where(CategoryVO::class.java).equalTo("message.body", value).findFirst()
-        if (result == null)
-            return true
-        else
-            return false
+        var result = realm.where(RecordVO::class.java).equalTo("message.body", value).findFirst()
+        return (result == null)
     }
 
     fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
-            var categoryRecord: CategoryVO = realm.createObject(CategoryVO::class.java)
-            val category: String? = context.getCategory(message.phoneNumber, realm)
-            categoryRecord.category = category
-            categoryRecord.message = message
+            var recordRecord: RecordVO = realm.createObject(RecordVO::class.java)
+            val keyword: String? = context.getKeywordOf(message.phoneNumber, realm)
+            recordRecord.keyword = keyword
+            recordRecord.message = message
+            recordRecord.category = context.getCategory(keyword,realm)
         }
     }
 
     fun getDataByCategory(request: String): ArrayList<String> {
-        var messageList = realm.where(CategoryVO::class.java).equalTo("category", request).findAll()
+        var messageList = realm.where(RecordVO::class.java).equalTo("category", request).findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
         for (record in messageList) {

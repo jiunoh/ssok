@@ -2,13 +2,12 @@ package com.example.jiun.sookpam;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import io.realm.Realm;
 
 public class DataActivity extends AppCompatActivity {
-    private CategoryDBManager categoryManager;
+    private RecordDBManager categoryManager;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +29,7 @@ public class DataActivity extends AppCompatActivity {
 
 
     private ArrayList<String> getDataByCategory(String category) {
-        categoryManager = new CategoryDBManager(Realm.getDefaultInstance());
+        categoryManager = new RecordDBManager(Realm.getDefaultInstance());
         ArrayList<String> response = new ArrayList<String>();
 
         if(!category.equals("학교"))
@@ -42,7 +41,7 @@ public class DataActivity extends AppCompatActivity {
 
     private ArrayList<String> handleCategoryUniv() {
         ContactDBManager contactDBManager =  (ContactDBManager)getApplicationContext();
-        ArrayList<String> categoryList = contactDBManager.getCategoryList();
+        ArrayList<String> categoryList = contactDBManager.getKeywordList();
         ArrayList<String> response = new ArrayList<String>();
 
         for (String category :categoryList) {
