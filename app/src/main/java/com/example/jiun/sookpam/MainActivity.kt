@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
 
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
-        val categoryList = contactDBManager.getKeywordList()
+        val categoryList = contactDBManager.getCategoryList()
         adapter.clear()
         adapter.notifyDataSetChanged()
         for (category in categoryList) {
