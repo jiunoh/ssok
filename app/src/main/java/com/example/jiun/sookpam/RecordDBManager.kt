@@ -24,10 +24,11 @@ class RecordDBManager(val realm: Realm) {
     fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
             var recordRecord: RecordVO = realm.createObject(RecordVO::class.java)
-            val keyword: String? = context.getKeywordOf(message.phoneNumber, realm)
-            recordRecord.keyword = keyword
+            val department: String? = context.getKeywordOf(message.phoneNumber, realm)
+            recordRecord.keyword = department
             recordRecord.message = message
-            recordRecord.category = context.getCategory(keyword,realm)
+            recordRecord.division = department
+            recordRecord.category = context.getCategory(department,realm)
         }
     }
 
