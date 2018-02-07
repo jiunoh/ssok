@@ -5,8 +5,8 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
-import com.example.jiun.sookpam.RecordDBManager
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.RecordDBManager
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm
 

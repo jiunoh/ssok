@@ -4,16 +4,17 @@ import android.app.Application
 import android.util.Log
 import com.example.jiun.sookpam.model.data.CategoryVO
 import com.example.jiun.sookpam.model.data.ContactVO
+import io.realm.Realm
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import io.realm.Realm
 
 
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
     lateinit var inputStreamReader : InputStreamReader
+    val VOID:String  = "VOID"
 
     override fun onCreate() {
         super.onCreate()
@@ -59,11 +60,14 @@ class ContactDBManager : Application() {
     }
 
     fun getCategory(keyword:String?, realm: Realm) : String? {
-        var categoryObj = realm.where(CategoryVO::class.java).equalTo("key",keyword).findFirst()
-        if (categoryObj == null)
-            return  "기타"
-        return categoryObj.value
+        if(keyword.equals(VOID))
+            return VOID
+        else {
+            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", keyword).findFirst()
+            return categoryObj?.value ?:"기타"
+        }
     }
+
 
     fun getCategoryList() :ArrayList<String> {
         var categoryVOList= realm.where(CategoryVO::class.java).distinctValues("value").findAll()
@@ -109,7 +113,7 @@ class ContactDBManager : Application() {
     fun getKeywordOf(value: String, realm: Realm): String {
         val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
-            return "기타"
+            return VOID
         else
             return record.class2
     }
