@@ -16,7 +16,6 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data);
 
         String category = getIntent().getStringExtra("category");
-        Log.v("DataActivity", category);
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
 
         final ArrayList<DataItem> dataItems = new ArrayList<>();
@@ -27,19 +26,24 @@ public class DataActivity extends AppCompatActivity {
             if (data.contains("[Web발신]\n"))
                 data = data.replace("[Web발신]\n", "");
 
-            String title = data.substring(0, 20);
+            String title;
+            if(data.length() >=20) {
+                title = data.substring(0, 20);
+            }
+            else {
+                title = data;
+            }
             title = title.replace("\r\n", "");
             dataItem.setTitle(title);
-            String body = data.substring(20, data.length()-1);
             dataItem.setBody(data);
-
             dataItems.add(dataItem);
         }
 
         DataRecyclerAdapter adapter = new DataRecyclerAdapter(dataItems);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
+                new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 DataItem data = dataItems.get(position);
@@ -57,7 +61,7 @@ public class DataActivity extends AppCompatActivity {
 
     private ArrayList<String> getDataByCategory(String category) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
-        ArrayList<String> response = new ArrayList<String>();
+        ArrayList<String> response;
         if (!category.equals("학교"))
             response = categoryManager.getDataByCategory(category);
         else
@@ -70,7 +74,7 @@ public class DataActivity extends AppCompatActivity {
     private ArrayList<String> handleCategoryUniv() {
         ContactDBManager contactDBManager =  (ContactDBManager)getApplicationContext();
         ArrayList<String> categoryList = contactDBManager.getKeywordList();
-        ArrayList<String> response = new ArrayList<String>();
+        ArrayList<String> response = new ArrayList<>();
         for (String category : categoryList) {
             if (!SharedPreferenceUtil.get(this, category, false))
                 response.addAll(categoryManager.getDataByCategory(category));
