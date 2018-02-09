@@ -2,17 +2,19 @@ package com.example.jiun.sookpam
 
 import android.app.Application
 import android.util.Log
+import com.example.jiun.sookpam.model.data.CategoryVO
 import com.example.jiun.sookpam.model.data.ContactVO
+import io.realm.Realm
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import io.realm.Realm
 
 
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
     lateinit var inputStreamReader : InputStreamReader
+    val VOID:String  = "VOID"
 
     override fun onCreate() {
         super.onCreate()
@@ -26,6 +28,7 @@ class ContactDBManager : Application() {
             realm!!.executeTransactionAsync({ bgRealm ->
                 try {
                     parseStringToRealm(bgRealm)
+                    loadCategory(bgRealm)
                 } catch (exception: IOException) {
                     exception.printStackTrace()
                 } finally {
@@ -36,6 +39,43 @@ class ContactDBManager : Application() {
                 Log.v("TAGGED", "FAILED")
             }
         }
+    }
+
+    private fun loadCategory(backgroundRealm: Realm) {
+        val cvsSplitBy = ","
+        val csvFile = "category.csv"
+        val inputStreamReader = InputStreamReader(assets.open(csvFile))
+        val bufferedReader = BufferedReader(inputStreamReader)
+
+        while (true) {
+            var line = bufferedReader.readLine() ?: break
+            val record = backgroundRealm.createObject(CategoryVO::class.java)
+            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            record.key = value[0]
+            record.value = value[1]
+            Log.v("Category",record.key+" "+record.value)
+        }
+        bufferedReader.close()
+        inputStreamReader.close()
+    }
+
+    fun getCategory(keyword:String?, realm: Realm) : String? {
+        if(keyword.equals(VOID))
+            return VOID
+        else {
+            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", keyword).findFirst()
+            return categoryObj?.value ?:"기타"
+        }
+    }
+
+
+    fun getCategoryList() :ArrayList<String> {
+        var categoryVOList= realm.where(CategoryVO::class.java).distinctValues("value").findAll()
+        var responseList: ArrayList<String> = ArrayList<String>()
+
+        for (record in categoryVOList)
+            responseList.add(record.value)
+        return responseList
     }
 
     private fun parseStringToRealm(backgroundRealm: Realm) {
@@ -70,19 +110,19 @@ class ContactDBManager : Application() {
         Log.v("SUCCESS", "size : " + results.size)
     }
 
-    fun getCategory(value: String, realm: Realm): String {
+    fun getKeywordOf(value: String, realm: Realm): String {
         val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
-            return "기타"
+            return VOID
         else
             return record.class2
     }
 
-    fun getCategoryList(): ArrayList<String> {
-        var categoryVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
+    fun getKeywordList(): ArrayList<String> {
+        var keywordVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
-        for (record in categoryVOLists)
+        for (record in keywordVOLists)
             responseList.add(record.class2)
         return responseList
     }
