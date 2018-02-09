@@ -3,7 +3,7 @@ package com.example.jiun.sookpam.message
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import com.example.jiun.sookpam.model.data.MessageVO
+import com.example.jiun.sookpam.model.vo.MessageVO
 import io.realm.Realm
 import java.util.*
 

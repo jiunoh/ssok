@@ -1,8 +1,8 @@
-package com.example.jiun.sookpam
+package com.example.jiun.sookpam.model
 
 import android.content.Context
 import com.example.jiun.sookpam.message.MessageList
-import com.example.jiun.sookpam.model.data.*
+import com.example.jiun.sookpam.model.vo.*
 import io.realm.Realm
 
 class RecordDBManager(val realm: Realm) {

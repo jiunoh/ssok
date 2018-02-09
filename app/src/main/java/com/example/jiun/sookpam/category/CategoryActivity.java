@@ -1,9 +1,13 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.category;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.widget.ListView;
+
+import com.example.jiun.sookpam.model.ContactDBManager;
+import com.example.jiun.sookpam.R;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
 

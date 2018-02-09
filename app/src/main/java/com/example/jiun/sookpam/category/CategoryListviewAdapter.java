@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.jiun.sookpam.R;
 
 import java.util.ArrayList;
 

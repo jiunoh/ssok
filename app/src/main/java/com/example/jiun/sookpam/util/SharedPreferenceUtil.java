@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

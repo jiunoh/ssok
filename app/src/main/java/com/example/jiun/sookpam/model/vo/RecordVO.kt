@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.model.data
+package com.example.jiun.sookpam.model.vo
 
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass

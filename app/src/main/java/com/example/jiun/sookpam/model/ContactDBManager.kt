@@ -1,9 +1,9 @@
-package com.example.jiun.sookpam
+package com.example.jiun.sookpam.model
 
 import android.app.Application
 import android.util.Log
-import com.example.jiun.sookpam.model.data.CategoryVO
-import com.example.jiun.sookpam.model.data.ContactVO
+import com.example.jiun.sookpam.model.vo.CategoryVO
+import com.example.jiun.sookpam.model.vo.ContactVO
 import io.realm.Realm
 import java.io.BufferedReader
 import java.io.IOException

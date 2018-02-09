@@ -1,6 +1,6 @@
 package com.example.jiun.sookpam.message
 
-import com.example.jiun.sookpam.model.data.MessageVO
+import com.example.jiun.sookpam.model.vo.MessageVO
 import io.realm.Realm
 import io.realm.RealmResults
 import java.util.*
