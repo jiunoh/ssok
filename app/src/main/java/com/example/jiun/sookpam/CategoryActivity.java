@@ -2,16 +2,10 @@ package com.example.jiun.sookpam;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.example.jiun.sookpam.model.data.ContactVO;
 
 import java.util.ArrayList;
-
-import io.realm.RealmResults;
 
 public class CategoryActivity extends AppCompatActivity {
     private final String CATEGORY = "category";
