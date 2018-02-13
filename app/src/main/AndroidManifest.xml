@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.MainActivity"></activity>
+        <activity android:name=".main.MainActivity" />
         <activity
             android:name="com.gun0912.tedpermission.TedPermissionActivity"
             android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
@@ -33,7 +33,10 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".data.DetailActivity" />
-        <activity android:name=".user.UserViewPagerActivity"></activity>
+        <activity android:name=".user.UserInfoActivity" />
+        <activity android:name=".user.UserInfo2Fragment" />
+        <activity android:name=".user.UserInfo3Fragment" />
+        <activity android:name=".user.UserInfo4Fragment"></activity>
     </application>
 
 </manifest>
