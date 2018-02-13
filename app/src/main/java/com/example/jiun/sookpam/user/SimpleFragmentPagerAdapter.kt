@@ -21,9 +21,9 @@ internal class SimpleFragmentPagerAdapter(fm: FragmentManager, private val numbe
     }
 
     companion object {
-        private val USER_INFO_1 = 0
-        private val USER_INFO_2 = 1
-        private val USER_INFO_3 = 2
-        private val USER_INFO_4 = 3
+        const val USER_INFO_1 = 0
+        const val USER_INFO_2 = 1
+        const val USER_INFO_3 = 2
+        const val USER_INFO_4 = 3
     }
 }

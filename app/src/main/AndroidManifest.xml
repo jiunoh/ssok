@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-        <activity android:name=".user.UserInfo1Fragment">
+        <activity android:name=".user.UserInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,10 +33,6 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".data.DetailActivity" />
-        <activity android:name=".user.UserInfoActivity" />
-        <activity android:name=".user.UserInfo2Fragment" />
-        <activity android:name=".user.UserInfo3Fragment" />
-        <activity android:name=".user.UserInfo4Fragment"></activity>
     </application>
 
 </manifest>
