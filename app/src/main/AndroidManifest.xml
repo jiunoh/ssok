@@ -15,14 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".user.UserInfo1Fragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".main.MainActivity"></activity>
         <activity
             android:name="com.gun0912.tedpermission.TedPermissionActivity"
             android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
@@ -33,6 +33,7 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".data.DetailActivity" />
+        <activity android:name=".user.UserViewPagerActivity"></activity>
     </application>
 
 </manifest>
