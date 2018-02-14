@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_margin="40dp"
     tools:context="com.example.jiun.sookpam.user.UserInfoActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/user_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,6 +18,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/user_info_previous_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
@@ -53,9 +54,10 @@
             android:src="@drawable/ic_default_circle" />
 
         <Button
+            android:id="@+id/user_info_next_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape"
             android:text="다음 &gt;"
@@ -63,4 +65,4 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
