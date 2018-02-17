@@ -21,37 +21,45 @@
             android:id="@+id/user_info_previous_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape"
-            android:text="&lt; 이전"
+            android:text="@string/user_info_previous"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
             android:visibility="invisible" />
 
         <ImageView
+            android:id="@+id/user_info_circle0_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_pink_circle" />
+            android:src="@drawable/ic_pink_circle"
+            android:contentDescription="@string/user_info_first_page" />
 
         <ImageView
+            android:id="@+id/user_info_circle1_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle" />
+            android:src="@drawable/ic_default_circle"
+            android:contentDescription="@string/user_info_second_page" />
 
         <ImageView
+            android:id="@+id/user_info_circle2_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle" />
+            android:src="@drawable/ic_default_circle"
+            android:contentDescription="@string/user_info_third_page" />
 
         <ImageView
+            android:id="@+id/user_info_circle3_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle" />
+            android:src="@drawable/ic_default_circle"
+            android:contentDescription="@string/user_info_forth_page" />
 
         <Button
             android:id="@+id/user_info_next_btn"
@@ -60,7 +68,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape"
-            android:text="다음 &gt;"
+            android:text="@string/user_info_next_page"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
     </LinearLayout>
