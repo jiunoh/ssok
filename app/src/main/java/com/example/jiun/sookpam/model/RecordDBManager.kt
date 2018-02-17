@@ -16,17 +16,17 @@ class RecordDBManager(val realm: Realm) {
         }
     }
 
-    fun fromUniversity(phoneNumber: String?): Boolean {
+    private fun fromUniversity(phoneNumber: String?): Boolean {
         var result = realm.where(ContactVO::class.java).equalTo("phone", phoneNumber).findFirst()
         return (result != null)
     }
 
-    fun doesNotExist(value: String?): Boolean {
+    private fun doesNotExist(value: String?): Boolean {
         var result = realm.where(RecordVO::class.java).equalTo("message.body", value).findFirst()
         return (result == null)
     }
 
-    fun createMessageCategory(message: MessageVO) {
+    private fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
             var recordRecord: RecordVO = realm.createObject(RecordVO::class.java)
             val department: String? = context.getDepartmentOf(message.phoneNumber, realm)
@@ -37,7 +37,6 @@ class RecordDBManager(val realm: Realm) {
     }
 
     fun getDataByCategory(request: String): ArrayList<String> {
-
         var messageList = realm.where(RecordVO::class.java).equalTo("category", request).findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 

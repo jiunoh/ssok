@@ -5,16 +5,15 @@ import android.util.Log
 import com.example.jiun.sookpam.model.vo.CategoryVO
 import com.example.jiun.sookpam.model.vo.ContactVO
 import io.realm.Realm
+import io.realm.RealmObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-
 
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
     lateinit var inputStreamReader : InputStreamReader
-    val VOID:String  = "VOID"
 
     override fun onCreate() {
         super.onCreate()
@@ -27,8 +26,10 @@ class ContactDBManager : Application() {
             Log.v("DB", "Not Found!!")
             realm!!.executeTransactionAsync({ bgRealm ->
                 try {
-                    parseStringToRealm(bgRealm)
-                    loadCategory(bgRealm)
+                    if (doesNotExist(bgRealm)) {
+                        loadContact(bgRealm)
+                        loadCategory(bgRealm)
+                    }
                 } catch (exception: IOException) {
                     exception.printStackTrace()
                 } finally {
@@ -38,6 +39,27 @@ class ContactDBManager : Application() {
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
+        }
+    }
+
+    private fun doesNotExist(backgroundRealm: Realm): Boolean {
+        val existence =  backgroundRealm.where(ContactVO::class.java).findFirst()
+        return existence == null
+    }
+
+    private fun loadContact(backgroundRealm: Realm) {
+        val cvsSplitBy = ","
+        val csvFile = "contact.csv"
+        inputStreamReader = InputStreamReader(assets.open(csvFile))
+        bufferedReader = BufferedReader(inputStreamReader)
+
+        while (true) {
+            var line = bufferedReader.readLine() ?: break
+            val record = backgroundRealm.createObject(ContactVO::class.java)
+            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            record.class1 = value[0]
+            record.class2 = value[1]
+            record.phone = "02" + value[2]
         }
     }
 
@@ -59,15 +81,10 @@ class ContactDBManager : Application() {
         inputStreamReader.close()
     }
 
-    fun getCategory(keyword:String?, realm: Realm) : String? {
-        if(keyword.equals(VOID))
-            return VOID
-        else {
-            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", keyword).findFirst()
+    fun getCategory(division:String?, realm: Realm) : String? {
+            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
             return categoryObj?.value ?:"기타"
-        }
     }
-
 
     fun getCategoryList() :ArrayList<String> {
         var categoryVOList= realm.where(CategoryVO::class.java).distinctValues("value").findAll()
@@ -76,22 +93,6 @@ class ContactDBManager : Application() {
         for (record in categoryVOList)
             responseList.add(record.value)
         return responseList
-    }
-
-    private fun parseStringToRealm(backgroundRealm: Realm) {
-        val cvsSplitBy = ","
-        val csvFile = "contact.csv"
-        inputStreamReader = InputStreamReader(assets.open(csvFile))
-        bufferedReader = BufferedReader(inputStreamReader)
-
-        while (true) {
-            var line = bufferedReader.readLine() ?: break
-            val record = backgroundRealm.createObject(ContactVO::class.java)
-            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            record.class1 = value[0]
-            record.class2 = value[1]
-            record.phone = "02" + value[2]
-        }
     }
 
     private fun closeBufferedReader() {
@@ -112,10 +113,7 @@ class ContactDBManager : Application() {
 
     fun getDepartmentOf(value: String, realm: Realm): String {
         val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
-        if (record == null)
-            return VOID
-        else
-            return record.class2
+        return record!!.class2
     }
 
     fun getDepartmentList(): ArrayList<String> {
