@@ -1,9 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jiun.sookpam.user.UserInfo4Fragment">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="@string/user_info4_title"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="@string/user_info4_category"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_scholarship"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_academic"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_entrance"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_recruit"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_it"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_global"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circle_shape_white_dark_blue"
+            android:text="@string/user_info_detail_career"
+            android:textColor="#546E7A"
+            android:textSize="16sp" />
+    </GridLayout>
+</LinearLayout>

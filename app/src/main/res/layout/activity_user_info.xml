@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="40dp"
+    android:layout_margin="36dp"
     tools:context="com.example.jiun.sookpam.user.UserInfoActivity">
 
     <android.support.v4.view.ViewPager
@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:background="@drawable/circle_shape"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_previous"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:background="@drawable/circle_shape"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_next_page"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
