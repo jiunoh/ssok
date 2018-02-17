@@ -32,6 +32,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
@@ -42,6 +43,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
             android:text="@string/user_info_detail_academic"
@@ -51,6 +53,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
@@ -61,6 +64,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
             android:text="@string/user_info_detail_recruit"
@@ -70,6 +74,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
@@ -80,6 +85,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
             android:text="@string/user_info_detail_global"
@@ -89,6 +95,7 @@
         <Button
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/circle_shape_white_dark_blue"
