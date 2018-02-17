@@ -12,7 +12,7 @@
 
     <stroke
         android:width="4px"
-        android:color="#546E7A" />
+        android:color="@color/colorDarkGray" />
 
     <padding
         android:bottom="0dp"

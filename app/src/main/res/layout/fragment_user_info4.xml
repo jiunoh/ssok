@@ -30,77 +30,84 @@
         android:columnCount="2">
 
         <Button
+            android:id="@+id/user_info4_scholarship_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_scholarship"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_academic_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_academic"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_entrance_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_entrance"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_recruit_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_recruit"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_it_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_it"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_global_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_global"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info4_career_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_blue"
+            android:background="@drawable/circle_shape_white_dark_gray"
             android:text="@string/user_info_detail_career"
-            android:textColor="#546E7A"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
     </GridLayout>
 </LinearLayout>

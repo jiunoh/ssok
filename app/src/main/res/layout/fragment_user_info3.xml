@@ -15,7 +15,7 @@
         android:text="@string/user_info3_title"
         android:textColor="@android:color/black"
         android:textSize="28sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -32,6 +32,7 @@
         android:columnCount="2">
 
         <Button
+            android:id="@+id/user_info3_scholarship_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -43,6 +44,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_academic_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -53,6 +55,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_entrance_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -64,6 +67,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_recruit_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -74,6 +78,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_it_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -85,6 +90,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_global_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -95,6 +101,7 @@
             android:textSize="16sp" />
 
         <Button
+            android:id="@+id/user_info3_career_btn"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

@@ -42,5 +42,5 @@
     <string name="user_info_detail_global">국제</string>
     <string name="user_info_detail_career">취업</string>
     <string name="user_info4_title">세부정보 입력 (2/2)</string>
-    <string name="user_info4_category">관심없는 카테고리를 선택해주세요 (0개 이상)</string>
+    <string name="user_info4_category">관심없는 카테고리를 선택해주세요\n(0개 이상)</string>
 </resources>

@@ -61,7 +61,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun movePrevious() {
         previousButton.setOnClickListener {
-            if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
+            if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_4) {
                 nextButton.text = getText(R.string.user_info_next_page)
             }
             if (currentPage > SimpleFragmentPagerAdapter.USER_INFO_1) {
