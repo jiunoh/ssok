@@ -11,7 +11,7 @@ import com.example.jiun.sookpam.R
 import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserInfoActivity : AppCompatActivity() {
-    private lateinit var viewPager: ViewPager
+    private lateinit var viewPager: CustomViewPager
     private lateinit var currentFragment: Fragment
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
@@ -35,6 +35,7 @@ class UserInfoActivity : AppCompatActivity() {
     private fun initializeViewPager() {
         viewPager = user_view_pager
         viewPager.apply {
+            this.setPagingEnabled(false)
             this.adapter = pagerAdapter
             currentFragment = pagerAdapter.getItem(currentPage)
         }
