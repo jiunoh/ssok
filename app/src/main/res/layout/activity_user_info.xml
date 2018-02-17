@@ -23,9 +23,11 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
+            android:background="@drawable/blue_button_selector"
             android:text="@string/user_info_previous"
-            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/blue_text_color_selector"
+            android:textColorLink="@color/blue_text_color_selector"
+            android:textColor="@color/blue_text_color_selector"
             android:textSize="16sp"
             android:visibility="invisible" />
 
@@ -34,32 +36,32 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_pink_circle"
-            android:contentDescription="@string/user_info_first_page" />
+            android:contentDescription="@string/user_info_first_page"
+            android:src="@drawable/ic_pink_circle" />
 
         <ImageView
             android:id="@+id/user_info_circle1_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle"
-            android:contentDescription="@string/user_info_second_page" />
+            android:contentDescription="@string/user_info_second_page"
+            android:src="@drawable/ic_default_circle" />
 
         <ImageView
             android:id="@+id/user_info_circle2_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle"
-            android:contentDescription="@string/user_info_third_page" />
+            android:contentDescription="@string/user_info_third_page"
+            android:src="@drawable/ic_default_circle" />
 
         <ImageView
             android:id="@+id/user_info_circle3_img"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
-            android:src="@drawable/ic_default_circle"
-            android:contentDescription="@string/user_info_forth_page" />
+            android:contentDescription="@string/user_info_forth_page"
+            android:src="@drawable/ic_default_circle" />
 
         <Button
             android:id="@+id/user_info_next_btn"
@@ -67,10 +69,11 @@
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
+            android:background="@drawable/blue_button_selector"
             android:text="@string/user_info_next_page"
-            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/blue_text_color_selector"
+            android:textColorLink="@color/blue_text_color_selector"
+            android:textColor="@color/blue_text_color_selector"
             android:textSize="16sp" />
     </LinearLayout>
-
 </RelativeLayout>
