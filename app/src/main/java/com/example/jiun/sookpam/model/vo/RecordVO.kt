@@ -8,5 +8,4 @@ open class RecordVO : RealmModel {
     var category: String? = null
     var division: String? = null
     var message: MessageVO? = null
-    var keyword: String? = null
 }

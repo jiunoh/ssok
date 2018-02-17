@@ -12,7 +12,6 @@ class RecordVOSerializer : JsonSerializer<RecordVO> {
         val jsonObject = JsonObject()
         jsonObject.addProperty("category", src.category)
         jsonObject.addProperty("division", src.division)
-        jsonObject.addProperty("keyword", src.keyword)
         jsonObject.addProperty("id", src.message!!.id)
         jsonObject.addProperty("phoneNumber", src.message!!.phoneNumber)
         jsonObject.addProperty("date", src.message!!.date.toString())

@@ -11,12 +11,17 @@ class RecordDBManager(val realm: Realm) {
         this.context = context as ContactDBManager
         var messageList = MessageList(realm).getList()
         for (message in messageList) {
-            if (doesMessageNotExist(message.body))
+            if (fromUniversity(message.phoneNumber) and doesNotExist(message.body))
                 createMessageCategory(message)
         }
     }
 
-    fun doesMessageNotExist(value: String?): Boolean {
+    fun fromUniversity(phoneNumber: String?): Boolean {
+        var result = realm.where(ContactVO::class.java).equalTo("phone", phoneNumber).findFirst()
+        return (result != null)
+    }
+
+    fun doesNotExist(value: String?): Boolean {
         var result = realm.where(RecordVO::class.java).equalTo("message.body", value).findFirst()
         return (result == null)
     }
@@ -24,8 +29,7 @@ class RecordDBManager(val realm: Realm) {
     fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
             var recordRecord: RecordVO = realm.createObject(RecordVO::class.java)
-            val department: String? = context.getKeywordOf(message.phoneNumber, realm)
-            recordRecord.keyword = department
+            val department: String? = context.getDepartmentOf(message.phoneNumber, realm)
             recordRecord.message = message
             recordRecord.division = department
             recordRecord.category = context.getCategory(department,realm)
@@ -40,7 +44,6 @@ class RecordDBManager(val realm: Realm) {
         for (record in messageList) {
             if (record.message != null) {
                 val msgBody: String by lazy<String> { (record.message as MessageVO).body }
-
                 responseList.add(msgBody)
             }
         }

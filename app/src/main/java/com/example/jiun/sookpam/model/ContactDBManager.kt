@@ -110,7 +110,7 @@ class ContactDBManager : Application() {
         Log.v("SUCCESS", "size : " + results.size)
     }
 
-    fun getKeywordOf(value: String, realm: Realm): String {
+    fun getDepartmentOf(value: String, realm: Realm): String {
         val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
         if (record == null)
             return VOID
@@ -118,11 +118,11 @@ class ContactDBManager : Application() {
             return record.class2
     }
 
-    fun getKeywordList(): ArrayList<String> {
-        var keywordVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
+    fun getDepartmentList(): ArrayList<String> {
+        var departmentLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
-        for (record in keywordVOLists)
+        for (record in departmentLists)
             responseList.add(record.class2)
         return responseList
     }
