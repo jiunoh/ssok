@@ -5,7 +5,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.jiun.sookpam"
         minSdkVersion 19
@@ -38,5 +38,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
-    compile 'gun0912.ted:tedpermission:2.1.0'
+    implementation 'gun0912.ted:tedpermission:2.1.0'
 }
