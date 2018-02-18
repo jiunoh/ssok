@@ -15,18 +15,17 @@ import kotlinx.android.synthetic.main.fragment_user_info4.*
 
 
 class UserInfo4Fragment : Fragment() {
-    private lateinit var userInfo4View: View
+    private var userInfo4View: View? = null
     private var userInfo4Activity: Activity? = null
-    private lateinit var userInfo4Context: Context
+    private var userInfo4Context: Context? = null
     private var detailButtons: ArrayList<Button> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo4View = inflater.inflate(R.layout.fragment_user_info4, container, false)
         userInfo4Activity = activity
-        userInfo4Context = userInfo4View.context
+        userInfo4Context = userInfo4View!!.context
         return userInfo4View
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -52,12 +51,12 @@ class UserInfo4Fragment : Fragment() {
 
     private fun changeButtonColor(button: Button) {
         if (button.currentTextColor
-                == ContextCompat.getColor(userInfo4Context, R.color.colorDarkGray)) {
+                == ContextCompat.getColor(userInfo4Context!!, R.color.colorDarkGray)) {
             button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
             button.setTextColor(Color.WHITE)
         } else {
             button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
-            button.setTextColor(ContextCompat.getColor(userInfo4Context, R.color.colorDarkGray))
+            button.setTextColor(ContextCompat.getColor(userInfo4Context!!, R.color.colorDarkGray))
         }
     }
 
@@ -84,10 +83,10 @@ class UserInfo4Fragment : Fragment() {
         val categoryName = button.text.toString()
         val categoryStatus = SharedPreferenceUtil
                 .get(userInfo4Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-        when(categoryStatus) {
+        when (categoryStatus) {
             PersonalCategory.NORMAL_CATEGORY -> {
                 button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
-                button.setTextColor(ContextCompat.getColor(userInfo4Context, R.color.colorDarkGray))
+                button.setTextColor(ContextCompat.getColor(userInfo4Context!!, R.color.colorDarkGray))
             }
             PersonalCategory.INTEREST_CATEGORY -> {
                 button.setBackgroundResource(R.drawable.circle_shape_gray)

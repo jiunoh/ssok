@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserInfoActivity : AppCompatActivity() {
     private lateinit var viewPager: CustomViewPager
-    private lateinit var currentFragment: Fragment
+    private var currentFragment: Fragment? = null
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
     private var circleImageViewArrayList: ArrayList<ImageView> = ArrayList(3)
@@ -65,6 +65,7 @@ class UserInfoActivity : AppCompatActivity() {
         previousButton.setOnClickListener {
             if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_4) {
                 nextButton.text = getText(R.string.user_info_next_page)
+                pagerAdapter.notifyDataSetChanged()
             }
             if (currentPage > SimpleFragmentPagerAdapter.USER_INFO_1) {
                 if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_2) {
@@ -81,6 +82,7 @@ class UserInfoActivity : AppCompatActivity() {
         nextButton.setOnClickListener {
             if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
                 nextButton.text = getText(R.string.user_info_done)
+                pagerAdapter.notifyDataSetChanged()
             }
             if (currentPage < SimpleFragmentPagerAdapter.USER_INFO_4) {
                 if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_1) {

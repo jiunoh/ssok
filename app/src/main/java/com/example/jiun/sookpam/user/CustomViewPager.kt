@@ -7,10 +7,10 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 
 class CustomViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
-    var pageenabled: Boolean = false
+    private var pageEnabled: Boolean = false
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
-        return if (pageenabled) {
+        return if (pageEnabled) {
             super.onInterceptTouchEvent(ev)
         } else {
             if (ev.actionMasked == MotionEvent.ACTION_MOVE) {
@@ -25,7 +25,7 @@ class CustomViewPager(context: Context, attrs: AttributeSet) : ViewPager(context
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent): Boolean {
-        return if (pageenabled) {
+        return if (pageEnabled) {
             super.onTouchEvent(ev)
         } else {
             ev.actionMasked != MotionEvent.ACTION_MOVE && super.onTouchEvent(ev)
@@ -33,6 +33,6 @@ class CustomViewPager(context: Context, attrs: AttributeSet) : ViewPager(context
     }
 
     fun setPagingEnabled(enabled: Boolean) {
-        pageenabled = enabled
+        pageEnabled = enabled
     }
 }

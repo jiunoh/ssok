@@ -13,9 +13,9 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.fragment_user_info1.*
 
 class UserInfo1Fragment : Fragment() {
-    private lateinit var userInfo1View: View
+    private var userInfo1View: View? = null
     private var userInfo1Activity: Activity? = null
-    private lateinit var userInfo1Context: Context
+    private var userInfo1Context: Context? = null
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
     private lateinit var majorSelectingButton: Button
@@ -23,7 +23,7 @@ class UserInfo1Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
         userInfo1Activity = activity
-        userInfo1Context = userInfo1View.context
+        userInfo1Context = userInfo1View!!.context
         return userInfo1View
     }
 
@@ -40,13 +40,13 @@ class UserInfo1Fragment : Fragment() {
         setSpinnerListener(studentGradeSpinner, STUDENT_GRADE)
     }
 
-    private fun setSpinnerListener(spinner: Spinner, key:String) {
+    private fun setSpinnerListener(spinner: Spinner, key: String) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(adapterView: AdapterView<*>) {
                 SharedPreferenceUtil.set(userInfo1Context, key, adapterView.getItemAtPosition(DEFAULT_POSITION).toString())
             }
 
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
                 SharedPreferenceUtil.set(userInfo1Context, key, adapterView.getItemAtPosition(position).toString())
             }
         }

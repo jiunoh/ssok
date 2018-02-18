@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.fragment_user_info2.*
 
 
 class UserInfo2Fragment : Fragment() {
-    private lateinit var userInfo2View: View
+    private var userInfo2View: View? = null
     private var userInfo2Activity: Activity? = null
-    private lateinit var userInfo2Context: Context
+    private var userInfo2Context: Context? = null
     private lateinit var schoolScholarShipCheckBox: CheckBox
     private lateinit var suburbanScholarShipCheckBox: CheckBox
     private lateinit var governmentScholarShipCheckBox: CheckBox
@@ -27,7 +27,7 @@ class UserInfo2Fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo2View = inflater.inflate(R.layout.fragment_user_info2, container, false)
         userInfo2Activity = activity
-        userInfo2Context = userInfo2View.context
+        userInfo2Context = userInfo2View!!.context
         return userInfo2View
     }
 

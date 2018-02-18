@@ -15,15 +15,15 @@ import kotlinx.android.synthetic.main.fragment_user_info3.*
 
 
 class UserInfo3Fragment : Fragment() {
-    private lateinit var userInfo3View: View
-    private var detailButtons: ArrayList<Button> = ArrayList()
+    private var userInfo3View: View? = null
     private var userInfo3Activity: Activity? = null
-    private lateinit var userInfo3Context: Context
+    private var userInfo3Context: Context? = null
+    private var detailButtons: ArrayList<Button> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo3View = inflater.inflate(R.layout.fragment_user_info3, container, false)
         userInfo3Activity = activity
-        userInfo3Context = userInfo3View.context
+        userInfo3Context = userInfo3View!!.context
         return userInfo3View
     }
 
@@ -52,10 +52,11 @@ class UserInfo3Fragment : Fragment() {
     private fun setCategoryButtonListener(button: Button) {
         val categoryName = button.text.toString()
         val currentKey = SharedPreferenceUtil.get(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-        when(currentKey) {
+        when (currentKey) {
             PersonalCategory.NORMAL_CATEGORY -> {
                 SharedPreferenceUtil.set(userInfo3Context, categoryName, PersonalCategory.INTEREST_CATEGORY)
                 changeButtonColor(button)
+
             }
             PersonalCategory.INTEREST_CATEGORY -> {
                 SharedPreferenceUtil.set(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
@@ -70,12 +71,12 @@ class UserInfo3Fragment : Fragment() {
 
     private fun changeButtonColor(button: Button) {
         if (button.currentTextColor
-                == ContextCompat.getColor(userInfo3Context, R.color.colorPrimary)) {
+                == ContextCompat.getColor(userInfo3Context!!, R.color.colorPrimary)) {
             button.setBackgroundResource(R.drawable.circle_shape_blue)
             button.setTextColor(Color.WHITE)
         } else {
             button.setBackgroundResource(R.drawable.circle_shape_white_blue)
-            button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+            button.setTextColor(ContextCompat.getColor(userInfo3Context!!, R.color.colorPrimary))
         }
     }
 
@@ -83,10 +84,10 @@ class UserInfo3Fragment : Fragment() {
         val categoryName = button.text.toString()
         val categoryStatus = SharedPreferenceUtil
                 .get(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-        when(categoryStatus) {
+        when (categoryStatus) {
             PersonalCategory.NORMAL_CATEGORY -> {
                 button.setBackgroundResource(R.drawable.circle_shape_white_blue)
-                button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+                button.setTextColor(ContextCompat.getColor(userInfo3Context!!, R.color.colorPrimary))
             }
             PersonalCategory.INTEREST_CATEGORY -> {
                 button.setBackgroundResource(R.drawable.circle_shape_blue)
