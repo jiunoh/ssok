@@ -9,12 +9,12 @@ import android.widget.LinearLayout;
 import com.example.jiun.sookpam.R;
 import com.example.jiun.sookpam.category.CategoryActivity;
 
-public class SettingActivity extends AppCompatActivity {
+public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_info);
 
         LinearLayout settingCategory = (LinearLayout) findViewById(R.id.setting_category);
         settingCategory.setOnClickListener(new View.OnClickListener() {
