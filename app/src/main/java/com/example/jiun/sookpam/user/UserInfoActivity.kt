@@ -37,6 +37,7 @@ class UserInfoActivity : AppCompatActivity() {
         viewPager.apply {
             this.setPagingEnabled(false)
             this.adapter = pagerAdapter
+            this.offscreenPageLimit = 3
             currentFragment = pagerAdapter.getItem(currentPage)
         }
     }
