@@ -46,6 +46,7 @@ class UserInfo4Fragment : Fragment() {
             button.setOnClickListener {
                 setCategoryButtonListener(button)
             }
+            getColorSet(button)
         }
     }
 
@@ -73,8 +74,28 @@ class UserInfo4Fragment : Fragment() {
                 changeButtonColor(button)
             }
             PersonalCategory.INTEREST_CATEGORY -> {
-                Toast.makeText(userInfo4Context, "해당 카테고리는 관심있는 카테고리로 설정되어 있습니다. 관심을 먼저 해제해주세요."
+                Toast.makeText(userInfo4Context, getString(R.string.user_info4_interest_already_checked)
                         , Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun getColorSet(button: Button) {
+        val categoryName = button.text.toString()
+        val categoryStatus = SharedPreferenceUtil
+                .get(userInfo4Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
+        when(categoryStatus) {
+            PersonalCategory.NORMAL_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
+                button.setTextColor(ContextCompat.getColor(userInfo4Context, R.color.colorDarkGray))
+            }
+            PersonalCategory.INTEREST_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_gray)
+                button.setTextColor(Color.WHITE)
+            }
+            PersonalCategory.UNINTEREST_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
+                button.setTextColor(Color.WHITE)
             }
         }
     }

@@ -43,5 +43,6 @@
     <string name="user_info_detail_career">취업</string>
     <string name="user_info4_title">세부정보 입력 (2/2)</string>
     <string name="user_info4_category">관심없는 카테고리를 선택해주세요\n(0개 이상)</string>
-    <string name="user_info3_uninterest_already_checked">해당 카테고리는 관심없는 카테고리로 설정되어 있습니다. 관심없음을 먼저 해제해주세요.</string>
+    <string name="user_info3_uninterest_already_checked">해당 카테고리는 관심없는 카테고리로 설정되어 있습니다. 관심없음 체크를 먼저 해제해주세요</string>
+    <string name="user_info4_interest_already_checked">해당 카테고리는 관심있는 카테고리로 설정되어 있습니다. 관심있음 체크를 먼저 해제해주세요</string>
 </resources>

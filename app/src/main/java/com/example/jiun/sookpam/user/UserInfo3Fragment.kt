@@ -45,17 +45,7 @@ class UserInfo3Fragment : Fragment() {
             button.setOnClickListener {
                 setCategoryButtonListener(button)
             }
-        }
-    }
-
-    private fun changeButtonColor(button: Button) {
-        if (button.currentTextColor
-                == ContextCompat.getColor(userInfo3Context, R.color.colorPrimary)) {
-            button.setBackgroundResource(R.drawable.circle_shape_blue)
-            button.setTextColor(Color.WHITE)
-        } else {
-            button.setBackgroundResource(R.drawable.circle_shape_white_blue)
-            button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+            getColorSet(button)
         }
     }
 
@@ -74,6 +64,37 @@ class UserInfo3Fragment : Fragment() {
             PersonalCategory.UNINTEREST_CATEGORY -> {
                 Toast.makeText(userInfo3Context, getString(R.string.user_info3_uninterest_already_checked)
                         , Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun changeButtonColor(button: Button) {
+        if (button.currentTextColor
+                == ContextCompat.getColor(userInfo3Context, R.color.colorPrimary)) {
+            button.setBackgroundResource(R.drawable.circle_shape_blue)
+            button.setTextColor(Color.WHITE)
+        } else {
+            button.setBackgroundResource(R.drawable.circle_shape_white_blue)
+            button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+        }
+    }
+
+    private fun getColorSet(button: Button) {
+        val categoryName = button.text.toString()
+        val categoryStatus = SharedPreferenceUtil
+                .get(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
+        when(categoryStatus) {
+            PersonalCategory.NORMAL_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_white_blue)
+                button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+            }
+            PersonalCategory.INTEREST_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_blue)
+                button.setTextColor(Color.WHITE)
+            }
+            PersonalCategory.UNINTEREST_CATEGORY -> {
+                button.setBackgroundResource(R.drawable.circle_shape_gray)
+                button.setTextColor(Color.WHITE)
             }
         }
     }
