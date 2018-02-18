@@ -25,6 +25,7 @@
         android:textSize="20sp" />
 
     <CheckBox
+        android:id="@+id/user_info2_school_scholarship_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -32,6 +33,7 @@
         android:textSize="18sp" />
 
     <CheckBox
+        android:id="@+id/user_info2_suburban_scholarship_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
@@ -39,6 +41,7 @@
         android:textSize="18sp" />
 
     <CheckBox
+        android:id="@+id/user_info2_government_scholarship_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -54,12 +57,14 @@
         android:textSize="20sp" />
 
     <RadioGroup
+        android:id="@+id/user_info2_status_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/user_info2_status_in_radio_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
@@ -67,9 +72,10 @@
             android:textSize="18sp" />
 
         <RadioButton
+            android:id="@+id/user_info2_status_out_radio_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_info2_leave"
+            android:text="@string/user_info2_out"
             android:textSize="18sp" />
     </RadioGroup>
 </LinearLayout>

@@ -31,7 +31,7 @@
     <string name="user_info2_scholarship3">국가 장학금</string>
     <string name="user_info2_status">재학/휴학 여부를 선택해주세요</string>
     <string name="user_info2_in">재학</string>
-    <string name="user_info2_leave">휴학</string>
+    <string name="user_info2_out">휴학</string>
     <string name="user_info3_title">세부정보 입력 (1/2)</string>
     <string name="user_info3_category">관심있는 카테고리를 선택해주세요\n(3개 이상)</string>
     <string name="user_info_detail_scholarship">장학</string>
