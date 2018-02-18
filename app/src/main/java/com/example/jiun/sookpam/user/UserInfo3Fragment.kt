@@ -8,7 +8,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.view.*
 import android.widget.Button
+import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.fragment_user_info3.*
 
 
@@ -41,7 +43,7 @@ class UserInfo3Fragment : Fragment() {
 
         for (button in detailButtons) {
             button.setOnClickListener {
-                changeButtonColor(button)
+                setCategoryButtonListener(button)
             }
         }
     }
@@ -54,6 +56,25 @@ class UserInfo3Fragment : Fragment() {
         } else {
             button.setBackgroundResource(R.drawable.circle_shape_white_blue)
             button.setTextColor(ContextCompat.getColor(userInfo3Context, R.color.colorPrimary))
+        }
+    }
+
+    private fun setCategoryButtonListener(button: Button) {
+        val categoryName = button.text.toString()
+        val currentKey = SharedPreferenceUtil.get(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
+        when(currentKey) {
+            PersonalCategory.NORMAL_CATEGORY -> {
+                SharedPreferenceUtil.set(userInfo3Context, categoryName, PersonalCategory.INTEREST_CATEGORY)
+                changeButtonColor(button)
+            }
+            PersonalCategory.INTEREST_CATEGORY -> {
+                SharedPreferenceUtil.set(userInfo3Context, categoryName, PersonalCategory.NORMAL_CATEGORY)
+                changeButtonColor(button)
+            }
+            PersonalCategory.UNINTEREST_CATEGORY -> {
+                Toast.makeText(userInfo3Context, getString(R.string.user_info3_uninterest_already_checked)
+                        , Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
