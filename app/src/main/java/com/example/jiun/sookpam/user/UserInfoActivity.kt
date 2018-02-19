@@ -3,11 +3,12 @@ package com.example.jiun.sookpam.user
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserInfoActivity : AppCompatActivity() {
@@ -80,19 +81,48 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun moveNext() {
         nextButton.setOnClickListener {
-            if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
-                nextButton.text = getText(R.string.user_info_done)
-                pagerAdapter.notifyDataSetChanged()
-            }
             if (currentPage < SimpleFragmentPagerAdapter.USER_INFO_4) {
                 if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_1) {
                     previousButton.visibility = View.VISIBLE
                 }
-                currentPage += 1
-                viewPager.setCurrentItem(currentPage, true)
-                changeCircleColor(MOVE_NEXT_PAGE)
+                if (isConditionsFulfilled()) {
+                    if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
+                        nextButton.text = getText(R.string.user_info_done)
+                        pagerAdapter.notifyDataSetChanged()
+                    }
+                    currentPage += 1
+                    viewPager.setCurrentItem(currentPage, true)
+                    changeCircleColor(MOVE_NEXT_PAGE)
+                }
+                else {
+                    Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    private fun isConditionsFulfilled(): Boolean {
+        when (currentPage) {
+            SimpleFragmentPagerAdapter.USER_INFO_1 -> {
+
+            }
+            SimpleFragmentPagerAdapter.USER_INFO_2 -> {
+                val status = SharedPreferenceUtil.get(applicationContext, UserInfo2Fragment.STUDENT_STATUS, "")
+                if (status == "") return false
+            }
+            SimpleFragmentPagerAdapter.USER_INFO_3 -> {
+                if (countInterestCategories() < 3) return false
+            }
+        }
+        return true
+    }
+
+    private fun countInterestCategories(): Int {
+        return PersonalCategory.categories.count { getCategoryStatus(it) == PersonalCategory.INTEREST_CATEGORY }
+    }
+
+    private fun getCategoryStatus(key: String): Int {
+        return SharedPreferenceUtil.get(applicationContext, key, PersonalCategory.NORMAL_CATEGORY)
     }
 
     private fun changeCircleColor(doesMovePrevious: Boolean) {
@@ -104,10 +134,6 @@ class UserInfoActivity : AppCompatActivity() {
                 }
         circleImageViewArrayList[previousPage].setImageResource(R.drawable.ic_default_circle)
         circleImageViewArrayList[currentPage].setImageResource(R.drawable.ic_pink_circle)
-    }
-
-    fun getViewPager(): ViewPager {
-        return viewPager
     }
 
     companion object {
