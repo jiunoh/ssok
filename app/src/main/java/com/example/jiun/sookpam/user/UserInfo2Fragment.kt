@@ -36,6 +36,11 @@ class UserInfo2Fragment : Fragment() {
         initialize()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadPage2Data()
+    }
+
     private fun initialize() {
         schoolScholarShipCheckBox = user_info2_school_scholarship_checkbox
         suburbanScholarShipCheckBox = user_info2_suburban_scholarship_checkbox
@@ -49,12 +54,32 @@ class UserInfo2Fragment : Fragment() {
         setStatusListener()
     }
 
+    private fun loadPage2Data() {
+        loadCheckBoxData(schoolScholarShipCheckBox)
+        loadCheckBoxData(suburbanScholarShipCheckBox)
+        loadCheckBoxData(governmentScholarShipCheckBox)
+        loadRadioGroupData(studentStatusRadioGroup)
+    }
+
+    private fun loadRadioGroupData(radioGroup: RadioGroup) {
+        val selectedRadioButton = SharedPreferenceUtil.get(userInfo2Context, STUDENT_STATUS, true)
+        if (selectedRadioButton) {
+            radioGroup.check(statusInRadioButton.id)
+        } else {
+            radioGroup.check(statusOutRadioButton.id)
+        }
+    }
+
+    private fun loadCheckBoxData(checkBox: CheckBox) {
+        checkBox.isChecked = SharedPreferenceUtil.get(userInfo2Context, checkBox.text.toString(), false)
+    }
+
     private fun setCheckBoxListener(checkBox: CheckBox) {
         checkBox.setOnClickListener {
             if (checkBox.isChecked) {
-                SharedPreferenceUtil.set(userInfo2Context, checkBox.text.toString(), UNCHECKED)
-            } else {
                 SharedPreferenceUtil.set(userInfo2Context, checkBox.text.toString(), CHECKED)
+            } else {
+                SharedPreferenceUtil.set(userInfo2Context, checkBox.text.toString(), UNCHECKED)
             }
         }
     }
