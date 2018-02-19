@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import com.example.jiun.sookpam.R
@@ -19,11 +20,15 @@ class UserInfo1Fragment : Fragment() {
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
     private lateinit var majorSelectingButton: Button
+    private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
+    private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
         userInfo1Activity = activity
         userInfo1Context = userInfo1View!!.context
+        yearSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
+        gradeSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
         return userInfo1View
     }
 
@@ -32,18 +37,28 @@ class UserInfo1Fragment : Fragment() {
         initialize()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadDefaultInfo1(studentYearSpinner, studentGradeSpinner)
+    }
+
     private fun initialize() {
         studentYearSpinner = user_info1_student_year_spinner
         studentGradeSpinner = user_info1_student_grade_spinner
+        setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR)
+        setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
         majorSelectingButton = user_info1_major_btn
-        setSpinnerListener(studentYearSpinner, STUDENT_YEAR)
-        setSpinnerListener(studentGradeSpinner, STUDENT_GRADE)
+    }
+
+    private fun setSpinnerAdapter(spinner: Spinner, spinnerArrayAdapter: ArrayAdapter<String>, name: String) {
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        spinner.adapter = spinnerArrayAdapter
+        setSpinnerListener(spinner, name)
     }
 
     private fun setSpinnerListener(spinner: Spinner, key: String) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(adapterView: AdapterView<*>) {
-                SharedPreferenceUtil.set(userInfo1Context, key, adapterView.getItemAtPosition(DEFAULT_POSITION).toString())
             }
 
             override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -52,10 +67,16 @@ class UserInfo1Fragment : Fragment() {
         }
     }
 
+    private fun loadDefaultInfo1(yearSpinner: Spinner, gradeSpinner: Spinner) {
+        val selectedYear = SharedPreferenceUtil.get(userInfo1Context, STUDENT_YEAR, "18")
+        val selectedGrade = SharedPreferenceUtil.get(userInfo1Context, STUDENT_GRADE, "1 학년")
+        yearSpinner.setSelection(yearSpinnerArrayAdapter.getPosition(selectedYear))
+        gradeSpinner.setSelection(gradeSpinnerArrayAdapter.getPosition(selectedGrade))
+    }
+
     companion object {
         const val STUDENT_YEAR = "student_year"
         const val STUDENT_GRADE = "student_grade"
-        const val DEFAULT_POSITION = 0
     }
 }
 
