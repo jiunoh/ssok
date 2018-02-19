@@ -28,6 +28,12 @@ realm {
     kotlinExtensionsEnabled = true
 }
 
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -39,5 +45,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation 'gun0912.ted:tedpermission:2.1.0'
-    implementation 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
 }

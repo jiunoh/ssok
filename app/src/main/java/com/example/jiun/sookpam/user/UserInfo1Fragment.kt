@@ -3,6 +3,7 @@ package com.example.jiun.sookpam.user
 import android.app.Activity
 import android.support.v4.app.Fragment
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
@@ -48,6 +49,10 @@ class UserInfo1Fragment : Fragment() {
         setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR)
         setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
         majorSelectingButton = user_info1_major_btn
+        majorSelectingButton.setOnClickListener{
+            val intent = Intent(userInfo1Context, MajorActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setSpinnerAdapter(spinner: Spinner, spinnerArrayAdapter: ArrayAdapter<String>, name: String) {
