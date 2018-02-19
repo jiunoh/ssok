@@ -39,7 +39,7 @@ class UserInfo1Fragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadDefaultInfo1(studentYearSpinner, studentGradeSpinner)
+        loadPage1Data(studentYearSpinner, studentGradeSpinner)
     }
 
     private fun initialize() {
@@ -67,7 +67,7 @@ class UserInfo1Fragment : Fragment() {
         }
     }
 
-    private fun loadDefaultInfo1(yearSpinner: Spinner, gradeSpinner: Spinner) {
+    private fun loadPage1Data(yearSpinner: Spinner, gradeSpinner: Spinner) {
         val selectedYear = SharedPreferenceUtil.get(userInfo1Context, STUDENT_YEAR, "18")
         val selectedGrade = SharedPreferenceUtil.get(userInfo1Context, STUDENT_GRADE, "1 학년")
         yearSpinner.setSelection(yearSpinnerArrayAdapter.getPosition(selectedYear))
