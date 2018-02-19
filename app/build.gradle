@@ -39,4 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     implementation 'gun0912.ted:tedpermission:2.1.0'
+    implementation 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
 }
