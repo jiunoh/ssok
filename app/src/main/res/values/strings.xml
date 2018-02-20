@@ -47,4 +47,17 @@
     <string name="user_info4_interest_already_checked">해당 카테고리는 관심있는 카테고리로 설정되어 있습니다. 관심있음 체크를 먼저 해제해주세요</string>
     <string name="major_select_toolbar_title">학부/학과 선택</string>
     <string name="major_back_description">Go back to user information setting form</string>
+    <string name="college_liberalarts">문과대학</string>
+    <string name="college_science">이과대학</string>
+    <string name="college_engineering">공과대학</string>
+    <string name="college_human_ecology">생활과학대학</string>
+    <string name="college_social_sciences">사회대학</string>
+    <string name="college_law">법과대학</string>
+    <string name="college_economics_business_administration">경상대학</string>
+    <string name="college_music">음악대학</string>
+    <string name="college_pharmacy">약학대학</string>
+    <string name="college_fine_art">미술대학</string>
+    <string name="school_global_service">글로벌서비스학부</string>
+    <string name="school_english">영어영문학부</string>
+    <string name="school_communication_media">미디어학부</string>
 </resources>

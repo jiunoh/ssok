@@ -37,9 +37,24 @@ class MajorActivity : AppCompatActivity() {
     }
 
     private fun createList() {
-        data.add(MajorItemModel("단과대학", Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
-        data.add(MajorItemModel("기타", Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
+        data.add(getMajorItemModel(getString(R.string.college_liberalarts)))
+        data.add(getMajorItemModel(getString(R.string.college_science)))
+        data.add(getMajorItemModel(getString(R.string.college_engineering)))
+        data.add(getMajorItemModel(getString(R.string.college_human_ecology)))
+        data.add(getMajorItemModel(getString(R.string.college_social_sciences)))
+        data.add(getMajorItemModel(getString(R.string.college_law)))
+        data.add(getMajorItemModel(getString(R.string.college_economics_business_administration)))
+        data.add(getMajorItemModel(getString(R.string.college_music)))
+        data.add(getMajorItemModel(getString(R.string.college_pharmacy)))
+        data.add(getMajorItemModel(getString(R.string.college_fine_art)))
+        data.add(getMajorItemModel(getString(R.string.school_global_service)))
+        data.add(getMajorItemModel(getString(R.string.school_english)))
+        data.add(getMajorItemModel(getString(R.string.school_communication_media)))
         collegeRecyclerView.adapter = CollegeRecyclerAdapter(data)
+    }
+
+    private fun getMajorItemModel(college: String): MajorItemModel {
+        return MajorItemModel(college, Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR))
     }
 
     private fun setToolbar() {
