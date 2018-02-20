@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.user.major
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.example.jiun.sookpam.CustomLinearLayoutManager
 import com.example.jiun.sookpam.R
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter
 import com.github.aakira.expandablelayout.ExpandableLinearLayout
@@ -17,8 +19,8 @@ import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.college_recycler_item.view.*
 
 class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapter<CollegeRecyclerAdapter.ViewHolder>() {
-
     lateinit var context: Context
+    lateinit var layoutManager: RecyclerView.LayoutManager
     var expandState: SparseBooleanArray = SparseBooleanArray()
 
     init {
@@ -30,14 +32,19 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
+        layoutManager = CustomLinearLayoutManager(context)
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.college_recycler_item, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder?, @SuppressLint("RecyclerView") position: Int) {
         val item = data[position]
         holder!!.setIsRecyclable(false)
         holder.collegeTextView.text = item.college
-        
+        holder.majorRecyclerView.layoutManager = layoutManager
+        val arrayList = ArrayList<String>()
+        arrayList.add("1")
+        arrayList.add("2")
+        holder.majorRecyclerView.adapter = MajorRecyclerAdapter(arrayList)
         holder.itemView.setBackgroundColor(Color.WHITE)
         holder.expandableLayout.setInRecyclerView(true)
         holder.expandableLayout.setBackgroundColor(Color.WHITE)
@@ -78,6 +85,6 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
         var collegeTextView: TextView = v.major_college_txt
         var majorRecyclerView: RecyclerView = v.major_recycler_view
         var collegeRelativeLayout: RelativeLayout = v.major_college_relative
-        var expandableLayout: ExpandableLinearLayout = v.major_expandableLayout
+        var expandableLayout: ExpandableLinearLayout = v.major_expandable_layout
     }
 }

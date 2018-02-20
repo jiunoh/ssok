@@ -10,12 +10,15 @@ import android.widget.ImageButton
 import com.example.jiun.sookpam.R
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.activity_college_recycler_view.*
+import kotlinx.android.synthetic.main.college_recycler_item.*
 
 class MajorRecyclerViewActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var backImageButton: ImageButton
-    private lateinit var recyclerView:RecyclerView
+    private lateinit var collegeRecyclerView:RecyclerView
+    private lateinit var majorRecyclerView: RecyclerView
     private var data:ArrayList<MajorItemModel> = ArrayList()
+    private var majorData:ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +29,10 @@ class MajorRecyclerViewActivity : AppCompatActivity() {
 
     private fun initialize() {
         setToolbar()
-        recyclerView = college_recycler_view
-        recyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerView.addItemDecoration(DividerItemDecoration(applicationContext, LinearLayoutManager(applicationContext).orientation))
+        collegeRecyclerView = college_recycler_view
+        collegeRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        collegeRecyclerView.addItemDecoration(DividerItemDecoration(applicationContext, LinearLayoutManager(applicationContext).orientation))
+
         backImageButton = major_back_image_btn
         backImageButton.setOnClickListener {
             finish()
@@ -36,10 +40,11 @@ class MajorRecyclerViewActivity : AppCompatActivity() {
     }
 
     private fun createList() {
-        val list = ArrayList<String>()
-        list.add("학과")
-        data.add(MajorItemModel("단과대학", list, Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
-        recyclerView.adapter = CollegeRecyclerAdapter(data)
+        data.add(MajorItemModel("단과대학", majorData, Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
+        collegeRecyclerView.adapter = CollegeRecyclerAdapter(data)
+
+        majorData.add("학과1")
+        majorData.add("학과2")
     }
 
     private fun setToolbar() {

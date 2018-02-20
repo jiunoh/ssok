@@ -33,7 +33,7 @@
     </RelativeLayout>
 
     <com.github.aakira.expandablelayout.ExpandableLinearLayout
-        android:id="@+id/major_expandableLayout"
+        android:id="@+id/major_expandable_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/major_college_txt"
@@ -42,6 +42,7 @@
         app:ael_expanded="false">
 
         <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/major_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
