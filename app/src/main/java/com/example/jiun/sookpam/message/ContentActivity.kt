@@ -8,6 +8,7 @@ import com.example.jiun.sookpam.R
 import android.content.Intent
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import com.example.jiun.sookpam.R.id.action_star
 import com.example.jiun.sookpam.clip.ClipDBManager
 import io.realm.Realm
@@ -23,6 +24,13 @@ class ContentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
         setToolbar()
+        val intent = intent
+        title = intent.getStringExtra("title")
+        val body = intent.getStringExtra("body")
+        val titleView = title_view
+        val bodyView = content_view
+        titleView.setText(title)
+        bodyView.text = body
     }
 
     private fun setToolbar() {

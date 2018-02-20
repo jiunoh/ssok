@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.jiun.sookpam.R;
 import com.example.jiun.sookpam.RecyclerItemClickListener;
+import com.example.jiun.sookpam.message.ContentActivity;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
@@ -60,7 +61,7 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void showMessageBody(DataItem data) {
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent(this, ContentActivity.class);
         intent.putExtra("title", data.getTitle());
         intent.putExtra("body", data.getBody());
         startActivity(intent);

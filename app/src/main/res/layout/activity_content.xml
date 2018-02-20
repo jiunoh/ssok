@@ -40,7 +40,7 @@
             android:text="장학팀 02-0505-9898"/>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/info"
@@ -49,10 +49,10 @@
             android:text="[장학]아산장학재단 장학금 신청 안내"/>
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/content_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
+            android:layout_below="@id/title_view"
             android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다." />
     </RelativeLayout>
 
