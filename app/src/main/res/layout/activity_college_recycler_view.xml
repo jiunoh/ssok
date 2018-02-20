@@ -11,8 +11,8 @@
         android:id="@+id/major_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
         android:background="@android:color/white"
+        android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -20,19 +20,19 @@
             android:id="@+id/major_back_image_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_button"
-            android:background="@null"
             android:layout_marginEnd="20dp"
-            android:contentDescription="@string/major_back_description" />
+            android:background="@null"
+            android:contentDescription="@string/major_back_description"
+            android:src="@drawable/ic_back_button" />
 
         <TextView
             android:id="@+id/major_toolbar_title_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/major_select_toolbar_title"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
-            android:gravity="center"/>
+            android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
@@ -40,8 +40,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
-        <android.support.v7.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/college_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

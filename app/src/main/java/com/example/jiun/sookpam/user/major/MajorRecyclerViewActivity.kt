@@ -10,15 +10,12 @@ import android.widget.ImageButton
 import com.example.jiun.sookpam.R
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.activity_college_recycler_view.*
-import kotlinx.android.synthetic.main.college_recycler_item.*
 
 class MajorRecyclerViewActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var backImageButton: ImageButton
     private lateinit var collegeRecyclerView:RecyclerView
-    private lateinit var majorRecyclerView: RecyclerView
     private var data:ArrayList<MajorItemModel> = ArrayList()
-    private var majorData:ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,7 +13,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_toStartOf="@id/major_college_relative"
-        android:gravity="center"
         android:padding="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
@@ -24,6 +23,7 @@
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
         android:gravity="center">
 
         <View
@@ -41,11 +41,9 @@
         app:ael_duration="400"
         app:ael_expanded="false">
 
-        <android.support.v7.widget.RecyclerView
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/major_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
+            android:layout_height="match_parent" />
     </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 </RelativeLayout>
