@@ -40,11 +40,9 @@ class MajorRecyclerViewActivity : AppCompatActivity() {
     }
 
     private fun createList() {
-        data.add(MajorItemModel("단과대학", majorData, Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
+        data.add(MajorItemModel("단과대학", Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
+        data.add(MajorItemModel("기타", Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
         collegeRecyclerView.adapter = CollegeRecyclerAdapter(data)
-
-        majorData.add("학과1")
-        majorData.add("학과2")
     }
 
     private fun setToolbar() {
