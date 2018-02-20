@@ -9,9 +9,9 @@ import android.support.v7.widget.Toolbar
 import android.widget.ImageButton
 import com.example.jiun.sookpam.R
 import com.github.aakira.expandablelayout.Utils
-import kotlinx.android.synthetic.main.activity_college_recycler_view.*
+import kotlinx.android.synthetic.main.activity_major.*
 
-class MajorRecyclerViewActivity : AppCompatActivity() {
+class MajorActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var backImageButton: ImageButton
     private lateinit var collegeRecyclerView:RecyclerView
@@ -19,7 +19,7 @@ class MajorRecyclerViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_college_recycler_view)
+        setContentView(R.layout.activity_major)
         initialize()
         createList()
     }

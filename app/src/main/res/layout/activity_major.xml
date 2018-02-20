@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.major.MajorRecyclerViewActivity">
+    tools:context="com.example.jiun.sookpam.user.major.MajorActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/major_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:minHeight="?attr/actionBarSize"
+        android:minHeight="64dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 

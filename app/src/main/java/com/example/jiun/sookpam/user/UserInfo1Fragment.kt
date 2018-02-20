@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.user.major.MajorRecyclerViewActivity
+import com.example.jiun.sookpam.user.major.MajorActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.fragment_user_info1.*
 
@@ -51,7 +51,7 @@ class UserInfo1Fragment : Fragment() {
         setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
         majorSelectingButton = user_info1_major_btn
         majorSelectingButton.setOnClickListener{
-            val intent = Intent(userInfo1Context, MajorRecyclerViewActivity::class.java)
+            val intent = Intent(userInfo1Context, MajorActivity::class.java)
             startActivity(intent)
         }
     }
