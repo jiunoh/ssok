@@ -23,7 +23,7 @@
     <string name="user_info1_student_year">학번을 선택해주세요</string>
     <string name="user_info1_student_grade">학년을 선택해주세요</string>
     <string name="user_info1_major">전공을 추가해주세요 (복수 선택 가능)</string>
-    <string name="user_info_major_add">추가하기</string>
+    <string name="user_info1_add_major">추가하기</string>
     <string name="user_info2_title">기본정보 입력 (2/2)</string>
     <string name="user_info2_scholarship">수혜받는 장학금의 종류를 선택해주세요</string>
     <string name="user_info2_scholarship1">교내 장학금</string>

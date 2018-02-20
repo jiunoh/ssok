@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.*
 import com.example.jiun.sookpam.R
@@ -19,7 +21,7 @@ class UserInfo1Fragment : Fragment() {
     private var userInfo1Context: Context? = null
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
-    private lateinit var majorsTextView: TextView
+    private lateinit var majorsRecyclerView: RecyclerView
     private lateinit var majorSelectingButton: Button
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
@@ -48,12 +50,13 @@ class UserInfo1Fragment : Fragment() {
         studentGradeSpinner = user_info1_student_grade_spinner
         setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR)
         setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
-        majorsTextView = user_info1_majors_txt
         majorSelectingButton = user_info1_major_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
             startActivityForResult(intent, MAJOR_REQUEST_CODE)
         }
+        majorsRecyclerView = user_info1_majors_recycler_view
+        majorsRecyclerView.layoutManager = LinearLayoutManager(userInfo1Context)
         loadMajors()
     }
 
@@ -88,17 +91,21 @@ class UserInfo1Fragment : Fragment() {
     }
 
     private fun loadMajors() {
+        val selectedMajors = ArrayList<String>()
         for (college in MajorList.collegeAndMajors) {
             for (major in college) {
                 val doesMajorSelected = SharedPreferenceUtil.get(userInfo1Context, major, false)
                 if (doesMajorSelected) {
-                    majorsTextView.append(major + "\n")
+                    selectedMajors.add(major)
                 }
             }
         }
-        if (majorsTextView.text != null) {
+        if (selectedMajors.size > 0) {
             majorSelectingButton.text = getString(R.string.user_info1_change_major)
+        } else {
+            majorSelectingButton.text = getString(R.string.user_info1_add_major)
         }
+        majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(selectedMajors)
     }
 
     companion object {
