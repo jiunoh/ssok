@@ -13,4 +13,5 @@
     <string name="start_message_synchronization">메세지 동기화를 시작합니다.</string>
     <string name="end_message_synchronization">메세지 동기화를 완료했습니다.</string>
     <string name="scrap">스크랩</string>
+    <string name="related">이 글과 관련된 글</string>
 </resources>

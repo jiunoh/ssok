@@ -7,6 +7,7 @@ import io.realm.Realm
 
 class RecordDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
+
     fun categorizeMessages(context: Context) {
         this.context = context as ContactDBManager
         var messageList = MessageList(realm).getList()
