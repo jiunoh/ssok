@@ -1,5 +1,7 @@
 package com.example.jiun.sookpam.user.major
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -32,6 +34,7 @@ class MajorActivity : AppCompatActivity() {
 
         backImageButton = major_back_image_btn
         backImageButton.setOnClickListener {
+            setResult(Activity.RESULT_OK)
             finish()
         }
     }

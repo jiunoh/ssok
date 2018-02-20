@@ -61,4 +61,5 @@
     <string name="school_english">영어영문학부</string>
     <string name="school_communication_media">미디어학부</string>
     <string name="select_interest_major">Select interest major</string>
+    <string name="user_info1_change_major">변경하기</string>
 </resources>

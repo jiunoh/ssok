@@ -6,12 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.major.MajorActivity
+import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.fragment_user_info1.*
 
@@ -21,6 +19,7 @@ class UserInfo1Fragment : Fragment() {
     private var userInfo1Context: Context? = null
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
+    private lateinit var majorsTextView: TextView
     private lateinit var majorSelectingButton: Button
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
@@ -49,11 +48,13 @@ class UserInfo1Fragment : Fragment() {
         studentGradeSpinner = user_info1_student_grade_spinner
         setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR)
         setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
+        majorsTextView = user_info1_majors_txt
         majorSelectingButton = user_info1_major_btn
-        majorSelectingButton.setOnClickListener{
+        majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, MAJOR_REQUEST_CODE)
         }
+        loadMajors()
     }
 
     private fun setSpinnerAdapter(spinner: Spinner, spinnerArrayAdapter: ArrayAdapter<String>, name: String) {
@@ -80,9 +81,30 @@ class UserInfo1Fragment : Fragment() {
         gradeSpinner.setSelection(gradeSpinnerArrayAdapter.getPosition(selectedGrade))
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            loadMajors()
+        }
+    }
+
+    private fun loadMajors() {
+        for (college in MajorList.collegeAndMajors) {
+            for (major in college) {
+                val doesMajorSelected = SharedPreferenceUtil.get(userInfo1Context, major, false)
+                if (doesMajorSelected) {
+                    majorsTextView.append(major + "\n")
+                }
+            }
+        }
+        if (majorsTextView.text != null) {
+            majorSelectingButton.text = getString(R.string.user_info1_change_major)
+        }
+    }
+
     companion object {
         const val STUDENT_YEAR = "student_year"
         const val STUDENT_GRADE = "student_grade"
+        const val MAJOR_REQUEST_CODE = 0
     }
 }
 
