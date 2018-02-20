@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.main;
 
 import android.graphics.drawable.Drawable;
 

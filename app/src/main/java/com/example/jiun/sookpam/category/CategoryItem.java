@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.category;
 
 public class CategoryItem {
     private String category;
