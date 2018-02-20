@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.Utils
@@ -46,6 +47,7 @@ class MajorActivity : AppCompatActivity() {
         confirmButton = major_select_confirm_btn
         confirmButton.setOnClickListener {
             setResult(Activity.RESULT_OK)
+            Toast.makeText(applicationContext, getString(R.string.save_toast), Toast.LENGTH_SHORT).show()
             finish()
         }
 
