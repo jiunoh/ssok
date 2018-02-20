@@ -13,10 +13,13 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.jiun.sookpam.CustomLinearLayoutManager
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.RecyclerItemClickListener
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter
 import com.github.aakira.expandablelayout.ExpandableLinearLayout
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.college_recycler_item.view.*
+import kotlinx.android.synthetic.main.major_recycler_item.view.*
 
 class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapter<CollegeRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
@@ -142,6 +145,17 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
                 arrayList.add("미디어학부")
             }
         }
+        holder.majorRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
+                RecyclerItemClickListener.OnItemClickListener { view, position ->
+                    val isCurrentItemChecked = SharedPreferenceUtil.get(context, view.major_txt.toString(), MajorRecyclerAdapter.UNCHECKED)
+                    if (isCurrentItemChecked) {
+                        SharedPreferenceUtil.set(context, view.major_txt.toString(), MajorRecyclerAdapter.UNCHECKED)
+                        view.major_check_img.setImageResource(R.drawable.ic_check_white)
+                    } else {
+                        SharedPreferenceUtil.set(context, view.major_txt.toString(), MajorRecyclerAdapter.CHECKED)
+                        view.major_check_img.setImageResource(R.drawable.ic_check_pink)
+                    }
+                }))
         holder.majorRecyclerView.adapter = MajorRecyclerAdapter(arrayList)
     }
 

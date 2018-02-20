@@ -60,4 +60,5 @@
     <string name="school_global_service">글로벌서비스학부</string>
     <string name="school_english">영어영문학부</string>
     <string name="school_communication_media">미디어학부</string>
+    <string name="select_interest_major">Select interest major</string>
 </resources>

@@ -14,7 +14,8 @@ class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorR
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.major_recycler_item, parent, false))
+        val view = LayoutInflater.from(context).inflate(R.layout.major_recycler_item, parent, false)
+        return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -27,8 +28,12 @@ class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorR
         holder.itemView.setBackgroundColor(Color.WHITE)
     }
 
-
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var majorTextView = v.major_txt!!
+    }
+
+    companion object {
+        const val UNCHECKED = false
+        const val CHECKED = true
     }
 }
