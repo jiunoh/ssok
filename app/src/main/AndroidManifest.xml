@@ -17,11 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
         <activity android:name=".main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -34,6 +29,13 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".data.DetailActivity" />
+        <activity android:name=".message.ContentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
