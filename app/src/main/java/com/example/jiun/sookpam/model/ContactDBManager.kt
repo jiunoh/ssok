@@ -121,4 +121,9 @@ class ContactDBManager : Application() {
             responseList.add(record.class2)
         return responseList
     }
+
+    fun getInfo(division: String) : String {
+        val result = realm.where(ContactVO::class.java).distinctValues("class2").findFirst()
+        return result!!.phone
+    }
 }

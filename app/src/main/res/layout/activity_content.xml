@@ -22,20 +22,18 @@
         android:padding="24dp">
 
         <TextView
-            android:id="@+id/category"
+            android:id="@+id/category_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="공지 > 장학"
             android:textSize="16sp"
-            android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            android:layout_marginBottom="8dp" />
 
         <TextView
-            android:id="@+id/info"
+            android:id="@+id/info_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/category"
+            android:layout_below="@id/category_view"
             android:layout_marginBottom="8dp"
             android:text="장학팀 02-0505-9898"/>
 
@@ -43,7 +41,7 @@
             android:id="@+id/title_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/info"
+            android:layout_below="@id/info_view"
             android:textSize="24sp"
             android:layout_marginBottom="8dp"
             android:text="[장학]아산장학재단 장학금 신청 안내"/>

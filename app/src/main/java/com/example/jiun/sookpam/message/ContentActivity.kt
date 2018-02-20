@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.TextView
 import com.example.jiun.sookpam.R.id.action_star
 import com.example.jiun.sookpam.clip.ClipDBManager
+import com.example.jiun.sookpam.model.ContactDBManager
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 
@@ -25,12 +26,15 @@ class ContentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_content)
         setToolbar()
         val intent = intent
+        val division = intent.getStringExtra("division")
         title = intent.getStringExtra("title")
         val body = intent.getStringExtra("body")
-        val titleView = title_view
-        val bodyView = content_view
-        titleView.setText(title)
-        bodyView.text = body
+        title_view.setText(title)
+        content_view.text = body
+        val category = (applicationContext as ContactDBManager).getCategory(division, Realm.getDefaultInstance())
+        category_view.setText(category + "/"+division)
+        val info = (applicationContext as ContactDBManager).getInfo(division)
+        info_view.setText(info)
     }
 
     private fun setToolbar() {
@@ -44,7 +48,6 @@ class ContentActivity : AppCompatActivity() {
                 finish()
             }
         })
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

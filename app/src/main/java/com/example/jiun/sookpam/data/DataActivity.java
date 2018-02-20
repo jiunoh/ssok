@@ -18,12 +18,13 @@ import io.realm.Realm;
 
 public class DataActivity extends AppCompatActivity {
     private RecordDBManager categoryManager;
+    private String category;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
 
-        String category = getIntent().getStringExtra("category");
+        category = getIntent().getStringExtra("category");
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
 
         final ArrayList<DataItem> dataItems = new ArrayList<>();
@@ -62,6 +63,7 @@ public class DataActivity extends AppCompatActivity {
 
     private void showMessageBody(DataItem data) {
         Intent intent = new Intent(this, ContentActivity.class);
+        intent.putExtra("division",category);
         intent.putExtra("title", data.getTitle());
         intent.putExtra("body", data.getBody());
         startActivity(intent);
