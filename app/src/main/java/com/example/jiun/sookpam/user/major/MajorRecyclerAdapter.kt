@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.major_recycler_item.view.*
 
 class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorRecyclerAdapter.ViewHolder>() {
@@ -26,10 +27,17 @@ class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorR
         val item = data[position]
         holder!!.majorTextView.text = item
         holder.itemView.setBackgroundColor(Color.WHITE)
+        val isMajorChecked = SharedPreferenceUtil.get(context, item, false)
+        if (isMajorChecked) {
+            holder.majorCheckImageView.setImageResource(R.drawable.ic_check_pink)
+        } else {
+            holder.majorCheckImageView.setImageResource(R.drawable.ic_check_white)
+        }
     }
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var majorTextView = v.major_txt!!
+        var majorCheckImageView = v.major_check_img
     }
 
     companion object {

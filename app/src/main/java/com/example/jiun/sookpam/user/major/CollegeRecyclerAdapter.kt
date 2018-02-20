@@ -36,7 +36,8 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
         layoutManager = CustomLinearLayoutManager(context)
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.college_recycler_item, parent, false))
+        val view = LayoutInflater.from(context).inflate(R.layout.college_recycler_item, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, @SuppressLint("RecyclerView") position: Int) {
@@ -146,17 +147,21 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
             }
         }
         holder.majorRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
-                RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val isCurrentItemChecked = SharedPreferenceUtil.get(context, view.major_txt.toString(), MajorRecyclerAdapter.UNCHECKED)
-                    if (isCurrentItemChecked) {
-                        SharedPreferenceUtil.set(context, view.major_txt.toString(), MajorRecyclerAdapter.UNCHECKED)
-                        view.major_check_img.setImageResource(R.drawable.ic_check_white)
-                    } else {
-                        SharedPreferenceUtil.set(context, view.major_txt.toString(), MajorRecyclerAdapter.CHECKED)
-                        view.major_check_img.setImageResource(R.drawable.ic_check_pink)
-                    }
+                RecyclerItemClickListener.OnItemClickListener { view, _ ->
+                    setCheckStatus(view, view.major_txt.text.toString())
                 }))
         holder.majorRecyclerView.adapter = MajorRecyclerAdapter(arrayList)
+    }
+
+    private fun setCheckStatus(view: View, majorName: String) {
+        val isCurrentItemChecked = SharedPreferenceUtil.get(context, majorName, MajorRecyclerAdapter.UNCHECKED)
+        if (isCurrentItemChecked) {
+            SharedPreferenceUtil.set(context, majorName, MajorRecyclerAdapter.UNCHECKED)
+            view.major_check_img.setImageResource(R.drawable.ic_check_white)
+        } else {
+            SharedPreferenceUtil.set(context, majorName, MajorRecyclerAdapter.CHECKED)
+            view.major_check_img.setImageResource(R.drawable.ic_check_pink)
+        }
     }
 
     override fun getItemCount(): Int {
