@@ -63,4 +63,8 @@
     <string name="select_interest_major">Select interest major</string>
     <string name="user_info1_change_major">변경하기</string>
     <string name="major_select_confirm">확인</string>
+    <string name="major_alert_title">알림</string>
+    <string name="major_alert_message">변경사항을 저장하지 않고 취소하시겠습니까?</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
 </resources>

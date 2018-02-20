@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.user.major
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -20,6 +21,7 @@ class MajorActivity : AppCompatActivity() {
     private lateinit var collegeRecyclerView: RecyclerView
     private lateinit var confirmButton: Button
     private var data: ArrayList<MajorItemModel> = ArrayList()
+    private lateinit var selectedMajors: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,9 @@ class MajorActivity : AppCompatActivity() {
 
         backImageButton = major_back_image_btn
         backImageButton.setOnClickListener {
-            resetUnsavedMajorsAndFinish()
+            if (doesSelectedMajorsChanged()) {
+                showResetAlert()
+            } else resetUnsavedMajorsAndFinish()
         }
 
         confirmButton = major_select_confirm_btn
@@ -44,16 +48,38 @@ class MajorActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             finish()
         }
+
+        selectedMajors = intent.extras.getStringArrayList("selectedMajors")
     }
 
     override fun onBackPressed() {
-        resetUnsavedMajorsAndFinish()
+        if (doesSelectedMajorsChanged()) {
+            showResetAlert()
+        } else resetUnsavedMajorsAndFinish()
+    }
+
+    private fun doesSelectedMajorsChanged(): Boolean {
+        return MajorList.collegeAndMajors
+                .flatMap { it }
+                .any { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors }
+    }
+
+    private fun showResetAlert() {
+        AlertDialog.Builder(this@MajorActivity).apply {
+            setTitle(getString(R.string.major_alert_title))
+            setMessage(getString(R.string.major_alert_message))
+            setPositiveButton(getString(R.string.yes), { dialog, _ ->
+                dialog.dismiss()
+                resetUnsavedMajorsAndFinish()
+            })
+            setNegativeButton(getString(R.string.no), { dialog, _ ->
+                dialog.dismiss()
+            })
+            show()
+        }
     }
 
     private fun resetUnsavedMajorsAndFinish() {
-        val intent = intent
-        val selectedMajors = intent.extras.getStringArrayList("selectedMajors")
-
         MajorList.collegeAndMajors
                 .flatMap { it }
                 .filter { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors }
