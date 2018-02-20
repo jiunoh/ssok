@@ -40,11 +40,6 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
         val item = data[position]
         holder!!.setIsRecyclable(false)
         holder.collegeTextView.text = item.college
-        holder.majorRecyclerView.layoutManager = layoutManager
-        val arrayList = ArrayList<String>()
-        arrayList.add("1")
-        arrayList.add("2")
-        holder.majorRecyclerView.adapter = MajorRecyclerAdapter(arrayList)
         holder.itemView.setBackgroundColor(Color.WHITE)
         holder.expandableLayout.setInRecyclerView(true)
         holder.expandableLayout.setBackgroundColor(Color.WHITE)
@@ -64,6 +59,23 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
 
         holder.collegeRelativeLayout.rotation = if (expandState.get(position)) 180f else 0f
         holder.collegeRelativeLayout.setOnClickListener({ onClickButton(holder.expandableLayout) })
+
+        holder.majorRecyclerView.layoutManager = layoutManager
+        createMajorList(holder, item.college)
+    }
+
+    private fun createMajorList(holder: ViewHolder, college: String) {
+        val arrayList:ArrayList<String> = ArrayList()
+        when (college) {
+            "단과대학" -> {
+                arrayList.add("1")
+                arrayList.add("2")
+            }
+            "기타" -> {
+                arrayList.add("3")
+            }
+        }
+        holder.majorRecyclerView.adapter = MajorRecyclerAdapter(arrayList)
     }
 
     override fun getItemCount(): Int {
