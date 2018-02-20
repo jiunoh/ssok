@@ -73,7 +73,6 @@ class ContactDBManager : Application() {
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.key = value[0]
             record.value = value[1]
-            Log.v("Category", record.key + " " + record.value)
         }
         bufferedReader.close()
         inputStreamReader.close()

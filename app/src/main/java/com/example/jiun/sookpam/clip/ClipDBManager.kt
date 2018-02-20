@@ -4,19 +4,7 @@ import android.app.Application
 import com.example.jiun.sookpam.model.vo.ClipVO
 import io.realm.Realm
 
-class ClipDBManager : Application()  {
-    lateinit var realm: Realm
-
-    override fun onCreate() {
-        super.onCreate()
-        try {
-            Realm.init(this)
-            realm = Realm.getDefaultInstance()
-        }
-        catch (exception: RuntimeException) {
-            //Realm already exist
-        }
-    }
+class ClipDBManager(val realm: Realm) {
 
     fun doesNotExist(value: String?): Boolean {
         var result = realm.where(ClipVO::class.java).equalTo("title", value).findFirst()

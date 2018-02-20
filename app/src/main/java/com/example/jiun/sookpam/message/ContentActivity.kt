@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import com.example.jiun.sookpam.R.id.action_star
 import com.example.jiun.sookpam.clip.ClipDBManager
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 
 
@@ -46,15 +47,15 @@ class ContentActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_star -> {
-//                dbmanager = applicationContext as ClipDBManager
-//                if (dbmanager.doesNotExist(title)) {
+                dbmanager =   ClipDBManager(Realm.getDefaultInstance());
+                if (dbmanager.doesNotExist(title)) {
                     item.setIcon(getResources().getDrawable(R.drawable.star_on))
-//                    dbmanager.insert(title)
-//                }
-//                else {
-//                    item.setIcon(getResources().getDrawable(R.drawable.star_off))
-//                    dbmanager.delete(title)
-//                }
+                    dbmanager.insert(title)
+                }
+                else {
+                    item.setIcon(getResources().getDrawable(R.drawable.star_off))
+                    dbmanager.delete(title)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
