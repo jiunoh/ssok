@@ -59,13 +59,14 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
 
         holder.collegeRelativeLayout.rotation = if (expandState.get(position)) 180f else 0f
         holder.collegeRelativeLayout.setOnClickListener({ onClickButton(holder.expandableLayout) })
+        holder.collegeTextView.setOnClickListener({ onClickButton(holder.expandableLayout) })
 
         holder.majorRecyclerView.layoutManager = layoutManager
         createMajorList(holder, item.college)
     }
 
     private fun createMajorList(holder: ViewHolder, college: String) {
-        val arrayList:ArrayList<String> = ArrayList()
+        val arrayList: ArrayList<String> = ArrayList()
         when (college) {
             "단과대학" -> {
                 arrayList.add("1")
