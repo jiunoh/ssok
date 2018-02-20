@@ -16,7 +16,7 @@ import com.github.aakira.expandablelayout.ExpandableLinearLayout
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.college_recycler_item.view.*
 
-class MajorRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapter<MajorRecyclerAdapter.ViewHolder>() {
+class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapter<CollegeRecyclerAdapter.ViewHolder>() {
 
     lateinit var context: Context
     var expandState: SparseBooleanArray = SparseBooleanArray()
@@ -37,7 +37,7 @@ class MajorRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapte
         val item = data[position]
         holder!!.setIsRecyclable(false)
         holder.collegeTextView.text = item.college
-        holder.majorTextView.text = item.major[0]
+        
         holder.itemView.setBackgroundColor(Color.WHITE)
         holder.expandableLayout.setInRecyclerView(true)
         holder.expandableLayout.setBackgroundColor(Color.WHITE)
@@ -76,7 +76,7 @@ class MajorRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapte
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var collegeTextView: TextView = v.major_college_txt
-        var majorTextView: TextView = v.major_recycler_item_txt
+        var majorRecyclerView: RecyclerView = v.major_recycler_view
         var collegeRelativeLayout: RelativeLayout = v.major_college_relative
         var expandableLayout: ExpandableLinearLayout = v.major_expandableLayout
     }

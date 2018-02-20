@@ -39,7 +39,7 @@ class MajorRecyclerViewActivity : AppCompatActivity() {
         val list = ArrayList<String>()
         list.add("학과")
         data.add(MajorItemModel("단과대학", list, Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)))
-        recyclerView.adapter = MajorRecyclerAdapter(data)
+        recyclerView.adapter = CollegeRecyclerAdapter(data)
     }
 
     private fun setToolbar() {

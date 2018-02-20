@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.jiun.sookpam.user.major.MajorRecyclerAdapter">
+    tools:context="com.example.jiun.sookpam.user.major.CollegeRecyclerAdapter">
 
     <TextView
         android:id="@+id/major_college_txt"
@@ -45,11 +45,6 @@
             android:id="@+id/major_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:padding="20dp"
-            android:scrollbars="vertical"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp" />
+            android:layout_centerInParent="true" />
     </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 </RelativeLayout>
