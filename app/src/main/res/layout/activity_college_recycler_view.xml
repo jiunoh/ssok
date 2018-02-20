@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.MajorActivity">
+    tools:context="com.example.jiun.sookpam.user.major.MajorRecyclerViewActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/major_toolbar"
@@ -39,6 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
+
+        <android.support.v7.widget.RecyclerView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/college_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
 
         <View
             android:layout_width="match_parent"
