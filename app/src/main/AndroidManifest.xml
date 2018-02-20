@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.gun0912.tedpermission.TedPermissionActivity"
             android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
@@ -33,6 +32,7 @@
         <activity android:name=".DataActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".DetailActivity" />
+        <activity android:name=".ViewPagerMainActivity"></activity>
     </application>
 
 </manifest>
