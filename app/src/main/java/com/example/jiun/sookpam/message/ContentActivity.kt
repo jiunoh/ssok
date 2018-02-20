@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import com.example.jiun.sookpam.R
-import android.content.Intent
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
-import com.example.jiun.sookpam.R.id.action_star
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.ContactDBManager
 import io.realm.Realm
@@ -32,9 +29,9 @@ class ContentActivity : AppCompatActivity() {
         title_view.setText(title)
         content_view.text = body
         val category = (applicationContext as ContactDBManager).getCategory(division, Realm.getDefaultInstance())
-        category_view.setText(category + "/"+division)
+        category_view.setText(category + " / "+division)
         val info = (applicationContext as ContactDBManager).getInfo(division)
-        info_view.setText(info)
+        info_view.setText(division + "\t"+info)
     }
 
     private fun setToolbar() {
