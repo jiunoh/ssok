@@ -25,6 +25,7 @@ class UserInfo1Fragment : Fragment() {
     private lateinit var majorSelectingButton: Button
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
+    private val selectedMajors = ArrayList<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
@@ -53,6 +54,7 @@ class UserInfo1Fragment : Fragment() {
         majorSelectingButton = user_info1_major_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
+            intent.putExtra("selectedMajors", selectedMajors)
             startActivityForResult(intent, MAJOR_REQUEST_CODE)
         }
         majorsRecyclerView = user_info1_majors_recycler_view
@@ -91,11 +93,10 @@ class UserInfo1Fragment : Fragment() {
     }
 
     private fun loadMajors() {
-        val selectedMajors = ArrayList<String>()
         for (college in MajorList.collegeAndMajors) {
             for (major in college) {
                 val doesMajorSelected = SharedPreferenceUtil.get(userInfo1Context, major, false)
-                if (doesMajorSelected) {
+                if (doesMajorSelected && major !in selectedMajors) {
                     selectedMajors.add(major)
                 }
             }

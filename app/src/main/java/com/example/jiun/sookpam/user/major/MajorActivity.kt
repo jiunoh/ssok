@@ -1,23 +1,25 @@
 package com.example.jiun.sookpam.user.major
 
 import android.app.Activity
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.widget.Button
 import android.widget.ImageButton
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.activity_major.*
 
 class MajorActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var backImageButton: ImageButton
-    private lateinit var collegeRecyclerView:RecyclerView
-    private var data:ArrayList<MajorItemModel> = ArrayList()
+    private lateinit var collegeRecyclerView: RecyclerView
+    private lateinit var confirmButton: Button
+    private var data: ArrayList<MajorItemModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +36,30 @@ class MajorActivity : AppCompatActivity() {
 
         backImageButton = major_back_image_btn
         backImageButton.setOnClickListener {
+            resetUnsavedMajorsAndFinish()
+        }
+
+        confirmButton = major_select_confirm_btn
+        confirmButton.setOnClickListener {
             setResult(Activity.RESULT_OK)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        resetUnsavedMajorsAndFinish()
+    }
+
+    private fun resetUnsavedMajorsAndFinish() {
+        val intent = intent
+        val selectedMajors = intent.extras.getStringArrayList("selectedMajors")
+
+        MajorList.collegeAndMajors
+                .flatMap { it }
+                .filter { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors }
+                .forEach { SharedPreferenceUtil.set(applicationContext, it, false) }
+        setResult(Activity.RESULT_CANCELED)
+        finish()
     }
 
     private fun createList() {
