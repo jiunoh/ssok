@@ -25,6 +25,9 @@ public class DataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data);
         category = getIntent().getStringExtra("category");
+        toolbar = (Toolbar)findViewById(R.id.data_toolbar);
+        toolbar.setTitle(category);
+        setSupportActionBar(toolbar);
         setToolbar();
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
 
@@ -63,9 +66,6 @@ public class DataActivity extends AppCompatActivity {
     }
 
     private void setToolbar() {
-        toolbar = (Toolbar)findViewById(R.id.data_toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(category);
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary));
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

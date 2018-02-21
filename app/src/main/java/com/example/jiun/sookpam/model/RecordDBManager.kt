@@ -35,7 +35,6 @@ class RecordDBManager(val realm: Realm) {
             recordRecord.message = message
             recordRecord.division = department
             recordRecord.category = context.getCategory(department,realm)
-            Log.v("categoty:",recordRecord.category + " " + recordRecord.division)
         }
     }
 
