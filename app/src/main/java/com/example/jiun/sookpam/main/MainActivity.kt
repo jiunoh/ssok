@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
         }
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "기타")
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "공지")
     }
 
     override fun showToastMessage(string: String) {

@@ -33,7 +33,6 @@
         <activity android:name=".category.CategoryActivity" />
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
-        <activity android:name=".data.DetailActivity" />
         <activity android:name=".message.ContentActivity"/>
 
     </application>

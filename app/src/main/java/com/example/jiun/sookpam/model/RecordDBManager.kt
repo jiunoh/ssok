@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
+import android.util.Log
 import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.vo.*
 import io.realm.Realm
@@ -34,6 +35,7 @@ class RecordDBManager(val realm: Realm) {
             recordRecord.message = message
             recordRecord.division = department
             recordRecord.category = context.getCategory(department,realm)
+            Log.v("categoty:",recordRecord.category + " " + recordRecord.division)
         }
     }
 
