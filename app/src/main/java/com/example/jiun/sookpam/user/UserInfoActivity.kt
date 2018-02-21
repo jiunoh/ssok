@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
 
@@ -82,19 +83,18 @@ class UserInfoActivity : AppCompatActivity() {
     private fun moveNext() {
         nextButton.setOnClickListener {
             if (currentPage < SimpleFragmentPagerAdapter.USER_INFO_4) {
-                if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_1) {
-                    previousButton.visibility = View.VISIBLE
-                }
                 if (isConditionsFulfilled()) {
                     if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
                         nextButton.text = getText(R.string.user_info_done)
                         pagerAdapter.notifyDataSetChanged()
                     }
+                    if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_1) {
+                        previousButton.visibility = View.VISIBLE
+                    }
                     currentPage += 1
                     viewPager.setCurrentItem(currentPage, true)
                     changeCircleColor(MOVE_NEXT_PAGE)
-                }
-                else {
+                } else {
                     Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -104,7 +104,13 @@ class UserInfoActivity : AppCompatActivity() {
     private fun isConditionsFulfilled(): Boolean {
         when (currentPage) {
             SimpleFragmentPagerAdapter.USER_INFO_1 -> {
+                var selectedMajorCount = 0
+                MajorList.collegeAndMajors
+                        .flatMap { it }
+                        .filter { SharedPreferenceUtil.get(applicationContext, it, false) }
+                        .forEach { selectedMajorCount += 1 }
 
+                if (selectedMajorCount < 1) return false
             }
             SimpleFragmentPagerAdapter.USER_INFO_2 -> {
                 val status = SharedPreferenceUtil.get(applicationContext, UserInfo2Fragment.STUDENT_STATUS, "")
