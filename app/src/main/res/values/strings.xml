@@ -12,10 +12,8 @@
     <string name="move_setting">Sookpam 설정으로 이동해 권한 부여하기</string>
     <string name="start_message_synchronization">메세지 동기화를 시작합니다.</string>
     <string name="end_message_synchronization">메세지 동기화를 완료했습니다.</string>
-<<<<<<< HEAD
     <string name="scrap">스크랩</string>
     <string name="related">이 글과 관련된 글</string>
-=======
     <string name="user_info_previous"><![CDATA[< 이전]]></string>
     <string name="user_info_first_page">첫 번째 페이지입니다.</string>
     <string name="user_info_second_page">두 번째 페이지입니다.</string>
@@ -72,5 +70,4 @@
     <string name="yes">예</string>
     <string name="no">아니요</string>
     <string name="save_toast">변경사항을 모두 저장하였습니다.</string>
->>>>>>> set_info
 </resources>

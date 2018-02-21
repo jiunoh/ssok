@@ -29,7 +29,7 @@ public class DataActivity extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
 
         final ArrayList<DataItem> dataItems = new ArrayList<>();
-        ArrayList<String> response = getDataByCategory(category);
+        ArrayList<String> response = getDataByDivision(category);
         for (String data : response) {
             DataItem dataItem = new DataItem();
 
@@ -85,11 +85,11 @@ public class DataActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private ArrayList<String> getDataByCategory(String category) {
+    private ArrayList<String> getDataByDivision(String division) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
         ArrayList<String> response;
-        if (!category.equals("공지"))
-            response = categoryManager.getDataByCategory(category);
+        if (!division.equals("공지"))
+            response = categoryManager.getDataByDivision(division);
         else
             response = handleUnclipedCategories();
 
@@ -99,11 +99,11 @@ public class DataActivity extends AppCompatActivity {
 
     private ArrayList<String> handleUnclipedCategories() {
         ContactDBManager contactDBManager =  (ContactDBManager)getApplicationContext();
-        ArrayList<String> categoryList = contactDBManager.getDepartmentList();
+        ArrayList<String> divisionList = contactDBManager.getDepartmentList();
         ArrayList<String> response = new ArrayList<>();
-        for (String category : categoryList) {
-            if (!SharedPreferenceUtil.get(this, category, false))
-                response.addAll(categoryManager.getDataByCategory(category));
+        for (String division : divisionList) {
+            if (!SharedPreferenceUtil.get(this, division, false))
+                response.addAll(categoryManager.getDataByDivision(division));
         }
         return response;
     }

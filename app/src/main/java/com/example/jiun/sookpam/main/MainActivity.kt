@@ -53,12 +53,12 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
 
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
-        val categoryList = contactDBManager.getCategoryList()
+        val departmentList = contactDBManager.getDepartmentList()
         adapter.clear()
         adapter.notifyDataSetChanged()
-        for (category in categoryList) {
-            if (SharedPreferenceUtil.get(applicationContext, category, false))
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
+        for (division in departmentList) {
+            if (SharedPreferenceUtil.get(applicationContext, division, false))
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), division)
         }
         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "공지")
     }

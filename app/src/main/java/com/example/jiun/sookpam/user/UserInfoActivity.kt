@@ -1,11 +1,13 @@
 package com.example.jiun.sookpam.user
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.main.MainActivity
 import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
@@ -95,6 +97,10 @@ class UserInfoActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
                 }
+            }
+            else {
+                val intent = Intent(applicationContext, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }

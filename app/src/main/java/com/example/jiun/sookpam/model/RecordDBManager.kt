@@ -39,8 +39,8 @@ class RecordDBManager(val realm: Realm) {
         }
     }
 
-    fun getDataByCategory(request: String): ArrayList<String> {
-        var messageList = realm.where(RecordVO::class.java).equalTo("category", request).findAll()
+    fun getDataByDivision(request: String): ArrayList<String> {
+        var messageList = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
         for (record in messageList) {
