@@ -3,9 +3,7 @@ package com.example.jiun.sookpam.user.major
 import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.major_recycler_item.view.*

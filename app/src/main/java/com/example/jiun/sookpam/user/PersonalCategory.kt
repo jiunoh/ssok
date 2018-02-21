@@ -3,8 +3,7 @@ package com.example.jiun.sookpam.user
 import android.content.Context
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 

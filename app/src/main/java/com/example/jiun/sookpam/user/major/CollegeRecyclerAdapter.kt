@@ -6,17 +6,12 @@ import android.content.Context
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
-import com.example.jiun.sookpam.CustomLinearLayoutManager
+import android.view.*
+import android.widget.*
+import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
-import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter
-import com.github.aakira.expandablelayout.ExpandableLinearLayout
+import com.github.aakira.expandablelayout.*
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.college_recycler_item.view.*
 import kotlinx.android.synthetic.main.major_recycler_item.view.*
@@ -24,7 +19,7 @@ import kotlin.collections.ArrayList
 
 class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adapter<CollegeRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
-    lateinit var layoutManager: RecyclerView.LayoutManager
+    private lateinit var layoutManager: RecyclerView.LayoutManager
     var expandState: SparseBooleanArray = SparseBooleanArray()
 
     init {

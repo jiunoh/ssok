@@ -2,16 +2,13 @@ package com.example.jiun.sookpam.user
 
 import android.app.Activity
 import android.support.v4.app.Fragment
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
 import android.view.*
 import android.widget.*
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.user.major.MajorActivity
-import com.example.jiun.sookpam.user.major.MajorList
+import com.example.jiun.sookpam.user.major.*
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.fragment_user_info1.*
 

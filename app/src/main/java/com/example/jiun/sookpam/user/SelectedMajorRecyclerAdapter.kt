@@ -2,9 +2,7 @@ package com.example.jiun.sookpam.user
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.example.jiun.sookpam.R
 import kotlinx.android.synthetic.main.selected_major_recycler_item.view.*
 

@@ -4,9 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
