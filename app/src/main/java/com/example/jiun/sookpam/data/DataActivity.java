@@ -30,25 +30,14 @@ public class DataActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setToolbar();
         final RecyclerView recyclerView = findViewById(R.id.data_recycler_view);
-
         final ArrayList<DataItem> dataItems = new ArrayList<>();
-        ArrayList<String> response = getDataByDivision(category);
-        for (String data : response) {
-            DataItem dataItem = new DataItem();
-
-            if (data.contains("[Web발신]\n"))
-                data = data.replace("[Web발신]\n", "");
-
-            String title;
-            if(data.length() >=20) {
-                title = data.substring(0, 20);
-            }
-            else {
-                title = data;
-            }
-            title = title.replace("\r\n", "");
+        ArrayList<DataItem> response = getDataByDivision(category);
+        for (DataItem dataItem : response) {
+            String body = dataItem.getBody();
+            body = body.replaceFirst("\\[Web발신\\]\n", "");
+            String title = body.split("\\.\\!")[0];
             dataItem.setTitle(title);
-            dataItem.setBody(data);
+            //dataItem.setTitle(dataItem.getBody());
             dataItems.add(dataItem);
         }
 
@@ -81,26 +70,25 @@ public class DataActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ContentActivity.class);
         intent.putExtra("division",category);
         intent.putExtra("title", data.getTitle());
-        intent.putExtra("body", data.getBody());
+        intent.putExtra("date", data.getBody());
         startActivity(intent);
     }
 
-    private ArrayList<String> getDataByDivision(String division) {
+    private ArrayList<DataItem> getDataByDivision(String division) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
-        ArrayList<String> response;
+        ArrayList<DataItem> response;
         if (!division.equals("공지"))
             response = categoryManager.getDataByDivision(division);
         else
             response = handleUnclipedCategories();
 
-
         return response;
     }
 
-    private ArrayList<String> handleUnclipedCategories() {
+    private ArrayList<DataItem> handleUnclipedCategories() {
         ContactDBManager contactDBManager =  (ContactDBManager)getApplicationContext();
         ArrayList<String> divisionList = contactDBManager.getDepartmentList();
-        ArrayList<String> response = new ArrayList<>();
+        ArrayList<DataItem> response = new ArrayList<>();
         for (String division : divisionList) {
             if (!SharedPreferenceUtil.get(this, division, false))
                 response.addAll(categoryManager.getDataByDivision(division));

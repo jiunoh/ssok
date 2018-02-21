@@ -2,9 +2,11 @@ package com.example.jiun.sookpam.model
 
 import android.content.Context
 import android.util.Log
+import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.vo.*
 import io.realm.Realm
+import java.util.*
 
 class RecordDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
@@ -38,14 +40,18 @@ class RecordDBManager(val realm: Realm) {
         }
     }
 
-    fun getDataByDivision(request: String): ArrayList<String> {
+    fun getDataByDivision(request: String): ArrayList<DataItem> {
         var messageList = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
-        var responseList: ArrayList<String> = ArrayList<String>()
+        var responseList: ArrayList<DataItem> = ArrayList<DataItem>()
 
         for (record in messageList) {
             if (record.message != null) {
                 val msgBody: String by lazy<String> { (record.message as MessageVO).body }
-                responseList.add(msgBody)
+                val msgDate: Date by lazy<Date> { (record.message as MessageVO).date }
+                var dataItem = DataItem()
+                dataItem.date = msgDate
+                dataItem.body = msgBody
+                responseList.add(dataItem)
             }
         }
         return responseList

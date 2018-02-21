@@ -1,5 +1,7 @@
 package com.example.jiun.sookpam.data;
 
+import java.util.Date;
+
 public class DataItem {
     private String title;
 
@@ -21,10 +23,10 @@ public class DataItem {
 
     private String body;
 
-    private String date;
+    private Date date;
 
-    public String getDate() {return date; }
+    public Date getDate() {return date; }
 
-    public void setDate(String date) {this.date = date;}
+    public void setDate(Date date) {this.date = date;}
 
 }

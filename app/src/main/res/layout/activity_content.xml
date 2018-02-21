@@ -14,82 +14,74 @@
         android:background="#ffffff"
         android:theme="?attr/actionBarTheme" />
 
-    <RelativeLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="5"
+        android:layout_height="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/info_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:text="장학팀 02-0505-9898" />
+
+            <TextView
+                android:id="@+id/title_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/info_view"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:text="[장학]아산장학재단 장학금 신청 안내"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/content_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_view"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다." />
+
+        </RelativeLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/related_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_below="@id/content_view"
+        android:background="@drawable/title"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="@string/related"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:id="@+id/category_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공지 > 장학"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/info_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/category_view"
-            android:layout_marginBottom="8dp"
-            android:text="장학팀 02-0505-9898"/>
-
-        <TextView
-            android:id="@+id/title_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/info_view"
-            android:textSize="24sp"
-            android:layout_marginBottom="8dp"
-            android:text="[장학]아산장학재단 장학금 신청 안내"/>
-
-        <TextView
-            android:id="@+id/content_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title_view"
-            android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다." />
-    </RelativeLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/recommend1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/related_view"
+        android:background="@drawable/list_item"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="[장학]1차 국가장학금 신청" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@drawable/title"
-            android:gravity="center_vertical"
-            android:paddingLeft="16dp"
-            android:text="@string/related"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <TextView
-            android:id="@+id/recommend1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@drawable/list_item"
-            android:gravity="center_vertical"
-            android:paddingLeft="24dp"
-            android:text="[장학]1차 국가장학금 신청" />
-
-        <TextView
-            android:id="@+id/recommend2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:background="@drawable/list_item"
-            android:gravity="center_vertical"
-            android:paddingLeft="24dp"
-            android:text="[장학]아산장학재단 장학금 신청 안내 (10/12~10)" />
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/recommend2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/list_item"
+        android:gravity="center_vertical"
+        android:padding="8dp"
+        android:text="[장학]아산장학재단 장학금 신청 안내 (10/12~10)" />
 </LinearLayout>

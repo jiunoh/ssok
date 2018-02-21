@@ -21,23 +21,23 @@ class ContentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
-        setToolbar()
         val intent = intent
         val division = intent.getStringExtra("division")
+        val category = (applicationContext as ContactDBManager).getCategory(division, Realm.getDefaultInstance())
+        setToolbar(category + " > "+division)
         title = intent.getStringExtra("title")
         val body = intent.getStringExtra("body")
         title_view.setText(title)
         content_view.text = body
-        val category = (applicationContext as ContactDBManager).getCategory(division, Realm.getDefaultInstance())
-        category_view.setText(category + " / "+division)
+
         val info = (applicationContext as ContactDBManager).getInfo(division)
         info_view.setText(division + "\t"+info)
     }
 
-    private fun setToolbar() {
+    private fun setToolbar(category:String) {
         toolbar = content_toolbar
         setSupportActionBar(toolbar)
-        toolbar.setTitle("Sookpam")
+        toolbar.setTitle(category)
         toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(object : View.OnClickListener {
