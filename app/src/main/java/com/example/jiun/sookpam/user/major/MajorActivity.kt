@@ -63,7 +63,7 @@ class MajorActivity : AppCompatActivity() {
     private fun doesSelectedMajorsChanged(): Boolean {
         return MajorList.collegeAndMajors
                 .flatMap { it }
-                .any { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors }
+                .any { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors || !SharedPreferenceUtil.get(applicationContext, it, false) && it in selectedMajors }
     }
 
     private fun showResetAlert() {
@@ -82,10 +82,19 @@ class MajorActivity : AppCompatActivity() {
     }
 
     private fun resetUnsavedMajorsAndFinish() {
-        MajorList.collegeAndMajors
-                .flatMap { it }
-                .filter { SharedPreferenceUtil.get(applicationContext, it, false) && it !in selectedMajors }
-                .forEach { SharedPreferenceUtil.set(applicationContext, it, false) }
+        for (college in MajorList.collegeAndMajors) {
+            for (major in college) {
+                val status = SharedPreferenceUtil.get(applicationContext, major, false)
+                if (status && major !in selectedMajors || !status && major in selectedMajors){
+                    if(status) {
+                        SharedPreferenceUtil.set(applicationContext, major, false)
+                    }
+                    else {
+                        SharedPreferenceUtil.set(applicationContext, major, true)
+                    }
+                }
+            }
+        }
         setResult(Activity.RESULT_CANCELED)
         finish()
     }
