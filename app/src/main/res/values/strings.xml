@@ -70,4 +70,7 @@
     <string name="yes">예</string>
     <string name="no">아니요</string>
     <string name="save_toast">변경사항을 모두 저장하였습니다.</string>
+    <string name="sample_action">Sample action</string>
+    <string name="search_title">Search Contacts</string>
+    <string name="intro_message">예시</string>
 </resources>

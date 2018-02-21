@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_action_synchronization"
         android:title="@string/action_synchronization"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/action_setting"
-        android:icon="@drawable/setting"
-        android:title="환경설정"
-        app:showAsAction="always" />
+    <item android:id="@+id/action_search"
+        android:title="@string/search_title"
+        android:icon="@drawable/ic_search_api_holo_light"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView" />
 </menu>
