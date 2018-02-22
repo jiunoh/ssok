@@ -5,20 +5,17 @@ import com.example.jiun.sookpam.R
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.data.DataItem
-import com.example.jiun.sookpam.data.DataRecyclerAdapter
 import com.example.jiun.sookpam.message.ContentActivity
-import com.example.jiun.sookpam.model.ContactDBManager
 import com.example.jiun.sookpam.model.RecordDBManager
-import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
@@ -37,12 +34,28 @@ class SearchableActivity : AppCompatActivity() {
         val intent = intent
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            doMySearch(query);
+            getQuery(query);
         }
         if (intent != null) {
             handleIntent(intent)
         }
         setToolbar()
+        setRecyclerView()
+    }
+
+    private fun showMessageBody(data: DataItem) {
+        val intent = Intent(this, ContentActivity::class.java)
+        intent.putExtra("title", data.title)
+        intent.putExtra("date", data.body)
+        startActivity(intent)
+    }
+
+    override fun onSearchRequested(): Boolean {
+        //pauseSomeStuff()
+        return super.onSearchRequested()
+    }
+
+    private fun setRecyclerView() {
         val recyclerView : RecyclerView = search_recycler_view
         val dataItems = ArrayList<DataItem>()
         //getDataItems
@@ -56,18 +69,6 @@ class SearchableActivity : AppCompatActivity() {
                     val data = dataItems.get(position)
                     showMessageBody(data)
                 }))
-    }
-
-    private fun showMessageBody(data: DataItem) {
-        val intent = Intent(this, ContentActivity::class.java)
-        intent.putExtra("title", data.title)
-        intent.putExtra("date", data.body)
-        startActivity(intent)
-    }
-
-    override fun onSearchRequested(): Boolean {
-        //pauseSomeStuff()
-        return super.onSearchRequested()
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -111,13 +112,14 @@ class SearchableActivity : AppCompatActivity() {
             // SearchManager.QUERY is the key that a SearchManager will use to send a query string
             // to an Activity.
             val query = intent.getStringExtra(SearchManager.QUERY)
-            doMySearch(query);
+            getQuery(query);
         }
     }
 
-    private fun doMySearch(division: String) {
-
+    private fun getQuery(query: String) {
+        val recordManager = RecordDBManager(Realm.getDefaultInstance())
+        recordManager.search("query")
+        setRecyclerView()
     }
-
 
 }
