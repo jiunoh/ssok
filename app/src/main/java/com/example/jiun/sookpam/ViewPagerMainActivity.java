@@ -51,7 +51,7 @@ public class ViewPagerMainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu toolbar) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.toolbar, toolbar);
+        menuInflater.inflate(R.menu.fragments_toolbar, toolbar);
         return true;
     }
 
