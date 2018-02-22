@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 
 public class MessageFragAdapter extends FragmentStatePagerAdapter {
-    private static int TAB_NUMBER = 3;
+    private static int TAB_NUMBER = 2;
 
     public MessageFragAdapter(FragmentManager fm) {
         super(fm);
@@ -20,12 +20,9 @@ public class MessageFragAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                MessageRecomFragment messageRecomFragment = MessageRecomFragment.newInstance();
-                return messageRecomFragment;
-            case 1:
                 MessageCommonFragment messageCommonFragment = MessageCommonFragment.newInstance();
                 return messageCommonFragment;
-            case 2:
+            case 1:
                 MessageDepartFragment messageDepartFragment = MessageDepartFragment.newInstance();
                 return messageDepartFragment;
             default:
@@ -43,10 +40,8 @@ public class MessageFragAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "추천";
-            case 1:
                 return "공통";
-            case 2:
+            case 1:
                 return "학부/학과";
             default:
                 return null;
