@@ -27,6 +27,7 @@
 
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager_main"
+            android:layout_below="@+id/upper_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
