@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class ViewPagerMainActivity extends AppCompatActivity {
@@ -46,6 +49,20 @@ public class ViewPagerMainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout web_button = (LinearLayout) findViewById(R.id.web_layout);
+        LinearLayout mypage_button = (LinearLayout) findViewById(R.id.mypage_layout);
+        web_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToWebActivity();
+            }
+        });
+        mypage_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMypageActivity();
+            }
+        });
     }
 
     @Override
@@ -66,5 +83,15 @@ public class ViewPagerMainActivity extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void goToWebActivity() {
+        Intent intent = new Intent(this, ViewPagerWebActivity.class);
+        startActivity(intent);
+    }
+
+    private void goToMypageActivity() {
+        Intent intent = new Intent(this, MypageActivity.class);
+        startActivity(intent);
     }
 }

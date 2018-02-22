@@ -4,7 +4,7 @@
     package="com.example.jiun.sookpam">
 
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-        <activity android:name=".main.MainActivity">
+        <activity android:name=".ViewPagerMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,9 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.SettingActivity" />
         <activity android:name=".data.DetailActivity" />
-        <activity android:name=".ViewPagerMainActivity"></activity>
+        <activity android:name=".main.MainActivity" />
+        <activity android:name=".ViewPagerWebActivity" />
+        <activity android:name=".MypageActivity"></activity>
     </application>
 
 </manifest>
