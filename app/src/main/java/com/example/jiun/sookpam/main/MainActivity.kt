@@ -19,6 +19,7 @@ import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.model.ContactDBManager
 import com.example.jiun.sookpam.data.DataActivity
 import com.example.jiun.sookpam.searchable.ContactablesLoaderCallbacks
+import com.example.jiun.sookpam.searchable.SearchableActivity
 import com.example.jiun.sookpam.setting.SettingActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
@@ -28,8 +29,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import io.realm.Realm
 
 class MainActivity : AppCompatActivity(), MessageContract.View {
-    var CONTACT_QUERY_LOADER = 0
-    var QUERY_KEY = "query"
     override lateinit var presenter: MessageContract.Presenter
     private lateinit var toolbar: Toolbar
     private lateinit var progressbar: ProgressBar
@@ -47,15 +46,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
             var selectedMain = listView.getItemAtPosition(position) as MainItem
             go(selectedMain.category)
         }
-        if (intent != null) {
-            handleIntent(intent)
-        }
     }
-
-    override fun onNewIntent(intent: Intent) {
-        handleIntent(intent)
-    }
-
 
     override fun onResume() {
         super.onResume()
@@ -108,11 +99,6 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        // Associate searchable configuration with the SearchView
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = menu!!.findItem(R.id.action_search).actionView as SearchView
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(componentName))
         return true
     }
 
@@ -136,7 +122,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
                 true
             }
             R.id.action_search -> {
-                val intent = Intent(this, SettingActivity::class.java)
+                val intent = Intent(this, SearchableActivity::class.java)
                 startActivity(intent)
                 true
             }
@@ -144,29 +130,5 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
         }
     }
 
-    /**
-     * Assuming this activity was started with a new intent, process the incoming information and
-     * react accordingly.
-     * @param intent
-     */
-    private fun handleIntent(intent: Intent) {
-        // Special processing of the incoming intent only occurs if the if the action specified
-        // by the intent is ACTION_SEARCH.
-        if (Intent.ACTION_SEARCH == intent.action) {
-            // SearchManager.QUERY is the key that a SearchManager will use to send a query string
-            // to an Activity.
-            val query = intent.getStringExtra(SearchManager.QUERY)
-
-            // We need to create a bundle containing the query string to send along to the
-            // LoaderManager, which will be handling querying the database and returning results.
-            val bundle = Bundle()
-            bundle.putString(QUERY_KEY, query)
-
-            val loaderCallbacks = ContactablesLoaderCallbacks(this)
-
-            // Start the loader with the new query, and an object that will handle all callbacks.
-            loaderManager.restartLoader<Cursor>(CONTACT_QUERY_LOADER, bundle, loaderCallbacks)
-        }
-    }
 
 }
