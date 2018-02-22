@@ -24,8 +24,10 @@ public class MessageFragAdapter extends FragmentStatePagerAdapter {
                 return messageRecomFragment;
             case 1:
                 MessageCommonFragment messageCommonFragment = MessageCommonFragment.newInstance();
+                return messageCommonFragment;
             case 2:
                 MessageDepartFragment messageDepartFragment = MessageDepartFragment.newInstance();
+                return messageDepartFragment;
             default:
                 return null;
         }
