@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
         setSupportActionBar(vpToolbar);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager_main);
+        viewPager = (ViewPager) findViewById(R.id.view_pager_main);
         TabLayout upperTabs = (TabLayout) findViewById(R.id.upper_tab_layout);
         upperTabs.setupWithViewPager(viewPager);
 
@@ -49,18 +50,25 @@ public class ViewPagerMainActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout message_button = (LinearLayout) findViewById(R.id.message_layout);
         LinearLayout web_button = (LinearLayout) findViewById(R.id.web_layout);
         LinearLayout mypage_button = (LinearLayout) findViewById(R.id.mypage_layout);
+        message_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMessageTab();
+            }
+        });
         web_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToWebActivity();
+                goToWebTab();
             }
         });
         mypage_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToMypageActivity();
+                goToMypageTab();
             }
         });
     }
@@ -85,13 +93,19 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         }
     }
 
-    private void goToWebActivity() {
-        Intent intent = new Intent(this, ViewPagerWebActivity.class);
-        startActivity(intent);
+    private void goToMessageTab() {
+        MessageFragAdapter messageFragAdapter = new MessageFragAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(messageFragAdapter);
     }
 
-    private void goToMypageActivity() {
+    private void goToWebTab() {
+        WebFragAdapter webFragAdapter = new WebFragAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(webFragAdapter);
+    }
+
+    private void goToMypageTab() {
         Intent intent = new Intent(this, MypageActivity.class);
+        finish();
         startActivity(intent);
     }
 }
