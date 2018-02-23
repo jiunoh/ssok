@@ -20,8 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/janghak"
+        android:maxLines="1"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/title_view"
@@ -32,5 +33,5 @@
         android:maxLines="1"
         android:text="[Web발신]"
         android:ellipsize="end"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 </LinearLayout>

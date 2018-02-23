@@ -26,18 +26,12 @@ import java.util.ArrayList
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var responseList : ArrayList<RecordVO>
-    var CONTACT_QUERY_LOADER = 0
-    var QUERY_KEY = "query"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
         // Get the intent, verify the action and get the query
         val intent = intent
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            getQuery(query);
-        }
         if (intent != null) {
             handleIntent(intent)
         }
