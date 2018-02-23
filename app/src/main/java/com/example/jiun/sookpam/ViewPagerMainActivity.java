@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -104,8 +103,7 @@ public class ViewPagerMainActivity extends AppCompatActivity {
     }
 
     private void goToMypageTab() {
-        Intent intent = new Intent(this, MypageActivity.class);
-        finish();
-        startActivity(intent);
+        MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(myFragAdapter);
     }
 }
