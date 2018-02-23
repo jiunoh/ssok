@@ -16,14 +16,16 @@ import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.model.RecordDBManager
+import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
+import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 
 
 class SearchableActivity : AppCompatActivity() {
-    private lateinit  var categoryManager: RecordDBManager
     private lateinit var toolbar: Toolbar
+    private lateinit var responseList : ArrayList<RecordVO>
     var CONTACT_QUERY_LOADER = 0
     var QUERY_KEY = "query"
 
@@ -40,33 +42,28 @@ class SearchableActivity : AppCompatActivity() {
             handleIntent(intent)
         }
         setToolbar()
-        setRecyclerView()
+        //setRecyclerView()
     }
 
-    private fun showMessageBody(data: DataItem) {
+    private fun showMessageBody(data: RecordVO) {
         val intent = Intent(this, ContentActivity::class.java)
-        intent.putExtra("title", data.title)
-        intent.putExtra("date", data.body)
+        intent.putExtra("division", data.division)
+        val body = data.message!!.body
+        var title = body.replaceFirst("\\[Web발신\\]\n".toRegex(), "")
+        title = body.split("\n")[0]
+        intent.putExtra("title",title)
+        intent.putExtra("body",body)
         startActivity(intent)
-    }
-
-    override fun onSearchRequested(): Boolean {
-        //pauseSomeStuff()
-        return super.onSearchRequested()
     }
 
     private fun setRecyclerView() {
         val recyclerView : RecyclerView = search_recycler_view
-        val dataItems = ArrayList<DataItem>()
-        //getDataItems
-        //dataItems.add(dataItem)
-
-        val adapter = SearchableRecyclerAdapter(dataItems)
+        val adapter = SearchableRecyclerAdapter(responseList)
         recyclerView.adapter = adapter
 
         recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = dataItems.get(position)
+                    val data = responseList.get(position)
                     showMessageBody(data)
                 }))
     }
@@ -86,7 +83,6 @@ class SearchableActivity : AppCompatActivity() {
             }
         })
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
@@ -118,7 +114,7 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun getQuery(query: String) {
         val recordManager = RecordDBManager(Realm.getDefaultInstance())
-        recordManager.search("query")
+        responseList = recordManager.contains(query)
         setRecyclerView()
     }
 

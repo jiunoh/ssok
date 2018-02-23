@@ -5,44 +5,45 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.data.DataItem;
-
-import java.text.SimpleDateFormat;
+import com.example.jiun.sookpam.model.vo.RecordVO;
 import java.util.ArrayList;
 
-public class SearchableRecyclerAdapter extends RecyclerView.Adapter<SearchableRecyclerAdapter.DataViewHolder> {
-    private ArrayList<DataItem> dataItems = new ArrayList<DataItem>();
+public class SearchableRecyclerAdapter extends RecyclerView.Adapter<SearchableRecyclerAdapter.RecordViewHolder> {
+    private ArrayList<RecordVO> dataItems = new ArrayList<RecordVO>();
 
-    SearchableRecyclerAdapter(ArrayList<DataItem> items) {
+    SearchableRecyclerAdapter(ArrayList<RecordVO> items) {
         dataItems = items;
     }
 
-    public static class DataViewHolder extends RecyclerView.ViewHolder {
+    public static class RecordViewHolder extends RecyclerView.ViewHolder {
+        TextView category;
+        TextView division;
         TextView title;
-        TextView date;
 
-        public DataViewHolder(View view) {
+        public RecordViewHolder(View view) {
             super(view);
-            title = (TextView) itemView.findViewById(R.id.message_title);
-            date = (TextView) itemView.findViewById(R.id.date_view);
+            category = (TextView) itemView.findViewById(R.id.category_view);
+            division = (TextView) itemView.findViewById(R.id.division_view);
+            title = (TextView) itemView.findViewById(R.id.title_view);
         }
     }
 
     @Override
-    public DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.data_recycler_item, parent, false);
-        DataViewHolder dataViewHolder = new DataViewHolder(v);
-        return dataViewHolder;
+    public RecordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.searchable_recycler_item, parent, false);
+        RecordViewHolder recordViewHolder = new RecordViewHolder(v);
+        return recordViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(DataViewHolder holder, int position) {
-        holder.title.setText(dataItems.get(position).getTitle());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = formatter.format(dataItems.get(position).getDate());
-        holder.date.setText(formattedDate);
+    public void onBindViewHolder(RecordViewHolder holder, int position) {
+        holder.category.setText(dataItems.get(position).getCategory());
+        holder.division.setText(dataItems.get(position).getDivision());
+        String body = dataItems.get(position).getMessage().getBody();
+        body = body.replaceFirst("\\[Web발신\\]\n", "");
+        String title = body.split("\n")[0];
+        holder.title.setText(title);
     }
 
     @Override
