@@ -18,7 +18,7 @@ import com.example.jiun.sookpam.ViewPagerMainActivity
 import com.example.jiun.sookpam.message.MessageContract
 import com.example.jiun.sookpam.message.MessagePresenter
 import com.example.jiun.sookpam.model.ContactDBManager
-import com.example.jiun.sookpam.setting.SettingActivity
+import com.example.jiun.sookpam.setting.InfoActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
                 true
             }
             R.id.action_setting -> {
-                val intent = Intent(this, SettingActivity::class.java)
+                val intent = Intent(this, InfoActivity::class.java)
                 startActivity(intent)
                 true
             }

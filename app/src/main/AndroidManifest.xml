@@ -31,7 +31,7 @@
             tools:replace="android:screenOrientation" />
         <activity android:name=".category.CategoryActivity" />
         <activity android:name=".data.DataActivity" />
-        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".setting.InfoActivity" />
         <activity android:name=".data.DetailActivity" />
         <activity android:name=".main.MainActivity" />
         <activity android:name=".ViewPagerWebActivity" />
