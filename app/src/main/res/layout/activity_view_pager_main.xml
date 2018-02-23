@@ -49,24 +49,25 @@
             android:layout_weight="3.2"
             android:orientation="horizontal"
             android:id="@+id/message_layout"
+            android:gravity="center"
             >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/message"
-                android:id="@+id/icon_message"
-                android:paddingLeft="10dp"
-                />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Message"
-                android:layout_gravity="center"
-                android:paddingLeft="5dp"
-                />
-
+                >
+                <ImageView
+                    android:id="@+id/icon_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/message" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:text="Message"
+                    android:layout_gravity="center"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -75,24 +76,26 @@
             android:layout_weight="2.6"
             android:orientation="horizontal"
             android:id="@+id/web_layout"
+            android:gravity="center"
             >
-
-            <ImageView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/web"
-                android:id="@+id/icon_web"
-                android:paddingLeft="10dp"
-                />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Web"
-                android:layout_gravity="center"
-                android:paddingLeft="5dp"
-                />
+                <ImageView
+                    android:id="@+id/icon_web"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/web" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="Web" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -101,24 +104,26 @@
             android:layout_weight="3.2"
             android:orientation="horizontal"
             android:id="@+id/mypage_layout"
+            android:gravity="center"
             >
-
-            <ImageView
-                android:paddingLeft="10dp"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/mypage"
-                android:id="@+id/icon_mypage"
-                />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My page"
-                android:layout_gravity="center"
-                android:paddingLeft="5dp"
-                />
+                <ImageView
+                    android:id="@+id/icon_mypage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/mypage" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="My page" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
