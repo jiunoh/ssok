@@ -21,6 +21,8 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_main);
 
+        setTitle("");
+
         vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
         setSupportActionBar(vpToolbar);
 
