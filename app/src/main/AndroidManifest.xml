@@ -34,8 +34,6 @@
         <activity android:name=".setting.InfoActivity" />
         <activity android:name=".data.DetailActivity" />
         <activity android:name=".main.MainActivity" />
-        <activity android:name=".ViewPagerWebActivity" />
-        <activity android:name=".MypageActivity"></activity>
     </application>
 
 </manifest>
