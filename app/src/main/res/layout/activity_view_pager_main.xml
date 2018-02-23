@@ -24,6 +24,7 @@
                 android:layout_gravity="center"
                 android:text="Sookpam"
                 android:textSize="22dp"
+                android:textColor="@color/colorPrimary"
                 />
         </android.support.v7.widget.Toolbar>
 
