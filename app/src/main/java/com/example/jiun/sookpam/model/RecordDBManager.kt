@@ -42,20 +42,10 @@ class RecordDBManager(val realm: Realm) {
         }
     }
 
-    fun getDataByDivision(request: String): ArrayList<DataItem> {
-        var messageList = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
-        var responseList: ArrayList<DataItem> = ArrayList<DataItem>()
-
-        for (record in messageList) {
-            if (record.message != null) {
-                val msgBody: String by lazy<String> { (record.message as MessageVO).body }
-                val msgDate: Date by lazy<Date> { (record.message as MessageVO).date }
-                var dataItem = DataItem()
-                dataItem.date = msgDate
-                dataItem.body = msgBody
-                responseList.add(dataItem)
-            }
-        }
+    fun getDataByDivision(request: String): ArrayList<RecordVO> {
+        var  msgResponse = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
         return responseList
     }
 

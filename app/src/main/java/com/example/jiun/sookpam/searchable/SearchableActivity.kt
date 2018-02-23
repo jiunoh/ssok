@@ -15,6 +15,7 @@ import android.widget.SearchView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.ContentActivity
+import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
@@ -36,17 +37,18 @@ class SearchableActivity : AppCompatActivity() {
             handleIntent(intent)
         }
         setToolbar()
-        //setRecyclerView()
     }
 
     private fun showMessageBody(data: RecordVO) {
+        var contentItem : ContentItem = ContentItem()
+        contentItem.category = data.category
+        contentItem.division = data.division
+        contentItem.body = data.message!!.body
+        contentItem.phone = data.message!!.phoneNumber
         val intent = Intent(this, ContentActivity::class.java)
-        intent.putExtra("division", data.division)
-        val body = data.message!!.body
-        var title = body.replaceFirst("\\[Web발신\\]\n".toRegex(), "")
-        title = body.split("\n")[0]
-        intent.putExtra("title",title)
-        intent.putExtra("body",body)
+        val bundle = Bundle()
+        bundle.putSerializable("OBJECT", contentItem)
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 
