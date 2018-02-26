@@ -1,6 +1,6 @@
 package com.example.jiun.sookpam.server
 
-data class Record(
+data class RecordResponse(
     var id:Int = 0,
     var view:Int = 0,
     var category:String = "",
