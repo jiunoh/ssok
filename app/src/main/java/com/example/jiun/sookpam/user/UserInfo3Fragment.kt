@@ -42,6 +42,7 @@ class UserInfo3Fragment : Fragment() {
         detailButtons.add(user_info3_it_btn)
         detailButtons.add(user_info3_global_btn)
         detailButtons.add(user_info3_career_btn)
+        detailButtons.add(user_info3_student_btn)
 
         for (button in detailButtons) {
             button.setOnClickListener {
