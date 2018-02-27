@@ -12,9 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
-                android:paddingTop="14dp"
                 android:paddingStart="24dp"
                 android:text="demo"
                 android:layout_width="0dp"
@@ -72,6 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="24dp"
             >
             <TextView
                 android:layout_width="0dp"
@@ -80,6 +83,7 @@
                 android:id="@+id/category_2"
                 android:textSize="24dp"
                 android:textStyle="bold"
+                android:paddingStart="14dp"
                 />
             <TextView
                 android:layout_width="0dp"
