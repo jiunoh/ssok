@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-        <activity android:name=".server.ServerActivity">
+        <activity android:name=".server.ClientServerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
