@@ -5,7 +5,6 @@ import android.util.Log
 import com.example.jiun.sookpam.model.vo.CategoryVO
 import com.example.jiun.sookpam.model.vo.ContactVO
 import io.realm.Realm
-import io.realm.RealmObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -17,13 +16,8 @@ class ContactDBManager : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Realm.init(this)
-        realm = Realm.getDefaultInstance()
-
-        if (!realm!!.isEmpty) {
-            Log.v("DB", "already there!!")
-        } else {
-            Log.v("DB", "Not Found!!")
+        try {
+            realm = Realm.getDefaultInstance()
             realm!!.executeTransactionAsync({ bgRealm ->
                 try {
                     if (doesNotExist(bgRealm)) {
@@ -39,6 +33,8 @@ class ContactDBManager : Application() {
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
+        } catch (exception: RuntimeException) {
+            //Realm already exist
         }
     }
 
