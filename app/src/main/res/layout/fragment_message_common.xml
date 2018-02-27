@@ -73,36 +73,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
             android:gravity="center"
-            android:paddingTop="24dp"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_2"
                 android:textSize="24dp"
                 android:textStyle="bold"
-                android:paddingStart="14dp"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_2_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_2_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_2_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_2_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_3"
                 android:textSize="24dp"
@@ -111,21 +144,54 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_3_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_3_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_3_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_3_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_4"
                 android:textSize="24dp"
@@ -134,21 +200,54 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_4_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_4_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_4_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_4_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_5"
                 android:textSize="24dp"
@@ -157,21 +256,54 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_5_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_5_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_5_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_5_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_6"
                 android:textSize="24dp"
@@ -180,21 +312,54 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_6_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_6_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_6_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_6_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:gravity="center"
             >
             <TextView
+                android:paddingStart="24dp"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_7"
                 android:textSize="24dp"
@@ -203,13 +368,42 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_7_button"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/category_7_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_7_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_7_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
     </LinearLayout>
 </ScrollView>
