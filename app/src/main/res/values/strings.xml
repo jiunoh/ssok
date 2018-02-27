@@ -13,4 +13,5 @@
     <string name="start_message_synchronization">메세지 동기화를 시작합니다.</string>
     <string name="end_message_synchronization">메세지 동기화를 완료했습니다.</string>
     <string name="client_server_division_character"><![CDATA[>]]></string>
+    <string name="back_to_main">back to the main</string>
 </resources>

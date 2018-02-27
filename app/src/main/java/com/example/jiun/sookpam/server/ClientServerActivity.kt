@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.example.jiun.sookpam.R
@@ -14,9 +16,11 @@ import retrofit2.Response
 
 class ClientServerActivity : AppCompatActivity() {
     private lateinit var service: RecordService
+    lateinit var toolbar: Toolbar
     lateinit var recordsRecyclerView: RecyclerView
     lateinit var categoryTextView: TextView
     lateinit var divisionTextView: TextView
+    lateinit var backButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +30,20 @@ class ClientServerActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
+        setToolbar()
         recordsRecyclerView = client_server_record_recycler_view
         recordsRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         categoryTextView = client_server_category_txt
         divisionTextView = client_server_division_txt
         service = ApiUtils.getRecordService()
+        backButton = client_server_back_image_btn
+        backButton.setOnClickListener { finish() }
+    }
+
+    private fun setToolbar() {
+        toolbar = client_server_toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
     }
 
     private fun loadRecords(category: String, division: String) {
