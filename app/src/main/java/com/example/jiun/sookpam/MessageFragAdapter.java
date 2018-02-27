@@ -5,10 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-/**
- * Created by jiun on 2018-02-20.
- */
-
 public class MessageFragAdapter extends FragmentStatePagerAdapter {
     private static int TAB_NUMBER = 2;
 

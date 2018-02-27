@@ -12,33 +12,35 @@ import java.util.ArrayList;
 public class MessageDepartListAdapter extends BaseAdapter {
     private ArrayList<MessageDepartItem> messageDepartItems = new ArrayList<MessageDepartItem>();
 
+    public static class MessageDepartViewHolder {
+        TextView category;
+        TextView title;
+    }
+
     @Override
     public int getCount() {
         return messageDepartItems.size();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
-        final Context context = viewGroup.getContext();
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final Context context = parent.getContext();
         MessageDepartViewHolder holder;
+        holder = new MessageDepartViewHolder();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.message_depart_item, viewGroup, false);
-            holder = new MessageDepartViewHolder();
+            convertView = inflater.inflate(R.layout.message_depart_item, parent, false);
             holder.category = (TextView) convertView.findViewById(R.id.message_depart_category);
             holder.title = (TextView) convertView.findViewById(R.id.message_depart_title);
             convertView.setTag(holder);
         } else
             holder = (MessageDepartViewHolder) convertView.getTag();
 
-        TextView title = (TextView) convertView.findViewById(R.id.message_depart_title);
-        TextView category = (TextView) convertView.findViewById(R.id.message_depart_category);
-
         MessageDepartItem messageDepartItem = messageDepartItems.get(position);
 
-        title.setText(messageDepartItem.getTitle());
-        category.setText(messageDepartItem.getCategory());
+        holder.title.setText(messageDepartItem.getTitle());
+        holder.category.setText(messageDepartItem.getCategory());
 
         return convertView;
     }
@@ -62,10 +64,5 @@ public class MessageDepartListAdapter extends BaseAdapter {
 
     public void clear() {
         messageDepartItems.clear();
-    }
-
-    public static class MessageDepartViewHolder {
-        TextView category;
-        TextView title;
     }
 }
