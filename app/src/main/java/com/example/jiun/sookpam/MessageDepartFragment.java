@@ -6,12 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MessageDepartFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
-    MessageDepartListAdapter adapter;
 
     public MessageDepartFragment() {
         // Required empty public constructor
@@ -33,6 +34,14 @@ public class MessageDepartFragment extends Fragment {
         adapter.addItem("demo title", "demo");
         adapter.addItem("demo title", "demo");
         adapter.addItem("demo title", "demo");
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity().getApplicationContext(), "리스트 아이템 클릭됨", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         return view;
     }
