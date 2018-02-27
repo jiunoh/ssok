@@ -42,7 +42,6 @@ public class MessageDepartFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 

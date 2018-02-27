@@ -14,21 +14,59 @@
             android:orientation="horizontal"
             >
             <TextView
+                android:paddingTop="14dp"
+                android:paddingStart="24dp"
+                android:text="demo"
                 android:layout_width="0dp"
-                android:layout_weight="8"
+                android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_1"
                 android:textSize="24dp"
+                android:textStyle="bold"
             />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="2.5"
                 android:textSize="20dp"
                 android:clickable="true"
                 android:id="@+id/category_1_button"
+                android:text="MORE >"
+                android:paddingEnd="10dp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
             />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/category_1_content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="demodemodemodemodemodemodem"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_1_content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="demodemodemodemodemodemo"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
+
+        <TextView
+            android:id="@+id/category_1_content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="demodemodemodemodemodemodemo"
+            android:paddingTop="14dp"
+            android:paddingStart="24dp"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_2"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -63,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_3"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -85,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_4"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -107,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_5"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -129,6 +171,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_6"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
@@ -151,6 +194,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/category_7"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
