@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.main;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,10 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jiun.sookpam.R;
+
 import java.util.ArrayList;
 
 public class MainListviewAdapter extends BaseAdapter {
     private ArrayList<MainItem> mainItemList = new ArrayList<MainItem>();
+
 
     @Override
     public int getCount() {

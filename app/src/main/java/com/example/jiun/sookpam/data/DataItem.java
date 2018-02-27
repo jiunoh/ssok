@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.data;
 
 public class DataItem {
     private String title;

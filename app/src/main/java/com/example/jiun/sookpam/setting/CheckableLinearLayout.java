@@ -1,10 +1,12 @@
-package com.example.jiun.sookpam;
+package com.example.jiun.sookpam.setting;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
 import android.widget.Checkable;
 import android.widget.LinearLayout;
+
+import com.example.jiun.sookpam.R;
 
 public class CheckableLinearLayout extends LinearLayout implements Checkable {
 

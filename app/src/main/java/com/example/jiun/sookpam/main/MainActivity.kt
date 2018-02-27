@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam
+package com.example.jiun.sookpam.main
 
 import android.content.Intent
 import android.graphics.Color
@@ -15,6 +15,11 @@ import com.example.jiun.sookpam.message.MessagePresenter
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
+import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.model.ContactDBManager
+import com.example.jiun.sookpam.data.DataActivity
+import com.example.jiun.sookpam.setting.SettingActivity
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,7 +60,6 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
             if (SharedPreferenceUtil.get(applicationContext, category, false))
                 adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
         }
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "학교")
         adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "기타")
     }
 

@@ -21,7 +21,7 @@
             android:id="@+id/main_listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:choiceMode="singleChoice" />
+            android:choiceMode="singleChoice" />a
 
         <ProgressBar
             android:id="@+id/main_message_prograssbar"
