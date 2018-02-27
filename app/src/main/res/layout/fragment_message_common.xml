@@ -22,14 +22,14 @@
                 android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_1"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
             />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:clickable="true"
                 android:id="@+id/category_1_button"
                 android:text="MORE >"
@@ -43,7 +43,7 @@
             android:id="@+id/category_1_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="demodemodemodemodemodemodem"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
@@ -53,7 +53,7 @@
             android:id="@+id/category_1_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="demodemodemodemodemodemo"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
@@ -63,7 +63,7 @@
             android:id="@+id/category_1_content3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:text="demodemodemodemodemodemodemo"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
@@ -82,7 +82,7 @@
                 android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_2"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 />
             <TextView
@@ -270,7 +270,7 @@
             android:id="@+id/category_5_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -279,7 +279,7 @@
             android:id="@+id/category_5_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -288,7 +288,7 @@
             android:id="@+id/category_5_content3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -306,14 +306,14 @@
                 android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_6"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:clickable="true"
                 android:id="@+id/category_6_button"
                 android:paddingEnd="10dp"
@@ -326,7 +326,7 @@
             android:id="@+id/category_6_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -335,7 +335,7 @@
             android:id="@+id/category_6_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -344,7 +344,7 @@
             android:id="@+id/category_6_content3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -362,14 +362,14 @@
                 android:layout_weight="7.5"
                 android:layout_height="wrap_content"
                 android:id="@+id/category_7"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:clickable="true"
                 android:id="@+id/category_7_button"
                 android:paddingEnd="10dp"
@@ -382,7 +382,7 @@
             android:id="@+id/category_7_content1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -391,7 +391,7 @@
             android:id="@+id/category_7_content2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
@@ -400,7 +400,7 @@
             android:id="@+id/category_7_content3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:paddingTop="14dp"
             android:paddingStart="24dp"
             />
