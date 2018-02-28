@@ -76,7 +76,6 @@ public class MessageCommonFragment extends Fragment {
 
         category_janghak.setText("장학");
         category_janghak.setBackgroundResource(R.drawable.category_shape);
-        
 
         return view;
     }
