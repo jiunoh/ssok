@@ -6,7 +6,6 @@ import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.RealmToJson
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm
@@ -18,7 +17,6 @@ class MessagePresenter(
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
     private lateinit var recordManager: RecordDBManager
-    private lateinit var relamToJson: RealmToJson
 
     init {
         messagePermissionView.presenter = this
@@ -70,11 +68,6 @@ class MessagePresenter(
                 recordManager = RecordDBManager(realm)
                 readAndSaveMessageList()
                 recordManager.categorizeMessages(context)
-                relamToJson = RealmToJson(realm)
-                val json = relamToJson.convertRealmToJson()
-                if(json!=null) {
-                    relamToJson.saveJsonFile(json)
-                }
             } finally {
                 if (realm != null) {
                     realm.close()
