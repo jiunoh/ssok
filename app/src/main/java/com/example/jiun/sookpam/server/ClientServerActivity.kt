@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.server
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.RecyclerItemClickListener
 import retrofit2.Call
 import kotlinx.android.synthetic.main.activity_client_server.*
 import retrofit2.Callback
@@ -21,6 +23,7 @@ class ClientServerActivity : AppCompatActivity() {
     lateinit var categoryTextView: TextView
     lateinit var divisionTextView: TextView
     lateinit var backButton: ImageButton
+    var records: List<RecordResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,11 @@ class ClientServerActivity : AppCompatActivity() {
         setToolbar()
         recordsRecyclerView = client_server_record_recycler_view
         recordsRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        recordsRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
+            intent.putExtra("record", records!![position])
+            startActivity(intent)
+        }))
         categoryTextView = client_server_category_txt
         divisionTextView = client_server_division_txt
         service = ApiUtils.getRecordService()
@@ -55,7 +63,7 @@ class ClientServerActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
-                val records = response!!.body()
+                records = response!!.body()
                 recordsRecyclerView.adapter = RecordRecyclerAdapter(records)
             }
         })

@@ -28,7 +28,7 @@ class RecordRecyclerAdapter(private val records: List<RecordResponse>?) : Recycl
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var titleTextView = view.record_item_title_txt
-        var dateTextView = view.record_item_date_txt
+        var titleTextView = view.record_item_title_txt!!
+        var dateTextView = view.record_item_date_txt!!
     }
 }
