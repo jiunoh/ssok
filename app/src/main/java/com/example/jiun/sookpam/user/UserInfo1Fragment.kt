@@ -46,8 +46,8 @@ class UserInfo1Fragment : Fragment() {
     private fun initialize() {
         studentYearSpinner = user_info1_student_year_spinner
         studentGradeSpinner = user_info1_student_grade_spinner
-        setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR)
-        setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE)
+        setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, STUDENT_YEAR, userInfo1Context!!)
+        setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, STUDENT_GRADE, userInfo1Context!!)
         majorSelectingButton = user_info1_major_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
@@ -56,24 +56,7 @@ class UserInfo1Fragment : Fragment() {
         }
         majorsRecyclerView = user_info1_majors_recycler_view
         majorsRecyclerView.layoutManager = LinearLayoutManager(userInfo1Context)
-        loadMajors()
-    }
-
-    private fun setSpinnerAdapter(spinner: Spinner, spinnerArrayAdapter: ArrayAdapter<String>, name: String) {
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
-        spinner.adapter = spinnerArrayAdapter
-        setSpinnerListener(spinner, name)
-    }
-
-    private fun setSpinnerListener(spinner: Spinner, key: String) {
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(adapterView: AdapterView<*>) {
-            }
-
-            override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
-                SharedPreferenceUtil.set(userInfo1Context, key, adapterView.getItemAtPosition(position).toString())
-            }
-        }
+        loadMajors(majorSelectingButton, selectedMajors,  majorsRecyclerView, context!!)
     }
 
     private fun loadPage1Data(yearSpinner: Spinner, gradeSpinner: Spinner) {
@@ -86,31 +69,48 @@ class UserInfo1Fragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             selectedMajors.clear()
-            loadMajors()
+            loadMajors(majorSelectingButton, selectedMajors,  majorsRecyclerView, context!!)
         }
-    }
-
-    private fun loadMajors() {
-        for (college in MajorList.collegeAndMajors) {
-            for (major in college) {
-                val doesMajorSelected = SharedPreferenceUtil.get(userInfo1Context, major, false)
-                if (doesMajorSelected && major !in selectedMajors) {
-                    selectedMajors.add(major)
-                }
-            }
-        }
-        if (selectedMajors.size > 0) {
-            majorSelectingButton.text = getString(R.string.info_change_major)
-        } else {
-            majorSelectingButton.text = getString(R.string.info_add_major)
-        }
-        majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(selectedMajors)
     }
 
     companion object {
         const val STUDENT_YEAR = "student_year"
         const val STUDENT_GRADE = "student_grade"
         const val MAJOR_REQUEST_CODE = 0
+
+        fun setSpinnerAdapter(spinner: Spinner, spinnerArrayAdapter: ArrayAdapter<String>, name: String, context: Context) {
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+            spinner.adapter = spinnerArrayAdapter
+            setSpinnerListener(spinner, name, context)
+        }
+
+        private fun setSpinnerListener(spinner: Spinner, key: String, context: Context) {
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(adapterView: AdapterView<*>) {
+                }
+
+                override fun onItemSelected(adapterView: AdapterView<*>, view: View?, position: Int, id: Long) {
+                    SharedPreferenceUtil.set(context, key, adapterView.getItemAtPosition(position).toString())
+                }
+            }
+        }
+
+        fun loadMajors(majorSelectingButton:Button, selectedMajors:ArrayList<String>, majorsRecyclerView:RecyclerView, context: Context) {
+            for (college in MajorList.collegeAndMajors) {
+                for (major in college) {
+                    val doesMajorSelected = SharedPreferenceUtil.get(context, major, false)
+                    if (doesMajorSelected && major !in selectedMajors) {
+                        selectedMajors.add(major)
+                    }
+                }
+            }
+            if (selectedMajors.size > 0) {
+                majorSelectingButton.text = context.getString(R.string.info_change_major)
+            } else {
+                majorSelectingButton.text = context.getString(R.string.info_add_major)
+            }
+            majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(selectedMajors)
+        }
     }
 }
 

@@ -46,58 +46,58 @@ class UserInfo2Fragment : Fragment() {
         studentStatusRadioGroup = user_info2_status_radio_group
         statusInRadioButton = user_info2_status_in_radio_btn
         statusOutRadioButton = user_info2_status_out_radio_btn
-        setCheckBoxListener(schoolScholarShipCheckBox)
-        setCheckBoxListener(suburbanScholarShipCheckBox)
-        setCheckBoxListener(governmentScholarShipCheckBox)
-        setStatusListener()
+        setCheckBoxListener(schoolScholarShipCheckBox, userInfo2Context!!)
+        setCheckBoxListener(suburbanScholarShipCheckBox, userInfo2Context!!)
+        setCheckBoxListener(governmentScholarShipCheckBox, userInfo2Context!!)
+        setRadioButtonListener(studentStatusRadioGroup, statusInRadioButton, statusOutRadioButton, userInfo2Context!!)
     }
 
     private fun loadPage2Data() {
-        loadCheckBoxData(schoolScholarShipCheckBox)
-        loadCheckBoxData(suburbanScholarShipCheckBox)
-        loadCheckBoxData(governmentScholarShipCheckBox)
-        loadRadioGroupData(studentStatusRadioGroup)
-    }
-
-    private fun loadRadioGroupData(radioGroup: RadioGroup) {
-        val selectedRadioButton = SharedPreferenceUtil.get(userInfo2Context, STUDENT_STATUS, true)
-        if (selectedRadioButton) {
-            radioGroup.check(statusInRadioButton.id)
-        } else {
-            radioGroup.check(statusOutRadioButton.id)
-        }
-    }
-
-    private fun loadCheckBoxData(checkBox: CheckBox) {
-        checkBox.isChecked = SharedPreferenceUtil.get(userInfo2Context, checkBox.text.toString(), false)
-    }
-
-    private fun setCheckBoxListener(checkBox: CheckBox) {
-        checkBox.setOnClickListener {
-            if (checkBox.isChecked) {
-                SharedPreferenceUtil.set(userInfo2Context, checkBox.text.toString(), CHECKED)
-            } else {
-                SharedPreferenceUtil.set(userInfo2Context, checkBox.text.toString(), UNCHECKED)
-            }
-        }
-    }
-
-    private fun setStatusListener() {
-        studentStatusRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                statusInRadioButton.id -> {
-                    SharedPreferenceUtil.set(userInfo2Context, STUDENT_STATUS, statusInRadioButton.text.toString())
-                }
-                statusOutRadioButton.id -> {
-                    SharedPreferenceUtil.set(userInfo2Context, STUDENT_STATUS, statusOutRadioButton.text.toString())
-                }
-            }
-        }
+        loadCheckBoxData(schoolScholarShipCheckBox, context!!)
+        loadCheckBoxData(suburbanScholarShipCheckBox, context!!)
+        loadCheckBoxData(governmentScholarShipCheckBox, context!!)
+        loadRadioGroupData(studentStatusRadioGroup, statusInRadioButton, statusOutRadioButton, context!!)
     }
 
     companion object {
-        const val UNCHECKED = false
-        const val CHECKED = true
+        private const val UNCHECKED = false
+        private const val CHECKED = true
         const val STUDENT_STATUS = "student_status"
+
+        fun setCheckBoxListener(checkBox: CheckBox, context: Context) {
+            checkBox.setOnClickListener {
+                if (checkBox.isChecked) {
+                    SharedPreferenceUtil.set(context, checkBox.text.toString(), CHECKED)
+                } else {
+                    SharedPreferenceUtil.set(context, checkBox.text.toString(), UNCHECKED)
+                }
+            }
+        }
+
+        fun setRadioButtonListener(radioGroup: RadioGroup, radioButton1: RadioButton, radioButton2: RadioButton, context: Context) {
+            radioGroup.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    radioButton1.id -> {
+                        SharedPreferenceUtil.set(context, STUDENT_STATUS, radioButton1.text.toString())
+                    }
+                    radioButton2.id -> {
+                        SharedPreferenceUtil.set(context, STUDENT_STATUS, radioButton2.text.toString())
+                    }
+                }
+            }
+        }
+
+        fun loadCheckBoxData(checkBox: CheckBox, context: Context) {
+            checkBox.isChecked = SharedPreferenceUtil.get(context, checkBox.text.toString(), false)
+        }
+
+        fun loadRadioGroupData(radioGroup: RadioGroup, radioButton1: RadioButton, radioButton2: RadioButton, context: Context) {
+            val selectedRadioButton = SharedPreferenceUtil.get(context, STUDENT_STATUS, radioButton1.text.toString())
+            if (selectedRadioButton == radioButton1.text.toString()) {
+                radioGroup.check(radioButton1.id)
+            } else {
+                radioGroup.check(radioButton2.id)
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ public class MyFragAdapter extends FragmentStatePagerAdapter {
                 MyTopicFragment myTopicFragment = MyTopicFragment.newInstance();
                 return myTopicFragment;
             case 1:
-                MyInfoFragment myInfoFragment = MyInfoFragment.newInstance();
+                MyInfoFragment myInfoFragment = MyInfoFragment.Companion.newInstance();
                 return myInfoFragment;
             case 2:
                 MyScrapFragment myScrapFragment = MyScrapFragment.newInstance();

@@ -87,7 +87,7 @@
             android:textSize="18sp" />
 
         <CheckBox
-            android:id="@+id/my_info_suburban_scholarship_checkbox"
+            android:id="@+id/my_info_external_scholarship_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="60dp"
             android:orientation="horizontal">
 
             <RadioButton

@@ -81,6 +81,6 @@
     <string name="info_student_year">학번</string>
     <string name="info_student_grade">학년</string>
     <string name="info_major">전공</string>
-    <string name="info_scholarship">장학금</string>
+    <string name="info_scholarship">장학금 수혜여부</string>
     <string name="info_status">재/휴학 여부</string>
 </resources>

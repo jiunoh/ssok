@@ -25,7 +25,7 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_main);
 
-        if(isFirstUserInfoSetting()) {
+        if (isFirstUserInfoSetting()) {
             Intent intent = new Intent(this, UserInfoActivity.class);
             startActivity(intent);
         }
