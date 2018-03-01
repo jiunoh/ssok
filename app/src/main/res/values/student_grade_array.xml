@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string-array name="student_grade">
+        <item>1 학년</item>
+        <item>2 학년</item>
+        <item>3 학년</item>
+        <item>4 학년</item>
+    </string-array>
+</resources>
