@@ -7,60 +7,68 @@ import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 
-class PersonalCategory(val context: Context, private val pageNumber: Int) {
-    fun setCategoryButtonListener(button: Button, alreadyChecked: String) {
+class PersonalCategory(val context: Context, private val pageNumber: Int = 0) {
+    fun setCategoryButtonListener(button: Button, message: String) {
         val categoryName = button.text.toString()
         val currentKey = SharedPreferenceUtil.get(context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-        if (pageNumber == PAGE3) {
-            when (currentKey) {
+        when (pageNumber) {
+            PAGE3 -> when (currentKey) {
                 PersonalCategory.NORMAL_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, PersonalCategory.INTEREST_CATEGORY)
-                    changeButtonColor(button)
-
+                    button.setBackgroundResource(R.drawable.circle_shape_blue)
+                    button.setTextColor(Color.WHITE)
+                    Toast.makeText(context, categoryName + " 카테고리가 관심 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 PersonalCategory.INTEREST_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-                    changeButtonColor(button)
+                    button.setBackgroundResource(R.drawable.circle_shape_white_blue)
+                    button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                    Toast.makeText(context, categoryName + " 카테고리가 관심 목록에서 해제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 PersonalCategory.UNINTEREST_CATEGORY -> {
-                    Toast.makeText(context, alreadyChecked, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             }
-        } else {
-            when (currentKey) {
+            PAGE4 -> when (currentKey) {
                 PersonalCategory.NORMAL_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, PersonalCategory.UNINTEREST_CATEGORY)
-                    changeButtonColor(button)
+                    button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
+                    button.setTextColor(Color.WHITE)
+                    Toast.makeText(context, categoryName + " 카테고리가 관심 없음 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 PersonalCategory.UNINTEREST_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, PersonalCategory.NORMAL_CATEGORY)
-                    changeButtonColor(button)
+                    button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
+                    button.setTextColor(ContextCompat.getColor(context, R.color.colorDarkGray))
+                    Toast.makeText(context, categoryName + " 카테고리가 관심 없음 목록에서 해제되었습니다.", Toast.LENGTH_SHORT).show()
                 }
                 PersonalCategory.INTEREST_CATEGORY -> {
-                    Toast.makeText(context, alreadyChecked, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-    }
-
-    private fun changeButtonColor(button: Button) {
-        if (pageNumber == PAGE3) {
-            if (button.currentTextColor
-                    == ContextCompat.getColor(context, R.color.colorPrimary)) {
-                button.setBackgroundResource(R.drawable.circle_shape_blue)
-                button.setTextColor(Color.WHITE)
-            } else {
-                button.setBackgroundResource(R.drawable.circle_shape_white_blue)
-                button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            }
-        } else {
-            if (button.currentTextColor
-                    == ContextCompat.getColor(context, R.color.colorDarkGray)) {
-                button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
-                button.setTextColor(Color.WHITE)
-            } else {
-                button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
-                button.setTextColor(ContextCompat.getColor(context, R.color.colorDarkGray))
+            else -> when (currentKey) {
+                PersonalCategory.NORMAL_CATEGORY -> {
+                    SharedPreferenceUtil.set(context, categoryName, PersonalCategory.INTEREST_CATEGORY)
+                    button.setBackgroundResource(R.drawable.circle_shape_blue)
+                    button.setTextColor(Color.WHITE)
+                    Toast.makeText(context, categoryName + " 카테고리가 관심 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                PersonalCategory.UNINTEREST_CATEGORY -> {
+                    SharedPreferenceUtil.set(context, categoryName, PersonalCategory.NORMAL_CATEGORY)
+                    button.setBackgroundResource(R.drawable.circle_shape_white_blue)
+                    button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                    Toast.makeText(context, categoryName + " 카테고리가 기본 상태로 변경 되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                PersonalCategory.INTEREST_CATEGORY -> {
+                    if (UserInfoActivity.countInterestCategories(context) > 3) {
+                        SharedPreferenceUtil.set(context, categoryName, PersonalCategory.UNINTEREST_CATEGORY)
+                        button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
+                        button.setTextColor(Color.WHITE)
+                        Toast.makeText(context, categoryName + " 카테고리가 관심 없음 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -90,7 +98,7 @@ class PersonalCategory(val context: Context, private val pageNumber: Int) {
                     button.setTextColor(Color.WHITE)
                 }
             }
-        } else {
+        } else if (pageNumber == PAGE4) {
             when (categoryStatus) {
                 PersonalCategory.NORMAL_CATEGORY -> {
                     button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
@@ -98,6 +106,21 @@ class PersonalCategory(val context: Context, private val pageNumber: Int) {
                 }
                 PersonalCategory.INTEREST_CATEGORY -> {
                     button.setBackgroundResource(R.drawable.circle_shape_gray)
+                    button.setTextColor(Color.WHITE)
+                }
+                PersonalCategory.UNINTEREST_CATEGORY -> {
+                    button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
+                    button.setTextColor(Color.WHITE)
+                }
+            }
+        } else {
+            when (categoryStatus) {
+                PersonalCategory.NORMAL_CATEGORY -> {
+                    button.setBackgroundResource(R.drawable.circle_shape_white_blue)
+                    button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                }
+                PersonalCategory.INTEREST_CATEGORY -> {
+                    button.setBackgroundResource(R.drawable.circle_shape_blue)
                     button.setTextColor(Color.WHITE)
                 }
                 PersonalCategory.UNINTEREST_CATEGORY -> {
@@ -114,6 +137,6 @@ class PersonalCategory(val context: Context, private val pageNumber: Int) {
         const val UNINTEREST_CATEGORY = 2
         const val PAGE3 = 2
         const val PAGE4 = 3
-        val categories = listOf("장학", "학사", "입학", "모집", "시스템", "국제", "취업" )
+        val categories = listOf("장학", "학사", "입학", "모집", "시스템", "국제", "취업")
     }
 }

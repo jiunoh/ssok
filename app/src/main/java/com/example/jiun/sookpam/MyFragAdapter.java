@@ -20,7 +20,7 @@ public class MyFragAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                MyTopicFragment myTopicFragment = MyTopicFragment.newInstance();
+                MyTopicFragment myTopicFragment = MyTopicFragment.Companion.newInstance();
                 return myTopicFragment;
             case 1:
                 MyInfoFragment myInfoFragment = MyInfoFragment.Companion.newInstance();

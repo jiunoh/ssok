@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.user
 
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -119,18 +120,10 @@ class UserInfoActivity : AppCompatActivity() {
                 if (status == "") return false
             }
             SimpleFragmentPagerAdapter.USER_INFO_3 -> {
-                if (countInterestCategories() < 3) return false
+                if (countInterestCategories(applicationContext) < 3) return false
             }
         }
         return true
-    }
-
-    private fun countInterestCategories(): Int {
-        return PersonalCategory.categories.count { getCategoryStatus(it) == PersonalCategory.INTEREST_CATEGORY }
-    }
-
-    private fun getCategoryStatus(key: String): Int {
-        return SharedPreferenceUtil.get(applicationContext, key, PersonalCategory.NORMAL_CATEGORY)
     }
 
     private fun changeCircleColor(doesMovePrevious: Boolean) {
@@ -148,5 +141,13 @@ class UserInfoActivity : AppCompatActivity() {
         const val MAX_PAGE_SIZE = 4
         const val MOVE_PREVIOUS_PAGE = true
         const val MOVE_NEXT_PAGE = false
+
+        fun countInterestCategories(context: Context): Int {
+            return PersonalCategory.categories.count { getCategoryStatus(it, context) == PersonalCategory.INTEREST_CATEGORY }
+        }
+
+        private fun getCategoryStatus(key: String, context: Context): Int {
+            return SharedPreferenceUtil.get(context, key, PersonalCategory.NORMAL_CATEGORY)
+        }
     }
 }
