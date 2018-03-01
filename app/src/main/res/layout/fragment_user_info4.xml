@@ -24,103 +24,129 @@
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
-    <GridLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:columnCount="2">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/user_info4_scholarship_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_scholarship"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/user_info4_academic_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_academic"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/user_info4_entrance_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_entrance"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/user_info4_recruit_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_recruit"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/user_info4_it_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_system"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/user_info4_global_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_global"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/user_info4_career_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_info_detail_career"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/user_info4_student_btn"
-            android:layout_width="140dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="40dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/circle_shape_white_dark_gray"
+            android:layout_weight="1"
+            android:background="@drawable/circle_shape_white_blue"
             android:text="@string/user_detail_student_btn"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
-    </GridLayout>
+    </LinearLayout>
 </LinearLayout>
