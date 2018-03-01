@@ -2,29 +2,28 @@ package com.example.jiun.sookpam.main
 
 import android.content.Intent
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ProgressBar
-import android.widget.Toast
-import com.example.jiun.sookpam.message.MessageContract
-import com.example.jiun.sookpam.message.MessagePresenter
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.ProgressBar
+import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.ViewPagerMainActivity
+import com.example.jiun.sookpam.message.MessageContract
+import com.example.jiun.sookpam.message.MessagePresenter
 import com.example.jiun.sookpam.model.ContactDBManager
-import com.example.jiun.sookpam.data.DataActivity
-import com.example.jiun.sookpam.setting.SettingActivity
+import com.example.jiun.sookpam.setting.InfoActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.activity_main.*
-
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MessageContract.View {
     override lateinit var presenter: MessageContract.Presenter
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
     }
 
     private fun go(category: String) {
-        val intent = Intent(this, DataActivity::class.java)
+        val intent = Intent(this, ViewPagerMainActivity::class.java)
         intent.putExtra("category", category);
         startActivity(intent)
     }
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
                 true
             }
             R.id.action_setting -> {
-                val intent = Intent(this, SettingActivity::class.java)
+                val intent = Intent(this, InfoActivity::class.java)
                 startActivity(intent)
                 true
             }

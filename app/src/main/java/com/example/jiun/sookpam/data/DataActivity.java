@@ -80,7 +80,7 @@ public class DataActivity extends AppCompatActivity {
 
     private ArrayList<String> handleCategoryUniv() {
         ContactDBManager contactDBManager =  (ContactDBManager)getApplicationContext();
-        ArrayList<String> categoryList = contactDBManager.getKeywordList();
+        ArrayList<String> categoryList = contactDBManager.getDepartmentList();
         ArrayList<String> response = new ArrayList<>();
         for (String category : categoryList) {
             if (!SharedPreferenceUtil.get(this, category, false))
