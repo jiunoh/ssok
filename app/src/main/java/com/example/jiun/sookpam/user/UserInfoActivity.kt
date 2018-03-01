@@ -97,6 +97,7 @@ class UserInfoActivity : AppCompatActivity() {
                 }
             }
             else {
+                SharedPreferenceUtil.set(applicationContext, "first_setting_user_info", false)
                 finish()
             }
         }
