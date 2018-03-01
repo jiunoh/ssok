@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.user.UserInfoActivity;
+
 public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;
     ViewPager viewPager;
@@ -20,6 +23,9 @@ public class ViewPagerMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_main);
+
+        Intent intent = new Intent(this, UserInfoActivity.class);
+        startActivity(intent);
 
         setTitle("");
 

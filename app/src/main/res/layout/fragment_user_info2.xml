@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:text="@string/user_info2_scholarship1"
+        android:text="@string/info_scholarship1"
         android:textSize="18sp" />
 
     <CheckBox
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:text="@string/user_info2_scholarship2"
+        android:text="@string/info_scholarship2"
         android:textSize="18sp" />
 
     <CheckBox
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="@string/user_info2_scholarship3"
+        android:text="@string/info_scholarship3"
         android:textSize="18sp" />
 
     <TextView
@@ -68,14 +68,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
-            android:text="@string/user_info2_in"
+            android:text="@string/user_status_in"
             android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/user_info2_status_out_radio_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_info2_out"
+            android:text="@string/user_status_out"
             android:textSize="18sp" />
     </RadioGroup>
 </LinearLayout>

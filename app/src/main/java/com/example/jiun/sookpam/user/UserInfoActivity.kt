@@ -96,6 +96,9 @@ class UserInfoActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
                 }
             }
+            else {
+                finish()
+            }
         }
     }
 

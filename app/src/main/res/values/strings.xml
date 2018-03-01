@@ -32,15 +32,15 @@
     <string name="user_info1_student_year">학번을 선택해주세요</string>
     <string name="user_info1_student_grade">학년을 선택해주세요</string>
     <string name="user_info1_major">전공을 추가해주세요 (복수 선택 가능)</string>
-    <string name="user_info1_add_major">추가하기</string>
+    <string name="info_add_major">추가하기</string>
     <string name="user_info2_title">기본정보 입력 (2/2)</string>
     <string name="user_info2_scholarship">수혜받는 장학금의 종류를 선택해주세요</string>
-    <string name="user_info2_scholarship1">교내 장학금</string>
-    <string name="user_info2_scholarship2">교외 장학금</string>
-    <string name="user_info2_scholarship3">국가 장학금</string>
+    <string name="info_scholarship1">교내 장학금</string>
+    <string name="info_scholarship2">교외 장학금</string>
+    <string name="info_scholarship3">국가 장학금</string>
     <string name="user_info2_status">재학/휴학 여부를 선택해주세요</string>
-    <string name="user_info2_in">재학</string>
-    <string name="user_info2_out">휴학</string>
+    <string name="user_status_in">재학</string>
+    <string name="user_status_out">휴학</string>
     <string name="user_info3_title">세부정보 입력 (1/2)</string>
     <string name="user_info3_category">관심있는 카테고리를 선택해주세요\n(3개 이상)</string>
     <string name="user_info_detail_scholarship">장학</string>
@@ -70,7 +70,7 @@
     <string name="school_english">영어영문학부</string>
     <string name="school_communication_media">미디어학부</string>
     <string name="select_interest_major">Select interest major</string>
-    <string name="user_info1_change_major">변경하기</string>
+    <string name="info_change_major">변경하기</string>
     <string name="major_select_confirm">확인</string>
     <string name="major_alert_title">알림</string>
     <string name="major_alert_message">변경사항을 저장하지 않고 취소하시겠습니까?</string>
@@ -78,4 +78,9 @@
     <string name="no">아니요</string>
     <string name="save_toast">변경사항을 모두 저장하였습니다.</string>
     <string name="user_detail_student_btn">학생</string>
+    <string name="info_student_year">학번</string>
+    <string name="info_student_grade">학년</string>
+    <string name="info_major">전공</string>
+    <string name="info_scholarship">장학금</string>
+    <string name="info_status">재/휴학 여부</string>
 </resources>

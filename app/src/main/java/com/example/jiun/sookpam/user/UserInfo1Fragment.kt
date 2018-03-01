@@ -100,9 +100,9 @@ class UserInfo1Fragment : Fragment() {
             }
         }
         if (selectedMajors.size > 0) {
-            majorSelectingButton.text = getString(R.string.user_info1_change_major)
+            majorSelectingButton.text = getString(R.string.info_change_major)
         } else {
-            majorSelectingButton.text = getString(R.string.user_info1_add_major)
+            majorSelectingButton.text = getString(R.string.info_add_major)
         }
         majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(selectedMajors)
     }
