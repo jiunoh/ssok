@@ -15,4 +15,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="client_server_division_character"><![CDATA[>]]></string>
     <string name="back_to_main">back to the main</string>
+    <string name="division_character"><![CDATA[>]]></string>
+    <string name="web">웹</string>
+    <string name="web_content_id">글번호</string>
+    <string name="web_content_date">게시일</string>
+    <string name="web_content_url">URL</string>
 </resources>

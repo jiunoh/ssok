@@ -4,9 +4,6 @@
     package="com.example.jiun.sookpam">
 
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -34,8 +31,9 @@
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.InfoActivity" />
         <activity android:name=".data.DetailActivity" />
-        <activity android:name=".server.ClientServerActivity"/>
         <activity android:name=".main.MainActivity" />
+        <activity android:name=".server.WebContentActivity"/>
+		<activity android:name=".server.ClientServerActivity"/>
     </application>
 
 </manifest>
