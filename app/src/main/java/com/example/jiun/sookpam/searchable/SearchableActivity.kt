@@ -31,11 +31,6 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        // Get the intent, verify the action and get the query
-        val intent = intent
-        if (intent != null) {
-            handleIntent(intent)
-        }
         setToolbar()
     }
 
