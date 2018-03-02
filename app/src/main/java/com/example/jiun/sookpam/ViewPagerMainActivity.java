@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.user.UserInfoActivity;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+
 public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;
     ViewPager viewPager;
@@ -21,6 +25,10 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_main);
 
+        if (isFirstUserInfoSetting()) {
+            Intent intent = new Intent(this, UserInfoActivity.class);
+            startActivity(intent);
+        }
         setTitle("");
 
         vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
@@ -72,6 +80,10 @@ public class ViewPagerMainActivity extends AppCompatActivity {
                 goToMypageTab();
             }
         });
+    }
+
+    private boolean isFirstUserInfoSetting() {
+        return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
     }
 
     @Override

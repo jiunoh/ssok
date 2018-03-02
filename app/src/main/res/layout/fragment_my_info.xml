@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,171 +9,132 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="학번"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        android:paddingStart="40dp"
-        />
+        android:layout_margin="40dp"
+        android:orientation="vertical">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
-            />
-
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="15"
-            android:textSize="24sp"
-            android:inputType="number"
-            android:id="@+id/student_id"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="30dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="학년"
-            android:textSize="24sp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/info_student_year"
             android:textColor="@color/colorPrimary"
-            android:paddingStart="40dp"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/spinner_grade"
+            android:id="@+id/my_info_student_year_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:layout_marginBottom="40dp"
+            android:entries="@array/student_year" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            />
+            android:layout_marginBottom="20dp"
+            android:text="@string/info_student_grade"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="40dp"
-        android:text="전공"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:paddingTop="30dp"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:gravity="center"
-        >
+        <Spinner
+            android:id="@+id/my_info_student_grade_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:entries="@array/student_grade" />
 
         <TextView
-            android:id="@+id/my_department"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:text="컴퓨터과학전공"
-            android:paddingStart="40dp"
-            android:textSize="24sp"
-            />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_marginBottom="20dp"
+            android:text="@string/info_major"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
-            android:layout_width="0dp"
+            android:id="@+id/my_info_major_btn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:background="@color/colorPrimary"
-            android:textColor="#ffffff"
-            android:text="변경하기"
-            android:textSize="20sp"
-            android:id="@+id/button_change_depart"
-            />
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rectangle_shape"
+            android:padding="12dp"
+            android:text="@string/info_add_major"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_info_majors_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textSize="18sp" />
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_marginBottom="20dp"
+            android:text="@string/info_scholarship"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/my_info_school_scholarship_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/info_scholarship1"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/my_info_external_scholarship_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/info_scholarship2"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/my_info_government_scholarship_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="@string/info_scholarship3"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/info_status"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/my_info_status_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="60dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/my_info_status_in_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="60dp"
+                android:text="@string/user_status_in"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/my_info_status_out_radio_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_status_out"
+                android:textSize="18sp" />
+        </RadioGroup>
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingStart="40dp"
-        android:text="장학금"
-        android:textSize="24sp"
-        android:textColor="@color/colorPrimary"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="10dp"
-        android:paddingStart="14dp"
-        >
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="교내 장학금"
-            android:id="@+id/janghak_school"
-            android:paddingEnd="12dp"
-            android:textSize="18sp"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="외부 장학금"
-            android:id="@+id/janghak_out"
-            android:paddingEnd="12dp"
-            android:textSize="18sp"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="국가 장학금"
-            android:id="@+id/janghak_national"
-            android:textSize="18sp"
-            />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

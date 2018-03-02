@@ -1,20 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_centerHorizontal="true"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.MyTopicFragment">
+    tools:context="com.example.jiun.sookpam.user.UserInfo3Fragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="@string/user_info3_title"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="@string/user_info3_category"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/my_topic_scholarship_btn"
+            android:id="@+id/user_info3_scholarship_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -22,20 +40,18 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_scholarship"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/my_topic_academic_btn"
+            android:id="@+id/user_info3_academic_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_academic"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
@@ -45,12 +61,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/my_topic_entrance_btn"
+            android:id="@+id/user_info3_entrance_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -58,20 +72,18 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_entrance"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/my_topic_recruit_btn"
+            android:id="@+id/user_info3_recruit_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_recruit"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
@@ -80,12 +92,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/my_topic_system_btn"
+            android:id="@+id/user_info3_it_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -93,20 +103,18 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_system"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/my_topic_global_btn"
+            android:id="@+id/user_info3_global_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_global"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
@@ -115,32 +123,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/my_topic_career_btn"
+            android:id="@+id/user_info3_career_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_info_detail_career"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/my_topic_student_btn"
+            android:id="@+id/user_info3_student_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="40dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:minHeight="60dp"
             android:text="@string/user_detail_student_btn"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />

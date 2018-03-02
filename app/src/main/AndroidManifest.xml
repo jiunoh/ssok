@@ -34,6 +34,8 @@
         <activity android:name=".main.MainActivity" />
         <activity android:name=".server.WebContentActivity"/>
 		<activity android:name=".server.ClientServerActivity"/>
+        <activity android:name=".user.major.MajorActivity"/>
+        <activity android:name=".user.UserInfoActivity"/>
     </application>
 
 </manifest>
