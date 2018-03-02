@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.widget.*
 import retrofit2.*
 import com.example.jiun.sookpam.*
@@ -18,6 +19,9 @@ class ClientServerActivity : AppCompatActivity() {
     private lateinit var divisionTextView: TextView
     private lateinit var backButton: ImageButton
     private lateinit var refreshButton: ImageButton
+    private lateinit var errorLinearLayout: LinearLayout
+    private lateinit var errorImageView: ImageView
+    private lateinit var errorTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,9 @@ class ClientServerActivity : AppCompatActivity() {
             refreshButton.startAnimation(rotateAnimation)
             loadRecords("중어중문학부", "공지")
         }
+        errorLinearLayout = client_server_error_linear
+        errorImageView = client_server_error_img
+        errorTextView = client_server_error_txt
     }
 
     private fun setToolbar() {
@@ -55,20 +62,38 @@ class ClientServerActivity : AppCompatActivity() {
         divisionTextView.text = division
         service.getRecords(category, division).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
-                showErrorMessage()
+                showInternetConnectionError()
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
                 val records = response!!.body()
                 recordsRecyclerView.adapter = RecordRecyclerAdapter(records)
                 val context = recordsRecyclerView.context
-                UIAnimation.setLoadingRecyclerViewAnimation(context, recordsRecyclerView)
-                Toast.makeText(applicationContext, "데이터 로드를 완료했습니다.", Toast.LENGTH_SHORT).show()
+                if (records!!.isNotEmpty()) {
+                    recordsRecyclerView.visibility = View.VISIBLE
+                    errorLinearLayout.visibility = View.INVISIBLE
+                    UIAnimation.setLoadingRecyclerViewAnimation(context, recordsRecyclerView)
+                    Toast.makeText(applicationContext, getString(R.string.finish_data_load), Toast.LENGTH_SHORT).show()
+                } else {
+                    showNoDataInServer()
+                }
             }
         })
     }
 
-    private fun showErrorMessage() {
-        Toast.makeText(this, "데이터 불러오기에 실패했습니다. 인터넷 연결상태를 확인해주세요.", Toast.LENGTH_SHORT).show()
+    private fun showInternetConnectionError() {
+        Toast.makeText(applicationContext, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
+        recordsRecyclerView.visibility = View.INVISIBLE
+        errorLinearLayout.visibility = View.VISIBLE
+        errorImageView.setImageResource(R.drawable.internet_connect_error_image)
+        errorTextView.text = getString(R.string.internet_connect_error)
+    }
+
+    private fun showNoDataInServer() {
+        Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
+        recordsRecyclerView.visibility = View.INVISIBLE
+        errorLinearLayout.visibility = View.VISIBLE
+        errorImageView.setImageResource(R.drawable.no_data_image)
+        errorTextView.text = getString(R.string.no_data_in_server)
     }
 }

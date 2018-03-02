@@ -15,4 +15,7 @@
     <string name="client_server_division_character"><![CDATA[>]]></string>
     <string name="back_to_main">back to the main</string>
     <string name="refresh_current_page">refresh current page</string>
+    <string name="internet_connect_error">데이터를 불러오지 못했습니다.\n인터넷 연결을 확인해주세요.</string>
+    <string name="no_data_in_server">서버에 데이터가 존재하지 않습니다.</string>
+    <string name="finish_data_load">데이터 로드를 완료했습니다.</string>
 </resources>

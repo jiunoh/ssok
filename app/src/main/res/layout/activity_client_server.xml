@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,12 +39,12 @@
 
                 <ImageButton
                     android:id="@+id/client_server_refresh_img_btn"
-                    android:src="@drawable/ic_refresh"
-                    android:background="@android:color/transparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/refresh_current_page"
-                    android:layout_gravity="end"/>
+                    android:src="@drawable/ic_refresh" />
 
                 <TextView
                     android:id="@+id/major_toolbar_title_txt"
@@ -62,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="68dp"
         android:orientation="horizontal"
         android:padding="20dp">
 
@@ -92,8 +93,30 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/client_server_record_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layoutAnimation="@anim/layout_animation_fall_down"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="136dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
+        android:padding="20dp" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/client_server_error_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/client_server_error_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/internet_connect_error" />
+
+        <TextView
+            android:id="@+id/client_server_error_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+    </LinearLayout>
+</FrameLayout>
