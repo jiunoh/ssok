@@ -58,7 +58,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3.2"
+            android:layout_weight="3"
             android:orientation="horizontal"
             android:id="@+id/message_layout"
             android:gravity="center"
@@ -71,12 +71,13 @@
                     android:id="@+id/icon_message"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/message" />
+                    android:src="@drawable/message_default" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
+                    android:paddingLeft="3dp"
                     android:text="Message"
+                    android:textSize="18sp"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -98,14 +99,15 @@
                     android:id="@+id/icon_web"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:src="@drawable/web" />
+                    android:paddingLeft="20dp"
+                    android:src="@drawable/web_default" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingLeft="8dp"
+                    android:paddingLeft="3dp"
+                    android:textSize="18sp"
                     android:text="Web" />
             </LinearLayout>
         </LinearLayout>
@@ -113,7 +115,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3.2"
+            android:layout_weight="3.8"
             android:orientation="horizontal"
             android:id="@+id/mypage_layout"
             android:gravity="center"
@@ -126,14 +128,14 @@
                     android:id="@+id/icon_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:src="@drawable/mypage" />
+                    android:src="@drawable/mypage_default" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingLeft="8dp"
+                    android:paddingLeft="3dp"
+                    android:textSize="18sp"
                     android:text="My page" />
             </LinearLayout>
         </LinearLayout>
