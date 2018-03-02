@@ -1,6 +1,9 @@
 package com.example.jiun.sookpam.main
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -13,12 +16,13 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.ViewPagerMainActivity
 import com.example.jiun.sookpam.message.MessageContract
 import com.example.jiun.sookpam.message.MessagePresenter
+import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.ViewPagerMainActivity
 import com.example.jiun.sookpam.model.ContactDBManager
 import com.example.jiun.sookpam.setting.InfoActivity
+import com.example.jiun.sookpam.searchable.SearchableActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -52,14 +56,14 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
 
     private fun scatterCheckedCategories() {
         val contactDBManager = applicationContext as ContactDBManager
-        val categoryList = contactDBManager.getCategoryList()
+        val departmentList = contactDBManager.getDepartmentList()
         adapter.clear()
         adapter.notifyDataSetChanged()
-        for (category in categoryList) {
-            if (SharedPreferenceUtil.get(applicationContext, category, false))
-                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), category)
+        for (division in departmentList) {
+            if (SharedPreferenceUtil.get(applicationContext, division, false))
+                adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), division)
         }
-        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "기타")
+        adapter.addItem(ContextCompat.getDrawable(this, R.drawable.arrow), "공지")
     }
 
     override fun showToastMessage(string: String) {
@@ -118,12 +122,14 @@ class MainActivity : AppCompatActivity(), MessageContract.View {
                 scatterCheckedCategories()
                 true
             }
-            R.id.action_setting -> {
-                val intent = Intent(this, InfoActivity::class.java)
+            R.id.action_search -> {
+                val intent = Intent(this, SearchableActivity::class.java)
                 startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 }

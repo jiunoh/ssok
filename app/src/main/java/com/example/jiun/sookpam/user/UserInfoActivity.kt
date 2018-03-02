@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.user
 
+
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.main.MainActivity
 import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*

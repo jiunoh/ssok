@@ -21,6 +21,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scrap">스크랩</string>
+    <string name="related">이 글과 관련된 글</string>
     <string name="user_info_previous"><![CDATA[< 이전]]></string>
     <string name="user_info_first_page">첫 번째 페이지입니다.</string>
     <string name="user_info_second_page">두 번째 페이지입니다.</string>
@@ -84,4 +86,7 @@
     <string name="info_scholarship">장학금 수혜여부</string>
     <string name="info_status">재/휴학 여부</string>
     <string name="interest_category_min">관심 카테고리는 3개 이상이어야 합니다.</string>
+    <string name="sample_action">Sample action</string>
+    <string name="search_title">Search Contacts</string>
+    <string name="intro_message">예시</string>
 </resources>
