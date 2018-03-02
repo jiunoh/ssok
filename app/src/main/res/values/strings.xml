@@ -14,4 +14,5 @@
     <string name="end_message_synchronization">메세지 동기화를 완료했습니다.</string>
     <string name="client_server_division_character"><![CDATA[>]]></string>
     <string name="back_to_main">back to the main</string>
+    <string name="refresh_current_page">refresh current page</string>
 </resources>

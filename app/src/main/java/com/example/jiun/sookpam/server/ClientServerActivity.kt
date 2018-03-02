@@ -1,32 +1,29 @@
 package com.example.jiun.sookpam.server
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.*
 import android.support.v7.widget.Toolbar
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
-import com.example.jiun.sookpam.R
-import retrofit2.Call
+import android.widget.*
+import retrofit2.*
+import com.example.jiun.sookpam.*
 import kotlinx.android.synthetic.main.activity_client_server.*
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class ClientServerActivity : AppCompatActivity() {
     private lateinit var service: RecordService
-    lateinit var toolbar: Toolbar
-    lateinit var recordsRecyclerView: RecyclerView
-    lateinit var categoryTextView: TextView
-    lateinit var divisionTextView: TextView
-    lateinit var backButton: ImageButton
+    private lateinit var toolbar: Toolbar
+    private lateinit var recordsRecyclerView: RecyclerView
+    private lateinit var categoryTextView: TextView
+    private lateinit var divisionTextView: TextView
+    private lateinit var backButton: ImageButton
+    private lateinit var refreshButton: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_server)
         initialize()
-        loadRecords("교육학부", "공지")
+        loadRecords("중어중문학부", "공지")
     }
 
     private fun initialize() {
@@ -38,6 +35,13 @@ class ClientServerActivity : AppCompatActivity() {
         service = ApiUtils.getRecordService()
         backButton = client_server_back_image_btn
         backButton.setOnClickListener { finish() }
+        refreshButton = client_server_refresh_img_btn
+        refreshButton.setOnClickListener {
+            Toast.makeText(applicationContext, "목록 데이터를 갱신합니다.", Toast.LENGTH_SHORT).show()
+            val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
+            refreshButton.startAnimation(rotateAnimation)
+            loadRecords("중어중문학부", "공지")
+        }
     }
 
     private fun setToolbar() {
@@ -57,12 +61,14 @@ class ClientServerActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
                 val records = response!!.body()
                 recordsRecyclerView.adapter = RecordRecyclerAdapter(records)
+                val context = recordsRecyclerView.context
+                UIAnimation.setLoadingRecyclerViewAnimation(context, recordsRecyclerView)
+                Toast.makeText(applicationContext, "데이터 로드를 완료했습니다.", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
 
     private fun showErrorMessage() {
-        Toast.makeText(this, "데이터 불러오기에 실패했습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "데이터 불러오기에 실패했습니다. 인터넷 연결상태를 확인해주세요.", Toast.LENGTH_SHORT).show()
     }
 }

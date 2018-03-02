@@ -37,6 +37,15 @@
                     android:contentDescription="@string/back_to_main"
                     android:src="@drawable/ic_back_button" />
 
+                <ImageButton
+                    android:id="@+id/client_server_refresh_img_btn"
+                    android:src="@drawable/ic_refresh"
+                    android:background="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/refresh_current_page"
+                    android:layout_gravity="end"/>
+
                 <TextView
                     android:id="@+id/major_toolbar_title_txt"
                     android:layout_width="match_parent"
@@ -84,6 +93,7 @@
         android:id="@+id/client_server_record_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"/>
 
 </LinearLayout>
