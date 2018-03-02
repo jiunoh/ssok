@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.user.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
@@ -97,7 +98,8 @@ public class ViewPagerMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_button:
-                Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, SearchableActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
