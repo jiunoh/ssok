@@ -71,14 +71,16 @@
                     android:id="@+id/icon_message"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/message_default" />
+                    android:src="@drawable/message_selected" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="3dp"
                     android:text="Message"
                     android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
                     android:layout_gravity="center"
+                    android:id="@+id/nav_message"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -108,7 +110,9 @@
                     android:layout_gravity="center"
                     android:paddingLeft="3dp"
                     android:textSize="18sp"
-                    android:text="Web" />
+                    android:text="Web"
+                    android:id="@+id/nav_web"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -136,7 +140,9 @@
                     android:layout_gravity="center"
                     android:paddingLeft="3dp"
                     android:textSize="18sp"
-                    android:text="My page" />
+                    android:text="My page"
+                    android:id="@+id/nav_mypage"
+                    />
             </LinearLayout>
         </LinearLayout>
 

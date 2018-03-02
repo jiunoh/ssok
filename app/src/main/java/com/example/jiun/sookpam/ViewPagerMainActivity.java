@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jiun.sookpam.user.UserInfoActivity;
@@ -19,6 +21,8 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;
     ViewPager viewPager;
+    ImageView icon_message, icon_web, icon_mypage;
+    TextView nav_message, nav_web, nav_mypage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,14 @@ public class ViewPagerMainActivity extends AppCompatActivity {
                 goToMypageTab();
             }
         });
+
+        icon_message = findViewById(R.id.icon_message);
+        icon_web = findViewById(R.id.icon_web);
+        icon_mypage = findViewById(R.id.icon_mypage);
+
+        nav_message = findViewById(R.id.nav_message);
+        nav_web = findViewById(R.id.nav_web);
+        nav_mypage = findViewById(R.id.nav_mypage);
     }
 
     private boolean isFirstUserInfoSetting() {
@@ -107,16 +119,34 @@ public class ViewPagerMainActivity extends AppCompatActivity {
     }
 
     private void goToMessageTab() {
+        icon_message.setImageResource(R.drawable.message_selected);
+        icon_web.setImageResource(R.drawable.web_default);
+        icon_mypage.setImageResource(R.drawable.mypage_default);
+        nav_message.setTextColor(getResources().getColor(R.color.colorPrimary));
+        nav_mypage.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        nav_web.setTextColor(getResources().getColor(R.color.colorDarkGray));
         MessageFragAdapter messageFragAdapter = new MessageFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(messageFragAdapter);
     }
 
     private void goToWebTab() {
+        icon_message.setImageResource(R.drawable.message_default);
+        icon_web.setImageResource(R.drawable.web_selected);
+        icon_mypage.setImageResource(R.drawable.mypage_default);
+        nav_message.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        nav_web.setTextColor(getResources().getColor(R.color.colorPrimary));
+        nav_mypage.setTextColor(getResources().getColor(R.color.colorDarkGray));
         WebFragAdapter webFragAdapter = new WebFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(webFragAdapter);
     }
 
     private void goToMypageTab() {
+        icon_message.setImageResource(R.drawable.message_default);
+        icon_web.setImageResource(R.drawable.web_default);
+        icon_mypage.setImageResource(R.drawable.mypage_selected);
+        nav_message.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        nav_web.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        nav_mypage.setTextColor(getResources().getColor(R.color.colorPrimary));
         MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragAdapter);
     }
