@@ -137,6 +137,6 @@ class PersonalCategory(val context: Context, private val pageNumber: Int = 0) {
         const val UNINTEREST_CATEGORY = 2
         const val PAGE3 = 2
         const val PAGE4 = 3
-        val categories = listOf("장학", "학사", "입학", "모집", "시스템", "국제", "취업")
+        val categories = listOf("장학", "학사", "입학", "모집", "시스템", "국제", "취업", "학생")
     }
 }
