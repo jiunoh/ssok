@@ -119,4 +119,11 @@
             android:layout_height="wrap_content"
             android:textAlignment="center" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/client_server_progressbar"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"/>
 </FrameLayout>

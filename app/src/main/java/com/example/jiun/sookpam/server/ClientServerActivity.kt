@@ -22,6 +22,7 @@ class ClientServerActivity : AppCompatActivity() {
     private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
+    private lateinit var progressBar:ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,7 @@ class ClientServerActivity : AppCompatActivity() {
         errorLinearLayout = client_server_error_linear
         errorImageView = client_server_error_img
         errorTextView = client_server_error_txt
+        progressBar = client_server_progressbar
     }
 
     private fun setToolbar() {
@@ -63,6 +65,7 @@ class ClientServerActivity : AppCompatActivity() {
         service.getRecords(category, division).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
+                progressBar.visibility = View.INVISIBLE
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
@@ -77,6 +80,7 @@ class ClientServerActivity : AppCompatActivity() {
                 } else {
                     showNoDataInServer()
                 }
+                progressBar.visibility = View.INVISIBLE
             }
         })
     }
