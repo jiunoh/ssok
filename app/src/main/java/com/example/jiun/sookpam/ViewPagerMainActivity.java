@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -122,6 +124,9 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
                 Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.refresh_button:
+                ActionMenuItemView refreshButton = findViewById(R.id.refresh_button);
+                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshButton);
+                refreshButton.startAnimation(rotateAnimation);
                 presenter.start();
                 return true;
             default:

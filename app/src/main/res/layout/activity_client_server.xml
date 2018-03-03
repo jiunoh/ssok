@@ -33,7 +33,7 @@
                     android:id="@+id/client_server_back_image_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/back_to_main"
                     android:src="@drawable/ic_back_button" />
 
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/refresh_current_page"
                     android:src="@drawable/ic_refresh" />
 
@@ -142,8 +142,8 @@
 
     <ProgressBar
         android:id="@+id/client_server_progressbar"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"/>
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </FrameLayout>
