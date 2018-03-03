@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     Toolbar vpToolbar;
     ViewPager viewPager;
     ProgressBar progressbar;
+    ImageButton refreshImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         setTitle("");
 
         initialize();
+
+        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
+        setSupportActionBar(vpToolbar);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager_main);
         TabLayout upperTabs = (TabLayout) findViewById(R.id.upper_tab_layout);
@@ -102,10 +107,16 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         setPresenter(new MessagePresenter(getApplicationContext(), ViewPagerMainActivity
                 .this, progressbar));
 
-        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
-        setSupportActionBar(vpToolbar);
+        refreshImageButton = findViewById(R.id.main_refresh_image_btn);
+        refreshImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshImageButton);
+                refreshImageButton.startAnimation(rotateAnimation);
+                presenter.start();
+            }
+        });
     }
-
 
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
@@ -124,12 +135,6 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
             case R.id.search_button:
                 Intent intent = new Intent(this, SearchableActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.refresh_button:
-                ActionMenuItemView refreshButton = findViewById(R.id.refresh_button);
-                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshButton);
-                refreshButton.startAnimation(rotateAnimation);
-                presenter.start();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
