@@ -13,16 +13,27 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+import com.gun0912.tedpermission.PermissionListener;
+import com.example.jiun.sookpam.message.MessagePresenter;
+import com.gun0912.tedpermission.TedPermission;
 
-public class ViewPagerMainActivity extends AppCompatActivity {
+import io.realm.Realm;
+
+import org.jetbrains.annotations.NotNull;
+
+public class ViewPagerMainActivity extends AppCompatActivity implements MessageContract.View {
+    MessageContract.Presenter presenter;
     Toolbar vpToolbar;
     ViewPager viewPager;
     ImageView icon_message, icon_web, icon_mypage;
     TextView nav_message, nav_web, nav_mypage;
+    ProgressBar progressbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +46,7 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         }
         setTitle("");
 
-        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
-        setSupportActionBar(vpToolbar);
+        initialize();
 
         viewPager = (ViewPager) findViewById(R.id.view_pager_main);
         TabLayout upperTabs = (TabLayout) findViewById(R.id.upper_tab_layout);
@@ -94,6 +104,18 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         nav_mypage = findViewById(R.id.nav_mypage);
     }
 
+    private void initialize() {
+        Realm.init(this);
+
+        progressbar = findViewById(R.id.main_refresh_progressbar);
+        setPresenter(new MessagePresenter(getApplicationContext(), ViewPagerMainActivity
+                .this, progressbar));
+
+        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
+        setSupportActionBar(vpToolbar);
+    }
+
+
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
     }
@@ -111,9 +133,10 @@ public class ViewPagerMainActivity extends AppCompatActivity {
             case R.id.search_button:
                 Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
                 return true;
+            case R.id.refresh_button:
+                presenter.start();
+                return true;
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -149,5 +172,44 @@ public class ViewPagerMainActivity extends AppCompatActivity {
         nav_mypage.setTextColor(getResources().getColor(R.color.colorPrimary));
         MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.cancelMessageAsyncTask();
+    }
+
+    @Override
+    public void showPermissionMessage(@NotNull PermissionListener permissionListener) {
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleTitle(getString(R.string.read_sms_request_title))
+                .setRationaleMessage(getString(R.string.read_sms_request_detail))
+                .setDeniedTitle(getString(R.string.denied_read_sms_title))
+                .setDeniedMessage(getString(R.string.denied_read_sms_detail))
+                .setGotoSettingButtonText(getString(R.string.move_setting))
+                .setPermissions(android.Manifest.permission.READ_SMS)
+                .check();
+    }
+
+    @Override
+    public void showToastMessage(@NotNull String string) {
+        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
+
+    @Override
+    public MessageContract.Presenter getPresenter() {
+        return presenter;
+    }
+
+    @Override
+    public void setPresenter(MessageContract.Presenter presenter) {
+        this.presenter = presenter;
     }
 }
