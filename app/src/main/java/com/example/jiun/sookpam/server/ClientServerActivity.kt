@@ -96,7 +96,6 @@ class ClientServerActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
         recordsRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
-        errorImageView.setImageResource(R.drawable.internet_connect_error_image)
         errorTextView.text = getString(R.string.internet_connect_error)
     }
 
@@ -104,7 +103,6 @@ class ClientServerActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
         recordsRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
-        errorImageView.setImageResource(R.drawable.no_data_image)
         errorTextView.text = getString(R.string.no_data_in_server)
     }
 }
