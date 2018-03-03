@@ -12,14 +12,9 @@ import com.example.jiun.sookpam.user.PersonalCategory;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 public class MessageCommonFragment extends Fragment {
-    TextView category_janghak, category_haksa, category_iphak, category_mojip, category_it, category_gookje, category_chuiup;
     TextView[] category_textviews;
     final int NORMAL_CATEGORY = 0;
-    final int INTEREST_CATEGORY = 1;
-    final int UNINTEREST_CATEGORY = 2;
-    final int PAGE3 = 2;
-    final int PAGE4 = 3;
-    final String[] categories = {"장학", "학사", "입학", "모집", "시스템", "국제", "취업"};
+    final String[] categories = {"장학", "학사", "입학", "모집", "시스템", "국제", "취업", "학생"};
 
     public MessageCommonFragment() {
         // Required empty public constructor
@@ -58,7 +53,7 @@ public class MessageCommonFragment extends Fragment {
     }
 
     private void goToListPage(int i) {
-        Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_SHORT).show();
 //        putExtra(categories[i]);
     }
 
