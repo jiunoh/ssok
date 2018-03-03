@@ -8,13 +8,11 @@
 
     <application
         android:name=".model.ContactDBManager"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-        <activity android:name=".ViewPagerMainActivity"/>
 
         <activity
             android:name="com.gun0912.tedpermission.TedPermissionActivity"
@@ -25,7 +23,7 @@
         <activity android:name=".category.CategoryActivity" />
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.InfoActivity" />
-        <activity android:name=".main.MainActivity" >
+        <activity android:name=".ViewPagerMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

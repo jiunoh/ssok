@@ -176,11 +176,6 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     }
 
     @Override
-    public void finishActivity() {
-        finish();
-    }
-
-    @Override
     public MessageContract.Presenter getPresenter() {
         return presenter;
     }

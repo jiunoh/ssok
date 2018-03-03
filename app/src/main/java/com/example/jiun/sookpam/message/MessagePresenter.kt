@@ -33,7 +33,7 @@ class MessagePresenter(
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                messagePermissionView.finishActivity()
+                messagePermissionView.showToastMessage(context.getString(R.string.message_permission_denied))
             }
         }
         messagePermissionView.showPermissionMessage(permissionListener)

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_synchronization"
-        android:icon="@drawable/ic_action_synchronization"
+        android:icon="@drawable/ic_refresh"
         android:title="@string/action_synchronization"
         app:showAsAction="always" />
     <item android:id="@+id/action_search"
