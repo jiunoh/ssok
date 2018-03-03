@@ -9,8 +9,6 @@ interface MessageContract {
         fun showPermissionMessage(permissionListener: PermissionListener)
 
         fun showToastMessage(string: String)
-
-        fun finishActivity()
     }
 
     interface Presenter : BasePresenter {

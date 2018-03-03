@@ -12,10 +12,11 @@ import java.io.InputStreamReader
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
-    lateinit var inputStreamReader : InputStreamReader
+    lateinit var inputStreamReader: InputStreamReader
 
     override fun onCreate() {
         super.onCreate()
+        Realm.init(this)
         try {
             realm = Realm.getDefaultInstance()
             realm!!.executeTransactionAsync({ bgRealm ->
@@ -39,7 +40,7 @@ class ContactDBManager : Application() {
     }
 
     private fun doesNotExist(backgroundRealm: Realm): Boolean {
-        val existence =  backgroundRealm.where(ContactVO::class.java).findFirst()
+        val existence = backgroundRealm.where(ContactVO::class.java).findFirst()
         return existence == null
     }
 
@@ -71,19 +72,18 @@ class ContactDBManager : Application() {
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.key = value[0]
             record.value = value[1]
-            Log.v("Category",record.key+" "+record.value)
         }
         bufferedReader.close()
         inputStreamReader.close()
     }
 
-    fun getCategory(division:String?, realm: Realm) : String? {
-            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
-            return categoryObj?.value ?:"기타"
+    fun getCategory(division: String?, realm: Realm): String? {
+        var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
+        return categoryObj?.value ?: "공지"
     }
 
-    fun getCategoryList() :ArrayList<String> {
-        var categoryVOList= realm.where(CategoryVO::class.java).distinctValues("value").findAll()
+    fun getCategoryList(): ArrayList<String> {
+        var categoryVOList = realm.where(CategoryVO::class.java).distinctValues("value").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
         for (record in categoryVOList)
@@ -119,5 +119,10 @@ class ContactDBManager : Application() {
         for (record in departmentLists)
             responseList.add(record.class2)
         return responseList
+    }
+
+    fun getInfo(division: String) : String {
+        val result = realm.where(ContactVO::class.java).distinctValues("class2").findFirst()
+        return result!!.phone
     }
 }

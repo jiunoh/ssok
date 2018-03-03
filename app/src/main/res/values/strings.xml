@@ -21,6 +21,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="scrap">스크랩</string>
+    <string name="related">이 글과 관련된 글</string>
     <string name="user_info_previous"><![CDATA[< 이전]]></string>
     <string name="user_info_first_page">첫 번째 페이지입니다.</string>
     <string name="user_info_second_page">두 번째 페이지입니다.</string>
@@ -88,4 +90,8 @@
     <string name="internet_connect_error">데이터를 불러오지 못했습니다.\n인터넷 연결을 확인해주세요.</string>
     <string name="no_data_in_server">서버에 데이터가 존재하지 않습니다.</string>
     <string name="finish_data_load">데이터 로드를 완료했습니다.</string>
+    <string name="sample_action">Sample action</string>
+    <string name="search_title">Search Contacts</string>
+    <string name="intro_message">예시</string>
+    <string name="message_permission_denied">메세지 읽기 권한을 받지 못했습니다.</string>
 </resources>
