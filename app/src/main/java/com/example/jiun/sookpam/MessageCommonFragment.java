@@ -35,22 +35,6 @@ public class MessageCommonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_message_common, container, false);
         category_textviews = new TextView[7];
 
-//        category_textviews[0] = view.findViewById(R.id.category_janghak);
-//        category_textviews[1] = view.findViewById(R.id.category_haksa);
-//        category_textviews[2] = view.findViewById(R.id.category_iphak);
-//        category_textviews[3] = view.findViewById(R.id.category_mojip);
-//        category_textviews[4] = view.findViewById(R.id.category_it);
-//        category_textviews[5] = view.findViewById(R.id.category_gookje);
-//        category_textviews[6] = view.findViewById(R.id.category_chuiup);
-
-//        category_janghak = view.findViewById(R.id.category_janghak);
-//        category_haksa = view.findViewById(R.id.category_haksa);
-//        category_iphak = view.findViewById(R.id.category_iphak);
-//        category_mojip = view.findViewById(R.id.category_mojip);
-//        category_it = view.findViewById(R.id.category_it);
-//        category_gookje = view.findViewById(R.id.category_gookje);
-//        category_chuiup = view.findViewById(R.id.category_chuiup);
-
         int i, j = 0;
         for (i=0; i< categories.length; i++) {
             if (SharedPreferenceUtil.get(getContext(), categories[i], PersonalCategory.NORMAL_CATEGORY) == PersonalCategory.INTEREST_CATEGORY) {
@@ -68,7 +52,6 @@ public class MessageCommonFragment extends Fragment {
                     }
                 });
             }
-
         }
 
         return view;
