@@ -1,12 +1,18 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
+import android.icu.text.AlphabeticIndex
+import android.util.Log
+import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.vo.*
 import io.realm.Realm
+import io.realm.RealmResults
+import java.util.*
 
 class RecordDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
+
     fun categorizeMessages(context: Context) {
         this.context = context as ContactDBManager
         var messageList = MessageList(realm).getList()
@@ -36,16 +42,17 @@ class RecordDBManager(val realm: Realm) {
         }
     }
 
-    fun getDataByCategory(request: String): ArrayList<String> {
-        var messageList = realm.where(RecordVO::class.java).equalTo("category", request).findAll()
-        var responseList: ArrayList<String> = ArrayList<String>()
+    fun getDataByDivision(request: String): ArrayList<RecordVO> {
+        var  msgResponse = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
+        return responseList
+    }
 
-        for (record in messageList) {
-            if (record.message != null) {
-                val msgBody: String by lazy<String> { (record.message as MessageVO).body }
-                responseList.add(msgBody)
-            }
-        }
+    fun contains(query : String): ArrayList<RecordVO>{
+        var msgResponse = realm.where(RecordVO::class.java).contains("message.body", query).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
         return responseList
     }
 }

@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
@@ -121,7 +122,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_button:
-                Toast.makeText(getApplicationContext(), "검색 버튼 클릭됨", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, SearchableActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.refresh_button:
                 ActionMenuItemView refreshButton = findViewById(R.id.refresh_button);

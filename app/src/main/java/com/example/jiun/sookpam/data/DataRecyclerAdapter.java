@@ -7,24 +7,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jiun.sookpam.R;
+import com.example.jiun.sookpam.model.vo.RecordVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class DataRecyclerAdapter extends RecyclerView.Adapter<DataRecyclerAdapter.DataViewHolder> {
-    private ArrayList<DataItem> dataItems = new ArrayList<DataItem>();
+    private ArrayList<RecordVO> dataItems = new ArrayList<RecordVO>();
 
-    DataRecyclerAdapter(ArrayList<DataItem> items) {
+    DataRecyclerAdapter(ArrayList<RecordVO> items) {
         dataItems = items;
     }
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
         TextView title;
-        TextView body;
+        TextView date;
 
         public DataViewHolder(View view) {
             super(view);
             title = (TextView) itemView.findViewById(R.id.message_title);
-            body = (TextView) itemView.findViewById(R.id.message_body);
+            date = (TextView) itemView.findViewById(R.id.date_view);
         }
     }
 
@@ -37,8 +39,13 @@ public class DataRecyclerAdapter extends RecyclerView.Adapter<DataRecyclerAdapte
 
     @Override
     public void onBindViewHolder(DataViewHolder holder, int position) {
-        holder.title.setText(dataItems.get(position).getTitle());
-        holder.body.setText(dataItems.get(position).getBody());
+        String body = dataItems.get(position).getMessage().getBody();
+        body = body.replaceFirst("\\[Web발신\\]\n", "");
+        String title = body.split("\n")[0];
+        holder.title.setText(title);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = formatter.format(dataItems.get(position).getMessage().getDate());
+        holder.date.setText(formattedDate);
     }
 
     @Override
