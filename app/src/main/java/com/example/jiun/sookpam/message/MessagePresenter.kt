@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.model.RecordDBManager
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm
 
@@ -33,7 +35,7 @@ class MessagePresenter(
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                messagePermissionView.showToastMessage(context.getString(R.string.message_permission_denied))
+                messagePermissionView.showToastMessage(context.getString(R.string.message_permission_denied), Toast.LENGTH_SHORT)
             }
         }
         messagePermissionView.showPermissionMessage(permissionListener)
@@ -52,8 +54,14 @@ class MessagePresenter(
     inner class MessageAsyncTask : AsyncTask<Unit, Unit, Unit>() {
         override fun onPreExecute() {
             super.onPreExecute()
-            messagePermissionView
-                    .showToastMessage(context.getString(R.string.start_message_synchronization))
+            val isFirstLoading = SharedPreferenceUtil.get(context, IS_FIRST_LOADING, true)
+            if (isFirstLoading) {
+                messagePermissionView.showToastMessage("메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.", Toast.LENGTH_LONG)
+                SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
+            } else {
+                messagePermissionView
+                        .showToastMessage(context.getString(R.string.start_message_synchronization), Toast.LENGTH_SHORT)
+            }
             progressbar.visibility = View.VISIBLE
         }
 
@@ -78,8 +86,12 @@ class MessagePresenter(
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
             messagePermissionView
-                    .showToastMessage(context.getString(R.string.end_message_synchronization))
+                    .showToastMessage(context.getString(R.string.end_message_synchronization), Toast.LENGTH_SHORT)
             progressbar.visibility = View.INVISIBLE
         }
+    }
+
+    companion object {
+        const val IS_FIRST_LOADING = "isFirstLoading"
     }
 }

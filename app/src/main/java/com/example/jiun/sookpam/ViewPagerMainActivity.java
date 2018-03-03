@@ -176,8 +176,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     }
 
     @Override
-    public void showToastMessage(@NotNull String string) {
-        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    public void showToastMessage(@NotNull String string, int toastTime) {
+        Toast.makeText(this, string, toastTime).show();
     }
 
     @Override
