@@ -39,7 +39,7 @@ class UserInfo3Fragment : Fragment() {
         detailButtons.add(user_info3_academic_btn)
         detailButtons.add(user_info3_entrance_btn)
         detailButtons.add(user_info3_recruit_btn)
-        detailButtons.add(user_info3_it_btn)
+        detailButtons.add(user_info3_system_btn)
         detailButtons.add(user_info3_global_btn)
         detailButtons.add(user_info3_career_btn)
         detailButtons.add(user_info3_student_btn)
