@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,19 +9,15 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import com.example.jiun.sookpam.clip.ClipFragment;
 import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter;
 import com.example.jiun.sookpam.clip.ClipContent;
 import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MyClipFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private int mColumnCount = 2;
-    private ClipFragment.OnListFragmentInteractionListener mListener;
+    private MyClipFragment.OnListFragmentInteractionListener mListener;
 
 
     public static MyClipFragment newInstance(int columnCount) {
@@ -68,8 +63,8 @@ public class MyClipFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ClipFragment.OnListFragmentInteractionListener) {
-            mListener = (ClipFragment.OnListFragmentInteractionListener) context;
+        if (context instanceof MyClipFragment.OnListFragmentInteractionListener) {
+            mListener = (MyClipFragment.OnListFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");

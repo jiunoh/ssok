@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.jiun.sookpam.clip.ClipContent;
+
 /**
  * Created by jiun on 2018-02-23.
  */

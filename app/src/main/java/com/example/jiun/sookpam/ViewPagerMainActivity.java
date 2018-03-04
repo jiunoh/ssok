@@ -15,9 +15,7 @@ import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.example.jiun.sookpam.clip.ClipFragment;
-import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter;
+import com.example.jiun.sookpam.clip.ClipContent;
 import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.UserInfoActivity;
@@ -25,12 +23,10 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.example.jiun.sookpam.message.MessagePresenter;
 import com.gun0912.tedpermission.TedPermission;
-
 import io.realm.Realm;
-
 import org.jetbrains.annotations.NotNull;
 
-public class ViewPagerMainActivity extends AppCompatActivity implements MessageContract.View {
+public class ViewPagerMainActivity extends AppCompatActivity implements MessageContract.View , MyClipFragment.OnListFragmentInteractionListener{
     MessageContract.Presenter presenter;
     Toolbar vpToolbar;
     ViewPager viewPager;
@@ -186,5 +182,10 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     @Override
     public void setPresenter(MessageContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    @Override
+    public void onListFragmentInteraction(ClipContent.ClipItem item) {
+
     }
 }

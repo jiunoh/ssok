@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.clip.ClipFragment.OnListFragmentInteractionListener;
+import com.example.jiun.sookpam.MyClipFragment.OnListFragmentInteractionListener;
 import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter<ClipItemRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.titleView.setText(mValues.get(position).id);
-        holder.categoryView.setText(mValues.get(position).content);
+        holder.titleView.setText(mValues.get(position).title);
+        holder.categoryView.setText(mValues.get(position).category);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
