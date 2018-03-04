@@ -7,5 +7,6 @@ import io.realm.annotations.RealmClass
 open class ClipVO : RealmModel {
     lateinit var title: String
     var status: Boolean = false
-    var location: String ?= null
+    var category: String ?= null
+    var location : String ?= null
 }

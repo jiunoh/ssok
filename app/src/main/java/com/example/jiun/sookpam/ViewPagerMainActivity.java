@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.clip.ClipFragment;
+import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter;
 import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.UserInfoActivity;
@@ -150,6 +152,7 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragAdapter);
     }
+
 
     @Override
     protected void onPause() {

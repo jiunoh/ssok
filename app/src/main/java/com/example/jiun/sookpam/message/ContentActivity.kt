@@ -18,14 +18,16 @@ class ContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var dbmanager: ClipDBManager
     private var title = "test"
+    private var category : String? = ""
+    private var division : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
         val intent = intent
         val record: ContentItem = intent.getSerializableExtra("OBJECT") as ContentItem
-        val division = record.division
-        val category = record.category
+        division = record.division
+        category = record.category
         setToolbar(category + " > " + division)
         val body = record.body
         title = body!!.split("\n")[0]
@@ -59,10 +61,10 @@ class ContentActivity : AppCompatActivity() {
             R.id.action_star -> {
                 dbmanager = ClipDBManager(Realm.getDefaultInstance());
                 if (dbmanager.doesNotExist(title)) {
-                    item.setIcon(getResources().getDrawable(R.drawable.star_on))
-                    dbmanager.insert(title)
+                    item.icon = resources.getDrawable(R.drawable.star_on)
+                    dbmanager.insert(title, "메세지-"+category+"-"+division)
                 } else {
-                    item.setIcon(getResources().getDrawable(R.drawable.star_off))
+                    item.icon = resources.getDrawable(R.drawable.star_off)
                     dbmanager.delete(title)
                 }
                 true
