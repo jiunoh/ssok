@@ -3,9 +3,8 @@ package com.example.jiun.sookpam.message
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
-import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.jiun.sookpam.LoadingDialog
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
@@ -15,7 +14,7 @@ import io.realm.Realm
 class MessagePresenter(
         private val context: Context,
         private val messagePermissionView: MessageContract.View,
-        private val progressbar: ProgressBar) : MessageContract.Presenter {
+        private val loadingDialog: LoadingDialog) : MessageContract.Presenter {
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
     private lateinit var recordManager: RecordDBManager
@@ -62,13 +61,13 @@ class MessagePresenter(
                 messagePermissionView
                         .showToastMessage(context.getString(R.string.start_message_synchronization), Toast.LENGTH_SHORT)
             }
-            progressbar.visibility = View.VISIBLE
+            loadingDialog.show()
         }
 
         override fun doInBackground(vararg p0: Unit?) {
             var realm: Realm? = null
             publishProgress()
-            Thread.sleep(2000)
+            Thread.sleep(1000)
             try {
                 realm = Realm.getDefaultInstance()
                 smsReader = SmsReader(realm)
@@ -87,7 +86,7 @@ class MessagePresenter(
             super.onPostExecute(result)
             messagePermissionView
                     .showToastMessage(context.getString(R.string.end_message_synchronization), Toast.LENGTH_SHORT)
-            progressbar.visibility = View.INVISIBLE
+            loadingDialog.dismiss()
         }
     }
 

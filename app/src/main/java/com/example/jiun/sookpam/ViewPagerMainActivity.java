@@ -5,17 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.animation.Animation;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
 
 import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
@@ -33,8 +26,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     MessageContract.Presenter presenter;
     Toolbar vpToolbar;
     ViewPager viewPager;
-    ProgressBar progressbar;
     ImageButton refreshImageButton;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,11 +95,9 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
 
     private void initialize() {
         Realm.init(this);
-
-        progressbar = findViewById(R.id.main_refresh_progressbar);
+        loadingDialog = new LoadingDialog(this);
         setPresenter(new MessagePresenter(getApplicationContext(), ViewPagerMainActivity
-                .this, progressbar));
-
+                .this, loadingDialog));
         refreshImageButton = findViewById(R.id.main_refresh_image_btn);
         refreshImageButton.setOnClickListener(new View.OnClickListener() {
             @Override

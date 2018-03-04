@@ -56,13 +56,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/upper_tab_layout" />
-
-        <ProgressBar
-            android:id="@+id/main_refresh_progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
     </RelativeLayout>
 
     <LinearLayout
