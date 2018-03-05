@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.server
 
+import com.example.jiun.sookpam.searchable.SearchItem
 import java.io.Serializable
 
 data class RecordResponse(
@@ -11,4 +12,4 @@ data class RecordResponse(
     var date:String = "",
     var title:String = "",
     var content:String = ""
-):Serializable
+):Serializable, SearchItem 
