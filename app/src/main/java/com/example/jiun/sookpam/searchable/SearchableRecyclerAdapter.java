@@ -70,6 +70,11 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter<SearchableRe
         notifyDataSetChanged();
     }
 
+    public void clear() {
+        searchableItems.removeAll(responseList);
+        notifyDataSetChanged();
+    }
+
 
     private  ArrayList<RecordVO> getQuery(String query){
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
