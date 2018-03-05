@@ -1,8 +1,9 @@
 package com.example.jiun.sookpam.server
 
+import com.example.jiun.sookpam.searchable.SearchItem
 import java.io.Serializable
 
-data class RecordResponse(
+data class RecordResponse (
     var id:Int = 0,
     var view:Int = 0,
     var category:String = "",
@@ -11,4 +12,8 @@ data class RecordResponse(
     var date:String = "",
     var title:String = "",
     var content:String = ""
-):Serializable
+):Serializable , SearchItem() {
+    override fun getListItemType(): Int {
+        return SearchItem.RECORD_RESPONSE
+    }
+}
