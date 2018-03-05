@@ -2,18 +2,16 @@ package com.example.jiun.sookpam.searchable
 
 import android.os.Bundle
 import com.example.jiun.sookpam.R
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.SearchView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
-import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_searchable.*
@@ -24,33 +22,29 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnQueryTextListener, 
     private lateinit var responseList: ArrayList<RecordVO>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
-    private lateinit var connectManager: ConnectivityManager
 
 
     override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
         responseList = ArrayList<RecordVO>()
+        setRecyclerView()
+        editsearch = search_view
+        editsearch.setOnQueryTextListener(this);
+
         if (isNetWork()) {
-            setRecyclerView()
-            editsearch = search_view
-            editsearch.setOnQueryTextListener(this);
         }
         else {
-
+            //error
         }
     }
 
     private fun isNetWork(): Boolean {
-        connectManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val isMobileAvailable = connectManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable
-        val isMobileConnect = connectManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting
-        val isWifiAvailable = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable
-        val isWifiConnect = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting
-
-        return isWifiAvailable && isWifiConnect || isMobileAvailable && isMobileConnect
+        var connectManager : ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetwork : NetworkInfo? =  connectManager.getActiveNetworkInfo()
+        var isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected
     }
-
 
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
