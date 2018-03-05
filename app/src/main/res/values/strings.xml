@@ -12,15 +12,14 @@
     <string name="move_setting">Sookpam 설정으로 이동해 권한 부여하기</string>
     <string name="start_message_synchronization">메세지 동기화를 시작합니다.</string>
     <string name="end_message_synchronization">메세지 동기화를 완료했습니다.</string>
-    <string name="division_character"><![CDATA[>]]></string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="client_server_division_character"><![CDATA[>]]></string>
     <string name="back_to_main">back to the main</string>
+    <string name="division_character"><![CDATA[>]]></string>
     <string name="web">웹</string>
     <string name="web_content_id">글번호</string>
     <string name="web_content_date">게시일</string>
     <string name="web_content_url">URL</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scrap">스크랩</string>
     <string name="related">이 글과 관련된 글</string>
     <string name="user_info_previous"><![CDATA[< 이전]]></string>

@@ -66,7 +66,7 @@
             android:id="@+id/message_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3.2"
+            android:layout_weight="3"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -78,14 +78,18 @@
                     android:id="@+id/icon_message"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:src="@drawable/message" />
-
+                    android:paddingStart="10dp"
+                    android:src="@drawable/message_selected" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="3dp"
+                    android:text="Message"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorPrimary"
                     android:layout_gravity="center"
-                    android:paddingLeft="8dp"
-                    android:text="Message" />
+                    android:id="@+id/nav_message"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -105,15 +109,18 @@
                     android:id="@+id/icon_web"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:src="@drawable/web" />
+                    android:paddingLeft="20dp"
+                    android:src="@drawable/web_default" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingLeft="8dp"
-                    android:text="Web" />
+                    android:paddingLeft="3dp"
+                    android:textSize="18sp"
+                    android:text="Web"
+                    android:id="@+id/nav_web"
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -121,7 +128,7 @@
             android:id="@+id/mypage_layout"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3.2"
+            android:layout_weight="3.8"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -133,15 +140,17 @@
                     android:id="@+id/icon_mypage"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:src="@drawable/mypage" />
+                    android:src="@drawable/mypage_default" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:paddingLeft="8dp"
-                    android:text="My page" />
+                    android:paddingLeft="3dp"
+                    android:textSize="18sp"
+                    android:text="My page"
+                    android:id="@+id/nav_mypage"
+                    />
             </LinearLayout>
         </LinearLayout>
 
