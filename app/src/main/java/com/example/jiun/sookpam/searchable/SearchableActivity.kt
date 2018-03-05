@@ -46,12 +46,11 @@ class SearchableActivity : AppCompatActivity() ,  SearchView.OnQueryTextListener
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        adapter.filter(query)
         return false;
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        Log.v("onQueryTextChange: ", newText)
-        adapter.filter(newText)
         return false
     }
 
