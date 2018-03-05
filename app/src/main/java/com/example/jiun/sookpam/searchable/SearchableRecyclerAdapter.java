@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam.searchable;
 
-import android.icu.text.AlphabeticIndex;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,9 +29,9 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
         public RecordViewHolder(View view) {
             super(view);
-            category = (TextView) itemView.findViewById(R.id.category_view);
-            division = (TextView) itemView.findViewById(R.id.division_view);
-            title = (TextView) itemView.findViewById(R.id.title_view);
+            category = (TextView)  view.findViewById(R.id.category_view);
+            division = (TextView)  view.findViewById(R.id.division_view);
+            title = (TextView)  view.findViewById(R.id.title_view);
         }
     }
 
