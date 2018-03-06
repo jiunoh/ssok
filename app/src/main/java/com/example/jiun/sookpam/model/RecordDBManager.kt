@@ -1,9 +1,13 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
+import android.icu.text.AlphabeticIndex
+import android.util.Log
+import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.vo.*
 import io.realm.Realm
+import io.realm.RealmResults
 import java.util.*
 
 class RecordDBManager(val realm: Realm) {
@@ -36,6 +40,13 @@ class RecordDBManager(val realm: Realm) {
             recordRecord.division = department
             recordRecord.category = context.getCategory(department,realm)
         }
+    }
+
+    fun getDataByDivision(request: String): ArrayList<RecordVO> {
+        var  msgResponse = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
+        return responseList
     }
 
     fun contains(query : String): ArrayList<RecordVO>{
