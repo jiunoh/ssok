@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.jiun.sookpam.model.vo.RecordVO;
+
 import java.util.ArrayList;
 
 public class MessageDepartListAdapter extends BaseAdapter {
-    private ArrayList<MessageDepartItem> messageDepartItems = new ArrayList<MessageDepartItem>();
+    private ArrayList<RecordVO> messageDepartItems = new ArrayList<RecordVO>();
 
     public static class MessageDepartViewHolder {
         TextView category;
@@ -37,10 +39,14 @@ public class MessageDepartListAdapter extends BaseAdapter {
         } else
             holder = (MessageDepartViewHolder) convertView.getTag();
 
-        MessageDepartItem messageDepartItem = messageDepartItems.get(position);
+        RecordVO messageDepartItem = messageDepartItems.get(position);
 
-        holder.title.setText(messageDepartItem.getTitle());
-        holder.category.setText(messageDepartItem.getCategory());
+        String messageBody = messageDepartItem.getMessage().getBody();
+        if (messageBody.length() > 20)
+            messageBody = messageBody.substring(0, 20);
+
+        holder.title.setText(messageBody);
+        holder.category.setText(messageDepartItem.getDivision());
 
         return convertView;
     }
@@ -55,11 +61,8 @@ public class MessageDepartListAdapter extends BaseAdapter {
         return messageDepartItems.get(position);
     }
 
-    public void addItem(String title, String category) {
-        MessageDepartItem item = new MessageDepartItem();
-        item.setCategory(category);
-        item.setTitle(title);
-        messageDepartItems.add(item);
+    public void addItem(ArrayList<RecordVO> itemList) {
+        messageDepartItems.addAll(itemList);
     }
 
     public void clear() {
