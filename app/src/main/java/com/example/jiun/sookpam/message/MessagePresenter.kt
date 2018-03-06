@@ -41,6 +41,7 @@ class MessagePresenter(
     }
 
     override fun cancelMessageAsyncTask() {
+        loadingDialog.dismiss()
         MessageAsyncTask().cancel(true)
     }
 

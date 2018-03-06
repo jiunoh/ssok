@@ -23,13 +23,10 @@ import io.realm.Realm;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ViewPagerMainActivity extends AppCompatActivity implements MessageContract.View {
-    MessageContract.Presenter presenter;
+public class ViewPagerMainActivity extends AppCompatActivity{
     Toolbar vpToolbar;
     ViewPager viewPager;
-    ImageButton refreshImageButton;
     ImageButton searchImageButton;
-    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +39,9 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         }
         setTitle("");
 
-        initialize();
+        Realm.init(this);
 
-        presenter.start();
+        initialize();
 
         vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
         setSupportActionBar(vpToolbar);
@@ -98,19 +95,6 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     }
 
     private void initialize() {
-        Realm.init(this);
-        loadingDialog = new LoadingDialog(this);
-        setPresenter(new MessagePresenter(getApplicationContext(), ViewPagerMainActivity
-                .this, loadingDialog));
-        refreshImageButton = findViewById(R.id.main_refresh_image_btn);
-        refreshImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshImageButton);
-                refreshImageButton.startAnimation(rotateAnimation);
-                presenter.start();
-            }
-        });
         searchImageButton = findViewById(R.id.main_search_image_btn);
         searchImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,39 +122,5 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     private void goToMypageTab() {
         MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragAdapter);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        presenter.cancelMessageAsyncTask();
-    }
-
-    @Override
-    public void showPermissionMessage(@NotNull PermissionListener permissionListener) {
-        TedPermission.with(this)
-                .setPermissionListener(permissionListener)
-                .setRationaleTitle(getString(R.string.read_sms_request_title))
-                .setRationaleMessage(getString(R.string.read_sms_request_detail))
-                .setDeniedTitle(getString(R.string.denied_read_sms_title))
-                .setDeniedMessage(getString(R.string.denied_read_sms_detail))
-                .setGotoSettingButtonText(getString(R.string.move_setting))
-                .setPermissions(android.Manifest.permission.READ_SMS)
-                .check();
-    }
-
-    @Override
-    public void showToastMessage(@NotNull String string, int toastTime) {
-        Toast.makeText(this, string, toastTime).show();
-    }
-
-    @Override
-    public MessageContract.Presenter getPresenter() {
-        return presenter;
-    }
-
-    @Override
-    public void setPresenter(MessageContract.Presenter presenter) {
-        this.presenter = presenter;
     }
 }
