@@ -14,23 +14,23 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WebRecomFragment extends Fragment {
+public class WebRecommendFragment extends Fragment {
 
-    public static WebRecomFragment newInstance() {
-        WebRecomFragment fragment = new WebRecomFragment();
+    public static WebRecommendFragment newInstance() {
+        WebRecommendFragment fragment = new WebRecommendFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public WebRecomFragment() {
+    public WebRecommendFragment() {
         // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_web_recom, container, false);
+        View view = inflater.inflate(R.layout.fragment_web_recommend, container, false);
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
         ListView listView = view.findViewById(R.id.web_recom_listview);
         listView.setAdapter(adapter);

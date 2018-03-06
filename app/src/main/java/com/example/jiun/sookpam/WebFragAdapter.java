@@ -20,8 +20,8 @@ public class WebFragAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                WebRecomFragment webRecomFragment = WebRecomFragment.newInstance();
-                return webRecomFragment;
+                WebRecommendFragment webRecommendFragment = WebRecommendFragment.newInstance();
+                return webRecommendFragment;
             case 1:
                 WebCommonFragment webCommonFragment = WebCommonFragment.newInstance();
                 return webCommonFragment;
