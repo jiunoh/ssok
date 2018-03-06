@@ -6,6 +6,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Network
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -73,7 +74,6 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnQueryTextListener, 
     }
 
     override fun onClose(): Boolean {
-        Log.v("onClose():", "true")
         adapter.clear()
         return false
     }
