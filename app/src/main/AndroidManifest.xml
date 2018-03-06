@@ -14,6 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
 
+        <activity android:name=".ViewPagerMainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.gun0912.tedpermission.TedPermissionActivity"
             android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
@@ -23,13 +30,6 @@
         <activity android:name=".category.CategoryActivity" />
         <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.InfoActivity" />
-        <activity android:name=".ViewPagerMainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".server.WebContentActivity" />
         <activity android:name=".server.ClientServerActivity" />
         <activity android:name=".user.major.MajorActivity" />
