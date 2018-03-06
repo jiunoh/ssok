@@ -3,8 +3,7 @@ package com.example.jiun.sookpam.model.vo
 
 import android.support.v7.widget.RecyclerView
 import com.example.jiun.sookpam.searchable.SearchItem
-import com.example.jiun.sookpam.util.ViewHolderFactory
-import com.example.jiun.sookpam.util.ViewHolderFactory.RealmHolder
+import com.example.jiun.sookpam.util.ViewHolderFactory.SearchHolder
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass
 
@@ -15,12 +14,11 @@ open class RecordVO : RealmModel, SearchItem {
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
-        var realmHolder: RealmHolder = viewHolder as RealmHolder
-        realmHolder.category.text = category
-        realmHolder.division.text = division
+        var realmHolder: SearchHolder = viewHolder as SearchHolder
+        realmHolder.categoryTextView.text = "문자"+"-"+category+"-"+division
         val body = message!!.body
         val title = body.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
-        realmHolder.title.setText(title)
+        realmHolder.titleTextVIew.setText(title)
     }
 
     var category: String? = null

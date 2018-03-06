@@ -16,8 +16,8 @@ data class RecordResponse(
         var content: String = ""
 ) : Serializable, SearchItem {
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
-        val webHolder = viewHolder as ViewHolderFactory.WebHolder
-        webHolder.categoryTextView.text = category
+        val webHolder = viewHolder as ViewHolderFactory.SearchHolder
+        webHolder.categoryTextView.text = "웹"+"-"+category+"-"+division
         webHolder.titleTextVIew.text = title
     }
 
