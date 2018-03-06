@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.server
+package com.example.jiun.sookpam.web.common
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,13 +9,17 @@ import android.view.View
 import android.widget.*
 import retrofit2.*
 import com.example.jiun.sookpam.*
-import kotlinx.android.synthetic.main.activity_client_server.*
+import com.example.jiun.sookpam.server.ApiUtils
+import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.server.RecordService
+import com.example.jiun.sookpam.web.WebContentActivity
+import kotlinx.android.synthetic.main.activity_web_common_recycler.*
 
 
-class ClientServerActivity : AppCompatActivity() {
+class WebCommonRecyclerActivity : AppCompatActivity() {
     private lateinit var service: RecordService
     private lateinit var toolbar: Toolbar
-    private lateinit var recordsRecyclerView: RecyclerView
+    private lateinit var webCommonRecyclerView: RecyclerView
     private lateinit var categoryTextView: TextView
     private lateinit var divisionTextView: TextView
     private lateinit var backButton: ImageButton
@@ -23,21 +27,21 @@ class ClientServerActivity : AppCompatActivity() {
     private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
-    private lateinit var progressBar:ProgressBar
+    private lateinit var progressBar: ProgressBar
     var records: List<RecordResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_client_server)
+        setContentView(R.layout.activity_web_common_recycler)
         initialize()
         loadRecords("중어중문학부", "공지")
     }
 
     private fun initialize() {
         setToolbar()
-        recordsRecyclerView = client_server_record_recycler_view
-        recordsRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
-        recordsRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
+        webCommonRecyclerView = client_server_record_recycler_view
+        webCommonRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        webCommonRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])
             startActivity(intent)
@@ -77,12 +81,12 @@ class ClientServerActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
                 records = response!!.body()
-                recordsRecyclerView.adapter = RecordRecyclerAdapter(records)
-                val context = recordsRecyclerView.context
+                webCommonRecyclerView.adapter = WebCommonRecyclerAdapter(records)
+                val context = webCommonRecyclerView.context
                 if (records!!.isNotEmpty()) {
-                    recordsRecyclerView.visibility = View.VISIBLE
+                    webCommonRecyclerView.visibility = View.VISIBLE
                     errorLinearLayout.visibility = View.INVISIBLE
-                    UIAnimation.setLoadingRecyclerViewAnimation(context, recordsRecyclerView)
+                    UIAnimation.setLoadingRecyclerViewAnimation(context, webCommonRecyclerView)
                     Toast.makeText(applicationContext, getString(R.string.finish_data_load), Toast.LENGTH_SHORT).show()
                 } else {
                     showNoDataInServer()
@@ -94,14 +98,14 @@ class ClientServerActivity : AppCompatActivity() {
 
     private fun showInternetConnectionError() {
         Toast.makeText(applicationContext, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
-        recordsRecyclerView.visibility = View.INVISIBLE
+        webCommonRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.internet_connect_error)
     }
 
     private fun showNoDataInServer() {
         Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
-        recordsRecyclerView.visibility = View.INVISIBLE
+        webCommonRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
     }

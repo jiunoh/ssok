@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.server
+package com.example.jiun.sookpam.web
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.server.RecordResponse
 import kotlinx.android.synthetic.main.activity_web_content.*
 
 class WebContentActivity : AppCompatActivity() {

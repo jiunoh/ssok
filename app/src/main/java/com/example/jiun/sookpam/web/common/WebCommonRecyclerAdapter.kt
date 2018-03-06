@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.server
+package com.example.jiun.sookpam.web.common
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.server.RecordResponse
 import kotlinx.android.synthetic.main.record_recycler_item.view.*
 
-class RecordRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<RecordRecyclerAdapter.ViewHolder>() {
+class WebCommonRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<WebCommonRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
