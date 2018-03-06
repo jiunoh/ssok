@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.model.vo
 
+
 import android.support.v7.widget.RecyclerView
 import com.example.jiun.sookpam.searchable.SearchItem
 import com.example.jiun.sookpam.util.ViewHolderFactory

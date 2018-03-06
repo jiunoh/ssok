@@ -1,3 +1,5 @@
+@file:JvmName("ApiUtils")
+
 package com.example.jiun.sookpam.server
 
 class ApiUtils {
@@ -6,6 +8,10 @@ class ApiUtils {
 
         fun getRecordService():RecordService {
             return RetrofitClient.getClient(BASE_URL).create(RecordService::class.java)
+        }
+
+        fun getSearchableService() : SearchableService{
+            return RetrofitClient.getClient(BASE_URL+"search/").create(SearchableService::class.java)
         }
     }
 }

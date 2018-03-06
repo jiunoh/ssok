@@ -1,3 +1,4 @@
+
 @file:JvmName("SearchItem")
 
 package com.example.jiun.sookpam.searchable
@@ -13,4 +14,5 @@ interface SearchItem {
     fun getItemViewType(): Int
 
     fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
+
 }

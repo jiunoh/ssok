@@ -1,7 +1,6 @@
 package com.example.jiun.sookpam.server
 
 import android.support.v7.widget.RecyclerView
-import android.widget.ViewSwitcher
 import com.example.jiun.sookpam.searchable.SearchItem
 import com.example.jiun.sookpam.util.ViewHolderFactory
 import java.io.Serializable

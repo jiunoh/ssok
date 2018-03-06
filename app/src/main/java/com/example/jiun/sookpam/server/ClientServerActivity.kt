@@ -23,7 +23,7 @@ class ClientServerActivity : AppCompatActivity() {
     private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
-    private lateinit var progressBar:ProgressBar
+    private lateinit var progressBar: ProgressBar
     var records: List<RecordResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,56 +2,48 @@ package com.example.jiun.sookpam.searchable
 
 import android.os.Bundle
 import com.example.jiun.sookpam.R
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.Network
+import android.net.NetworkInfo
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.widget.SearchView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
-import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.RecordVO
-import io.realm.Realm
+import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.server.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 
 
 class SearchableActivity : AppCompatActivity(), SearchView.OnQueryTextListener, SearchView.OnCloseListener {
-    private lateinit var responseList: ArrayList<RecordVO>
+    private lateinit var responseList: ArrayList<SearchItem>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
-    private lateinit var connectManager: ConnectivityManager
 
 
-    override  fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        responseList = ArrayList<RecordVO>()
-        if (isNetWork()) {
-            setRecyclerView()
-            editsearch = search_view
-            editsearch.setOnQueryTextListener(this);
-        }
-        else {
+        responseList = ArrayList<SearchItem>()
+        setRecyclerView()
+        editsearch = search_view
+        editsearch.setOnQueryTextListener(this);
 
+        if (isNetWork()) {
+        } else {
+            //error
         }
     }
 
     private fun isNetWork(): Boolean {
-        connectManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val isMobileAvailable = connectManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable
-        val isMobileConnect = connectManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting
-        val isWifiAvailable = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable
-        val isWifiConnect = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting
-
-        return isWifiAvailable && isWifiConnect || isMobileAvailable && isMobileConnect
+        var connectManager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        var activeNetwork: NetworkInfo? = connectManager.getActiveNetworkInfo()
+        var isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected
     }
-
 
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
@@ -78,16 +70,23 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnQueryTextListener, 
         return false
     }
 
-    private fun showMessageBody(data: RecordVO) {
-        var contentItem: ContentItem = ContentItem()
-        contentItem.category = data.category
-        contentItem.division = data.division
-        contentItem.body = data.message!!.body
-        contentItem.phone = data.message!!.phoneNumber
-        val intent = Intent(this, ContentActivity::class.java)
+    private fun showMessageBody(data: SearchItem) {
         val bundle = Bundle()
-        bundle.putSerializable("OBJECT", contentItem)
-        intent.putExtras(bundle)
+        var intent: Intent? = null
+        if (data is RecordVO) {
+            var contentItem: ContentItem = ContentItem()
+            contentItem.category = data.category
+            contentItem.division = data.division
+            contentItem.body = data.message!!.body
+            contentItem.phone = data.message!!.phoneNumber
+            val intent = Intent(this, ContentActivity::class.java)
+            bundle.putSerializable("OBJECT", contentItem)
+
+        } else {
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
+            bundle.putSerializable("record", data as RecordResponse)
+        }
+        intent!!.putExtras(bundle)
         startActivity(intent)
     }
 
