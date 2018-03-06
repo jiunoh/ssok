@@ -14,6 +14,7 @@ import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.info.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+import com.example.jiun.sookpam.web.recommend.WebRecommendFragment;
 import com.gun0912.tedpermission.PermissionListener;
 import com.example.jiun.sookpam.message.MessagePresenter;
 import com.gun0912.tedpermission.TedPermission;
@@ -42,6 +43,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         setTitle("");
 
         initialize();
+
+        presenter.start();
 
         vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
         setSupportActionBar(vpToolbar);
@@ -121,7 +124,6 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
     }
-
 
     private void goToMessageTab() {
         MessageFragAdapter messageFragAdapter = new MessageFragAdapter(getSupportFragmentManager());

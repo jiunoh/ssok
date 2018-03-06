@@ -16,7 +16,7 @@
         card_view:cardElevation="4dp">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/client_server_toolbar"
+            android:id="@+id/web_common_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
@@ -30,7 +30,7 @@
                 android:layout_marginEnd="20dp">
 
                 <ImageButton
-                    android:id="@+id/client_server_back_image_btn"
+                    android:id="@+id/web_common_back_image_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -38,7 +38,7 @@
                     android:src="@drawable/ic_back_button" />
 
                 <ImageButton
-                    android:id="@+id/client_server_refresh_img_btn"
+                    android:id="@+id/web_common_refresh_img_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -85,7 +85,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/client_server_category_txt"
+            android:id="@+id/web_common_category_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -101,7 +101,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/client_server_division_txt"
+            android:id="@+id/web_common_division_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -111,7 +111,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/client_server_record_recycler_view"
+        android:id="@+id/web_common_record_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
@@ -119,7 +119,7 @@
         android:padding="20dp" />
 
     <LinearLayout
-        android:id="@+id/client_server_error_linear"
+        android:id="@+id/web_common_error_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -127,22 +127,22 @@
         android:visibility="invisible">
 
         <ImageView
-            android:id="@+id/client_server_error_img"
+            android:id="@+id/web_common_error_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/error_image"
-            android:contentDescription="@string/internet_connect_error" />
+            android:contentDescription="@string/error_or_no_data" />
 
         <TextView
-            android:id="@+id/client_server_error_txt"
+            android:id="@+id/web_common_error_txt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center" />
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/client_server_progressbar"
+        android:id="@+id/web_common_progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -39,33 +39,33 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
 
     private fun initialize() {
         setToolbar()
-        webCommonRecyclerView = client_server_record_recycler_view
+        webCommonRecyclerView = web_common_record_recycler_view
         webCommonRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
         webCommonRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])
             startActivity(intent)
         }))
-        categoryTextView = client_server_category_txt
-        divisionTextView = client_server_division_txt
+        categoryTextView = web_common_category_txt
+        divisionTextView = web_common_division_txt
         service = ApiUtils.getRecordService()
-        backButton = client_server_back_image_btn
+        backButton = web_common_back_image_btn
         backButton.setOnClickListener { finish() }
-        refreshButton = client_server_refresh_img_btn
+        refreshButton = web_common_refresh_img_btn
         refreshButton.setOnClickListener {
             Toast.makeText(applicationContext, "목록 데이터를 갱신합니다.", Toast.LENGTH_SHORT).show()
             val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
             refreshButton.startAnimation(rotateAnimation)
             loadRecords("중어중문학부", "공지")
         }
-        errorLinearLayout = client_server_error_linear
-        errorImageView = client_server_error_img
-        errorTextView = client_server_error_txt
-        progressBar = client_server_progressbar
+        errorLinearLayout = web_common_error_linear
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
     }
 
     private fun setToolbar() {
-        toolbar = client_server_toolbar
+        toolbar = web_common_toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
     }
