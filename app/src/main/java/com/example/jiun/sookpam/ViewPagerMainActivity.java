@@ -27,6 +27,7 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     Toolbar vpToolbar;
     ViewPager viewPager;
     ImageButton refreshImageButton;
+    ImageButton searchImageButton;
     LoadingDialog loadingDialog;
 
     @Override
@@ -107,30 +108,20 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
                 presenter.start();
             }
         });
+        searchImageButton = findViewById(R.id.main_search_image_btn);
+        searchImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SearchableActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu toolbar) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.fragments_toolbar, toolbar);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.search_button:
-                Intent intent = new Intent(this, SearchableActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
     private void goToMessageTab() {
         MessageFragAdapter messageFragAdapter = new MessageFragAdapter(getSupportFragmentManager());

@@ -18,6 +18,7 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
             <FrameLayout
+                android:layout_marginEnd="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -26,8 +27,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/refresh_current_page"
+                    android:contentDescription="@string/view_pager_main_search"
                     android:src="@drawable/ic_refresh" />
+
+                <ImageButton
+                    android:id="@+id/main_search_image_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/refresh_current_page"
+                    android:src="@drawable/search" />
 
                 <TextView
                     android:id="@+id/toolbar_title"
