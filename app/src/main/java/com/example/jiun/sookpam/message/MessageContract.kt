@@ -8,7 +8,7 @@ interface MessageContract {
     interface View : BaseView<Presenter> {
         fun showPermissionMessage(permissionListener: PermissionListener)
 
-        fun showToastMessage(string: String)
+        fun showToastMessage(string: String, toastTime: Int)
     }
 
     interface Presenter : BasePresenter {
