@@ -7,13 +7,12 @@
     android:orientation="vertical"
     tools:context=".searchable.SearchableActivity">
 
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:iconifiedByDefault="false">
-        <requestFocus  />
-    </SearchView>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#ffffff"
+        android:theme="?attr/actionBarTheme" />
 
     <android.support.v7.widget.RecyclerView
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
