@@ -62,9 +62,8 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     private void webFilter(String charText) {
-        Log.v("webFilter:", "webFilter");
         SearchableService service  = ApiUtils.Companion.getSearchableService();
-
+        charText.replace(" ","-");
         service.getItems(charText).enqueue(new Callback<List<RecordResponse>>() {
             @Override
             public void onResponse(Call<List<RecordResponse>> call, Response<List<RecordResponse>> response) {
@@ -78,7 +77,7 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
             @Override
             public void onFailure(Call<List<RecordResponse>> call, Throwable t) {
-                //showInternetConnectionError();
+                Log.v("onFailure:", "onFailure");
             }
         });
 

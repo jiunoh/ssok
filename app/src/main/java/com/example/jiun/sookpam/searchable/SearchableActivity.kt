@@ -79,11 +79,11 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnQueryTextListener, 
             contentItem.division = data.division
             contentItem.body = data.message!!.body
             contentItem.phone = data.message!!.phoneNumber
-            val intent = Intent(this, ContentActivity::class.java)
+            intent = Intent(this, ContentActivity::class.java)
             bundle.putSerializable("OBJECT", contentItem)
 
         } else {
-            val intent = Intent(applicationContext, WebContentActivity::class.java)
+            intent = Intent(applicationContext, WebContentActivity::class.java)
             bundle.putSerializable("record", data as RecordResponse)
         }
         intent!!.putExtras(bundle)

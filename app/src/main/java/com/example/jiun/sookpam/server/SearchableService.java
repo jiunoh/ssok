@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface SearchableService {
-    @GET("/{query}")
+    @GET("{query}")
     Call<List<RecordResponse>> getItems(@Path("query") String query);
 }
