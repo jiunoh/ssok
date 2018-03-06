@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.user
+package com.example.jiun.sookpam.user.info
 
 
 import android.content.Context
@@ -8,18 +8,21 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.UserInformation
+import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.user.major.MajorList
+import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserInfoActivity : AppCompatActivity() {
-    private lateinit var viewPager: CustomViewPager
+    private lateinit var viewPager: UserInfoViewPager
     private var currentFragment: Fragment? = null
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button
     private var circleImageViewArrayList: ArrayList<ImageView> = ArrayList(3)
-    private var pagerAdapter = SimpleFragmentPagerAdapter(supportFragmentManager, MAX_PAGE_SIZE)
-    private var currentPage = SimpleFragmentPagerAdapter.USER_INFO_1
+    private var pagerAdapter = UserInfoFragmentPagerAdapter(supportFragmentManager, MAX_PAGE_SIZE)
+    private var currentPage = UserInfoFragmentPagerAdapter.USER_INFO_1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,12 +68,12 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun movePrevious() {
         previousButton.setOnClickListener {
-            if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_4) {
+            if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_4) {
                 nextButton.text = getText(R.string.user_info_next_page)
                 pagerAdapter.notifyDataSetChanged()
             }
-            if (currentPage > SimpleFragmentPagerAdapter.USER_INFO_1) {
-                if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_2) {
+            if (currentPage > UserInfoFragmentPagerAdapter.USER_INFO_1) {
+                if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_2) {
                     previousButton.visibility = View.INVISIBLE
                 }
                 currentPage -= 1
@@ -82,13 +85,13 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun moveNext() {
         nextButton.setOnClickListener {
-            if (currentPage < SimpleFragmentPagerAdapter.USER_INFO_4) {
+            if (currentPage < UserInfoFragmentPagerAdapter.USER_INFO_4) {
                 if (isConditionsFulfilled()) {
-                    if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_3) {
+                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_3) {
                         nextButton.text = getText(R.string.user_info_done)
                         pagerAdapter.notifyDataSetChanged()
                     }
-                    if (currentPage == SimpleFragmentPagerAdapter.USER_INFO_1) {
+                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_1) {
                         previousButton.visibility = View.VISIBLE
                     }
                     currentPage += 1
@@ -107,7 +110,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun isConditionsFulfilled(): Boolean {
         when (currentPage) {
-            SimpleFragmentPagerAdapter.USER_INFO_1 -> {
+            UserInfoFragmentPagerAdapter.USER_INFO_1 -> {
                 var selectedMajorCount = 0
                 MajorList.collegeAndMajors
                         .flatMap { it }
@@ -116,11 +119,11 @@ class UserInfoActivity : AppCompatActivity() {
 
                 if (selectedMajorCount < 1) return false
             }
-            SimpleFragmentPagerAdapter.USER_INFO_2 -> {
-                val status = SharedPreferenceUtil.get(applicationContext, UserInfo2Fragment.STUDENT_STATUS, "")
+            UserInfoFragmentPagerAdapter.USER_INFO_2 -> {
+                val status = SharedPreferenceUtil.get(applicationContext, UserSettingLibrary.STUDENT_STATUS, "")
                 if (status == "") return false
             }
-            SimpleFragmentPagerAdapter.USER_INFO_3 -> {
+            UserInfoFragmentPagerAdapter.USER_INFO_3 -> {
                 if (countInterestCategories(applicationContext) < 3) return false
             }
         }
@@ -144,11 +147,11 @@ class UserInfoActivity : AppCompatActivity() {
         const val MOVE_NEXT_PAGE = false
 
         fun countInterestCategories(context: Context): Int {
-            return PersonalCategory.categories.count { getCategoryStatus(it, context) == PersonalCategory.INTEREST_CATEGORY }
+            return SettingCategory.categories.count { getCategoryStatus(it, context) == SettingCategory.INTEREST_CATEGORY }
         }
 
         private fun getCategoryStatus(key: String, context: Context): Int {
-            return SharedPreferenceUtil.get(context, key, PersonalCategory.NORMAL_CATEGORY)
+            return SharedPreferenceUtil.get(context, key, SettingCategory.NORMAL_CATEGORY)
         }
     }
 }

@@ -12,7 +12,7 @@ import android.widget.*;
 
 import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
-import com.example.jiun.sookpam.user.UserInfoActivity;
+import com.example.jiun.sookpam.user.info.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.example.jiun.sookpam.message.MessagePresenter;

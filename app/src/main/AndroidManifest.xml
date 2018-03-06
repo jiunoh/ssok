@@ -30,10 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".server.WebContentActivity" />
-        <activity android:name=".server.ClientServerActivity" />
+        <activity android:name=".web.WebContentActivity" />
+        <activity android:name=".web.common.WebCommonRecyclerActivity" />
         <activity android:name=".user.major.MajorActivity" />
-        <activity android:name=".user.UserInfoActivity" />
+        <activity android:name=".user.info.UserInfoActivity" />
         <activity android:name=".message.ContentActivity" />
         <activity android:name=".searchable.SearchableActivity">
             <intent-filter>
