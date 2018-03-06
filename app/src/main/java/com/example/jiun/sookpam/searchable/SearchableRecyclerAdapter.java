@@ -85,6 +85,7 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     public void clear() {
         searchableItems.removeAll(responseList);
+        searchableItems.clear();
         notifyDataSetChanged();
     }
 

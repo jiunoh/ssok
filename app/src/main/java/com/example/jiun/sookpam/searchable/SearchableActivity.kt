@@ -9,10 +9,17 @@ import android.net.NetworkInfo
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.appcompat.R.id.search_close_btn
+import android.support.v7.appcompat.R.id.search_src_text
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.support.v7.widget.SearchView
+import android.text.Editable
+import android.text.SpannableStringBuilder
+import android.util.Log
+import android.widget.EditText
+import android.widget.ImageView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
@@ -23,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 
 
-class SearchableActivity : AppCompatActivity(), SearchView.OnCloseListener {
+class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var responseList: ArrayList<SearchItem>
     private lateinit var editsearch: SearchView
@@ -42,6 +49,7 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnCloseListener {
             //error
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
@@ -56,19 +64,29 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnCloseListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
-        });
+        })
+        setCloseEventListener()
         return super.onCreateOptionsMenu(menu)
     }
+
+    private fun setCloseEventListener() {
+        val closeButton = editsearch.findViewById(search_close_btn) as ImageView
+        closeButton.setOnClickListener(View.OnClickListener {
+            Log.v("CLosed", "CLosed")
+            adapter.clear()
+        })
+        var editText = editsearch.findViewById(search_src_text) as EditText
+        //editText.text = SpannableStringBuilder("")
+    }
+
 
     private fun setToolbar() {
         toolbar = search_toolbar
         setSupportActionBar(toolbar)
         toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                finish()
-            }
+        toolbar.setNavigationOnClickListener(View.OnClickListener {
+            finish()
         })
     }
 
@@ -89,10 +107,6 @@ class SearchableActivity : AppCompatActivity(), SearchView.OnCloseListener {
                 }))
     }
 
-    override fun onClose(): Boolean {
-        adapter.clear()
-        return false
-    }
 
     private fun showMessageBody(data: SearchItem) {
         val bundle = Bundle()
