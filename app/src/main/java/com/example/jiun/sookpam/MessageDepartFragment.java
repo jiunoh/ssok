@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.jiun.sookpam.message.ContentActivity;
+import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
@@ -41,15 +43,14 @@ public class MessageDepartFragment extends Fragment {
         ListView listView = view.findViewById(R.id.message_depart_listview);
         listView.setAdapter(adapter);
 
-        ContactDBManager contactDBManager = (ContactDBManager)getActivity().getApplicationContext();
-        ArrayList<RecordVO> datalist;
+        final ArrayList<RecordVO> datalist = new ArrayList<RecordVO>();
 
         ArrayList<ArrayList<String>> collegeAndMajors = MajorList.Companion.getCollegeAndMajors();
         for (ArrayList<String> college: collegeAndMajors) {
             for (String major: college) {
                 boolean isSelected = SharedPreferenceUtil.get(getContext(), major, false);
                 if (isSelected) {
-                    datalist = getDataByDivision(major);
+                    datalist.addAll(getDataByDivision(major));
                     adapter.addItem(datalist);
                 }
             }
@@ -58,7 +59,8 @@ public class MessageDepartFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity().getApplicationContext(), "리스트 아이템 클릭됨", Toast.LENGTH_LONG).show();
+                RecordVO data = datalist.get(position);
+                showMessageBody(data);
             }
         });
 
@@ -92,6 +94,19 @@ public class MessageDepartFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void showMessageBody(RecordVO data) {
+        Intent intent = new Intent(getContext(), ContentActivity.class);
+        ContentItem contentItem  = new ContentItem();
+        contentItem.setCategory(data.getCategory());
+        contentItem.setDivision(data.getDivision());
+        contentItem.setBody(data.getMessage().getBody());
+        contentItem.setPhone(data.getMessage().getPhoneNumber());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("OBJECT", contentItem);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
