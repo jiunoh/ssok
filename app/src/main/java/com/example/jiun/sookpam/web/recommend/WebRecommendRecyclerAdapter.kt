@@ -8,14 +8,14 @@ import android.view.ViewGroup
 
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.server.RecordResponse
-import kotlinx.android.synthetic.main.recommend_recycler_item.view.*
+import kotlinx.android.synthetic.main.web_recommend_recycler_item.view.*
 
 class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<WebRecommendRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        val view = LayoutInflater.from(context).inflate(R.layout.recommend_recycler_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.web_recommend_recycler_item, parent, false)
         return ViewHolder(view)
     }
 

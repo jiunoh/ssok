@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.*
 import android.view.*
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.server.*
@@ -18,12 +15,13 @@ import kotlinx.android.synthetic.main.activity_view_pager_main.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
 
-class WebRecommendFragment : Fragment() {
+class WebRecommendRecyclerFragment : Fragment() {
     private lateinit var service: RecordService
     private lateinit var webRecommendRecyclerView: RecyclerView
     private lateinit var connectErrorLinearLayout: LinearLayout
     private lateinit var connectErrorTextView: TextView
     private lateinit var refreshImageButton: ImageButton
+    private lateinit var progressBar: ProgressBar
     private var records: List<RecordResponse>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,6 +33,7 @@ class WebRecommendFragment : Fragment() {
     private fun initialize(view: View) {
         connectErrorLinearLayout = view.web_recommend_error_linear
         connectErrorTextView = view.web_recommend_error_txt
+        progressBar = view.web_recommend_progressbar
         webRecommendRecyclerView = view.web_recommend_recycler_view
         webRecommendRecyclerView.layoutManager = LinearLayoutManager(context)
         webRecommendRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
@@ -97,11 +96,13 @@ class WebRecommendFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
+                progressBar.visibility = View.VISIBLE
                 records = response!!.body()
                 webRecommendRecyclerView.adapter = WebRecommendRecyclerAdapter(records)
                 if (records!!.isNotEmpty()) {
                     UIAnimation.setLoadingRecyclerViewAnimation(webRecommendRecyclerView.context, webRecommendRecyclerView)
                 }
+                progressBar.visibility = View.INVISIBLE
             }
         })
     }
@@ -114,8 +115,8 @@ class WebRecommendFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): WebRecommendFragment {
-            val fragment = WebRecommendFragment()
+        fun newInstance(): WebRecommendRecyclerFragment {
+            val fragment = WebRecommendRecyclerFragment()
             val args = Bundle()
             fragment.arguments = args
             return fragment

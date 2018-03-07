@@ -7,21 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.view.animation.Animation;
 import android.widget.*;
 
 import com.example.jiun.sookpam.searchable.SearchableActivity;
-import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.info.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
-import com.example.jiun.sookpam.web.recommend.WebRecommendFragment;
-import com.gun0912.tedpermission.PermissionListener;
-import com.example.jiun.sookpam.message.MessagePresenter;
-import com.gun0912.tedpermission.TedPermission;
 
 import io.realm.Realm;
-
-import org.jetbrains.annotations.NotNull;
 
 public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;

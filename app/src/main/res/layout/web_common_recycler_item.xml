@@ -8,13 +8,12 @@
     tools:context="com.example.jiun.sookpam.web.common.WebCommonRecyclerAdapter">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/record_card_view"
+        android:id="@+id/web_common_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -25,10 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:padding="16dp">
 
             <TextView
-                android:id="@+id/record_item_title_txt"
+                android:id="@+id/web_common_item_title_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -36,7 +35,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/record_item_date_txt"
+                android:id="@+id/web_common_item_date_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

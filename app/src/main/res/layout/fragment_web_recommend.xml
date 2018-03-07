@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jiun.sookpam.web.recommend.WebRecommendFragment">
+    tools:context="com.example.jiun.sookpam.web.recommend.WebRecommendRecyclerFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/web_recommend_recycler_view"
@@ -34,4 +34,10 @@
             android:textAlignment="center" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/web_recommend_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 </FrameLayout>
