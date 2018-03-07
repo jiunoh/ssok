@@ -15,8 +15,8 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:text="장학"
+        android:layout_weight="3"
+        android:text="소프트웨어학부"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
         android:id="@+id/message_depart_category"
@@ -28,7 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="7.5"
         android:paddingTop="5dp"
-        android:text="[장학]아산장학재단 장학금 신청"
+        android:paddingStart="15dp"
+        android:text="[Web발신]
+안녕하세요! 소프트웨어학부"
         android:id="@+id/message_depart_title"
         android:textSize="20sp"
         />
