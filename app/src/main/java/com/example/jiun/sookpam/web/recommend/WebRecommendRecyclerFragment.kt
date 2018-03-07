@@ -82,12 +82,12 @@ class WebRecommendRecyclerFragment : Fragment() {
         }
     }
 
-    private fun loadData(studentGrade: Int, studentYear: Int, major1: String, major2: String,
+    private fun loadData(studentGrade: String, studentYear: String, major1: String, major2: String,
                          schoolScholar: Boolean, governmentScholar: Boolean, externalScholar: Boolean,
                          studentStatus: Boolean, interestScholarship: Int, interestAcademic: Int,
                          interestEntrance: Int, interestRecruit: Int, interestSystem: Int,
                          interestGlobal: Int, interestCareer: Int, interestStudent: Int) {
-        service.getRecommendRecords(studentGrade, studentYear, major1, major2, schoolScholar,
+        service.getRecommendRecords(studentGrade.split(" ")[0], studentYear, major1, major2, schoolScholar,
                 governmentScholar, externalScholar, studentStatus, interestScholarship, interestAcademic,
                 interestEntrance, interestRecruit, interestSystem, interestGlobal, interestCareer,
                 interestStudent).enqueue(object : Callback<List<RecordResponse>> {

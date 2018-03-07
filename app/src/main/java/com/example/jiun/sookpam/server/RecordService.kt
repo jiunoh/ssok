@@ -13,8 +13,8 @@ interface RecordService {
 
     @GET("recommend/student_grade={student_grade}&student_year={student_year}&major1={major1}&major2={major2}&school_scholar={school_scholar}&government_scholar={government_scholar}&external_scholar={external_scholar}&student_status={student_status}&interest_scholarship={interest_scholarship}&interest_academic={interest_academic}&interest_entrance={interest_entrance}&interest_recruit={interest_recruit}&interest_system={interest_system}&interest_global={interest_global}&interest_career={interest_career}&interest_student={interest_student}")
     fun getRecommendRecords(
-            @Path("student_grade") studentGrade: Int,
-            @Path("student_year") studentYear: Int,
+            @Path("student_grade") studentGrade: String,
+            @Path("student_year") studentYear: String,
             @Path("major1") major1: String,
             @Path("major2") major2: String,
             @Path("school_scholar") schoolScholar: Boolean,

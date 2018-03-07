@@ -6,9 +6,9 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil
 
 data class UserInformation(
         val context: Context,
-        val studentGrade: Int = SharedPreferenceUtil.get(context, UserSettingLibrary.STUDENT_GRADE, 1),
-        val studentYear: Int = SharedPreferenceUtil.get(context,
-                UserSettingLibrary.STUDENT_YEAR, 18),
+        val studentGrade: String = SharedPreferenceUtil.get(context, UserSettingLibrary.STUDENT_GRADE, "1 학년"),
+        val studentYear: String = SharedPreferenceUtil.get(context,
+                UserSettingLibrary.STUDENT_YEAR, "18"),
         val major1: String = UserSettingLibrary.getSelectedMajors(context)[0],
         val major2: String =
                 if (UserSettingLibrary.getSelectedMajors(context).size > 1) UserSettingLibrary.getSelectedMajors(context)[1] else "null",
