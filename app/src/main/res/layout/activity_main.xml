@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/ToolbarTheme"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary" />
 </LinearLayout>
