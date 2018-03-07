@@ -14,7 +14,9 @@ import io.realm.Realm;
 public class MainActivity extends AppCompatActivity {
     final static int MAX_PAGE_SIZE = 3;
     final static int USER_ACTIVITY_REQUEST = 1;
-
+    private int[] tabDefaultIcons = {R.drawable.web_default, R.drawable.message_default, R.drawable.mypage_default};
+    private int[] tabSelectedIcons = {R.drawable.web_selected,
+            R.drawable.message_selected, R.drawable.mypage_selected};
     SimpleViewPager mainViewPager;
     MainViewPagerAdapter mainViewPagerAdapter;
     Fragment currentFragment = null;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, USER_ACTIVITY_REQUEST);
         } else {
             initialize();
+            setUpElements();
         }
     }
 
@@ -39,18 +42,22 @@ public class MainActivity extends AppCompatActivity {
         mainTabLayout = findViewById(R.id.main_tab_layout);
         mainViewPager = findViewById(R.id.main_view_pager);
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), this, MAX_PAGE_SIZE);
+    }
+    private void setUpElements() {
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
+        setDefaultTabIcons();
         mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
         mainTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mainViewPager.setCurrentItem(tab.getPosition(), false);
+                tab.setIcon(tabSelectedIcons[tab.getPosition()]);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                tab.setIcon(tabDefaultIcons[tab.getPosition()]);
             }
 
             @Override
@@ -61,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
         mainViewPager.setPagingEnabled(false);
         mainViewPager.setOffscreenPageLimit(MAX_PAGE_SIZE);
         currentFragment = mainViewPagerAdapter.getItem(currentPage);
+    }
+
+    private void setDefaultTabIcons() {
+        mainTabLayout.getTabAt(0).setIcon(tabSelectedIcons[0]);
+        mainTabLayout.getTabAt(1).setIcon(tabDefaultIcons[1]);
+        mainTabLayout.getTabAt(2).setIcon(tabDefaultIcons[2]);
     }
 
     private boolean isFirstUserInfoSetting() {
