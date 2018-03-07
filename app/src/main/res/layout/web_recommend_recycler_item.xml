@@ -28,10 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
                 android:layout_margin="8dp"
-                android:gravity="center"
                 android:paddingTop="16dp"
                 android:singleLine="true"
-                android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
