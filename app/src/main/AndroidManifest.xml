@@ -16,11 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
-
         <activity android:name=".ViewPagerMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,12 +29,12 @@
             android:theme="@style/Theme.Transparent.Permission"
             tools:replace="android:screenOrientation" />
         <activity android:name=".category.CategoryActivity" />
-        <activity android:name=".data.DataActivity" />
         <activity android:name=".setting.InfoActivity" />
-        <activity android:name=".server.WebContentActivity" />
-        <activity android:name=".server.ClientServerActivity" />
+        <activity android:name=".data.DataActivity"/>
+        <activity android:name=".web.WebContentActivity" />
+        <activity android:name=".web.common.WebCommonRecyclerActivity" />
         <activity android:name=".user.major.MajorActivity" />
-        <activity android:name=".user.UserInfoActivity" />
+        <activity android:name=".user.info.UserInfoActivity" />
         <activity android:name=".message.ContentActivity" />
         <activity android:name=".searchable.SearchableActivity">
             <intent-filter>

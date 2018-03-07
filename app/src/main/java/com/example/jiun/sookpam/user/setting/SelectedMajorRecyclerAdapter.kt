@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.user
+package com.example.jiun.sookpam.user.setting
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

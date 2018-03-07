@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import com.example.jiun.sookpam.user.PersonalCategory
+import com.example.jiun.sookpam.user.setting.SettingCategory
 import kotlinx.android.synthetic.main.fragment_my_topic.*
 
 class MyTopicFragment : Fragment() {
     private var topicButtons: ArrayList<Button> = ArrayList()
-    private var personalCategory: PersonalCategory? = null
+    private var settingCategory: SettingCategory? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_my_topic, container, false)
@@ -23,7 +23,7 @@ class MyTopicFragment : Fragment() {
     }
 
     private fun initialize() {
-        personalCategory = PersonalCategory(context!!)
+        settingCategory = SettingCategory(context!!)
         topicButtons.add(my_topic_scholarship_btn)
         topicButtons.add(my_topic_academic_btn)
         topicButtons.add(my_topic_entrance_btn)
@@ -33,9 +33,9 @@ class MyTopicFragment : Fragment() {
         topicButtons.add(my_topic_career_btn)
         topicButtons.add(my_topic_student_btn)
         for (button in topicButtons) button.setOnClickListener {
-            personalCategory!!.setCategoryButtonListener(button, getString(R.string.interest_category_min))
+            settingCategory!!.setCategoryButtonListener(button, getString(R.string.interest_category_min))
         }
-        personalCategory!!.setColorsOf(topicButtons)
+        settingCategory!!.setColorsOf(topicButtons)
     }
 
     companion object {

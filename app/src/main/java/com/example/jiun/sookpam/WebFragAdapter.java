@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.jiun.sookpam.web.recommend.WebRecommendRecyclerFragment;
+
 /**
  * Created by jiun on 2018-02-23.
  */
@@ -20,8 +22,8 @@ public class WebFragAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                WebRecomFragment webRecomFragment = WebRecomFragment.newInstance();
-                return webRecomFragment;
+                WebRecommendRecyclerFragment webRecommendRecyclerFragment = WebRecommendRecyclerFragment.Companion.newInstance();
+                return webRecommendRecyclerFragment;
             case 1:
                 WebCommonFragment webCommonFragment = WebCommonFragment.newInstance();
                 return webCommonFragment;
@@ -43,7 +45,7 @@ public class WebFragAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "추천";
+                return "맞춤 추천";
             case 1:
                 return "공통";
             case 2:

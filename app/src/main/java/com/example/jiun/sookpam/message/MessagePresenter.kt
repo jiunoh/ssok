@@ -41,6 +41,7 @@ class MessagePresenter(
     }
 
     override fun cancelMessageAsyncTask() {
+        loadingDialog.dismiss()
         MessageAsyncTask().cancel(true)
     }
 
@@ -59,7 +60,7 @@ class MessagePresenter(
                 SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
             } else {
                 messagePermissionView
-                        .showToastMessage(context.getString(R.string.start_message_synchronization), Toast.LENGTH_SHORT)
+                        .showToastMessage(context.getString(R.string.start_synchronization), Toast.LENGTH_SHORT)
             }
             loadingDialog.show()
         }
@@ -67,7 +68,7 @@ class MessagePresenter(
         override fun doInBackground(vararg p0: Unit?) {
             var realm: Realm? = null
             publishProgress()
-            Thread.sleep(1000)
+            Thread.sleep(500)
             try {
                 realm = Realm.getDefaultInstance()
                 smsReader = SmsReader(realm)
@@ -85,7 +86,7 @@ class MessagePresenter(
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
             messagePermissionView
-                    .showToastMessage(context.getString(R.string.end_message_synchronization), Toast.LENGTH_SHORT)
+                    .showToastMessage(context.getString(R.string.end_synchronization), Toast.LENGTH_SHORT)
             loadingDialog.dismiss()
         }
     }

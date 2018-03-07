@@ -15,8 +15,6 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.support.v7.widget.SearchView
-import android.text.Editable
-import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
@@ -25,10 +23,9 @@ import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
-import com.example.jiun.sookpam.server.WebContentActivity
+import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
-
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar

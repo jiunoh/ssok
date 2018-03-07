@@ -1,9 +1,9 @@
-package com.example.jiun.sookpam.user
+package com.example.jiun.sookpam.user.info
 
 import android.support.v4.app.*
 import android.support.v4.view.PagerAdapter
 
-internal class SimpleFragmentPagerAdapter(fm: FragmentManager, private val numberOfPages: Int) : FragmentStatePagerAdapter(fm) {
+internal class UserInfoFragmentPagerAdapter(fm: FragmentManager, private val numberOfPages: Int) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         if (position < 0 || position >= numberOfPages)
             return null

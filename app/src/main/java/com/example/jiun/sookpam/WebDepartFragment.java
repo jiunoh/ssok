@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.jiun.sookpam.user.PersonalCategory;
+import com.example.jiun.sookpam.user.setting.SettingCategory;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,7 +39,7 @@ public class WebDepartFragment extends Fragment {
 
         int i, j = 0;
         for (i=0; i< categories.length; i++) {
-            if (SharedPreferenceUtil.get(getContext(), categories[i], PersonalCategory.NORMAL_CATEGORY) == PersonalCategory.INTEREST_CATEGORY) {
+            if (SharedPreferenceUtil.get(getContext(), categories[i], SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY) {
                 final int ii=i;
                 String categoryID = "category_"+j;
                 j++;
