@@ -11,13 +11,12 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
-import android.support.v7.appcompat.R.id.search_src_text
+import android.support.v7.appcompat.R.id.search_mag_icon
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.support.v7.widget.SearchView
 import android.util.Log
-import android.widget.EditText
 import android.widget.ImageView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
@@ -28,7 +27,7 @@ import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
-
+import android.widget.LinearLayout
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -50,6 +49,7 @@ class SearchableActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
+        editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 adapter.filter(query)
@@ -61,6 +61,9 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
+        var icon =  editsearch.findViewById(search_mag_icon) as ImageView
+        icon.layoutParams = LinearLayout.LayoutParams(0,0)
+        icon.visibility = View.GONE
         setCloseEventListener()
         return super.onCreateOptionsMenu(menu)
     }
@@ -72,8 +75,6 @@ class SearchableActivity : AppCompatActivity() {
             editsearch.setQuery("",false)
             adapter.clear()
         })
-        var editText = editsearch.findViewById(search_src_text) as EditText
-        //editText.text = SpannableStringBuilder("")
     }
 
 
@@ -85,13 +86,6 @@ class SearchableActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener(View.OnClickListener {
             finish()
         })
-    }
-
-    private fun isNetWork(): Boolean {
-        var connectManager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var activeNetwork: NetworkInfo? = connectManager.activeNetworkInfo
-        var isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting;
-        return isConnected
     }
 
     private fun setRecyclerView() {
