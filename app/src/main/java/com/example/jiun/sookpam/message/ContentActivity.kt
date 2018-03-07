@@ -41,8 +41,8 @@ class ContentActivity : AppCompatActivity() {
     private fun setToolbar(category: String) {
         toolbar = content_toolbar
         setSupportActionBar(toolbar)
-        toolbar.setTitle(category)
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorPrimary))
+        toolbar.title = category
+        toolbar.setTitleTextColor(resources.getColor(R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
@@ -62,7 +62,7 @@ class ContentActivity : AppCompatActivity() {
                 dbmanager = ClipDBManager(Realm.getDefaultInstance());
                 if (dbmanager.doesNotExist(title)) {
                     item.icon = resources.getDrawable(R.drawable.star_on)
-                    dbmanager.insert(title, "메세지-"+category+"-"+division)
+                    dbmanager.insert(title, "메세지-$category-$division")
                 } else {
                     item.icon = resources.getDrawable(R.drawable.star_off)
                     dbmanager.delete(title)
