@@ -73,6 +73,7 @@ class SearchableActivity : AppCompatActivity() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
             Log.v("CLosed", "CLosed")
+            editsearch.setQuery("",false)
             adapter.clear()
         })
         var editText = editsearch.findViewById(search_src_text) as EditText
