@@ -2,9 +2,11 @@ package com.example.jiun.sookpam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.jiun.sookpam.user.info.UserInfoActivity;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private int[] tabDefaultIcons = {R.drawable.web_default, R.drawable.message_default, R.drawable.mypage_default};
     private int[] tabSelectedIcons = {R.drawable.web_selected,
             R.drawable.message_selected, R.drawable.mypage_selected};
+    boolean doublePressBackToExit = false;
+
     SimpleViewPager mainViewPager;
     MainViewPagerAdapter mainViewPagerAdapter;
     Fragment currentFragment = null;
@@ -79,6 +83,24 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doublePressBackToExit) {
+            super.onBackPressed();
+            return;
+        } else {
+            this.doublePressBackToExit = true;
+            Toast.makeText(this, getText(R.string.press_back_again_for_exit), Toast.LENGTH_SHORT).show();
+        }
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doublePressBackToExit = false;
+            }
+        }, 2000);
     }
 
     @Override
