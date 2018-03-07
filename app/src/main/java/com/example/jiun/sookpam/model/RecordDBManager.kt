@@ -1,13 +1,11 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
-import android.icu.text.AlphabeticIndex
-import android.util.Log
-import com.example.jiun.sookpam.data.DataItem
 import com.example.jiun.sookpam.message.MessageList
-import com.example.jiun.sookpam.model.vo.*
+import com.example.jiun.sookpam.model.vo.ContactVO
+import com.example.jiun.sookpam.model.vo.MessageVO
+import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
-import io.realm.RealmResults
 import java.util.*
 
 class RecordDBManager(val realm: Realm) {

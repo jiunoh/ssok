@@ -11,17 +11,13 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.jiun.sookpam.user.setting.SettingCategory;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.message.MessagePresenter;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import io.realm.Realm;
-
 
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
     Context context;
@@ -29,6 +25,9 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     MessageContract.Presenter presenter;
     ImageButton refreshImageButton;
     LoadingDialog loadingDialog;
+    TextView[] category_textviews;
+    final String[] categories = {"장학", "학사", "입학", "모집", "시스템", "국제", "취업", "학생"};
+
 
     public MessageCommonFragment() {
         // Required empty public constructor
@@ -44,62 +43,27 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
         View view = inflater.inflate(R.layout.fragment_message_common, container, false);
         context = view.getContext();
         activity = getActivity();
-
+        category_textviews = new TextView[7];
         initialize();
 
-        TextView category_janghak = view.findViewById(R.id.category_janghak);
-        TextView category_haksa = view.findViewById(R.id.category_haksa);
-        TextView category_iphak = view.findViewById(R.id.category_iphak);
-        TextView category_mojip = view.findViewById(R.id.category_mojip);
-        TextView category_it = view.findViewById(R.id.category_it);
-        TextView category_gookje = view.findViewById(R.id.category_gookje);
-        TextView category_chuiup = view.findViewById(R.id.category_chuiup);
-
-        category_janghak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        int i, j = 0;
+        for (i=0; i< categories.length; i++) {
+            if (SharedPreferenceUtil.get(getContext(), categories[i], SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY) {
+                final int ii=i;
+                String categoryID = "category_"+j;
+                j++;
+                int resID = getResources().getIdentifier(categoryID, "id", getActivity().getPackageName());
+                category_textviews[j] = view.findViewById(resID);
+                category_textviews[j].setText(categories[i]);
+                category_textviews[j].setBackgroundResource(R.drawable.category_shape);
+                category_textviews[j].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToListPage(ii);
+                    }
+                });
             }
-        });
-        category_haksa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        category_iphak.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        category_mojip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        category_it.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        category_gookje.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        category_chuiup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        category_janghak.setText("장학");
-        category_janghak.setBackgroundResource(R.drawable.category_shape);
+        }
 
         return view;
     }
@@ -152,6 +116,11 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     @Override
     public void setPresenter(MessageContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    private void goToListPage(int i) {
+        Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_SHORT).show();
+//        putExtra(categories[i]);
     }
 
     public static MessageCommonFragment newInstance() {

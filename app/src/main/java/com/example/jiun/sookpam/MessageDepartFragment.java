@@ -10,9 +10,20 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jiun.sookpam.model.ContactDBManager;
+import com.example.jiun.sookpam.model.RecordDBManager;
+import com.example.jiun.sookpam.model.vo.RecordVO;
+import com.example.jiun.sookpam.user.major.MajorList;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+
+import java.util.ArrayList;
+
+import io.realm.Realm;
+
 
 public class MessageDepartFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
+    private RecordDBManager categoryManager;
 
     public MessageDepartFragment() {
         // Required empty public constructor
@@ -30,10 +41,19 @@ public class MessageDepartFragment extends Fragment {
         ListView listView = view.findViewById(R.id.message_depart_listview);
         listView.setAdapter(adapter);
 
-        adapter.addItem("demo title", "demo");
-        adapter.addItem("demo title", "demo");
-        adapter.addItem("demo title", "demo");
-        adapter.addItem("demo title", "demo");
+        ContactDBManager contactDBManager = (ContactDBManager)getActivity().getApplicationContext();
+        ArrayList<RecordVO> datalist;
+
+        ArrayList<ArrayList<String>> collegeAndMajors = MajorList.Companion.getCollegeAndMajors();
+        for (ArrayList<String> college: collegeAndMajors) {
+            for (String major: college) {
+                boolean isSelected = SharedPreferenceUtil.get(getContext(), major, false);
+                if (isSelected) {
+                    datalist = getDataByDivision(major);
+                    adapter.addItem(datalist);
+                }
+            }
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -43,6 +63,28 @@ public class MessageDepartFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private ArrayList<RecordVO> getDataByDivision(String division) {
+        categoryManager = new RecordDBManager(Realm.getDefaultInstance());
+        ArrayList<RecordVO> response;
+        if (!division.equals("공지"))
+            response = categoryManager.getDataByDivision(division);
+        else
+            response = handleUnclipedCategories();
+
+        return response;
+    }
+
+    private ArrayList<RecordVO> handleUnclipedCategories() {
+        ContactDBManager contactDBManager =  (ContactDBManager)getActivity().getApplicationContext();
+        ArrayList<String> divisionList = contactDBManager.getDepartmentList();
+        ArrayList<RecordVO> response = new ArrayList<>();
+        for (String division : divisionList) {
+            if (!SharedPreferenceUtil.get(getContext(), division, false))
+                response.addAll(categoryManager.getDataByDivision(division));
+        }
+        return response;
     }
 
     public static MessageDepartFragment newInstance() {

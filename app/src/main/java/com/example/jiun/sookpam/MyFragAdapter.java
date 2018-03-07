@@ -5,12 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.jiun.sookpam.clip.ClipContent;
+
 /**
  * Created by jiun on 2018-02-23.
  */
 
 public class MyFragAdapter extends FragmentStatePagerAdapter {
     private static int TAB_NUMBER = 3;
+    private static final int COLUMN = 13;
 
     public MyFragAdapter(FragmentManager fm) {
         super(fm);
@@ -26,8 +29,8 @@ public class MyFragAdapter extends FragmentStatePagerAdapter {
                 MyInfoFragment myInfoFragment = MyInfoFragment.Companion.newInstance();
                 return myInfoFragment;
             case 2:
-                MyScrapFragment myScrapFragment = MyScrapFragment.newInstance();
-                return myScrapFragment;
+                MyClipFragment myClipFragment = MyClipFragment.newInstance(COLUMN);
+                return myClipFragment;
             default:
                 return null;
         }
