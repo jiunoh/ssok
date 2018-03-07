@@ -15,7 +15,7 @@
         <GridLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="3.5"
             android:columnCount="3"
             android:orientation="vertical"
             android:paddingEnd="12dp"
@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
-                android:padding="8dp"
+                android:layout_margin="8dp"
+                android:gravity="bottom"
                 android:paddingTop="16dp"
                 android:singleLine="true"
                 android:textColor="@android:color/black"
@@ -44,7 +45,7 @@
                     android:id="@+id/recommend_category_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
+                    android:layout_margin="8dp"
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -53,7 +54,7 @@
                     android:id="@+id/recommend_division_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:padding="8dp"
+                    android:layout_margin="8dp"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
@@ -63,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:padding="8dp" />
+                    android:layout_margin="8dp" />
             </GridLayout>
         </GridLayout>
 
