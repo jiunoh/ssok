@@ -31,7 +31,7 @@ public class WebRecomFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_web_recom, container, false);
-        MessageDepartListAdapter adapter = new MessageDepartListAdapter();
+        WebRecomListAdapter adapter = new WebRecomListAdapter();
         ListView listView = view.findViewById(R.id.web_recom_listview);
         listView.setAdapter(adapter);
 

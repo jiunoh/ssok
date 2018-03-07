@@ -5,12 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +14,7 @@ import android.widget.TextView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.jiun.sookpam.clip.ClipContent;
+import android.widget.*;
 import com.example.jiun.sookpam.searchable.SearchableActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.user.UserInfoActivity;
@@ -35,6 +32,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     ImageView icon_message, icon_web, icon_mypage;
     TextView nav_message, nav_web, nav_mypage;
     ProgressBar progressbar;
+    ImageButton refreshImageButton;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,9 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
         setTitle("");
 
         initialize();
+
+        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
+        setSupportActionBar(vpToolbar);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager_main);
         TabLayout upperTabs = (TabLayout) findViewById(R.id.upper_tab_layout);
@@ -107,15 +109,19 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
 
     private void initialize() {
         Realm.init(this);
-
-        progressbar = findViewById(R.id.main_refresh_progressbar);
+        loadingDialog = new LoadingDialog(this);
         setPresenter(new MessagePresenter(getApplicationContext(), ViewPagerMainActivity
-                .this, progressbar));
-
-        vpToolbar = (Toolbar) findViewById(R.id.view_pager_toolbar);
-        setSupportActionBar(vpToolbar);
+                .this, loadingDialog));
+        refreshImageButton = findViewById(R.id.main_refresh_image_btn);
+        refreshImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshImageButton);
+                refreshImageButton.startAnimation(rotateAnimation);
+                presenter.start();
+            }
+        });
     }
-
 
     private boolean isFirstUserInfoSetting() {
         return SharedPreferenceUtil.get(this, "first_setting_user_info", true);
@@ -134,12 +140,6 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
             case R.id.search_button:
                 Intent intent = new Intent(this, SearchableActivity.class);
                 startActivity(intent);
-                return true;
-            case R.id.refresh_button:
-                ActionMenuItemView refreshButton = findViewById(R.id.refresh_button);
-                Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshButton);
-                refreshButton.startAnimation(rotateAnimation);
-                presenter.start();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -200,8 +200,8 @@ public class ViewPagerMainActivity extends AppCompatActivity implements MessageC
     }
 
     @Override
-    public void showToastMessage(@NotNull String string) {
-        Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+    public void showToastMessage(@NotNull String string, int toastTime) {
+        Toast.makeText(this, string, toastTime).show();
     }
 
     @Override

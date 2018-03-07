@@ -17,18 +17,28 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
 
-            <TextView
-                android:id="@+id/toolbar_title"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/upper_tab_layout"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="12dp"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/main_refresh_image_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/refresh_current_page"
+                    android:src="@drawable/ic_refresh" />
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+            </FrameLayout>
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
@@ -46,13 +56,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/upper_tab_layout" />
-
-        <ProgressBar
-            android:id="@+id/main_refresh_progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
     </RelativeLayout>
 
     <LinearLayout
