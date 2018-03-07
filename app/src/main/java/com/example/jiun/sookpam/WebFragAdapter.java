@@ -45,7 +45,7 @@ public class WebFragAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "추천 TOP 10";
+                return "맞춤 추천";
             case 1:
                 return "공통";
             case 2:
