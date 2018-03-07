@@ -1,15 +1,13 @@
 package com.example.jiun.sookpam.message
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import com.example.jiun.sookpam.R
 import android.view.MenuItem
 import android.view.View
+import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
-import com.example.jiun.sookpam.model.ContactDBManager
-import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 
@@ -31,7 +29,6 @@ class ContentActivity : AppCompatActivity() {
         setToolbar(category + " > " + division)
         val body = record.body
         title = body!!.split("\n")[0]
-        title_view.text = title
         content_view.text = body
         val info = record.phone
 
