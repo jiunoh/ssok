@@ -11,7 +11,6 @@ class MainViewPagerAdapter(fm: FragmentManager, context: Context, private val nu
         return tabTitles[position]
     }
 
-
     override fun getItemPosition(item: Any): Int {
         return PagerAdapter.POSITION_NONE
     }

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mainViewPager = findViewById(R.id.main_view_pager);
         mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager(), this, MAX_PAGE_SIZE);
     }
+
     private void setUpElements() {
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(mainViewPager);
