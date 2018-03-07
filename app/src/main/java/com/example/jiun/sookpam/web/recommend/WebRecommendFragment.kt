@@ -15,7 +15,7 @@ import com.example.jiun.sookpam.server.*
 import com.example.jiun.sookpam.user.UserInformation
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_view_pager_main.*
-import kotlinx.android.synthetic.main.fragment_web_recommend.*
+import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
 
 class WebRecommendFragment : Fragment() {
@@ -27,18 +27,15 @@ class WebRecommendFragment : Fragment() {
     private var records: List<RecordResponse>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_web_recommend, container, false)
+        val view = inflater.inflate(R.layout.fragment_web_recommend, container, false)
+        initialize(view)
+        return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        initialize()
-    }
-
-    private fun initialize() {
-        connectErrorLinearLayout = web_recommend_error_linear
-        connectErrorTextView = web_recommend_error_txt
-        webRecommendRecyclerView = web_recommend_recycler_view
+    private fun initialize(view: View) {
+        connectErrorLinearLayout = view.web_recommend_error_linear
+        connectErrorTextView = view.web_recommend_error_txt
+        webRecommendRecyclerView = view.web_recommend_recycler_view
         webRecommendRecyclerView.layoutManager = LinearLayoutManager(context)
         webRecommendRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(context, WebContentActivity::class.java)
