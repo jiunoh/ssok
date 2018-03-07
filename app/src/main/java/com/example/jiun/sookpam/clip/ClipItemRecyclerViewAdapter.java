@@ -7,23 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.MyClipFragment.OnListFragmentInteractionListener;
 import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link ClipItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter<ClipItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<ClipItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
 
-    public ClipItemRecyclerViewAdapter(List<ClipItem> items, OnListFragmentInteractionListener listener) {
+    public ClipItemRecyclerViewAdapter(List<ClipItem> items) {
         mValues = items;
-        mListener = listener;
     }
 
     @Override
@@ -38,17 +30,6 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter<ClipItemRe
         holder.mItem = mValues.get(position);
         holder.titleView.setText(mValues.get(position).title);
         holder.categoryView.setText(mValues.get(position).category);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override

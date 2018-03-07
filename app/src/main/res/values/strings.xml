@@ -106,4 +106,7 @@
     <string name="recommend">맞춤 추천</string>
     <string name="common">공통</string>
     <string name="depart">학부/학과</string>
+    <string name="my_topic">관심사</string>
+    <string name="my_info">개인정보</string>
+    <string name="my_clip">보관함</string>
 </resources>

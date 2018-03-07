@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == USER_ACTIVITY_REQUEST) {
             if (resultCode == RESULT_OK) {
                 initialize();
+                setUpElements();
             } else {
                 finish();
             }
