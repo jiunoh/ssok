@@ -102,7 +102,6 @@ class MyInfoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
-            selectedMajors.clear()
             UserSettingLibrary.loadMajors(studentMajorButton, studentMajorRecyclerView, context!!)
         }
     }
