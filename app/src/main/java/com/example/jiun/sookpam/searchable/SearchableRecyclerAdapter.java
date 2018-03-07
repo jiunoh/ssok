@@ -3,6 +3,8 @@ package com.example.jiun.sookpam.searchable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.server.ApiUtils;
 import com.example.jiun.sookpam.server.RecordResponse;
@@ -16,6 +18,8 @@ import io.realm.Realm;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static io.realm.internal.SyncObjectServerFacade.getApplicationContext;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<SearchItem> searchableItems;
@@ -47,23 +51,24 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
         return searchableItems.size();
     }
 
-    public void filter(String charText) {
+    public boolean filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         webFilter(charText);
         realmFilter(charText);
+        return searchableItems.size() == 0;
     }
 
     private void realmFilter(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
-        responseList =recordManager.contains(charText);
+        responseList = recordManager.contains(charText);
         searchableItems.clear();
         searchableItems.addAll(responseList);
         notifyDataSetChanged();
     }
 
     private void webFilter(String charText) {
-        SearchableService service  = ApiUtils.Companion.getSearchableService();
-        charText.replace(" ","-");
+        SearchableService service = ApiUtils.Companion.getSearchableService();
+        charText.replace(" ", "-");
         service.getItems(charText).enqueue(new Callback<List<RecordResponse>>() {
             @Override
             public void onResponse(Call<List<RecordResponse>> call, Response<List<RecordResponse>> response) {
@@ -88,5 +93,4 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
         searchableItems.clear();
         notifyDataSetChanged();
     }
-
 }

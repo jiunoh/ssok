@@ -1,12 +1,9 @@
 package com.example.jiun.sookpam.searchable
 
-import android.app.PendingIntent.getActivity
+
 import android.os.Bundle
 import com.example.jiun.sookpam.R
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
@@ -17,17 +14,16 @@ import android.view.Menu
 import android.view.View
 import android.support.v7.widget.SearchView
 import android.util.Log
-import android.widget.ImageView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
-import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
-import android.widget.LinearLayout
+import android.widget.*
+import com.example.jiun.sookpam.web.WebContentActivity
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -35,7 +31,10 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var responseList: ArrayList<SearchItem>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
-
+    private lateinit var errorLinearLayout: LinearLayout
+    private lateinit var errorImageView: ImageView
+    private lateinit var errorTextView: TextView
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +42,7 @@ class SearchableActivity : AppCompatActivity() {
         responseList = ArrayList<SearchItem>()
         setToolbar()
         setRecyclerView()
+        setRestOfTheView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -52,7 +52,9 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                adapter.filter(query)
+                val empty = adapter.filter(query)
+                if (empty)
+                    showNoData();
                 editsearch.clearFocus()
                 return true
             }
@@ -90,6 +92,8 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
+        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.bringToFront()
         search_recycler_view.adapter = adapter
         search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
@@ -99,6 +103,14 @@ class SearchableActivity : AppCompatActivity() {
                 }))
     }
 
+    private fun setRestOfTheView() {
+        errorLinearLayout = web_common_error_linear
+        errorLinearLayout.visibility = View.INVISIBLE
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
+        progressBar.visibility = View.INVISIBLE
+    }
 
     private fun showMessageBody(data: SearchItem) {
         val bundle = Bundle()
@@ -120,4 +132,10 @@ class SearchableActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun showNoData() {
+        Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
+        search_recycler_view.visibility = View.INVISIBLE
+        errorLinearLayout.visibility = View.VISIBLE
+        errorTextView.text = getString(R.string.no_data_in_server)
+    }
 }
