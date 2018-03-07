@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
-import com.example.jiun.sookpam.user.PersonalCategory;
+import com.example.jiun.sookpam.user.major.MajorList;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
@@ -42,17 +42,16 @@ public class MessageDepartFragment extends Fragment {
         listView.setAdapter(adapter);
 
         ContactDBManager contactDBManager = (ContactDBManager)getActivity().getApplicationContext();
-        ArrayList<String> departmentList = contactDBManager.getDepartmentList();
-        String division = "";
-        String category = "";
         ArrayList<RecordVO> datalist;
 
-        for (int i=0; i<departmentList.size(); i++) {
-            division = departmentList.get(i);
-            category = contactDBManager.getCategory(division, Realm.getDefaultInstance());
-            if (SharedPreferenceUtil.get(getContext(), category, PersonalCategory.NORMAL_CATEGORY) == PersonalCategory.INTEREST_CATEGORY && category !="공통") {
-                datalist = getDataByDivision(division);
-                adapter.addItem(datalist);
+        ArrayList<ArrayList<String>> collegeAndMajors = MajorList.Companion.getCollegeAndMajors();
+        for (ArrayList<String> college: collegeAndMajors) {
+            for (String major: college) {
+                boolean isSelected = SharedPreferenceUtil.get(getContext(), major, false);
+                if (isSelected) {
+                    datalist = getDataByDivision(major);
+                    adapter.addItem(datalist);
+                }
             }
         }
 
