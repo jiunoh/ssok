@@ -64,6 +64,7 @@ class MyInfoFragment : Fragment() {
         studentMajorButton = my_info_major_btn
         studentMajorButton.setOnClickListener {
             val intent = Intent(context, MajorActivity::class.java)
+            selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
             startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }

@@ -23,7 +23,7 @@ class UserInfo1Fragment : Fragment() {
     private lateinit var majorSelectingButton: Button
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
-    private val selectedMajors = ArrayList<String>()
+    private lateinit var selectedMajors:ArrayList<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
@@ -52,6 +52,7 @@ class UserInfo1Fragment : Fragment() {
         majorSelectingButton = user_info1_major_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
+            selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
             startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }
