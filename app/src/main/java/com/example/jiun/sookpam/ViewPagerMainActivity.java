@@ -23,10 +23,11 @@ import io.realm.Realm;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ViewPagerMainActivity extends AppCompatActivity{
+public class ViewPagerMainActivity extends AppCompatActivity {
     Toolbar vpToolbar;
     ViewPager viewPager;
     ImageButton searchImageButton;
+    final static int USER_ACTIVITY_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,13 @@ public class ViewPagerMainActivity extends AppCompatActivity{
 
         if (isFirstUserInfoSetting()) {
             Intent intent = new Intent(this, UserInfoActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, USER_ACTIVITY_REQUEST);
+        } else {
+            setFragments();
         }
+    }
+
+    private void setFragments() {
         setTitle("");
 
         Realm.init(this);
@@ -122,5 +128,17 @@ public class ViewPagerMainActivity extends AppCompatActivity{
     private void goToMypageTab() {
         MyFragAdapter myFragAdapter = new MyFragAdapter(getSupportFragmentManager());
         viewPager.setAdapter(myFragAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == USER_ACTIVITY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                setFragments();
+            }
+            else {
+                finish();
+            }
+        }
     }
 }

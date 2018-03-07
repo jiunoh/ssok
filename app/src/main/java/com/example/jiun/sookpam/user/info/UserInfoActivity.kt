@@ -1,14 +1,14 @@
 package com.example.jiun.sookpam.user.info
 
-
+import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.user.UserInformation
 import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
@@ -23,6 +23,8 @@ class UserInfoActivity : AppCompatActivity() {
     private var circleImageViewArrayList: ArrayList<ImageView> = ArrayList(3)
     private var pagerAdapter = UserInfoFragmentPagerAdapter(supportFragmentManager, MAX_PAGE_SIZE)
     private var currentPage = UserInfoFragmentPagerAdapter.USER_INFO_1
+    private var isUserDoubleClickBackPressed: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,9 +102,9 @@ class UserInfoActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
                 }
-            }
-            else {
+            } else {
                 SharedPreferenceUtil.set(applicationContext, "first_setting_user_info", false)
+                setResult(Activity.RESULT_OK)
                 finish()
             }
         }
@@ -139,6 +141,20 @@ class UserInfoActivity : AppCompatActivity() {
                 }
         circleImageViewArrayList[previousPage].setImageResource(R.drawable.ic_default_circle)
         circleImageViewArrayList[currentPage].setImageResource(R.drawable.ic_pink_circle)
+    }
+
+    override fun onBackPressed() {
+        if (isUserDoubleClickBackPressed) {
+            setResult(Activity.RESULT_CANCELED)
+            finish()
+        } else {
+            this.isUserDoubleClickBackPressed = true
+            Toast.makeText(this, getString(R.string.press_back_again_for_exit), Toast.LENGTH_SHORT).show()
+        }
+        
+        Handler().postDelayed({
+            isUserDoubleClickBackPressed = false
+        }, 2000)
     }
 
     companion object {
