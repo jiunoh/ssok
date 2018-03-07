@@ -8,6 +8,7 @@ import android.view.ViewGroup
 
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.web.WebRecordReformation
 import kotlinx.android.synthetic.main.web_recommend_recycler_item.view.*
 
 class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<WebRecommendRecyclerAdapter.ViewHolder>() {
@@ -25,7 +26,7 @@ class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : 
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val record = records!![position]
-        holder!!.titleTextView.text = record.title
+        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title)
         holder.categoryTextView.text = record.category
         holder.divisionTextView.text = record.division
         holder.dateTextView.text = record.date
