@@ -49,8 +49,8 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        realmFilter(charText);
         webFilter(charText);
+        realmFilter(charText);
     }
 
     private void realmFilter(String charText) {

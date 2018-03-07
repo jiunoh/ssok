@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.searchable
 
+import android.app.PendingIntent.getActivity
 import android.os.Bundle
 import com.example.jiun.sookpam.R
 import android.content.Context
@@ -26,6 +27,9 @@ import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
@@ -40,11 +44,6 @@ class SearchableActivity : AppCompatActivity() {
         responseList = ArrayList<SearchItem>()
         setToolbar()
         setRecyclerView()
-
-        if (isNetWork()) {
-        } else {
-            //error
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,6 +97,7 @@ class SearchableActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
         search_recycler_view.adapter = adapter
+        search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = responseList.get(position)
