@@ -151,7 +151,7 @@ class UserInfoActivity : AppCompatActivity() {
             this.isUserDoubleClickBackPressed = true
             Toast.makeText(this, getString(R.string.press_back_again_for_exit), Toast.LENGTH_SHORT).show()
         }
-        
+
         Handler().postDelayed({
             isUserDoubleClickBackPressed = false
         }, 2000)
