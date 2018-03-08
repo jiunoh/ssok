@@ -30,7 +30,7 @@ class MessageBaseFragment : Fragment() {
         searchImageButton = view.message_base_search_img_btn
         messageTabLayout = view.message_base_tab_layout
         messageViewPager = view.message_base_view_pager
-        messageViewPagerAdapter = MessageBaseViewPagerAdapter(fragmentManager!!, context!!, MAX_PAGE_SIZE)
+        messageViewPagerAdapter = MessageBaseViewPagerAdapter(childFragmentManager, context!!, MAX_PAGE_SIZE)
     }
 
     private fun setUpElements() {
@@ -53,7 +53,6 @@ class MessageBaseFragment : Fragment() {
             }
         })
         messageViewPager.setPagingEnabled(true)
-        messageViewPager.offscreenPageLimit = 2
         currentFragment = messageViewPagerAdapter.getItem(currentPage)
     }
 

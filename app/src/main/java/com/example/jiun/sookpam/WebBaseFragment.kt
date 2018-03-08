@@ -30,7 +30,7 @@ class WebBaseFragment : Fragment() {
         searchImageButton = view.web_base_search_img_btn
         webTabLayout = view.web_base_tab_layout
         webViewPager = view.web_base_view_pager
-        webViewPagerAdapter = WebBaseViewPagerAdapter(fragmentManager!!, context!!, MAX_PAGE_SIZE)
+        webViewPagerAdapter = WebBaseViewPagerAdapter(childFragmentManager, context!!, MAX_PAGE_SIZE)
     }
 
     private fun setUpElements() {

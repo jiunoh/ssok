@@ -23,7 +23,7 @@ class MyPageBaseFragment : Fragment() {
     private fun initialize(view: View) {
         myPageTabLayout = view.my_page_base_tab_layout
         myPageViewPager = view.my_page_base_view_pager
-        myPageViewPagerAdapter = MyPageBaseViewPagerAdapter(fragmentManager!!, context!!, MAX_PAGE_SIZE)
+        myPageViewPagerAdapter = MyPageBaseViewPagerAdapter(childFragmentManager, context!!, MAX_PAGE_SIZE)
     }
 
     private fun setUpElements() {

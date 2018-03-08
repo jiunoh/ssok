@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mainViewPager.setPagingEnabled(false);
-        mainViewPager.setOffscreenPageLimit(MAX_PAGE_SIZE);
         currentFragment = mainViewPagerAdapter.getItem(currentPage);
     }
 
