@@ -103,6 +103,8 @@ class WebRecommendRecyclerFragment : Fragment() {
                     UIAnimation.setLoadingRecyclerViewAnimation(webRecommendRecyclerView.context, webRecommendRecyclerView)
                 }
                 progressBar.visibility = View.INVISIBLE
+                webRecommendRecyclerView.visibility = View.VISIBLE
+                connectErrorLinearLayout.visibility = View.INVISIBLE
             }
         })
     }
@@ -112,14 +114,5 @@ class WebRecommendRecyclerFragment : Fragment() {
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE
         connectErrorTextView.text = getString(R.string.internet_connect_error)
-    }
-
-    companion object {
-        fun newInstance(): WebRecommendRecyclerFragment {
-            val fragment = WebRecommendRecyclerFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }
