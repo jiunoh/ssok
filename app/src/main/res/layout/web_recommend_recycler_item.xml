@@ -58,7 +58,8 @@
                     android:id="@+id/recommend_category_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -67,7 +68,8 @@
                     android:id="@+id/recommend_division_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
