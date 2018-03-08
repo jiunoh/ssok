@@ -6,10 +6,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/web_recommend_recycler_view"
-        android:paddingTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:paddingTop="16dp" />
 
     <LinearLayout
         android:id="@+id/web_recommend_error_linear"
@@ -24,8 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/error_image"
-            android:contentDescription="@string/error_or_no_data" />
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/error_or_no_data"
+            android:src="@drawable/error_image" />
 
         <TextView
             android:id="@+id/web_recommend_error_txt"

@@ -133,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/error_image"
+            android:layout_marginBottom="24dp"
             android:contentDescription="@string/error_or_no_data" />
 
         <TextView
