@@ -72,7 +72,7 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
         loadingDialog = new LoadingDialog(context);
         setPresenter(new MessagePresenter(context.getApplicationContext(), MessageCommonFragment
                 .this, loadingDialog));
-        refreshImageButton = activity.findViewById(R.id.main_refresh_image_btn);
+        refreshImageButton = activity.findViewById(R.id.message_base_refresh_img_btn);
         refreshImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

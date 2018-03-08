@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.clip
 
+import android.util.Log
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.searchable.DualModel
@@ -31,11 +32,8 @@ class ClipDBManager(val realm: Realm) {
     private fun getDataBy(record: DualVO): DualModel {
         var data: DualModel = RecordResponse()
         if (record.type == DualModel.RECORD_VO) {
-            realm.executeTransaction { realm ->
-                var data = realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
-            }
-        }
-        else {
+            var data = realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
+        } else {
             data = WebFilter.webFilter(record.title)[0]
         }
         return data
@@ -62,6 +60,7 @@ class ClipDBManager(val realm: Realm) {
             var clipsList = realm.where(DualVO::class.java).findAll()
             for (clip in clipsList) {
                 var model = getDataBy(clip)
+                Log.v("title : ",clip.title)
                 result.add(model)
             }
         }

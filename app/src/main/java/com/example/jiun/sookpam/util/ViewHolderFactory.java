@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.example.jiun.sookpam.MyClipFragment.OnListFragmentInteractionListener;
 import com.example.jiun.sookpam.R;
 import com.example.jiun.sookpam.clip.ClipItem;
 import com.example.jiun.sookpam.searchable.DualModel;

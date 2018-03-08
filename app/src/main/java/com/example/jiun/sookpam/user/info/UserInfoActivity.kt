@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.SimpleViewPager
 import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.user.major.MajorList
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
@@ -16,7 +17,7 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.activity_user_info.*
 
 class UserInfoActivity : AppCompatActivity() {
-    private lateinit var viewPager: UserInfoViewPager
+    private lateinit var viewPager: SimpleViewPager
     private var currentFragment: Fragment? = null
     private lateinit var previousButton: Button
     private lateinit var nextButton: Button

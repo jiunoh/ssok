@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.user.info
+package com.example.jiun.sookpam
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 
-class UserInfoViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
+class SimpleViewPager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
     private var pageEnabled: Boolean = false
 
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
