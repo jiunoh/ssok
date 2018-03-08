@@ -88,7 +88,7 @@ class MessagePresenter(
 
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
-            progressBar.visibility = View.INVISIBLE
+            progressBar.visibility = View.GONE
             messagePermissionView
                     .showToastMessage(context.getString(R.string.end_synchronization), Toast.LENGTH_SHORT)
             loadingDialog.dismiss()
