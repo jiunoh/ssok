@@ -18,20 +18,21 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/recommend_rank_img_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="8dp"
-            android:src="@drawable/rank_image" />
+            android:src="@drawable/rank_image"
+            android:contentDescription="@string/rank_item" />
 
         <GridLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3.5"
+            android:layout_weight="4"
             android:columnCount="3"
             android:orientation="vertical"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="8dp"
             android:rowCount="2">
 
             <TextView
@@ -39,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
                 android:gravity="bottom"
                 android:paddingTop="16dp"
                 android:singleLine="true"
