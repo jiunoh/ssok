@@ -6,13 +6,17 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import kotlinx.android.synthetic.main.fragment_web_base.view.*
+import com.example.jiun.sookpam.searchable.SearchableActivity
+import android.content.Intent
 
 class WebBaseFragment : Fragment() {
     private var currentPage = WebBaseViewPagerAdapter.RECOMMEND_FRAGMENT
     private lateinit var webViewPager: SimpleViewPager
     private lateinit var webViewPagerAdapter: WebBaseViewPagerAdapter
     private lateinit var webTabLayout: TabLayout
+    private lateinit var searchImageButton: ImageButton
     private var currentFragment: Fragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,12 +27,16 @@ class WebBaseFragment : Fragment() {
     }
 
     private fun initialize(view: View) {
+        searchImageButton = view.web_base_search_img_btn
         webTabLayout = view.web_base_tab_layout
         webViewPager = view.web_base_view_pager
         webViewPagerAdapter = WebBaseViewPagerAdapter(fragmentManager!!, context!!, MAX_PAGE_SIZE)
     }
 
     private fun setUpElements() {
+        searchImageButton.setOnClickListener {
+            val intent = Intent(context, SearchableActivity::class.java)
+            startActivity(intent) }
         webViewPager.adapter = webViewPagerAdapter
         webTabLayout.setupWithViewPager(webViewPager)
         webViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(webTabLayout))

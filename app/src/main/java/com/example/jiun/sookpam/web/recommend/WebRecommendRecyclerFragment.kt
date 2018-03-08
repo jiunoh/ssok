@@ -12,6 +12,7 @@ import com.example.jiun.sookpam.server.*
 import com.example.jiun.sookpam.user.UserInformation
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_web_base.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
 
@@ -59,27 +60,27 @@ class WebRecommendRecyclerFragment : Fragment() {
                 userInformation.interestGlobal,
                 userInformation.interestCareer,
                 userInformation.interestStudent)
-//        refreshImageButton = activity!!.main_refresh_image_btn
-//        refreshImageButton.setOnClickListener {
-//            val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
-//            refreshImageButton.startAnimation(rotateAnimation)
-//            loadData(userInformation.studentGrade,
-//                    userInformation.studentYear,
-//                    userInformation.major1,
-//                    userInformation.major2,
-//                    userInformation.schoolScholar,
-//                    userInformation.governmentScholar,
-//                    userInformation.externalScholar,
-//                    userInformation.studentStatus,
-//                    userInformation.interestScholarship,
-//                    userInformation.interestAcademic,
-//                    userInformation.interestEntrance,
-//                    userInformation.interestRecruit,
-//                    userInformation.interestSystem,
-//                    userInformation.interestGlobal,
-//                    userInformation.interestCareer,
-//                    userInformation.interestStudent)
-//        }
+        refreshImageButton = activity!!.web_base_refresh_img_btn
+        refreshImageButton.setOnClickListener {
+            val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
+            refreshImageButton.startAnimation(rotateAnimation)
+            loadData(userInformation.studentGrade,
+                    userInformation.studentYear,
+                    userInformation.major1,
+                    userInformation.major2,
+                    userInformation.schoolScholar,
+                    userInformation.governmentScholar,
+                    userInformation.externalScholar,
+                    userInformation.studentStatus,
+                    userInformation.interestScholarship,
+                    userInformation.interestAcademic,
+                    userInformation.interestEntrance,
+                    userInformation.interestRecruit,
+                    userInformation.interestSystem,
+                    userInformation.interestGlobal,
+                    userInformation.interestCareer,
+                    userInformation.interestStudent)
+        }
     }
 
     private fun loadData(studentGrade: String, studentYear: String, major1: String, major2: String,

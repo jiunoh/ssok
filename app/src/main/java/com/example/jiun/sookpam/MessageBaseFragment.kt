@@ -1,11 +1,14 @@
 package com.example.jiun.sookpam
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import com.example.jiun.sookpam.searchable.SearchableActivity
 import kotlinx.android.synthetic.main.fragment_message_base.view.*
 
 class MessageBaseFragment : Fragment() {
@@ -13,6 +16,7 @@ class MessageBaseFragment : Fragment() {
     private lateinit var messageViewPager: SimpleViewPager
     private lateinit var messageViewPagerAdapter: MessageBaseViewPagerAdapter
     private lateinit var messageTabLayout: TabLayout
+    private lateinit var searchImageButton: ImageButton
     private var currentFragment: Fragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,12 +27,17 @@ class MessageBaseFragment : Fragment() {
     }
 
     private fun initialize(view: View) {
+        searchImageButton = view.message_base_search_img_btn
         messageTabLayout = view.message_base_tab_layout
         messageViewPager = view.message_base_view_pager
         messageViewPagerAdapter = MessageBaseViewPagerAdapter(fragmentManager!!, context!!, MAX_PAGE_SIZE)
     }
 
     private fun setUpElements() {
+        searchImageButton.setOnClickListener {
+            val intent = Intent(context, SearchableActivity::class.java)
+            startActivity(intent)
+        }
         messageViewPager.adapter = messageViewPagerAdapter
         messageTabLayout.setupWithViewPager(messageViewPager)
         messageViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(messageTabLayout))
