@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.activity_content.*
 class ContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var dbmanager: ClipDBManager
-    private var title = "test"
+    lateinit var title: String
+    lateinit var body: String
     private var category: String? = ""
     private var division: String? = ""
 
@@ -27,13 +28,15 @@ class ContentActivity : AppCompatActivity() {
         division = record.division
         category = record.category
         setToolbar(category + " > " + division)
-        val body = record.body
-        title = body!!.split("\n")[0]
+        body = record.body
+        title = body.split("\n")[1]
         title_view.text = title
         content_view.text = body
         val info = record.phone
         info_view.text = division + "\t" + info
     }
+
+    private fun setStarIcon() {}
 
     private fun setToolbar(category: String) {
         toolbar = content_toolbar
@@ -48,19 +51,25 @@ class ContentActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_content, menu)
+        var star = menu!!.findItem(R.id.action_star)
+        dbmanager = ClipDBManager(Realm.getDefaultInstance());
+        if (dbmanager.doesNotExist(body)) {
+            star.icon = resources.getDrawable(R.drawable.star_off)
+        } else {
+            star.icon = resources.getDrawable(R.drawable.star_on)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_star -> {
-                dbmanager = ClipDBManager(Realm.getDefaultInstance());
-                if (dbmanager.doesNotExist(title)) {
+                if (dbmanager.doesNotExist(body)) {
                     item.icon = resources.getDrawable(R.drawable.star_on)
-                    dbmanager.insert(title, DualModel.RECORD_VO)
+                    dbmanager.insert(body, DualModel.RECORD_VO)
                 } else {
                     item.icon = resources.getDrawable(R.drawable.star_off)
-                    dbmanager.delete(title)
+                    dbmanager.delete(body)
                 }
                 true
             }
