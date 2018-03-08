@@ -42,8 +42,11 @@ public class MessageDepartListAdapter extends BaseAdapter {
         RecordVO messageDepartItem = messageDepartItems.get(position);
 
         String messageBody = messageDepartItem.getMessage().getBody();
-        if (messageBody.length() > 20)
-            messageBody = messageBody.substring(0, 20);
+        if (messageBody.contains("[Web발신]"))
+            messageBody = messageBody.replace("[Web발신]", "");
+
+        messageBody = messageBody.replaceAll("\n", " ");
+        messageBody = messageBody.replaceFirst(" ", "");
 
         holder.title.setText(messageBody);
         holder.category.setText(messageDepartItem.getDivision());
