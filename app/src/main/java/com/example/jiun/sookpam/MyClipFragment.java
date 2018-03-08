@@ -6,39 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter;
-import com.example.jiun.sookpam.clip.ClipContent;
-import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
+import com.example.jiun.sookpam.searchable.DualModel;
 
+import java.util.ArrayList;
 
 public class MyClipFragment extends Fragment {
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 2;
     private MyClipFragment.OnListFragmentInteractionListener mListener;
-
-
-    public static MyClipFragment newInstance(int columnCount) {
-        MyClipFragment fragment = new MyClipFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public MyClipFragment() {
-        // Required empty public constructor
-    }
+    private ArrayList<DualModel> responseList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
+        responseList = new ArrayList<DualModel>();
     }
 
     @Override
@@ -50,12 +31,7 @@ public class MyClipFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ClipItemRecyclerViewAdapter(ClipContent.ITEMS, mListener));
+            recyclerView.setAdapter(new ClipItemRecyclerViewAdapter(responseList));
         }
         return view;
     }
@@ -77,19 +53,7 @@ public class MyClipFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(ClipItem item);
     }
 }

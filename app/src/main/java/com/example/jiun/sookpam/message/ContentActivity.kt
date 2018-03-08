@@ -6,10 +6,8 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import com.example.jiun.sookpam.R
 import android.view.MenuItem
-import android.view.View
 import com.example.jiun.sookpam.clip.ClipDBManager
-import com.example.jiun.sookpam.model.ContactDBManager
-import com.example.jiun.sookpam.model.vo.RecordVO
+import com.example.jiun.sookpam.searchable.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 
@@ -18,8 +16,8 @@ class ContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var dbmanager: ClipDBManager
     private var title = "test"
-    private var category : String? = ""
-    private var division : String? = ""
+    private var category: String? = ""
+    private var division: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +32,7 @@ class ContentActivity : AppCompatActivity() {
         title_view.text = title
         content_view.text = body
         val info = record.phone
-
-        info_view.setText(division + "\t" + info)
+        info_view.text = division + "\t" + info
     }
 
     private fun setToolbar(category: String) {
@@ -44,10 +41,8 @@ class ContentActivity : AppCompatActivity() {
         toolbar.title = category
         toolbar.setTitleTextColor(resources.getColor(R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                finish()
-            }
+        toolbar.setNavigationOnClickListener({
+            finish()
         })
     }
 
@@ -62,7 +57,7 @@ class ContentActivity : AppCompatActivity() {
                 dbmanager = ClipDBManager(Realm.getDefaultInstance());
                 if (dbmanager.doesNotExist(title)) {
                     item.icon = resources.getDrawable(R.drawable.star_on)
-                    dbmanager.insert(title, "메세지-$category-$division")
+                    dbmanager.insert(title, DualModel.RECORD_VO)
                 } else {
                     item.icon = resources.getDrawable(R.drawable.star_off)
                     dbmanager.delete(title)

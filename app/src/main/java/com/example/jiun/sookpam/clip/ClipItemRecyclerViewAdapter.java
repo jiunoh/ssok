@@ -1,79 +1,42 @@
 package com.example.jiun.sookpam.clip;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.example.jiun.sookpam.R;
 import com.example.jiun.sookpam.MyClipFragment.OnListFragmentInteractionListener;
-import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
-import java.util.List;
+import com.example.jiun.sookpam.searchable.DualModel;
+import com.example.jiun.sookpam.searchable.SearchableRecyclerAdapter;
+import com.example.jiun.sookpam.util.ViewHolderFactory;
+import java.util.ArrayList;
+import io.realm.Realm;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link ClipItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
-public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter<ClipItemRecyclerViewAdapter.ViewHolder> {
+public class ClipItemRecyclerViewAdapter extends SearchableRecyclerAdapter {
+    private ArrayList<DualModel> itemList;
+    private final OnListFragmentInteractionListener listener;
 
-    private final List<ClipItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
-
-    public ClipItemRecyclerViewAdapter(List<ClipItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    ClipItemRecyclerViewAdapter(ArrayList<DualModel> items, OnListFragmentInteractionListener listener) {
+        super(items);
+        itemList = items;
+        this.listener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_clip_item, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.titleView.setText(mValues.get(position).title);
-        holder.categoryView.setText(mValues.get(position).category);
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != listener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    ClipItem item = ((ViewHolderFactory.ClipHolder)holder).item;
+                    listener.onListFragmentInteraction(item);
                 }
             }
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return mValues.size();
+    private void dataLoad() {
+        ClipDBManager dbManager = new ClipDBManager(Realm.getDefaultInstance());
+        itemList = dbManager.select();
     }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView titleView;
-        public final TextView categoryView;
-        public ImageView starView;
-        public ClipItem mItem;
-
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            titleView = (TextView) view.findViewById(R.id.item_title);
-            categoryView = (TextView) view.findViewById(R.id.category_view);
-            starView = (ImageView)view.findViewById(R.id.item_star);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + categoryView.getText() + "'";
-        }
-    }
-}
+ }

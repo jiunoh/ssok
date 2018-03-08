@@ -28,7 +28,7 @@ import com.example.jiun.sookpam.web.WebContentActivity
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-    private lateinit var responseList: ArrayList<SearchItem>
+    private lateinit var responseList: ArrayList<DualModel>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
     private lateinit var errorLinearLayout: LinearLayout
@@ -39,7 +39,7 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        responseList = ArrayList<SearchItem>()
+        responseList = ArrayList<DualModel>()
         setToolbar()
         setRecyclerView()
         setRestOfTheView()
@@ -79,7 +79,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-
     private fun setToolbar() {
         toolbar = search_toolbar
         setSupportActionBar(toolbar)
@@ -112,7 +111,7 @@ class SearchableActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
     }
 
-    private fun showMessageBody(data: SearchItem) {
+    private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
         var intent: Intent? = null
         if (data is RecordVO) {
