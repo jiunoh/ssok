@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.jiun.sookpam.user.setting.SettingCategory;
@@ -25,6 +26,7 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     MessageContract.Presenter presenter;
     ImageButton refreshImageButton;
     LoadingDialog loadingDialog;
+    ProgressBar progressbar;
     TextView[] category_textviews;
     final String[] categories = {"장학", "학사", "입학", "모집", "시스템", "국제", "취업", "학생"};
 
@@ -69,9 +71,10 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     }
 
     private void initialize() {
+        progressbar = activity.findViewById(R.id.message_base_progressbar);
         loadingDialog = new LoadingDialog(context);
         setPresenter(new MessagePresenter(context.getApplicationContext(), MessageCommonFragment
-                .this, loadingDialog));
+                .this, loadingDialog, progressbar));
         refreshImageButton = activity.findViewById(R.id.message_base_refresh_img_btn);
         refreshImageButton.setOnClickListener(new View.OnClickListener() {
             @Override

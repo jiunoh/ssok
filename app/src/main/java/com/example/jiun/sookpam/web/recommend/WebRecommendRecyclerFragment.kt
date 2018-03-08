@@ -110,7 +110,6 @@ class WebRecommendRecyclerFragment : Fragment() {
     }
 
     private fun showInternetConnectionError() {
-        Toast.makeText(context, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE
         connectErrorTextView.text = getString(R.string.internet_connect_error)
