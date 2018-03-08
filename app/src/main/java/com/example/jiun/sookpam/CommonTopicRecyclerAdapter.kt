@@ -1,6 +1,8 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
+import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +27,12 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
         holder!!.topicTitleTextView.text = topic.topicTitle
         holder.topicDetailTextView.text = topic.topicDetail
         holder.topicStatusTextView.text = topic.topicStatus
+        if(topic.topicStatus!="INTEREST"){
+            holder.topicStatusTextView.setTextColor(Color.DKGRAY)
+        }
+        else {
+            holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
