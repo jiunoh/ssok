@@ -11,7 +11,6 @@ import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.server.*
 import com.example.jiun.sookpam.user.UserInformation
 import com.example.jiun.sookpam.web.WebContentActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_web_base.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
@@ -54,7 +53,7 @@ class WebRecommendRecyclerFragment : Fragment() {
                 userInformation.studentStatus,
                 userInformation.interestScholarship,
                 userInformation.interestAcademic,
-                userInformation.interestEntrance,
+                userInformation.interestEvent,
                 userInformation.interestRecruit,
                 userInformation.interestSystem,
                 userInformation.interestGlobal,
@@ -74,7 +73,7 @@ class WebRecommendRecyclerFragment : Fragment() {
                     userInformation.studentStatus,
                     userInformation.interestScholarship,
                     userInformation.interestAcademic,
-                    userInformation.interestEntrance,
+                    userInformation.interestEvent,
                     userInformation.interestRecruit,
                     userInformation.interestSystem,
                     userInformation.interestGlobal,
@@ -86,11 +85,11 @@ class WebRecommendRecyclerFragment : Fragment() {
     private fun loadData(studentGrade: String, studentYear: String, major1: String, major2: String,
                          schoolScholar: Boolean, governmentScholar: Boolean, externalScholar: Boolean,
                          studentStatus: Boolean, interestScholarship: Int, interestAcademic: Int,
-                         interestEntrance: Int, interestRecruit: Int, interestSystem: Int,
+                         interestEvent: Int, interestRecruit: Int, interestSystem: Int,
                          interestGlobal: Int, interestCareer: Int, interestStudent: Int) {
         service.getRecommendRecords(studentGrade.split(" ")[0], studentYear, major1, major2, schoolScholar,
                 governmentScholar, externalScholar, studentStatus, interestScholarship, interestAcademic,
-                interestEntrance, interestRecruit, interestSystem, interestGlobal, interestCareer,
+                interestEvent, interestRecruit, interestSystem, interestGlobal, interestCareer,
                 interestStudent).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()

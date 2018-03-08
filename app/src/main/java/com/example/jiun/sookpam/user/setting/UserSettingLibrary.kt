@@ -57,7 +57,6 @@ class UserSettingLibrary {
             return selectedMajors
         }
 
-
         fun setCheckBoxListener(checkBox: CheckBox, context: Context) {
             checkBox.setOnClickListener {
                 if (checkBox.isChecked) {

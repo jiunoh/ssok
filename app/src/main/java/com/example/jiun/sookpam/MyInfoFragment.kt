@@ -105,13 +105,4 @@ class MyInfoFragment : Fragment() {
             UserSettingLibrary.loadMajors(studentMajorButton, studentMajorRecyclerView, context!!)
         }
     }
-
-    companion object {
-        fun newInstance(): MyInfoFragment {
-            val fragment = MyInfoFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 }

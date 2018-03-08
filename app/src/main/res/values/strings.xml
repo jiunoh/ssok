@@ -45,7 +45,7 @@
     <string name="user_info3_category">관심있는 카테고리를 선택해주세요\n(3개 이상)</string>
     <string name="user_info_detail_scholarship">장학</string>
     <string name="user_info_detail_academic">학사</string>
-    <string name="user_info_detail_entrance">입학</string>
+    <string name="user_info_detail_event">행사</string>
     <string name="user_info_detail_recruit">모집</string>
     <string name="user_info_detail_system">시스템</string>
     <string name="user_info_detail_global">국제</string>

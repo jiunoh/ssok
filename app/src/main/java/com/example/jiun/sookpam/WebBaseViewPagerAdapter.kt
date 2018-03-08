@@ -23,7 +23,7 @@ class WebBaseViewPagerAdapter(fm: FragmentManager, context: Context, private val
             return null
         return when (position) {
             RECOMMEND_FRAGMENT -> WebRecommendRecyclerFragment()
-            COMMON_FRAGMENT -> WebCommonFragment()
+            COMMON_FRAGMENT -> WebCommonTopicFragment()
             DEPART_FRAGMENT -> WebDepartFragment()
             else -> null
         }

@@ -26,7 +26,7 @@ class MyTopicFragment : Fragment() {
         settingCategory = SettingCategory(context!!)
         topicButtons.add(my_topic_scholarship_btn)
         topicButtons.add(my_topic_academic_btn)
-        topicButtons.add(my_topic_entrance_btn)
+        topicButtons.add(my_topic_event_btn)
         topicButtons.add(my_topic_recruit_btn)
         topicButtons.add(my_topic_system_btn)
         topicButtons.add(my_topic_global_btn)
@@ -36,14 +36,5 @@ class MyTopicFragment : Fragment() {
             settingCategory!!.setCategoryButtonListener(button, getString(R.string.interest_category_min))
         }
         settingCategory!!.setColorsOf(topicButtons)
-    }
-
-    companion object {
-        fun newInstance(): MyTopicFragment {
-            val fragment = MyTopicFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }
