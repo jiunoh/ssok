@@ -36,6 +36,7 @@ class WebRecommendRecyclerFragment : Fragment() {
         progressBar = view.web_recommend_progressbar
         webRecommendRecyclerView = view.web_recommend_recycler_view
         webRecommendRecyclerView.layoutManager = LinearLayoutManager(context)
+        webRecommendRecyclerView.adapter = WebRecommendRecyclerAdapter(null)
         webRecommendRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(context, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])
@@ -110,6 +111,7 @@ class WebRecommendRecyclerFragment : Fragment() {
     }
 
     private fun showInternetConnectionError() {
+        connectErrorLinearLayout.visibility = View.INVISIBLE
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE
         connectErrorTextView.text = getString(R.string.internet_connect_error)

@@ -25,8 +25,8 @@ class WebCommonTopicFragment : Fragment() {
     private fun initialize(view: View) {
         topics = CommonTopicAdapter.getInterestOrNormalTopics(context!!)
         webCommonTopicRecyclerView = view.web_common_topic_recycler
-        webCommonTopicRecyclerView.adapter = CommonTopicRecyclerAdapter(topics)
         webCommonTopicRecyclerView.layoutManager = LinearLayoutManager(context)
+        webCommonTopicRecyclerView.adapter = CommonTopicRecyclerAdapter(topics)
         webCommonTopicRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
             if(topics[position].topicTitle!="취업"){
                 val intent = Intent(context, WebCommonRecyclerActivity::class.java)

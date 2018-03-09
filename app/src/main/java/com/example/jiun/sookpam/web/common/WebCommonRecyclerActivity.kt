@@ -41,6 +41,7 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
         setToolbar()
         webCommonRecyclerView = web_common_record_recycler_view
         webCommonRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        webCommonRecyclerView.adapter = WebCommonRecyclerAdapter(null)
         webCommonRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])

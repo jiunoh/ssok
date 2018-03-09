@@ -12,8 +12,9 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.user.major.MajorActivity
+import com.example.jiun.sookpam.user.setting.SelectedMajorRecyclerAdapter
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
-import kotlinx.android.synthetic.main.fragment_my_info.*
+import kotlinx.android.synthetic.main.fragment_my_info.view.*
 
 class MyInfoFragment : Fragment() {
     private lateinit var studentYearSpinner: Spinner
@@ -31,60 +32,59 @@ class MyInfoFragment : Fragment() {
     private lateinit var statusOutRadioButton: RadioButton
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_my_info, container, false)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        initialize()
+        val view = inflater.inflate(R.layout.fragment_my_info, container, false)
+        initialize(view)
         loadUserInfoData()
+
+        return view
     }
 
-    private fun initialize() {
-        initializeYearSpinner()
-        initializeGradeSpinner()
-        initializeMajors()
-        initializeScholarshipCheckBoxes()
-        initializeStatusRadio()
+    private fun initialize(view:View) {
+        initializeYearSpinner(view)
+        initializeGradeSpinner(view)
+        initializeMajors(view)
+        initializeScholarshipCheckBoxes(view)
+        initializeStatusRadio(view)
     }
 
-    private fun initializeGradeSpinner() {
-        studentGradeSpinner = my_info_student_grade_spinner
+    private fun initializeGradeSpinner(view:View) {
+        studentGradeSpinner = view.my_info_student_grade_spinner
         gradeSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
         UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, context!!)
     }
 
-    private fun initializeYearSpinner() {
-        studentYearSpinner = my_info_student_year_spinner
+    private fun initializeYearSpinner(view:View) {
+        studentYearSpinner = view.my_info_student_year_spinner
         yearSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
         UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, context!!)
     }
 
-    private fun initializeMajors() {
-        studentMajorButton = my_info_major_btn
+    private fun initializeMajors(view:View) {
+        studentMajorButton = view.my_info_major_btn
         studentMajorButton.setOnClickListener {
             val intent = Intent(context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
             startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }
-        studentMajorRecyclerView = my_info_majors_recycler_view
+        studentMajorRecyclerView = view.my_info_majors_recycler_view
         studentMajorRecyclerView.layoutManager = LinearLayoutManager(context)
+        studentMajorRecyclerView.adapter = SelectedMajorRecyclerAdapter(null)
     }
 
-    private fun initializeScholarshipCheckBoxes() {
-        schoolScholarshipCheckBox = my_info_school_scholarship_checkbox
+    private fun initializeScholarshipCheckBoxes(view:View) {
+        schoolScholarshipCheckBox = view.my_info_school_scholarship_checkbox
         UserSettingLibrary.setCheckBoxListener(schoolScholarshipCheckBox, context!!)
-        externalScholarshipCheckBox = my_info_external_scholarship_checkbox
+        externalScholarshipCheckBox = view.my_info_external_scholarship_checkbox
         UserSettingLibrary.setCheckBoxListener(externalScholarshipCheckBox, context!!)
-        governmentScholarshipCheckBox = my_info_government_scholarship_checkbox
+        governmentScholarshipCheckBox = view.my_info_government_scholarship_checkbox
         UserSettingLibrary.setCheckBoxListener(externalScholarshipCheckBox, context!!)
     }
 
-    private fun initializeStatusRadio() {
-        studentStatusRadioGroup = my_info_status_radio_group
-        statusInRadioButton = my_info_status_in_radio_btn
-        statusOutRadioButton = my_info_status_out_radio_btn
+    private fun initializeStatusRadio(view:View) {
+        studentStatusRadioGroup = view.my_info_status_radio_group
+        statusInRadioButton = view.my_info_status_in_radio_btn
+        statusOutRadioButton = view.my_info_status_out_radio_btn
         UserSettingLibrary.setRadioButtonListener(studentStatusRadioGroup, statusInRadioButton, statusOutRadioButton, context!!)
     }
 

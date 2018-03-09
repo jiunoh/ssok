@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,18 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
     Context context;
     Activity activity;
+    View view;
     MessageContract.Presenter presenter;
     ImageButton refreshImageButton;
     LoadingDialog loadingDialog;
     ProgressBar progressbar;
-    TextView[] category_textviews;
-    final String[] categories = {"장학", "학사", "입학", "모집", "시스템", "국제", "취업", "학생"};
+    RecyclerView messageCommonRecyclerView;
+    List<CommonTopic> topics;
 
 
     public MessageCommonFragment() {
@@ -42,35 +47,24 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message_common, container, false);
+        view = inflater.inflate(R.layout.fragment_message_common, container, false);
         context = view.getContext();
         activity = getActivity();
-        category_textviews = new TextView[7];
         initialize();
-
-        int i, j = 0;
-        for (i=0; i< categories.length; i++) {
-            if (SharedPreferenceUtil.get(getContext(), categories[i], SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY) {
-                final int ii=i;
-                String categoryID = "category_"+j;
-                j++;
-                int resID = getResources().getIdentifier(categoryID, "id", getActivity().getPackageName());
-                category_textviews[j] = view.findViewById(resID);
-                category_textviews[j].setText(categories[i]);
-                category_textviews[j].setBackgroundResource(R.drawable.category_shape);
-                category_textviews[j].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        goToListPage(ii);
-                    }
-                });
-            }
-        }
-
         return view;
     }
 
     private void initialize() {
+        topics = CommonTopicAdapter.Companion.getInterestOrNormalTopics(context);
+        messageCommonRecyclerView = view.findViewById(R.id.message_common_topic_recycler);
+        messageCommonRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        messageCommonRecyclerView.setAdapter(new CommonTopicRecyclerAdapter(topics));
+        messageCommonRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position) {
+                //여기에서 topics[position]을 사용하는 방식으로 액티비티를 연결하시면 됩니다.
+            }
+        }));
         progressbar = activity.findViewById(R.id.message_base_progressbar);
         loadingDialog = new LoadingDialog(context);
         setPresenter(new MessagePresenter(context.getApplicationContext(), MessageCommonFragment
@@ -119,17 +113,5 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     @Override
     public void setPresenter(MessageContract.Presenter presenter) {
         this.presenter = presenter;
-    }
-
-    private void goToListPage(int i) {
-        Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_SHORT).show();
-//        putExtra(categories[i]);
-    }
-
-    public static MessageCommonFragment newInstance() {
-        MessageCommonFragment fragment = new MessageCommonFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 }

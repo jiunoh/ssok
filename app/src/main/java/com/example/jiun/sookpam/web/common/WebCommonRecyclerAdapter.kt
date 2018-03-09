@@ -20,7 +20,7 @@ class WebCommonRecyclerAdapter(private val records: List<RecordResponse>?) : Rec
     }
 
     override fun getItemCount(): Int {
-        return records!!.size
+        return records?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

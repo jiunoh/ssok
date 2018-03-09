@@ -21,7 +21,7 @@ class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : 
     }
 
     override fun getItemCount(): Int {
-        return records!!.size
+        return records?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
