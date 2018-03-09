@@ -11,7 +11,6 @@ import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.server.*
 import com.example.jiun.sookpam.user.UserInformation
 import com.example.jiun.sookpam.web.WebContentActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_web_base.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
@@ -37,6 +36,7 @@ class WebRecommendRecyclerFragment : Fragment() {
         progressBar = view.web_recommend_progressbar
         webRecommendRecyclerView = view.web_recommend_recycler_view
         webRecommendRecyclerView.layoutManager = LinearLayoutManager(context)
+        webRecommendRecyclerView.adapter = WebRecommendRecyclerAdapter(null)
         webRecommendRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(context, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])
@@ -54,7 +54,7 @@ class WebRecommendRecyclerFragment : Fragment() {
                 userInformation.studentStatus,
                 userInformation.interestScholarship,
                 userInformation.interestAcademic,
-                userInformation.interestEntrance,
+                userInformation.interestEvent,
                 userInformation.interestRecruit,
                 userInformation.interestSystem,
                 userInformation.interestGlobal,
@@ -74,7 +74,7 @@ class WebRecommendRecyclerFragment : Fragment() {
                     userInformation.studentStatus,
                     userInformation.interestScholarship,
                     userInformation.interestAcademic,
-                    userInformation.interestEntrance,
+                    userInformation.interestEvent,
                     userInformation.interestRecruit,
                     userInformation.interestSystem,
                     userInformation.interestGlobal,
@@ -86,11 +86,11 @@ class WebRecommendRecyclerFragment : Fragment() {
     private fun loadData(studentGrade: String, studentYear: String, major1: String, major2: String,
                          schoolScholar: Boolean, governmentScholar: Boolean, externalScholar: Boolean,
                          studentStatus: Boolean, interestScholarship: Int, interestAcademic: Int,
-                         interestEntrance: Int, interestRecruit: Int, interestSystem: Int,
+                         interestEvent: Int, interestRecruit: Int, interestSystem: Int,
                          interestGlobal: Int, interestCareer: Int, interestStudent: Int) {
         service.getRecommendRecords(studentGrade.split(" ")[0], studentYear, major1, major2, schoolScholar,
                 governmentScholar, externalScholar, studentStatus, interestScholarship, interestAcademic,
-                interestEntrance, interestRecruit, interestSystem, interestGlobal, interestCareer,
+                interestEvent, interestRecruit, interestSystem, interestGlobal, interestCareer,
                 interestStudent).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
@@ -104,23 +104,16 @@ class WebRecommendRecyclerFragment : Fragment() {
                     UIAnimation.setLoadingRecyclerViewAnimation(webRecommendRecyclerView.context, webRecommendRecyclerView)
                 }
                 progressBar.visibility = View.INVISIBLE
+                webRecommendRecyclerView.visibility = View.VISIBLE
+                connectErrorLinearLayout.visibility = View.INVISIBLE
             }
         })
     }
 
     private fun showInternetConnectionError() {
-        Toast.makeText(context, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
+        connectErrorLinearLayout.visibility = View.INVISIBLE
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE
         connectErrorTextView.text = getString(R.string.internet_connect_error)
-    }
-
-    companion object {
-        fun newInstance(): WebRecommendRecyclerFragment {
-            val fragment = WebRecommendRecyclerFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

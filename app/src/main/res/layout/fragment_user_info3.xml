@@ -64,7 +64,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/user_info3_entrance_btn"
+            android:id="@+id/user_info3_event_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -72,7 +72,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_entrance"
+            android:text="@string/user_info_detail_event"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 

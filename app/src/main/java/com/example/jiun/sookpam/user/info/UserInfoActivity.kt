@@ -122,10 +122,6 @@ class UserInfoActivity : AppCompatActivity() {
 
                 if (selectedMajorCount < 1) return false
             }
-            UserInfoFragmentPagerAdapter.USER_INFO_2 -> {
-                val status = SharedPreferenceUtil.get(applicationContext, UserSettingLibrary.STUDENT_STATUS, "")
-                if (status == "") return false
-            }
             UserInfoFragmentPagerAdapter.USER_INFO_3 -> {
                 if (countInterestCategories(applicationContext) < 3) return false
             }

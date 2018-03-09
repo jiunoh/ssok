@@ -50,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/my_topic_entrance_btn"
+            android:id="@+id/my_topic_event_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
             android:minHeight="60dp"
-            android:text="@string/user_info_detail_entrance"
+            android:text="@string/user_info_detail_event"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 

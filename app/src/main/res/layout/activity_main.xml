@@ -16,10 +16,11 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:theme="@style/ToolbarTheme"
         app:tabGravity="fill"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/colorPrimary" />
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/CustomTabText" />
 </LinearLayout>

@@ -21,7 +21,7 @@ class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : 
     }
 
     override fun getItemCount(): Int {
-        return records!!.size
+        return records?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
@@ -30,12 +30,19 @@ class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : 
         holder.categoryTextView.text = record.category
         holder.divisionTextView.text = record.division
         holder.dateTextView.text = record.date
+        when (position) {
+            0 -> holder.rankImageView.setImageResource(R.drawable.rank1)
+            1 -> holder.rankImageView.setImageResource(R.drawable.rank2)
+            2 -> holder.rankImageView.setImageResource(R.drawable.rank3)
+            else -> holder.rankImageView.setImageResource(R.drawable.rank_image)
+        }
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var titleTextView = view.recommend_title_txt!!
         var categoryTextView = view.recommend_category_txt!!
         var divisionTextView = view.recommend_division_txt!!
         var dateTextView = view.recommend_date_txt!!
+        var rankImageView = view.recommend_rank_img_view!!
     }
 }

@@ -1,11 +1,11 @@
 package com.example.jiun.sookpam.message
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import com.example.jiun.sookpam.R
 import android.view.MenuItem
+import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm

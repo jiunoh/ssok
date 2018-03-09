@@ -10,6 +10,7 @@
         android:layout_height="0dp"
         android:layout_gravity="bottom"
         android:layout_weight="2"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/refresh_current_page"
         android:src="@drawable/loading_image" />
 

@@ -8,10 +8,10 @@
     <string name="read_sms_request_title">문자내역 읽기 권한을 허용해주십시오.</string>
     <string name="read_sms_request_detail">SSOK은 문자내역을 읽어 데이터베이스에 저장한 뒤, 그 데이터를 바탕으로 문자를 분류하는 서비스를 제공합니다.</string>
     <string name="denied_read_sms_title">문자내역 읽기 권한을 부여받지 못했습니다.</string>
-    <string name="denied_read_sms_detail">해당 권한 없이 SSOK을 사용하실 수 없습니다.</string>
+    <string name="denied_read_sms_detail">해당 권한 없이 SSOK의 문자 분류 서비스를 사용하실 수 없습니다.</string>
     <string name="move_setting">SSOK 설정으로 이동해 권한 부여하기</string>
-    <string name="start_synchronization">동기화를 시작합니다.</string>
-    <string name="end_synchronization">동기화를 완료했습니다.</string>
+    <string name="start_synchronization">메세지 동기화를 시작합니다.</string>
+    <string name="end_synchronization">메세지 동기화를 완료했습니다.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back_to_main">back to the main</string>
     <string name="division_character"><![CDATA[>]]></string>
@@ -45,7 +45,7 @@
     <string name="user_info3_category">관심있는 카테고리를 선택해주세요\n(3개 이상)</string>
     <string name="user_info_detail_scholarship">장학</string>
     <string name="user_info_detail_academic">학사</string>
-    <string name="user_info_detail_entrance">입학</string>
+    <string name="user_info_detail_event">행사</string>
     <string name="user_info_detail_recruit">모집</string>
     <string name="user_info_detail_system">시스템</string>
     <string name="user_info_detail_global">국제</string>
@@ -103,10 +103,11 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="recommend">맞춤 추천</string>
+    <string name="recommend">맞춤 추천 10</string>
     <string name="common">공통</string>
     <string name="depart">학부/학과</string>
     <string name="my_topic">관심사</string>
     <string name="my_info">개인정보</string>
     <string name="my_clip">보관함</string>
+    <string name="rank_item">rank item</string>
 </resources>

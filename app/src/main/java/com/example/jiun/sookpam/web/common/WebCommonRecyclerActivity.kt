@@ -34,13 +34,14 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_common_recycler)
         initialize()
-        loadRecords("중어중문학부", "공지")
+        loadRecords(intent.getStringExtra("category"), intent.getStringExtra("division"))
     }
 
     private fun initialize() {
         setToolbar()
         webCommonRecyclerView = web_common_record_recycler_view
         webCommonRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+        webCommonRecyclerView.adapter = WebCommonRecyclerAdapter(null)
         webCommonRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(applicationContext, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             intent.putExtra("record", records!![position])
@@ -53,10 +54,9 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
         backButton.setOnClickListener { finish() }
         refreshButton = web_common_refresh_img_btn
         refreshButton.setOnClickListener {
-            Toast.makeText(applicationContext, "목록 데이터를 갱신합니다.", Toast.LENGTH_SHORT).show()
             val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
             refreshButton.startAnimation(rotateAnimation)
-            loadRecords("중어중문학부", "공지")
+            loadRecords(intent.getStringExtra("category"), intent.getStringExtra("division"))
         }
         errorLinearLayout = web_common_error_linear
         errorImageView = web_common_error_img
@@ -87,7 +87,6 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
                     webCommonRecyclerView.visibility = View.VISIBLE
                     errorLinearLayout.visibility = View.INVISIBLE
                     UIAnimation.setLoadingRecyclerViewAnimation(context, webCommonRecyclerView)
-                    Toast.makeText(applicationContext, getString(R.string.finish_data_load), Toast.LENGTH_SHORT).show()
                 } else {
                     showNoDataInServer()
                 }
@@ -97,14 +96,12 @@ class WebCommonRecyclerActivity : AppCompatActivity() {
     }
 
     private fun showInternetConnectionError() {
-        Toast.makeText(applicationContext, getString(R.string.internet_connect_error), Toast.LENGTH_SHORT).show()
         webCommonRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.internet_connect_error)
     }
 
     private fun showNoDataInServer() {
-        Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
         webCommonRecyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)

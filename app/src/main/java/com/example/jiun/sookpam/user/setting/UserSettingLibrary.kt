@@ -57,7 +57,6 @@ class UserSettingLibrary {
             return selectedMajors
         }
 
-
         fun setCheckBoxListener(checkBox: CheckBox, context: Context) {
             checkBox.setOnClickListener {
                 if (checkBox.isChecked) {
@@ -72,10 +71,10 @@ class UserSettingLibrary {
             radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     radioButton1.id -> {
-                        SharedPreferenceUtil.set(context, STUDENT_STATUS, radioButton1.text.toString())
+                        SharedPreferenceUtil.set(context, STUDENT_STATUS, true)
                     }
                     radioButton2.id -> {
-                        SharedPreferenceUtil.set(context, STUDENT_STATUS, radioButton2.text.toString())
+                        SharedPreferenceUtil.set(context, STUDENT_STATUS, false)
                     }
                 }
             }
@@ -86,8 +85,8 @@ class UserSettingLibrary {
         }
 
         fun loadRadioGroupData(radioGroup: RadioGroup, radioButton1: RadioButton, radioButton2: RadioButton, context: Context) {
-            val selectedRadioButton = SharedPreferenceUtil.get(context, STUDENT_STATUS, radioButton1.text.toString())
-            if (selectedRadioButton == radioButton1.text.toString()) {
+            val selectedRadioButton = SharedPreferenceUtil.get(context, STUDENT_STATUS, true)
+            if (selectedRadioButton) {
                 radioGroup.check(radioButton1.id)
             } else {
                 radioGroup.check(radioButton2.id)

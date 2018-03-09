@@ -38,7 +38,7 @@ class UserInfo3Fragment : Fragment() {
     private fun initializeDetailButtons() {
         detailButtons.add(user_info3_scholarship_btn)
         detailButtons.add(user_info3_academic_btn)
-        detailButtons.add(user_info3_entrance_btn)
+        detailButtons.add(user_info3_event_btn)
         detailButtons.add(user_info3_recruit_btn)
         detailButtons.add(user_info3_system_btn)
         detailButtons.add(user_info3_global_btn)

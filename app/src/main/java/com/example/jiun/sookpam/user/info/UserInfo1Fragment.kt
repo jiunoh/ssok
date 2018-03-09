@@ -10,13 +10,14 @@ import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.user.major.*
+import com.example.jiun.sookpam.user.setting.SelectedMajorRecyclerAdapter
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
-import kotlinx.android.synthetic.main.fragment_user_info1.*
+import kotlinx.android.synthetic.main.fragment_user_info1.view.*
 
 class UserInfo1Fragment : Fragment() {
-    private var userInfo1View: View? = null
-    private var userInfo1Activity: Activity? = null
-    private var userInfo1Context: Context? = null
+    private lateinit var userInfo1View: View
+    private lateinit var userInfo1Activity: Activity
+    private lateinit var userInfo1Context: Context
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
     private lateinit var majorsRecyclerView: RecyclerView
@@ -27,16 +28,12 @@ class UserInfo1Fragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
-        userInfo1Activity = activity
-        userInfo1Context = userInfo1View!!.context
+        userInfo1Activity = activity!!
+        userInfo1Context = userInfo1View.context
         yearSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
         gradeSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
-        return userInfo1View
-    }
-
-    override fun onStart() {
-        super.onStart()
         initialize()
+        return userInfo1View
     }
 
     override fun onResume() {
@@ -45,19 +42,20 @@ class UserInfo1Fragment : Fragment() {
     }
 
     private fun initialize() {
-        studentYearSpinner = user_info1_student_year_spinner
-        studentGradeSpinner = user_info1_student_grade_spinner
-        UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, userInfo1Context!!)
-        UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, userInfo1Context!!)
-        majorSelectingButton = user_info1_major_btn
+        studentYearSpinner = userInfo1View.user_info1_student_year_spinner
+        studentGradeSpinner = userInfo1View.user_info1_student_grade_spinner
+        UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, userInfo1Context)
+        UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, userInfo1Context)
+        majorSelectingButton = userInfo1View.user_info1_major_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
             startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }
-        majorsRecyclerView = user_info1_majors_recycler_view
+        majorsRecyclerView = userInfo1View.user_info1_majors_recycler_view
         majorsRecyclerView.layoutManager = LinearLayoutManager(userInfo1Context)
+        majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(null)
         UserSettingLibrary.loadMajors(majorSelectingButton, majorsRecyclerView, context!!)
     }
 
