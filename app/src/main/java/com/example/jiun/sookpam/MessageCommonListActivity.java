@@ -12,7 +12,6 @@ import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
-import com.example.jiun.sookpam.user.setting.SettingCategory;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
@@ -29,22 +28,20 @@ public class MessageCommonListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_common_list);
 
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
         ListView listView = findViewById(R.id.message_common_listview);
         listView.setAdapter(adapter);
 
         final ArrayList<RecordVO> datalist = new ArrayList<RecordVO>();
         ContactDBManager contactDBManager = (ContactDBManager) this.getApplicationContext();
-        ArrayList<String> departmentList = contactDBManager.getDepartmentList();
-        String category = "";
+        ArrayList<String> divisionList = contactDBManager.getDivisionList(category, Realm.getDefaultInstance());
 
-        for (int i=0; i<departmentList.size(); i++) {
-            division = departmentList.get(i);
-            category = contactDBManager.getCategory(division, Realm.getDefaultInstance());
-            if (SharedPreferenceUtil.get(this, category, SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY && category != "공통") {
-                datalist.addAll(getDataByDivision(division));
-                adapter.addItem(datalist);
-            }
+        for (String division: divisionList) {
+            datalist.addAll(getDataByDivision(division));
+            adapter.addItem(datalist);
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
