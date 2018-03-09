@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +10,9 @@
         android:id="@+id/major_card_view"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardCornerRadius="3dp">
+        app:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/selected_major_txt"
