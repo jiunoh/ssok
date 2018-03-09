@@ -1,25 +1,46 @@
 package com.example.jiun.sookpam.clip;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-
-import com.example.jiun.sookpam.searchable.DualModel;
-import com.example.jiun.sookpam.searchable.SearchableRecyclerAdapter;
+import android.view.ViewGroup;
+import com.example.jiun.sookpam.model.DualModel;
+import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.ArrayList;
 import io.realm.Realm;
 
-public class ClipItemRecyclerViewAdapter extends SearchableRecyclerAdapter {
+public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
     private ArrayList<DualModel> itemList;
     private ArrayList<? extends DualModel> responseList;
 
     public ClipItemRecyclerViewAdapter(ArrayList<DualModel> items) {
-        super(items);
         itemList = items;
     }
 
-    public void loadData() {
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return ViewHolderFactory.create(parent, viewType);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return itemList.get(position).getItemViewType();
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        itemList.get(position).onBindViewHolder(holder);
+    }
+
+    @Override
+    public int getItemCount() {
+        return itemList.size();
+    }
+
+    public void filter() {
+        Log.v("filter", "filter");
         ClipDBManager dbManager = new ClipDBManager(Realm.getDefaultInstance());
-        responseList = dbManager.select();
         itemList.clear();
+        responseList = dbManager.select();
         itemList.addAll(responseList);
         notifyDataSetChanged();
     }

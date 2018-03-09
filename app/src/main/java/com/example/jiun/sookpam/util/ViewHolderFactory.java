@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.clip.ClipItem;
-import com.example.jiun.sookpam.searchable.DualModel;
+import com.example.jiun.sookpam.model.DualModel;
 
 
 public class ViewHolderFactory {
@@ -26,18 +25,16 @@ public class ViewHolderFactory {
     }
 
     public static class ClipHolder extends RecyclerView.ViewHolder {
-        public final View view;
         public TextView categoryTextView;
         public TextView titleTextVIew;
         public ImageView starView;
-        public ClipItem item;
 
         public ClipHolder(View itemView) {
             super(itemView);
-            view = itemView;
-            categoryTextView = itemView.findViewById(R.id.category_view);
-            titleTextVIew = itemView.findViewById(R.id.title_view);
-            starView = itemView.findViewById(R.id.item_star);
+            categoryTextView = itemView.findViewById(R.id.clip_category);
+            titleTextVIew = itemView.findViewById(R.id.clip_title);
+            starView = itemView.findViewById(R.id.clip_star);
+            starView.setImageResource(R.drawable.star_on);
         }
 
     }

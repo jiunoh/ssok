@@ -1,6 +1,6 @@
 package com.example.jiun.sookpam.model.vo
 
-import com.example.jiun.sookpam.searchable.DualModel
+import com.example.jiun.sookpam.model.DualModel
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass
 

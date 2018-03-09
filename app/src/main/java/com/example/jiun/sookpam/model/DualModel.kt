@@ -1,7 +1,7 @@
 
 @file:JvmName("DualModel")
 
-package com.example.jiun.sookpam.searchable
+package com.example.jiun.sookpam.model
 
 import android.support.v7.widget.RecyclerView
 
@@ -15,4 +15,5 @@ interface DualModel {
 
     fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
 
+    override fun toString():String
 }

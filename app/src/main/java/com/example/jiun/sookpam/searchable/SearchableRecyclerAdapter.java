@@ -1,21 +1,15 @@
 package com.example.jiun.sookpam.searchable;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ViewGroup;
+
+import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.model.RecordDBManager;
-import com.example.jiun.sookpam.server.ApiUtils;
-import com.example.jiun.sookpam.server.RecordResponse;
-import com.example.jiun.sookpam.server.SearchableService;
 import com.example.jiun.sookpam.server.WebFilter;
 import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import io.realm.Realm;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<DualModel> itemList;

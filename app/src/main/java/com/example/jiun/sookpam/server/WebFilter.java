@@ -1,7 +1,7 @@
 package com.example.jiun.sookpam.server;
 
 import android.util.Log;
-import com.example.jiun.sookpam.searchable.DualModel;
+import com.example.jiun.sookpam.model.DualModel;
 import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;

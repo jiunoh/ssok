@@ -3,6 +3,7 @@ package com.example.jiun.sookpam
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
-import com.example.jiun.sookpam.searchable.DualModel
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.fragment_my_clip.view.*
@@ -28,18 +29,21 @@ class MyClipFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_my_clip, container, false)
-        // Set the adapter
         adapter = ClipItemRecyclerViewAdapter(responseList)
         view.recylerView.adapter = adapter
+        view.recylerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         view.recylerView.addOnItemTouchListener(RecyclerItemClickListener(context,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = responseList!!.get(position)
                     showMessageBody(data)
                 }))
-        adapter!!.loadData()
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter!!.filter()
+    }
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
         var intent: Intent? = null

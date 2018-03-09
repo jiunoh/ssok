@@ -7,7 +7,7 @@ import android.view.Menu
 import com.example.jiun.sookpam.R
 import android.view.MenuItem
 import com.example.jiun.sookpam.clip.ClipDBManager
-import com.example.jiun.sookpam.searchable.DualModel
+import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 
@@ -35,8 +35,6 @@ class ContentActivity : AppCompatActivity() {
         val info = record.phone
         info_view.text = division + "\t" + info
     }
-
-    private fun setStarIcon() {}
 
     private fun setToolbar(category: String) {
         toolbar = content_toolbar

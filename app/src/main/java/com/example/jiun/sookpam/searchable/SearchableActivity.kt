@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.web.WebContentActivity
 
 
