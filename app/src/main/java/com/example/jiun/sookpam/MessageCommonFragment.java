@@ -2,10 +2,9 @@ package com.example.jiun.sookpam;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,15 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.jiun.sookpam.user.setting.SettingCategory;
-import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+
+import com.example.jiun.sookpam.message.ContentActivity;
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.message.MessagePresenter;
+import com.example.jiun.sookpam.user.setting.SettingCategory;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+
 import org.jetbrains.annotations.NotNull;
 
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
@@ -124,13 +126,9 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     }
 
     private void goToListPage(int i) {
-        Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_SHORT).show();
-        MessageCommonListFragment messageCommonListFragment = new MessageCommonListFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(android.R.id.content, messageCommonListFragment);
-        fragmentTransaction.commit();
-//        putExtra(categories[i]);
+        Intent intent = new Intent(getContext(), MessageCommonListActivity.class);
+        intent.putExtra("category", categories[i]);
+        startActivity(intent);
     }
 
     public static MessageCommonFragment newInstance() {

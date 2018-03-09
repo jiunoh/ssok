@@ -1,12 +1,9 @@
 package com.example.jiun.sookpam;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -22,33 +19,29 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-
-public class MessageCommonListFragment extends Fragment {
+public class MessageCommonListActivity extends AppCompatActivity {
     private RecordDBManager categoryManager;
     private static final String DIVISION = "DVISION";
     private String division;
 
-    public MessageCommonListFragment() {
-        // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message_common_list, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_message_common_list);
 
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
-        ListView listView = view.findViewById(R.id.message_common_listview);
+        ListView listView = findViewById(R.id.message_common_listview);
         listView.setAdapter(adapter);
 
         final ArrayList<RecordVO> datalist = new ArrayList<RecordVO>();
-        ContactDBManager contactDBManager = (ContactDBManager)getActivity().getApplicationContext();
+        ContactDBManager contactDBManager = (ContactDBManager) this.getApplicationContext();
         ArrayList<String> departmentList = contactDBManager.getDepartmentList();
         String category = "";
 
         for (int i=0; i<departmentList.size(); i++) {
             division = departmentList.get(i);
             category = contactDBManager.getCategory(division, Realm.getDefaultInstance());
-            if (SharedPreferenceUtil.get(getContext(), category, SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY && category != "공통") {
+            if (SharedPreferenceUtil.get(this, category, SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY && category != "공통") {
                 datalist.addAll(getDataByDivision(division));
                 adapter.addItem(datalist);
             }
@@ -62,7 +55,6 @@ public class MessageCommonListFragment extends Fragment {
             }
         });
 
-        return view;
     }
 
     private ArrayList<RecordVO> getDataByDivision(String division) {
@@ -77,18 +69,18 @@ public class MessageCommonListFragment extends Fragment {
     }
 
     private ArrayList<RecordVO> handleUnclipedCategories() {
-        ContactDBManager contactDBManager =  (ContactDBManager)getActivity().getApplicationContext();
+        ContactDBManager contactDBManager = (ContactDBManager) getApplicationContext();
         ArrayList<String> divisionList = contactDBManager.getDepartmentList();
         ArrayList<RecordVO> response = new ArrayList<>();
         for (String division : divisionList) {
-            if (!SharedPreferenceUtil.get(getContext(), division, false))
+            if (!SharedPreferenceUtil.get(this, division, false))
                 response.addAll(categoryManager.getDataByDivision(division));
         }
         return response;
     }
 
     private void showMessageBody(RecordVO data) {
-        Intent intent = new Intent(getContext(), ContentActivity.class);
+        Intent intent = new Intent(this, ContentActivity.class);
         ContentItem contentItem  = new ContentItem();
         contentItem.setCategory(data.getCategory());
         contentItem.setDivision(data.getDivision());
@@ -99,21 +91,4 @@ public class MessageCommonListFragment extends Fragment {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-    public static MessageCommonListFragment newInstance(String division) {
-        MessageCommonListFragment fragment = new MessageCommonListFragment();
-        Bundle args = new Bundle();
-        args.putString(DIVISION, division);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            division = getArguments().getString(DIVISION);
-        }
-    }
-
 }
