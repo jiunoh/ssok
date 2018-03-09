@@ -27,7 +27,13 @@ class ContentActivity : AppCompatActivity() {
         division = record.division
         category = record.category
         setToolbar(category + " > " + division)
-        val body = record.body
+
+        var body = record.body
+        if (body!!.contains("[Web발신]"))
+            body = body.replace("[Web발신]", "")
+
+        body = body.replaceFirst("\n".toRegex(), "")
+
         title = body!!.split("\n")[0]
         content_view.text = body
         val info = record.phone
