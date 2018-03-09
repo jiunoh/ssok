@@ -2,6 +2,8 @@ package com.example.jiun.sookpam.web.common
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.support.v7.widget.Toolbar
@@ -20,21 +22,26 @@ class WebRecyclerActivity : AppCompatActivity() {
     private lateinit var service: RecordService
     private lateinit var toolbar: Toolbar
     private lateinit var webRecyclerView: RecyclerView
-    private lateinit var categoryTextView: TextView
-    private lateinit var divisionTextView: TextView
     private lateinit var backButton: ImageButton
     private lateinit var refreshButton: ImageButton
-    private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
     private lateinit var progressBar: ProgressBar
-    var records: List<RecordResponse>? = null
+    private lateinit var collapseToolbar: CollapsingToolbarLayout
+    private lateinit var appBarLayout: AppBarLayout
+    private lateinit var imageFrameLayout: FrameLayout
+    private lateinit var titleTextView: TextView
+    private lateinit var category: String
+    private lateinit var division: String
+    private var records: List<RecordResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_common_recycler)
+        category = intent.getStringExtra("category")
+        division = intent.getStringExtra("division")
         initialize()
-        loadRecords(intent.getStringExtra("category"), intent.getStringExtra("division"))
+        loadRecords()
     }
 
     private fun initialize() {
@@ -47,8 +54,6 @@ class WebRecyclerActivity : AppCompatActivity() {
             intent.putExtra("record", records!![position])
             startActivity(intent)
         }))
-        categoryTextView = web_common_category_txt
-        divisionTextView = web_common_division_txt
         service = ApiUtils.getRecordService()
         backButton = web_common_back_image_btn
         backButton.setOnClickListener { finish() }
@@ -56,23 +61,29 @@ class WebRecyclerActivity : AppCompatActivity() {
         refreshButton.setOnClickListener {
             val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
             refreshButton.startAnimation(rotateAnimation)
-            loadRecords(intent.getStringExtra("category"), intent.getStringExtra("division"))
+            loadRecords()
         }
-        errorLinearLayout = web_common_error_linear
         errorImageView = web_common_error_img
         errorTextView = web_common_error_txt
         progressBar = web_common_progressbar
+        titleTextView = web_title_txt
+        val title = "웹 > $category > $division"
+        titleTextView.text = title
     }
 
     private fun setToolbar() {
+        appBarLayout = web_common_appbar_layout
         toolbar = web_common_toolbar
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        collapseToolbar = web_common_collapsing
+        collapseToolbar.title = "웹 > $category > $division"
+        collapseToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
+        collapseToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
+        web_common_toolbar_img.setImageResource(intent.getIntExtra("background", 0))
+        imageFrameLayout = web_common_img_frame
     }
 
-    private fun loadRecords(category: String, division: String) {
-        categoryTextView.text = category
-        divisionTextView.text = division
+    private fun loadRecords() {
         service.getRecords(category, division).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
@@ -81,34 +92,43 @@ class WebRecyclerActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
                 records = response!!.body()
-                if(division != "취업") {
+                if (division != "취업") {
                     webRecyclerView.adapter = WebCommonRecyclerAdapter(records)
-                }
-                else {
+                } else {
                     webRecyclerView.adapter = WebCareerRecyclerAdapter(records)
                 }
                 val context = webRecyclerView.context
                 if (records!!.isNotEmpty()) {
-                    webRecyclerView.visibility = View.VISIBLE
-                    errorLinearLayout.visibility = View.INVISIBLE
+                    appBarLayout.setExpanded(true)
+                    titleTextView.visibility = View.GONE
+                    errorImageView.visibility = View.INVISIBLE
+                    errorTextView.visibility = View.INVISIBLE
+                    imageFrameLayout.visibility = View.VISIBLE
                     UIAnimation.setLoadingRecyclerViewAnimation(context, webRecyclerView)
                 } else {
                     showNoDataInServer()
                 }
+                appBarLayout.setExpanded(true)
                 progressBar.visibility = View.INVISIBLE
             }
         })
     }
 
     private fun showInternetConnectionError() {
-        webRecyclerView.visibility = View.INVISIBLE
-        errorLinearLayout.visibility = View.VISIBLE
+        appBarLayout.setExpanded(false, false)
+        errorImageView.visibility = View.VISIBLE
+        errorTextView.visibility = View.VISIBLE
+        imageFrameLayout.visibility = View.GONE
+        titleTextView.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.internet_connect_error)
     }
 
     private fun showNoDataInServer() {
-        webRecyclerView.visibility = View.INVISIBLE
-        errorLinearLayout.visibility = View.VISIBLE
+        appBarLayout.setExpanded(false, false)
+        errorImageView.visibility = View.VISIBLE
+        errorTextView.visibility = View.VISIBLE
+        imageFrameLayout.visibility = View.GONE
+        titleTextView.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
     }
 }

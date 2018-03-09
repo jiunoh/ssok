@@ -25,7 +25,7 @@ class WebCommonRecyclerAdapter(private val records: List<RecordResponse>?) : Rec
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val record = records!![position]
-        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title)
+        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
         holder.dateTextView.text = record.date
     }
 

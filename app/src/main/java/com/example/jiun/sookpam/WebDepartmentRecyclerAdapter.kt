@@ -23,7 +23,7 @@ class WebDepartmentRecyclerAdapter(private val departments: List<WebDepartmentFr
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val department = departments!![position]
-        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(department.category)
+        holder!!.titleTextView.text = department.category
         if (department.division == "공지") {
             holder.departmentImageView.setImageResource(R.drawable.department_notice)
             holder.divisionTextView.text = context.getString(R.string.notice)

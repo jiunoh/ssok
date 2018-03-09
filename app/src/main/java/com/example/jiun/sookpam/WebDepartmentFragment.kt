@@ -13,9 +13,6 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.example.jiun.sookpam.web.common.WebRecyclerActivity
 import kotlinx.android.synthetic.main.fragment_web_department.view.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class WebDepartmentFragment : Fragment() {
     private lateinit var webDepartmentRecyclerView: RecyclerView
     private lateinit var departments: List<Department>
@@ -32,10 +29,15 @@ class WebDepartmentFragment : Fragment() {
         webDepartmentRecyclerView = view.web_department_recycler
         webDepartmentRecyclerView.layoutManager = LinearLayoutManager(context)
         webDepartmentRecyclerView.adapter = WebDepartmentRecyclerAdapter(departments)
-        webDepartmentRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener{ _, position ->
+        webDepartmentRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { item_view, position ->
             val intent = Intent(context, WebRecyclerActivity::class.java)
             intent.putExtra("category", departments[position].category)
             intent.putExtra("division", departments[position].division)
+            if (departments[position].division == "공지") {
+                intent.putExtra("background", R.drawable.department_notice)
+            } else {
+                intent.putExtra("background", R.drawable.department_career)
+            }
             startActivity(intent)
         }))
     }
@@ -55,5 +57,5 @@ class WebDepartmentFragment : Fragment() {
         return departments
     }
 
-    data class Department(var category:String, var division:String)
+    data class Department(var category: String, var division: String)
 }

@@ -31,6 +31,7 @@ class WebCommonTopicFragment : Fragment() {
             val intent = Intent(context, WebRecyclerActivity::class.java)
             intent.putExtra("category", "공통")
             intent.putExtra("division", topics[position].topicTitle)
+            intent.putExtra("background", topics[position].topicImage)
             startActivity(intent)
         }))
     }
