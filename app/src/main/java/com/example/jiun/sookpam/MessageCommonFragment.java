@@ -2,6 +2,8 @@ package com.example.jiun.sookpam;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,11 @@ public class MessageCommonFragment extends Fragment {
 
     private void goToListPage(int i) {
         Toast.makeText(getActivity().getApplicationContext(), "클릭됨", Toast.LENGTH_SHORT).show();
+        MessageCommonListFragment messageCommonListFragment = new MessageCommonListFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, messageCommonListFragment);
+        fragmentTransaction.commit();
 //        putExtra(categories[i]);
     }
 
