@@ -22,18 +22,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorDarkGray"
             android:contentDescription="@string/rank_item"
             android:src="@drawable/rank_image" />
 
         <GridLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:columnCount="3"
             android:orientation="vertical"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
             android:rowCount="2">
 
             <TextView
