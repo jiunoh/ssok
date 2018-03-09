@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.jiun.sookpam.LoadingDialog
+import com.example.jiun.sookpam.MessageBaseFragment
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
@@ -21,6 +22,7 @@ class MessagePresenter(
     private lateinit var smsReader: SmsReader
     private lateinit var mmsReader: MmsReader
     private lateinit var recordManager: RecordDBManager
+    private var isFirstLoading: Boolean = false
 
     init {
         messagePermissionView.presenter = this
@@ -57,11 +59,10 @@ class MessagePresenter(
     inner class MessageAsyncTask : AsyncTask<Unit, Unit, Unit>() {
         override fun onPreExecute() {
             super.onPreExecute()
-            val isFirstLoading = SharedPreferenceUtil.get(context, IS_FIRST_LOADING, true)
+            isFirstLoading = SharedPreferenceUtil.get(context, IS_FIRST_LOADING, true)
             if (isFirstLoading) {
                 messagePermissionView.showToastMessage("메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.", Toast.LENGTH_LONG)
                 loadingDialog.show()
-                SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
             } else {
                 progressBar.visibility = View.VISIBLE
             }
@@ -89,9 +90,14 @@ class MessagePresenter(
         override fun onPostExecute(result: Unit?) {
             super.onPostExecute(result)
             progressBar.visibility = View.GONE
-            messagePermissionView
-                    .showToastMessage(context.getString(R.string.end_synchronization), Toast.LENGTH_SHORT)
-            loadingDialog.dismiss()
+            if (isFirstLoading) {
+                loadingDialog.dismiss()
+                messagePermissionView
+                        .showToastMessage(context.getString(R.string.end_synchronization), Toast.LENGTH_SHORT)
+                MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged()
+                SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
+
+            }
         }
     }
 
