@@ -17,7 +17,7 @@ data class RecordResponse(
 ) : Serializable, DualModel {
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
-        val webHolder = viewHolder as ViewHolderFactory.SearchHolder
+        val webHolder = viewHolder as ViewHolderFactory.DualHolder
         webHolder.categoryTextView.text = "웹"+"-"+category+"-"+division
         webHolder.titleTextVIew.text = title
     }

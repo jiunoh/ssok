@@ -21,7 +21,7 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ViewHolderFactory.create(parent, viewType);
+        return ViewHolderFactory.create(parent, ViewHolderFactory.SEARCH_HOLDER);
     }
 
     @Override

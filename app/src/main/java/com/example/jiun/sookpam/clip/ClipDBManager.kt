@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam.clip
 
-import android.util.Log
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
@@ -45,7 +44,6 @@ class ClipDBManager(val realm: Realm) {
             var model = getModelBy(clip)
             if(model != null)
                 result.add(model)
-            Log.v("> ", clip.toString())
         }
         return result
     }

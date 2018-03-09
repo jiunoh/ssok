@@ -18,7 +18,8 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ViewHolderFactory.create(parent, viewType);
+        Log.v("viewType" , ""+viewType);
+        return ViewHolderFactory.create(parent, ViewHolderFactory.CLIP_HOLDER);
     }
 
     @Override
@@ -37,7 +38,6 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
     }
 
     public void filter() {
-        Log.v("filter", "filter");
         ClipDBManager dbManager = new ClipDBManager(Realm.getDefaultInstance());
         itemList.clear();
         responseList = dbManager.select();
