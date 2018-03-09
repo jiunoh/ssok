@@ -20,8 +20,6 @@ import io.realm.Realm;
 
 public class MessageCommonListActivity extends AppCompatActivity {
     private RecordDBManager categoryManager;
-    private static final String DIVISION = "DVISION";
-    private String division;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +37,10 @@ public class MessageCommonListActivity extends AppCompatActivity {
         ContactDBManager contactDBManager = (ContactDBManager) this.getApplicationContext();
         ArrayList<String> divisionList = contactDBManager.getDivisionList(category, Realm.getDefaultInstance());
 
-        for (String division: divisionList) {
+        for (String division: divisionList)
             datalist.addAll(getDataByDivision(division));
-            adapter.addItem(datalist);
-        }
+
+        adapter.addItem(datalist);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
