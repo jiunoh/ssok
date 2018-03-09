@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_my_page_base.view.*
 class MyPageBaseFragment : Fragment() {
     private var currentPage = MyPageBaseViewPagerAdapter.MY_TOPIC_FRAGMENT
     private lateinit var myPageViewPager: SimpleViewPager
-    private lateinit var myPageViewPagerAdapter: MyPageBaseViewPagerAdapter
     private lateinit var myPageTabLayout: TabLayout
     private var currentFragment: Fragment? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,5 +47,6 @@ class MyPageBaseFragment : Fragment() {
 
     companion object {
         private const val MAX_PAGE_SIZE = 3
+        lateinit var myPageViewPagerAdapter: MyPageBaseViewPagerAdapter
     }
 }

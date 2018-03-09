@@ -10,11 +10,6 @@ import android.view.View
 class CustomLinearLayoutManager(context: Context) : LinearLayoutManager(context) {
     private val mMeasuredDimension = IntArray(2)
 
-    init {
-        isAutoMeasureEnabled = false
-        orientation = LinearLayoutManager.VERTICAL
-    }
-
     @SuppressLint("SwitchIntDef")
     override fun onMeasure(recycler: RecyclerView.Recycler?, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
 
@@ -37,7 +32,7 @@ class CustomLinearLayoutManager(context: Context) : LinearLayoutManager(context)
                     height = mMeasuredDimension[1]
                 }
             } else {
-                height += mMeasuredDimension[1]
+                height = height + mMeasuredDimension[1]
                 if (i == 0) {
                     width = mMeasuredDimension[0]
                 }
@@ -57,7 +52,7 @@ class CustomLinearLayoutManager(context: Context) : LinearLayoutManager(context)
     private fun measureScrapChild(recycler: RecyclerView.Recycler?, position: Int, widthSpec: Int,
                                   heightSpec: Int, measuredDimension: IntArray) {
         try {
-            val view = recycler!!.getViewForPosition(position)
+            val view = recycler!!.getViewForPosition(0)
 
             if (view != null) {
                 val p = view.layoutParams as RecyclerView.LayoutParams
@@ -77,5 +72,9 @@ class CustomLinearLayoutManager(context: Context) : LinearLayoutManager(context)
             e.printStackTrace()
         }
 
+    }
+
+    companion object {
+        private val TAG = CustomLinearLayoutManager::class.java.simpleName
     }
 }

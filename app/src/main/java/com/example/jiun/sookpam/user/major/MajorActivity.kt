@@ -8,7 +8,9 @@ import android.support.v7.widget.*
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import com.example.jiun.sookpam.MyPageBaseFragment
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.activity_major.*
@@ -43,8 +45,9 @@ class MajorActivity : AppCompatActivity() {
 
         confirmButton = major_select_confirm_btn
         confirmButton.setOnClickListener {
-            setResult(Activity.RESULT_OK)
+            setResult(Activity.RESULT_OK, intent)
             Toast.makeText(applicationContext, getString(R.string.save_toast), Toast.LENGTH_SHORT).show()
+            MyPageBaseFragment.myPageViewPagerAdapter.notifyDataSetChanged()
             finish()
         }
 

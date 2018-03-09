@@ -35,11 +35,10 @@ class MyInfoFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_my_info, container, false)
         initialize(view)
         loadUserInfoData()
-
         return view
     }
 
-    private fun initialize(view:View) {
+    private fun initialize(view: View) {
         initializeYearSpinner(view)
         initializeGradeSpinner(view)
         initializeMajors(view)
@@ -47,32 +46,32 @@ class MyInfoFragment : Fragment() {
         initializeStatusRadio(view)
     }
 
-    private fun initializeGradeSpinner(view:View) {
+    private fun initializeGradeSpinner(view: View) {
         studentGradeSpinner = view.my_info_student_grade_spinner
         gradeSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
         UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, context!!)
     }
 
-    private fun initializeYearSpinner(view:View) {
+    private fun initializeYearSpinner(view: View) {
         studentYearSpinner = view.my_info_student_year_spinner
         yearSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
         UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, context!!)
     }
 
-    private fun initializeMajors(view:View) {
+    private fun initializeMajors(view: View) {
         studentMajorButton = view.my_info_major_btn
         studentMajorButton.setOnClickListener {
             val intent = Intent(context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
-            startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
+            super.startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }
         studentMajorRecyclerView = view.my_info_majors_recycler_view
         studentMajorRecyclerView.layoutManager = LinearLayoutManager(context)
         studentMajorRecyclerView.adapter = SelectedMajorRecyclerAdapter(null)
     }
 
-    private fun initializeScholarshipCheckBoxes(view:View) {
+    private fun initializeScholarshipCheckBoxes(view: View) {
         schoolScholarshipCheckBox = view.my_info_school_scholarship_checkbox
         UserSettingLibrary.setCheckBoxListener(schoolScholarshipCheckBox, context!!)
         externalScholarshipCheckBox = view.my_info_external_scholarship_checkbox
@@ -81,7 +80,7 @@ class MyInfoFragment : Fragment() {
         UserSettingLibrary.setCheckBoxListener(externalScholarshipCheckBox, context!!)
     }
 
-    private fun initializeStatusRadio(view:View) {
+    private fun initializeStatusRadio(view: View) {
         studentStatusRadioGroup = view.my_info_status_radio_group
         statusInRadioButton = view.my_info_status_in_radio_btn
         statusOutRadioButton = view.my_info_status_out_radio_btn
@@ -98,11 +97,5 @@ class MyInfoFragment : Fragment() {
         UserSettingLibrary.loadCheckBoxData(externalScholarshipCheckBox, context!!)
         UserSettingLibrary.loadCheckBoxData(governmentScholarshipCheckBox, context!!)
         UserSettingLibrary.loadRadioGroupData(studentStatusRadioGroup, statusInRadioButton, statusOutRadioButton, context!!)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            UserSettingLibrary.loadMajors(studentMajorButton, studentMajorRecyclerView, context!!)
-        }
     }
 }
