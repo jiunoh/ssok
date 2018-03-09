@@ -9,8 +9,7 @@
         android:id="@+id/major_card_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
+        card_view:cardUseCompatPadding="true"
         card_view:cardCornerRadius="3dp">
 
         <TextView
