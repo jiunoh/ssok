@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginEnd="16dp"
     android:layout_marginStart="16dp"
     android:clickable="true"
@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -40,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_columnSpan="3"
-                android:layout_marginTop="8dp"
                 android:gravity="bottom"
                 android:paddingTop="16dp"
                 android:singleLine="true"
