@@ -7,14 +7,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.web_common_topic_item.view.*
+import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : RecyclerView.Adapter<CommonTopicRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        val view = LayoutInflater.from(context).inflate(R.layout.web_common_topic_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.common_topic_item, parent, false)
         return ViewHolder(view)
     }
 

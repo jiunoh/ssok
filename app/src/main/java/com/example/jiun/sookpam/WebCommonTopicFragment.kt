@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.jiun.sookpam.web.common.WebCommonRecyclerActivity
+import com.example.jiun.sookpam.web.common.WebRecyclerActivity
 import kotlinx.android.synthetic.main.fragment_web_common_topic.view.*
 
 class WebCommonTopicFragment : Fragment() {
@@ -28,12 +28,10 @@ class WebCommonTopicFragment : Fragment() {
         webCommonTopicRecyclerView.layoutManager = LinearLayoutManager(context)
         webCommonTopicRecyclerView.adapter = CommonTopicRecyclerAdapter(topics)
         webCommonTopicRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
-            if(topics[position].topicTitle!="취업"){
-                val intent = Intent(context, WebCommonRecyclerActivity::class.java)
-                intent.putExtra("category", "공통")
-                intent.putExtra("division", topics[position].topicTitle)
-                startActivity(intent)
-            }
+            val intent = Intent(context, WebRecyclerActivity::class.java)
+            intent.putExtra("category", "공통")
+            intent.putExtra("division", topics[position].topicTitle)
+            startActivity(intent)
         }))
     }
 }
