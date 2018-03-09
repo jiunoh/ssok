@@ -1,15 +1,22 @@
 package com.example.jiun.sookpam.searchable;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
-
 import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.model.RecordDBManager;
+import com.example.jiun.sookpam.server.ApiUtils;
+import com.example.jiun.sookpam.server.RecordResponse;
+import com.example.jiun.sookpam.server.SearchableService;
 import com.example.jiun.sookpam.server.WebFilter;
 import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     private ArrayList<DualModel> itemList;
@@ -42,11 +49,34 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     public boolean filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        itemList.addAll(WebFilter.webFilter(charText));
+        itemList.addAll(webFilter(charText));
         notifyDataSetChanged();
         realmFilter(charText);
         notifyDataSetChanged();
         return itemList.size() == 0;
+    }
+
+    public static ArrayList<DualModel> webFilter(String charText) {
+        SearchableService service = ApiUtils.Companion.getSearchableService();
+        final ArrayList<DualModel> itemList = new ArrayList<DualModel>();
+        charText.replace(" ", "-");
+
+        service.getItems(charText).enqueue(new Callback<List<RecordResponse>>() {
+            @Override
+            public void onResponse(Call<List<RecordResponse>> call, Response<List<RecordResponse>> response) {
+                if (!response.isSuccessful())
+                    return;
+                final List<RecordResponse> records = response.body();
+                itemList.addAll(records);
+            }
+
+            @Override
+            public void onFailure(Call<List<RecordResponse>> call, Throwable t) {
+                Log.v("onFailure:", "onFailure");
+            }
+        });
+
+        return itemList;
     }
 
     private void realmFilter(String charText) {

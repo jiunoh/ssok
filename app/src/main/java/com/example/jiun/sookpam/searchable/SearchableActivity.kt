@@ -53,6 +53,8 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                search_recycler_view.visibility = View.VISIBLE
+                search_recycler_view.bringToFront()
                 val empty = adapter.filter(query)
                 if (empty)
                     showNoData();
@@ -77,6 +79,7 @@ class SearchableActivity : AppCompatActivity() {
             Log.v("CLosed", "CLosed")
             editsearch.setQuery("",false)
             adapter.clear()
+            errorLinearLayout.visibility = View.INVISIBLE
         })
     }
 
