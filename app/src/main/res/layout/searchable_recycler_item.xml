@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp"
-    android:paddingRight="16dp">
+    android:padding="16dp">
     <TextView
         android:id="@+id/title_view"
         android:layout_width="match_parent"
@@ -13,10 +11,11 @@
         android:layout_weight="1"
         android:textAlignment="textStart"
         android:maxLines="1"
+        android:layout_marginBottom="8dp"
         android:textStyle="bold"
         android:text="@string/title_example"
         android:ellipsize="end"
-        android:textSize="16sp" />
+        android:textSize="20sp"/>
     <TextView
         android:id="@+id/category_view"
         android:layout_width="match_parent"

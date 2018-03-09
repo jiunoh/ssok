@@ -1,60 +1,47 @@
 package com.example.jiun.sookpam.clip;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.clip.ClipContent.ClipItem;
-import java.util.List;
+import com.example.jiun.sookpam.model.DualModel;
+import com.example.jiun.sookpam.util.ViewHolderFactory;
+import java.util.ArrayList;
+import io.realm.Realm;
 
-public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter<ClipItemRecyclerViewAdapter.ViewHolder> {
+public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
+    private ArrayList<DualModel> itemList;
+    private ArrayList<? extends DualModel> responseList;
 
-    private final List<ClipItem> mValues;
-
-    public ClipItemRecyclerViewAdapter(List<ClipItem> items) {
-        mValues = items;
+    public ClipItemRecyclerViewAdapter(ArrayList<DualModel> items) {
+        itemList = items;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_clip_item, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return ViewHolderFactory.create(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.titleView.setText(mValues.get(position).title);
-        holder.categoryView.setText(mValues.get(position).category);
+    public int getItemViewType(int position) {
+        return itemList.get(position).getItemViewType();
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        itemList.get(position).onBindViewHolder(holder);
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return itemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView titleView;
-        public final TextView categoryView;
-        public ImageView starView;
-        public ClipItem mItem;
-
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            titleView = (TextView) view.findViewById(R.id.item_title);
-            categoryView = (TextView) view.findViewById(R.id.category_view);
-            starView = (ImageView)view.findViewById(R.id.item_star);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + categoryView.getText() + "'";
-        }
+    public void filter() {
+        Log.v("filter", "filter");
+        ClipDBManager dbManager = new ClipDBManager(Realm.getDefaultInstance());
+        itemList.clear();
+        responseList = dbManager.select();
+        itemList.addAll(responseList);
+        notifyDataSetChanged();
     }
-}
+ }
