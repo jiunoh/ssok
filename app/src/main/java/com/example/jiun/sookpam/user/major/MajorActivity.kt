@@ -62,6 +62,11 @@ class MajorActivity : AppCompatActivity() {
         } else resetUnsavedMajorsAndFinish()
     }
 
+    override fun onPause() {
+        super.onPause()
+        resetUnsavedMajorsAndFinish()
+    }
+
     private fun doesSelectedMajorsChanged(): Boolean {
         return MajorList.collegeAndMajors
                 .flatMap { it }
