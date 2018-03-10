@@ -64,7 +64,9 @@ class MajorActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        resetUnsavedMajorsAndFinish()
+        if (UserSettingLibrary.getSelectedMajors(applicationContext).size < 1) {
+            resetUnsavedMajorsAndFinish()
+        }
     }
 
     private fun doesSelectedMajorsChanged(): Boolean {
