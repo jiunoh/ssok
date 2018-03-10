@@ -1,9 +1,15 @@
 package com.example.jiun.sookpam.clip
 
+import android.util.Log
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
+import com.example.jiun.sookpam.server.ApiUtils
+import com.example.jiun.sookpam.server.RecordResponse
 import io.realm.Realm
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ClipDBManager(val realm: Realm) {
     fun doesNotExist(value: String?): Boolean {
@@ -30,11 +36,31 @@ class ClipDBManager(val realm: Realm) {
         if (record.type == DualModel.RECORD_VO) {
             return realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
         } else if(record.type == DualModel.RECORD_RESPONSE){
-           // return WebFilter.webFilter(record.title)[0]
-            return null
+            return webFilter(record.title)
         }
         else
             return null
+    }
+
+    private fun webFilter(charText: String) : DualModel{
+        val service = ApiUtils.getSearchableService()
+        charText.replace(" ", "-")
+        lateinit var record : DualModel
+        service.getItems(charText).enqueue(object : Callback<List<RecordResponse>> {
+            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+                record = response.body()!!.get(0)
+            }
+
+            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+                record = RecordResponse()
+                Log.v("onFailure:", "onFailure")
+            }
+        })
+        return record
     }
 
     fun select(): ArrayList<DualModel> {
@@ -44,6 +70,7 @@ class ClipDBManager(val realm: Realm) {
             var model = getModelBy(clip)
             if(model != null)
                 result.add(model)
+            //Log.v("> ", clip.toString())
         }
         return result
     }

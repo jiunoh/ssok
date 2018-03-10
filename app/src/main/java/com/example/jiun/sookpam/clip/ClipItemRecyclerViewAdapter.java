@@ -18,8 +18,7 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("viewType" , ""+viewType);
-        return ViewHolderFactory.create(parent, ViewHolderFactory.CLIP_HOLDER);
+        return ViewHolderFactory.create(parent, ViewHolderFactory.SEARCH_HOLDER);
     }
 
     @Override
