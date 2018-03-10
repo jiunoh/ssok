@@ -2,14 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jiun.sookpam.web.recommend.WebRecommendRecyclerFragment">
+    tools:context="com.example.jiun.sookpam.web.recommend.WebRecommendFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/web_recommend_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:paddingTop="16dp" />
+        android:choiceMode="singleChoice" />
 
     <LinearLayout
         android:id="@+id/web_recommend_error_linear"

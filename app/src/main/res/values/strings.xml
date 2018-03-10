@@ -110,4 +110,8 @@
     <string name="my_info">개인정보</string>
     <string name="my_clip">보관함</string>
     <string name="rank_item">rank item</string>
+    <string name="topic_card_view_background_image">topic card view background image</string>
+    <string name="notice">NOTICE</string>
+    <string name="career">CAREER</string>
+    <string name="collapsing_toolbar_image_view">collapsing toolbar image view</string>
 </resources>

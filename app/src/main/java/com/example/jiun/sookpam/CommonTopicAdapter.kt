@@ -30,7 +30,7 @@ class CommonTopicAdapter {
             val topics: ArrayList<CommonTopic> = ArrayList()
             for (topic in SettingCategory.categories) {
                 if (SharedPreferenceUtil.get(context, topic, 0) == statusNumber) {
-                    topics.add(CommonTopic(topic, getDetail(topic), topicStatus))
+                    topics.add(CommonTopic(topic, getDetail(topic), topicStatus, getImage(topic)))
                 }
             }
             return topics
@@ -47,6 +47,20 @@ class CommonTopicAdapter {
                 "취업" -> CAREER_DETAIL
                 "학생" -> STUDENT_DETAIL
                 else -> ""
+            }
+        }
+
+        private fun getImage(topic: String): Int {
+            return when (topic) {
+                "장학" -> R.drawable.scholarship
+                "학사" -> R.drawable.academic
+                "행사" -> R.drawable.event
+                "시스템" -> R.drawable.system
+                "국제" -> R.drawable.global
+                "모집" -> R.drawable.recruit
+                "취업" -> R.drawable.career
+                "학생" -> R.drawable.student
+                else -> 0
             }
         }
     }

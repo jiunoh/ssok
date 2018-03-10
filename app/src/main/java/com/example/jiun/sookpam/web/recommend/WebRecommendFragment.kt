@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_web_base.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*
 import retrofit2.*
 
-class WebRecommendRecyclerFragment : Fragment() {
+class WebRecommendFragment : Fragment() {
     private lateinit var service: RecordService
     private lateinit var webRecommendRecyclerView: RecyclerView
     private lateinit var connectErrorLinearLayout: LinearLayout
@@ -111,6 +111,7 @@ class WebRecommendRecyclerFragment : Fragment() {
     }
 
     private fun showInternetConnectionError() {
+        progressBar.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.INVISIBLE
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE

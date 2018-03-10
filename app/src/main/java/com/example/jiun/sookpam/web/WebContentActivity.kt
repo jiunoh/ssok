@@ -48,7 +48,7 @@ class WebContentActivity : AppCompatActivity() {
         idTextView.text = record.id.toString()
         dateTextView.text = record.date
         urlTextView.text = record.url
-        titleTextView.text = WebRecordReformation.getTitleSubstring(record.title)
+        titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
         contentTextView.text = record.content.replace("[\n", "").replace("\n]", "").replace("\n\n", "\n")
     }
 

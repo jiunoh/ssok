@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.web.WebRecordReformation
-import kotlinx.android.synthetic.main.web_common_recycler_item.view.*
+import kotlinx.android.synthetic.main.web_career_recycler_item.view.*
 
-class WebCommonRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<WebCommonRecyclerAdapter.ViewHolder>() {
+class WebCareerRecyclerAdapter(private val records: List<RecordResponse>?) : RecyclerView.Adapter<WebCareerRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        val view = LayoutInflater.from(context).inflate(R.layout.web_common_recycler_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.web_career_recycler_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -27,10 +27,12 @@ class WebCommonRecyclerAdapter(private val records: List<RecordResponse>?) : Rec
         val record = records!![position]
         holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
         holder.dateTextView.text = record.date
+        holder.divisionTextView.text = record.division
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var titleTextView = view.web_common_item_title_txt!!
-        var dateTextView = view.web_common_item_date_txt!!
+        var titleTextView = view.web_career_item_title_txt!!
+        var dateTextView = view.web_career_item_date_txt!!
+        var divisionTextView = view.web_career_item_division_txt!!
     }
 }
