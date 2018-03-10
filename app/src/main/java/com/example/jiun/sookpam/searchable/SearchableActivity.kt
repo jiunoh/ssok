@@ -75,10 +75,9 @@ class SearchableActivity : AppCompatActivity() {
     private fun setCloseEventListener() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
-            Log.v("CLosed", "CLosed")
+            cleanRecyclerView()
             editsearch.setQuery("",false)
             adapter.clear()
-            errorLinearLayout.visibility = View.INVISIBLE
         })
     }
 
@@ -102,7 +101,11 @@ class SearchableActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
     }
 
-
+    private fun cleanRecyclerView() {
+        search_recycler_view.visibility = View.VISIBLE
+        errorLinearLayout.visibility = View.INVISIBLE
+    }
+    
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
         search_recycler_view.visibility = View.VISIBLE
