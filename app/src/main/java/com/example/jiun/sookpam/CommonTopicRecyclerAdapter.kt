@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
 import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : RecyclerView.Adapter<CommonTopicRecyclerAdapter.ViewHolder>() {
