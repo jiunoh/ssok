@@ -64,7 +64,7 @@ class MyInfoFragment : Fragment() {
             val intent = Intent(context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
             intent.putExtra("selectedMajors", selectedMajors)
-            super.startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
+            activity!!.startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
         }
         studentMajorRecyclerView = view.my_info_majors_recycler_view
         studentMajorRecyclerView.layoutManager = LinearLayoutManager(context)

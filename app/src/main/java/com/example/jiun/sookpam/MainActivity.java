@@ -111,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 finish();
             }
+        } else if (requestCode == 0) {
+            MyPageBaseFragment.myPageViewPagerAdapter.notifyDataSetChanged();
         }
     }
 }
