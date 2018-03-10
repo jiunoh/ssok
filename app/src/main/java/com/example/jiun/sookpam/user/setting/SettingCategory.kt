@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.widget.Button
-import android.widget.Toast
+import com.example.jiun.sookpam.CustomToast
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.info.UserInfoActivity
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
@@ -19,16 +19,16 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
                     SharedPreferenceUtil.set(context, categoryName, INTEREST_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_blue)
                     button.setTextColor(Color.WHITE)
-                    Toast.makeText(context, categoryName + " 항목이 관심 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 관심 목록에 추가되었습니다.")
                 }
                 INTEREST_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, NORMAL_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_white_blue)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                    Toast.makeText(context, categoryName + " 항목이 관심 목록에서 해제되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 관심 목록에서 해제되었습니다.")
                 }
                 UNINTEREST_CATEGORY -> {
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, message)
                 }
             }
             PAGE4 -> when (currentKey) {
@@ -36,16 +36,16 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
                     SharedPreferenceUtil.set(context, categoryName, UNINTEREST_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
                     button.setTextColor(Color.WHITE)
-                    Toast.makeText(context, categoryName + " 항목이 관심 없음 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 관심 없음 목록에 추가되었습니다.")
                 }
                 UNINTEREST_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, NORMAL_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorDarkGray))
-                    Toast.makeText(context, categoryName + " 항목이 관심 없음 목록에서 해제되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 관심 없음 목록에서 해제되었습니다.")
                 }
                 INTEREST_CATEGORY -> {
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, message)
                 }
             }
             else -> when (currentKey) {
@@ -53,22 +53,22 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
                     SharedPreferenceUtil.set(context, categoryName, INTEREST_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_blue)
                     button.setTextColor(Color.WHITE)
-                    Toast.makeText(context, categoryName + " 항목이 관심 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 관심 목록에 추가되었습니다.")
                 }
                 UNINTEREST_CATEGORY -> {
                     SharedPreferenceUtil.set(context, categoryName, NORMAL_CATEGORY)
                     button.setBackgroundResource(R.drawable.circle_shape_white_blue)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-                    Toast.makeText(context, categoryName + " 항목이 기본 상태로 변경 되었습니다.", Toast.LENGTH_SHORT).show()
+                    CustomToast.showLastToast(context, "$categoryName 항목이 기본 상태로 변경 되었습니다.")
                 }
                 INTEREST_CATEGORY -> {
                     if (UserInfoActivity.countInterestCategories(context) > 3) {
                         SharedPreferenceUtil.set(context, categoryName, UNINTEREST_CATEGORY)
                         button.setBackgroundResource(R.drawable.circle_shape_dark_gray)
                         button.setTextColor(Color.WHITE)
-                        Toast.makeText(context, categoryName + " 항목이 관심 없음 목록에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                        CustomToast.showLastToast(context, "$categoryName 항목이 관심 없음 목록에 추가되었습니다.")
                     } else {
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        CustomToast.showLastToast(context, message)
                     }
                 }
             }
@@ -85,8 +85,8 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
         val categoryName = button.text.toString()
         val categoryStatus = SharedPreferenceUtil
                 .get(context, categoryName, NORMAL_CATEGORY)
-        if (pageNumber == PAGE3) {
-            when (categoryStatus) {
+        when (pageNumber) {
+            PAGE3 -> when (categoryStatus) {
                 NORMAL_CATEGORY -> {
                     button.setBackgroundResource(R.drawable.circle_shape_white_blue)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
@@ -100,8 +100,7 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
                     button.setTextColor(Color.WHITE)
                 }
             }
-        } else if (pageNumber == PAGE4) {
-            when (categoryStatus) {
+            PAGE4 -> when (categoryStatus) {
                 NORMAL_CATEGORY -> {
                     button.setBackgroundResource(R.drawable.circle_shape_white_dark_gray)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorDarkGray))
@@ -115,8 +114,7 @@ class SettingCategory(val context: Context, private val pageNumber: Int = 0) {
                     button.setTextColor(Color.WHITE)
                 }
             }
-        } else {
-            when (categoryStatus) {
+            else -> when (categoryStatus) {
                 NORMAL_CATEGORY -> {
                     button.setBackgroundResource(R.drawable.circle_shape_white_blue)
                     button.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))

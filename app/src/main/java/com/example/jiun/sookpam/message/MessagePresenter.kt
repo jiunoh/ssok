@@ -5,9 +5,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
-import com.example.jiun.sookpam.LoadingDialog
-import com.example.jiun.sookpam.MessageBaseFragment
+import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
@@ -39,7 +37,7 @@ class MessagePresenter(
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                messagePermissionView.showToastMessage(context.getString(R.string.message_permission_denied), Toast.LENGTH_SHORT)
+               CustomToast.showLastToast(context, context.getString(R.string.message_permission_denied))
             }
         }
         messagePermissionView.showPermissionMessage(permissionListener)
@@ -61,7 +59,7 @@ class MessagePresenter(
             super.onPreExecute()
             isFirstLoading = SharedPreferenceUtil.get(context, IS_FIRST_LOADING, true)
             if (isFirstLoading) {
-                messagePermissionView.showToastMessage("메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.", Toast.LENGTH_LONG)
+                CustomToast.showLastToast(context,"메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.")
                 loadingDialog.show()
             } else {
                 progressBar.visibility = View.VISIBLE
@@ -92,11 +90,9 @@ class MessagePresenter(
             progressBar.visibility = View.GONE
             if (isFirstLoading) {
                 loadingDialog.dismiss()
-                messagePermissionView
-                        .showToastMessage(context.getString(R.string.end_synchronization), Toast.LENGTH_SHORT)
+                CustomToast.showLastToast(context,context.getString(R.string.end_synchronization))
                 MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged()
                 SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
-
             }
         }
     }
