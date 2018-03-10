@@ -22,6 +22,7 @@ class ClipDBManager(val realm: Realm) {
             var record: DualVO = realm.createObject(DualVO::class.java)
             record.title = title
             record.type = type
+            Log.v("> ", record.title)
         }
     }
 
@@ -44,22 +45,23 @@ class ClipDBManager(val realm: Realm) {
 
     private fun webFilter(charText: String) : DualModel{
         val service = ApiUtils.getSearchableService()
-        charText.replace(" ", "-")
-        lateinit var record : DualModel
-        service.getItems(charText).enqueue(object : Callback<List<RecordResponse>> {
+        val query = charText.replace(" ", "-")
+        Log.v("query> ",query)
+        var record : DualModel = RecordResponse()
+        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
-                record = response.body()!!.get(0)
+                record = response.body()!![0]
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
-                record = RecordResponse()
                 Log.v("onFailure:", "onFailure")
             }
         })
+
         return record
     }
 
