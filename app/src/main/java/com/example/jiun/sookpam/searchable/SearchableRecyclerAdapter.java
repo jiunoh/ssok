@@ -50,8 +50,9 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     public boolean filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
-        webFilter(charText);
+        dualList.clear();
         realmFilter(charText);
+        webFilter(charText);
         return dualList.size() == 0;
     }
 
@@ -73,7 +74,6 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
                     return;
                 }
                 final List<RecordResponse> records = response.body();
-                dualList.clear();
                 dualList.addAll(records);
                 notifyDataSetChanged();
             }
