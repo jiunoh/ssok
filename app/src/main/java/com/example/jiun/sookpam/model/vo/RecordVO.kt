@@ -23,7 +23,7 @@ open class RecordVO : RealmModel, DualModel {
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
         var realmHolder = viewHolder as DualHolder
         if (realmHolder.categoryTextView != null) {
-            realmHolder.categoryTextView.text = "문자" + "-" + category + "-" + division
+            realmHolder.categoryTextView.text = "문자-$category-$division"
             val body = message!!.body
             val title = body.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
             realmHolder.titleTextVIew.setText(title)

@@ -3,7 +3,6 @@ package com.example.jiun.sookpam.clip
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
-import com.example.jiun.sookpam.server.WebFilter
 import io.realm.Realm
 
 class ClipDBManager(val realm: Realm) {
@@ -31,7 +30,8 @@ class ClipDBManager(val realm: Realm) {
         if (record.type == DualModel.RECORD_VO) {
             return realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
         } else if(record.type == DualModel.RECORD_RESPONSE){
-            return WebFilter.webFilter(record.title)[0]
+           // return WebFilter.webFilter(record.title)[0]
+            return null
         }
         else
             return null

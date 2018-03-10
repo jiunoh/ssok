@@ -18,7 +18,7 @@ data class RecordResponse(
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
         val webHolder = viewHolder as ViewHolderFactory.DualHolder
-        webHolder.categoryTextView.text = "웹"+"-"+category+"-"+division
+        webHolder.categoryTextView.text = "웹-$category-$division"
         webHolder.titleTextVIew.text = title
     }
 

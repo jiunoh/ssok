@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam.searchable
 
-
 import android.os.Bundle
 import com.example.jiun.sookpam.R
 import android.content.Intent
@@ -19,12 +18,12 @@ import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
 import com.example.jiun.sookpam.model.DualModel
-import com.example.jiun.sookpam.web.WebContentActivity
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -36,6 +35,7 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
     private lateinit var progressBar: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +53,9 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                search_recycler_view.visibility = View.VISIBLE
-                search_recycler_view.bringToFront()
                 val empty = adapter.filter(query)
-                if (empty)
-                    showNoData();
+                if(empty)
+                    showNoData()
                 editsearch.clearFocus()
                 return true
             }
@@ -66,7 +64,7 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
-        var icon =  editsearch.findViewById(search_mag_icon) as ImageView
+        val icon =  editsearch.findViewById(search_mag_icon) as ImageView
         icon.layoutParams = LinearLayout.LayoutParams(0,0)
         icon.visibility = View.GONE
         setCloseEventListener()
@@ -83,6 +81,7 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
+
     private fun setToolbar() {
         toolbar = search_toolbar
         setSupportActionBar(toolbar)
@@ -92,6 +91,16 @@ class SearchableActivity : AppCompatActivity() {
             finish()
         })
     }
+
+    private fun setRestOfTheView() {
+        errorLinearLayout = web_common_error_linear
+        errorLinearLayout.visibility = View.INVISIBLE
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
+        progressBar.visibility = View.INVISIBLE
+    }
+
 
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
@@ -106,18 +115,10 @@ class SearchableActivity : AppCompatActivity() {
                 }))
     }
 
-    private fun setRestOfTheView() {
-        errorLinearLayout = web_common_error_linear
-        errorLinearLayout.visibility = View.INVISIBLE
-        errorImageView = web_common_error_img
-        errorTextView = web_common_error_txt
-        progressBar = web_common_progressbar
-        progressBar.visibility = View.INVISIBLE
-    }
 
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
-        var intent: Intent? = null
+        var intent: Intent
         if (data is RecordVO) {
             var contentItem: ContentItem = ContentItem()
             contentItem.category = data.category
@@ -131,7 +132,7 @@ class SearchableActivity : AppCompatActivity() {
             intent = Intent(applicationContext, WebContentActivity::class.java)
             bundle.putSerializable("record", data as RecordResponse)
         }
-        intent!!.putExtras(bundle)
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 
