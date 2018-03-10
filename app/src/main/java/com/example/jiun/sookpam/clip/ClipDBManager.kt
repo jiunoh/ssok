@@ -37,24 +37,26 @@ class ClipDBManager(val realm: Realm) {
         if (record.type == DualModel.RECORD_VO) {
             return realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
         } else if(record.type == DualModel.RECORD_RESPONSE){
-            return webFilter(record.title)
+            return webFilter(record.title)[0]
         }
         else
             return null
     }
 
-    private fun webFilter(charText: String) : DualModel{
+    private fun webFilter(charText: String) : ArrayList<RecordResponse>{
         val service = ApiUtils.getSearchableService()
         val query = charText.replace(" ", "-")
         Log.v("query> ",query)
-        var record : DualModel = RecordResponse()
+        var tempList :  ArrayList<RecordResponse> = ArrayList()
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
-            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>){
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
-                record = response.body()!![0]
+                Log.v("response.body>", response.body().toString())
+                val size = response.body()!!.size
+                tempList.addAll(response.body()!!.subList(0, size))
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -62,7 +64,7 @@ class ClipDBManager(val realm: Realm) {
             }
         })
 
-        return record
+        return tempList
     }
 
     fun select(): ArrayList<DualModel> {
