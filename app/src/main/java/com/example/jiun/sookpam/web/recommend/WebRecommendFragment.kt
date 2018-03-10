@@ -23,6 +23,7 @@ class WebRecommendFragment : Fragment() {
     private lateinit var refreshImageButton: ImageButton
     private lateinit var progressBar: ProgressBar
     private var records: List<RecordResponse>? = null
+    private var isRefreshAlreadyStarted = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_web_recommend, container, false)
@@ -64,22 +65,26 @@ class WebRecommendFragment : Fragment() {
         refreshImageButton.setOnClickListener {
             val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
             refreshImageButton.startAnimation(rotateAnimation)
-            loadData(userInformation.studentGrade,
-                    userInformation.studentYear,
-                    userInformation.major1,
-                    userInformation.major2,
-                    userInformation.schoolScholar,
-                    userInformation.governmentScholar,
-                    userInformation.externalScholar,
-                    userInformation.studentStatus,
-                    userInformation.interestScholarship,
-                    userInformation.interestAcademic,
-                    userInformation.interestEvent,
-                    userInformation.interestRecruit,
-                    userInformation.interestSystem,
-                    userInformation.interestGlobal,
-                    userInformation.interestCareer,
-                    userInformation.interestStudent)
+            if (!isRefreshAlreadyStarted) {
+                loadData(userInformation.studentGrade,
+                        userInformation.studentYear,
+                        userInformation.major1,
+                        userInformation.major2,
+                        userInformation.schoolScholar,
+                        userInformation.governmentScholar,
+                        userInformation.externalScholar,
+                        userInformation.studentStatus,
+                        userInformation.interestScholarship,
+                        userInformation.interestAcademic,
+                        userInformation.interestEvent,
+                        userInformation.interestRecruit,
+                        userInformation.interestSystem,
+                        userInformation.interestGlobal,
+                        userInformation.interestCareer,
+                        userInformation.interestStudent)
+            } else {
+                CustomToast.showLastToast(context!!, getString(R.string.refresh_already_started))
+            }
         }
     }
 
@@ -88,12 +93,14 @@ class WebRecommendFragment : Fragment() {
                          studentStatus: Boolean, interestScholarship: Int, interestAcademic: Int,
                          interestEvent: Int, interestRecruit: Int, interestSystem: Int,
                          interestGlobal: Int, interestCareer: Int, interestStudent: Int) {
+        isRefreshAlreadyStarted = true
         service.getRecommendRecords(studentGrade.split(" ")[0], studentYear, major1, major2, schoolScholar,
                 governmentScholar, externalScholar, studentStatus, interestScholarship, interestAcademic,
                 interestEvent, interestRecruit, interestSystem, interestGlobal, interestCareer,
                 interestStudent).enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
+                isRefreshAlreadyStarted = false
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
@@ -106,6 +113,7 @@ class WebRecommendFragment : Fragment() {
                 progressBar.visibility = View.INVISIBLE
                 webRecommendRecyclerView.visibility = View.VISIBLE
                 connectErrorLinearLayout.visibility = View.INVISIBLE
+                isRefreshAlreadyStarted = false
             }
         })
     }
@@ -115,6 +123,8 @@ class WebRecommendFragment : Fragment() {
         connectErrorLinearLayout.visibility = View.INVISIBLE
         webRecommendRecyclerView.visibility = View.INVISIBLE
         connectErrorLinearLayout.visibility = View.VISIBLE
-        connectErrorTextView.text = getString(R.string.internet_connect_error)
+        if (isAdded) {
+            connectErrorTextView.text = getString(R.string.internet_connect_error)
+        }
     }
 }
