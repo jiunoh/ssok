@@ -16,8 +16,6 @@ import kotlinx.android.synthetic.main.activity_web_content.*
 
 class WebContentActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
-    lateinit var categoryTextView: TextView
-    lateinit var divisionTextView: TextView
     lateinit var idTextView: TextView
     lateinit var dateTextView: TextView
     lateinit var urlTextView: TextView
@@ -25,7 +23,6 @@ class WebContentActivity : AppCompatActivity() {
     lateinit var contentTextView: TextView
     private lateinit var dbmanager: ClipDBManager
     private lateinit var title: String
-    private lateinit var body: String
     private lateinit var category: String
     private lateinit  var division: String
 

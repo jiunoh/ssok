@@ -23,23 +23,27 @@ class ContentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
+        setContentData()
+        setToolbar("메세지 > $category > $division")
+    }
+
+    private fun setContentData() {
         val intent = intent
         val record: ContentItem = intent.getSerializableExtra("OBJECT") as ContentItem
         division = record.division
         category = record.category
-        setToolbar(category + " > " + division)
         body = record.body
         title = body.split("\n")[1]
         title_view.text = title
         content_view.text = body
-        val info = record.phone
-        info_view.text = division + "\t" + info
+        info_view.text = "$division / ${record.phone}"
     }
 
-    private fun setToolbar(category: String) {
+    private fun setToolbar(path: String) {
         toolbar = content_toolbar
         setSupportActionBar(toolbar)
-        toolbar.title = category
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        toolbar.title = path
         toolbar.setTitleTextColor(resources.getColor(R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener({

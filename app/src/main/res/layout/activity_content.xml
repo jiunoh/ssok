@@ -53,35 +53,5 @@
 
         </RelativeLayout>
     </ScrollView>
-    <TextView
-        android:id="@+id/related_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/content_view"
-        android:background="@drawable/title"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="@string/related"
-        android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="parent" />
 
-    <TextView
-        android:id="@+id/recommend1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/related_view"
-        android:background="@drawable/list_item"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="[장학]1차 국가장학금 신청" />
-
-    <TextView
-        android:id="@+id/recommend2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/list_item"
-        android:gravity="center_vertical"
-        android:padding="8dp"
-        android:text="[장학]아산장학재단 장학금 신청 안내 (10/12~10)" />
 </LinearLayout>
