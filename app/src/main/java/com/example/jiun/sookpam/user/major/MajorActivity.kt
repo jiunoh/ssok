@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.activity_major.*
@@ -43,9 +44,13 @@ class MajorActivity : AppCompatActivity() {
 
         confirmButton = major_select_confirm_btn
         confirmButton.setOnClickListener {
-            setResult(Activity.RESULT_OK, intent)
-            Toast.makeText(applicationContext, getString(R.string.save_toast), Toast.LENGTH_SHORT).show()
-            finish()
+            if (UserSettingLibrary.getSelectedMajors(applicationContext).size < 1) {
+                Toast.makeText(applicationContext, getString(R.string.department_major_min_count), Toast.LENGTH_SHORT).show()
+            } else {
+                setResult(Activity.RESULT_OK, intent)
+                Toast.makeText(applicationContext, getString(R.string.save_toast), Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
 
         selectedMajors = intent.extras.getStringArrayList("selectedMajors")
@@ -82,11 +87,10 @@ class MajorActivity : AppCompatActivity() {
         for (college in MajorList.collegeAndMajors) {
             for (major in college) {
                 val status = SharedPreferenceUtil.get(applicationContext, major, false)
-                if (status && major !in selectedMajors || !status && major in selectedMajors){
-                    if(status) {
+                if (status && major !in selectedMajors || !status && major in selectedMajors) {
+                    if (status) {
                         SharedPreferenceUtil.set(applicationContext, major, false)
-                    }
-                    else {
+                    } else {
                         SharedPreferenceUtil.set(applicationContext, major, true)
                     }
                 }
