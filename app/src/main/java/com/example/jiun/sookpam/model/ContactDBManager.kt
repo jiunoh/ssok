@@ -28,13 +28,16 @@ class ContactDBManager : Application() {
                 } catch (exception: IOException) {
                     exception.printStackTrace()
                 } finally {
-                    closeBufferedReader()
+                    if (doesNotExist(bgRealm))
+                        closeBufferedReader()
                 }
             }, { printLogInSuccess() }) { error ->
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
         } catch (exception: RuntimeException) {
+            //Realm already exist
+        } catch (exception: UninitializedPropertyAccessException) {
             //Realm already exist
         }
     }
@@ -121,7 +124,7 @@ class ContactDBManager : Application() {
         return responseList
     }
 
-    fun getInfo(division: String) : String {
+    fun getInfo(division: String): String {
         val result = realm.where(ContactVO::class.java).distinctValues("class2").findFirst()
         return result!!.phone
     }
