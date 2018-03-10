@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.*
@@ -31,7 +32,7 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        layoutManager = CustomLinearLayoutManager(context)
+        layoutManager = CustomLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val view = LayoutInflater.from(context).inflate(R.layout.college_recycler_item, parent, false)
         return ViewHolder(view)
     }
