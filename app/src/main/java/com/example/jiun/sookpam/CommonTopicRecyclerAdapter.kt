@@ -1,11 +1,14 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
 import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : RecyclerView.Adapter<CommonTopicRecyclerAdapter.ViewHolder>() {
@@ -26,11 +29,12 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
         holder!!.topicTitleTextView.text = topic.topicTitle
         holder.topicDetailTextView.text = topic.topicDetail
         holder.topicStatusTextView.text = topic.topicStatus
-        holder.topicBackImageView.setImageResource(topic.topicImage)
-        if(topic.topicStatus!="INTEREST"){
+        Glide.with(context)
+                .load(topic.topicImage)
+                .into(holder.topicBackImageView)
+        if (topic.topicStatus != "INTEREST") {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryAccent))
-        }
-        else {
+        } else {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
         }
     }
