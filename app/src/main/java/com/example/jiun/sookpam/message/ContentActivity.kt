@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_content.*
 class ContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var dbmanager: ClipDBManager
-    lateinit var title: String
-    lateinit var body: String
+    private lateinit var title: String
+    private lateinit var body: String
     private var category: String? = ""
     private var division: String? = ""
 
