@@ -2,16 +2,24 @@ package com.example.jiun.sookpam;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.view.animation.Animation;
-import android.widget.*;
-import com.example.jiun.sookpam.message.*;
-import com.gun0912.tedpermission.*;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.example.jiun.sookpam.message.ContentActivity;
+import com.example.jiun.sookpam.message.MessageContract;
+import com.example.jiun.sookpam.message.MessagePresenter;
+import com.example.jiun.sookpam.user.setting.SettingCategory;
+import com.example.jiun.sookpam.util.SharedPreferenceUtil;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
@@ -103,5 +111,12 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     @Override
     public void setPresenter(MessageContract.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    public static MessageCommonFragment newInstance() {
+        MessageCommonFragment fragment = new MessageCommonFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,7 @@ import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
-import com.example.jiun.sookpam.user.major.MajorList;
+import com.example.jiun.sookpam.user.setting.SettingCategory;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
@@ -22,35 +23,34 @@ import java.util.ArrayList;
 import io.realm.Realm;
 
 
-public class MessageDepartFragment extends Fragment {
+public class MessageCommonListFragment extends Fragment {
     private RecordDBManager categoryManager;
+    private static final String DIVISION = "DVISION";
+    private String division;
 
-    public MessageDepartFragment() {
+    public MessageCommonListFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message_depart, container, false);
+        View view = inflater.inflate(R.layout.fragment_message_common_list, container, false);
+
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
-        ListView listView = view.findViewById(R.id.message_depart_listview);
+        ListView listView = view.findViewById(R.id.message_common_listview);
         listView.setAdapter(adapter);
 
         final ArrayList<RecordVO> datalist = new ArrayList<RecordVO>();
+        ContactDBManager contactDBManager = (ContactDBManager)getActivity().getApplicationContext();
+        ArrayList<String> departmentList = contactDBManager.getDepartmentList();
+        String category = "";
 
-        ArrayList<ArrayList<String>> collegeAndMajors = MajorList.Companion.getCollegeAndMajors();
-        for (ArrayList<String> college: collegeAndMajors) {
-            for (String major: college) {
-                boolean isSelected = SharedPreferenceUtil.get(getContext(), major, false);
-                if (isSelected) {
-                    datalist.addAll(getDataByDivision(major));
-                    adapter.addItem(datalist);
-                }
+        for (int i=0; i<departmentList.size(); i++) {
+            division = departmentList.get(i);
+            category = contactDBManager.getCategory(division, Realm.getDefaultInstance());
+            if (SharedPreferenceUtil.get(getContext(), category, SettingCategory.NORMAL_CATEGORY) == SettingCategory.INTEREST_CATEGORY && category != "공통") {
+                datalist.addAll(getDataByDivision(division));
+                adapter.addItem(datalist);
             }
         }
 
@@ -87,13 +87,6 @@ public class MessageDepartFragment extends Fragment {
         return response;
     }
 
-    public static MessageDepartFragment newInstance() {
-        MessageDepartFragment fragment = new MessageDepartFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     private void showMessageBody(RecordVO data) {
         Intent intent = new Intent(getContext(), ContentActivity.class);
         ContentItem contentItem  = new ContentItem();
@@ -106,4 +99,21 @@ public class MessageDepartFragment extends Fragment {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    public static MessageCommonListFragment newInstance(String division) {
+        MessageCommonListFragment fragment = new MessageCommonListFragment();
+        Bundle args = new Bundle();
+        args.putString(DIVISION, division);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            division = getArguments().getString(DIVISION);
+        }
+    }
+
 }

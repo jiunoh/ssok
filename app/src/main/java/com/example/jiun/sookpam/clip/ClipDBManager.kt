@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.clip
 
 import android.util.Log
+import android.widget.Toast
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
@@ -37,7 +38,12 @@ class ClipDBManager(val realm: Realm) {
         if (record.type == DualModel.RECORD_VO) {
             return realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
         } else if(record.type == DualModel.RECORD_RESPONSE){
-            return webFilter(record.title)[0]
+            try {
+                return webFilter(record.title)[0]
+            } catch (exception : IndexOutOfBoundsException ){
+                Log.v("getModelBy","데이터가 없습니다.");
+                return null
+            }
         }
         else
             return null

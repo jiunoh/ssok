@@ -85,6 +85,15 @@ class ContactDBManager : Application() {
         return categoryObj?.value ?: "공지"
     }
 
+    fun getDivisionList(category: String?, realm:Realm): ArrayList<String> {
+        var divisionObjList = realm.where(CategoryVO::class.java).equalTo("value", category).findAll()
+        var responseList: ArrayList<String> = ArrayList<String>()
+        for (record in divisionObjList)
+            responseList.add(record.key)
+
+        return responseList
+    }
+
     fun getCategoryList(): ArrayList<String> {
         var categoryVOList = realm.where(CategoryVO::class.java).distinctValues("value").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()

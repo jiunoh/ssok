@@ -46,6 +46,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
         <receiver
             android:name=".searchable.ConnReceiver"
             android:enabled="true"
@@ -54,6 +55,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".MessageCommonListActivity"></activity>
     </application>
 
 </manifest>
