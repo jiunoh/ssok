@@ -21,12 +21,12 @@ class WebRecommendRecyclerAdapter(private val records: List<RecordResponse>?) : 
     }
 
     override fun getItemCount(): Int {
-        return records!!.size
+        return records?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val record = records!![position]
-        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title)
+        holder!!.titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
         holder.categoryTextView.text = record.category
         holder.divisionTextView.text = record.division
         holder.dateTextView.text = record.date

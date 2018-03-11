@@ -2,12 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     tools:context="com.example.jiun.sookpam.WebCommonTopicFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/web_common_topic_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

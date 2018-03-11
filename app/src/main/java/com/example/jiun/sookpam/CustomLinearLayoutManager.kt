@@ -1,18 +1,16 @@
 package com.example.jiun.sookpam
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 
-class CustomLinearLayoutManager : LinearLayoutManager {
+class CustomLinearLayoutManager(context: Context) : LinearLayoutManager(context) {
     private val mMeasuredDimension = IntArray(2)
 
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(context, orientation, reverseLayout)
-
+    @SuppressLint("SwitchIntDef")
     override fun onMeasure(recycler: RecyclerView.Recycler?, state: RecyclerView.State?, widthSpec: Int, heightSpec: Int) {
 
         val widthMode = View.MeasureSpec.getMode(widthSpec)
@@ -54,7 +52,7 @@ class CustomLinearLayoutManager : LinearLayoutManager {
     private fun measureScrapChild(recycler: RecyclerView.Recycler?, position: Int, widthSpec: Int,
                                   heightSpec: Int, measuredDimension: IntArray) {
         try {
-            val view = recycler!!.getViewForPosition(0)//fix 动态添加时报IndexOutOfBoundsException
+            val view = recycler!!.getViewForPosition(0)
 
             if (view != null) {
                 val p = view.layoutParams as RecyclerView.LayoutParams

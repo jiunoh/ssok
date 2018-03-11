@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.util.*
 
 class ContentItem : Serializable{
-    var body: String? = null
+    lateinit var  body: String
 
     var phone: String? = null
 

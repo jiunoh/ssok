@@ -6,7 +6,7 @@ import android.view.*
 import com.example.jiun.sookpam.R
 import kotlinx.android.synthetic.main.selected_major_recycler_item.view.*
 
-class SelectedMajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<SelectedMajorRecyclerAdapter.ViewHolder>() {
+class SelectedMajorRecyclerAdapter(val data: List<String>?) : RecyclerView.Adapter<SelectedMajorRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -16,11 +16,11 @@ class SelectedMajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapte
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data?.size?:0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val item = data[position]
+        val item = data!![position]
         holder!!.selectedMajorTextView.text = item
     }
 

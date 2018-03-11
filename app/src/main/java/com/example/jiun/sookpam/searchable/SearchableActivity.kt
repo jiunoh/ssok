@@ -2,22 +2,17 @@ package com.example.jiun.sookpam.searchable
 
 import android.os.Bundle
 import com.example.jiun.sookpam.R
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
-import android.support.v7.appcompat.R.id.search_src_text
+import android.support.v7.appcompat.R.id.search_mag_icon
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
 import android.support.v7.widget.SearchView
 import android.util.Log
-import android.widget.EditText
-import android.widget.ImageView
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
@@ -26,34 +21,42 @@ import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
+import android.support.v7.widget.DividerItemDecoration
+import android.widget.*
+import com.example.jiun.sookpam.model.DualModel
+
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-    private lateinit var responseList: ArrayList<SearchItem>
+    private lateinit var responseList: ArrayList<DualModel>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
+    private lateinit var errorLinearLayout: LinearLayout
+    private lateinit var errorImageView: ImageView
+    private lateinit var errorTextView: TextView
+    private lateinit var progressBar: ProgressBar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        responseList = ArrayList<SearchItem>()
+        responseList = ArrayList<DualModel>()
         setToolbar()
         setRecyclerView()
-
-        if (isNetWork()) {
-        } else {
-            //error
-        }
+        setRestOfTheView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
+        editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                adapter.filter(query)
+                search_recycler_view.visibility = View.VISIBLE
+                val empty = adapter.filter(query)
+                if(empty)
+                    showNoData()
                 editsearch.clearFocus()
                 return true
             }
@@ -62,6 +65,9 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
+        val icon =  editsearch.findViewById(search_mag_icon) as ImageView
+        icon.layoutParams = LinearLayout.LayoutParams(0,0)
+        icon.visibility = View.GONE
         setCloseEventListener()
         return super.onCreateOptionsMenu(menu)
     }
@@ -69,11 +75,10 @@ class SearchableActivity : AppCompatActivity() {
     private fun setCloseEventListener() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
-            Log.v("CLosed", "CLosed")
+            cleanRecyclerView()
+            editsearch.setQuery("",false)
             adapter.clear()
         })
-        var editText = editsearch.findViewById(search_src_text) as EditText
-        //editText.text = SpannableStringBuilder("")
     }
 
 
@@ -87,16 +92,26 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun isNetWork(): Boolean {
-        var connectManager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var activeNetwork: NetworkInfo? = connectManager.activeNetworkInfo
-        var isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting;
-        return isConnected
+    private fun setRestOfTheView() {
+        errorLinearLayout = web_common_error_linear
+        errorLinearLayout.visibility = View.INVISIBLE
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
+        progressBar.visibility = View.INVISIBLE
     }
 
+    private fun cleanRecyclerView() {
+        search_recycler_view.visibility = View.VISIBLE
+        errorLinearLayout.visibility = View.INVISIBLE
+    }
+    
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(responseList)
+        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.bringToFront()
         search_recycler_view.adapter = adapter
+        search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = responseList.get(position)
@@ -105,9 +120,9 @@ class SearchableActivity : AppCompatActivity() {
     }
 
 
-    private fun showMessageBody(data: SearchItem) {
+    private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
-        var intent: Intent? = null
+        var intent: Intent
         if (data is RecordVO) {
             var contentItem: ContentItem = ContentItem()
             contentItem.category = data.category
@@ -121,8 +136,14 @@ class SearchableActivity : AppCompatActivity() {
             intent = Intent(applicationContext, WebContentActivity::class.java)
             bundle.putSerializable("record", data as RecordResponse)
         }
-        intent!!.putExtras(bundle)
+        intent.putExtras(bundle)
         startActivity(intent)
     }
 
+    fun showNoData() {
+        Toast.makeText(applicationContext, getString(R.string.no_data_in_server), Toast.LENGTH_SHORT).show()
+        search_recycler_view.visibility = View.INVISIBLE
+        errorLinearLayout.visibility = View.VISIBLE
+        errorTextView.text = getString(R.string.no_data_in_server)
+    }
 }

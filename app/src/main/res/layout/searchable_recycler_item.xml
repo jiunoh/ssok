@@ -3,28 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingTop="8dp"
     android:paddingLeft="16dp"
-    android:paddingBottom="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp">
     <TextView
         android:id="@+id/title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textAlignment="textStart"
         android:maxLines="1"
-        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
         android:text="@string/title_example"
         android:ellipsize="end"
-        android:textSize="16sp" />
+        android:textSize="12sp"/>
     <TextView
         android:id="@+id/category_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textStyle="italic"
         android:textAlignment="textStart"
         android:text="@string/category_example"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
 </LinearLayout>

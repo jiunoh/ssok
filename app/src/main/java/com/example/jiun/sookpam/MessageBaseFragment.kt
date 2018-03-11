@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_message_base.view.*
 class MessageBaseFragment : Fragment() {
     private var currentPage = MessageBaseViewPagerAdapter.COMMON_FRAGMENT
     private lateinit var messageViewPager: SimpleViewPager
-    private lateinit var messageViewPagerAdapter: MessageBaseViewPagerAdapter
     private lateinit var messageTabLayout: TabLayout
     private lateinit var searchImageButton: ImageButton
     private var currentFragment: Fragment? = null
@@ -58,5 +57,6 @@ class MessageBaseFragment : Fragment() {
 
     companion object {
         private const val MAX_PAGE_SIZE = 2
+        lateinit var messageViewPagerAdapter: MessageBaseViewPagerAdapter
     }
 }

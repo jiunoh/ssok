@@ -33,7 +33,7 @@
         <activity android:name=".setting.InfoActivity" />
         <activity android:name=".data.DataActivity" />
         <activity android:name=".web.WebContentActivity" />
-        <activity android:name=".web.common.WebCommonRecyclerActivity" />
+        <activity android:name=".web.common.WebRecyclerActivity" />
         <activity android:name=".user.major.MajorActivity" />
         <activity android:name=".user.info.UserInfoActivity" />
         <activity android:name=".message.ContentActivity" />

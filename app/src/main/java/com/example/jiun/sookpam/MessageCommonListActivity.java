@@ -2,7 +2,10 @@ package com.example.jiun.sookpam;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,6 +23,7 @@ import io.realm.Realm;
 
 public class MessageCommonListActivity extends AppCompatActivity {
     private RecordDBManager categoryManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class MessageCommonListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
+        setToolbar(category);
 
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
         ListView listView = findViewById(R.id.message_common_listview);
@@ -37,7 +42,7 @@ public class MessageCommonListActivity extends AppCompatActivity {
         ContactDBManager contactDBManager = (ContactDBManager) this.getApplicationContext();
         ArrayList<String> divisionList = contactDBManager.getDivisionList(category, Realm.getDefaultInstance());
 
-        for (String division: divisionList)
+        for (String division : divisionList)
             datalist.addAll(getDataByDivision(division));
 
         adapter.addItem(datalist);
@@ -50,6 +55,21 @@ public class MessageCommonListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setToolbar(String category) {
+        toolbar = (Toolbar) findViewById(R.id.list_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        toolbar.setTitle("문자 > " + category);
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private ArrayList<RecordVO> getDataByDivision(String division) {
@@ -76,7 +96,7 @@ public class MessageCommonListActivity extends AppCompatActivity {
 
     private void showMessageBody(RecordVO data) {
         Intent intent = new Intent(this, ContentActivity.class);
-        ContentItem contentItem  = new ContentItem();
+        ContentItem contentItem = new ContentItem();
         contentItem.setCategory(data.getCategory());
         contentItem.setDivision(data.getDivision());
         contentItem.setBody(data.getMessage().getBody());

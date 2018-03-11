@@ -3,6 +3,8 @@ package com.example.jiun.sookpam.searchable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ViewGroup;
+
+import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.server.ApiUtils;
 import com.example.jiun.sookpam.server.RecordResponse;
@@ -18,46 +20,46 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
-    private ArrayList<SearchItem> searchableItems;
-    private ArrayList<? extends SearchItem> responseList;
-    private RecordService service;
+    private ArrayList<DualModel> dualList;
+    private ArrayList<? extends DualModel> responseList;
 
-    SearchableRecyclerAdapter(ArrayList<SearchItem> items) {
-        searchableItems = items;
+    SearchableRecyclerAdapter(ArrayList<DualModel> items) {
+        dualList = items;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ViewHolderFactory.create(parent, viewType);
+        return ViewHolderFactory.create(parent, ViewHolderFactory.SEARCH_HOLDER);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return searchableItems.get(position).getItemViewType();
+        return dualList.get(position).getItemViewType();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        searchableItems.get(position).onBindViewHolder(holder);
+        dualList.get(position).onBindViewHolder(holder);
     }
 
 
     @Override
     public int getItemCount() {
-        return searchableItems.size();
+        return dualList.size();
     }
 
-    public void filter(String charText) {
+    public boolean filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
+        dualList.clear();
         realmFilter(charText);
         webFilter(charText);
+        return dualList.size() == 0;
     }
 
     private void realmFilter(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
         responseList =recordManager.contains(charText);
-        searchableItems.clear();
-        searchableItems.addAll(responseList);
+        dualList.addAll(responseList);
         notifyDataSetChanged();
     }
 
@@ -68,10 +70,11 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
             @Override
             public void onResponse(Call<List<RecordResponse>> call, Response<List<RecordResponse>> response) {
                 if (!response.isSuccessful()) {
+                    Log.v("response", " disconnected");
                     return;
                 }
                 final List<RecordResponse> records = response.body();
-                searchableItems.addAll(records);
+                dualList.addAll(records);
                 notifyDataSetChanged();
             }
 
@@ -84,8 +87,8 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     public void clear() {
-        searchableItems.removeAll(responseList);
-        searchableItems.clear();
+        dualList.removeAll(responseList);
+        dualList.clear();
         notifyDataSetChanged();
     }
 
