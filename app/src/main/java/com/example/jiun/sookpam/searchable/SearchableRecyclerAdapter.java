@@ -65,7 +65,8 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     private void webFilter(String charText) {
         SearchableService service  = ApiUtils.Companion.getSearchableService();
-        charText.replace(" ","-");
+        charText = charText.replaceAll("\\s+" ,"-");
+        Log.v("searchable: ",charText);
         service.getItems(charText).enqueue(new Callback<List<RecordResponse>>() {
             @Override
             public void onResponse(Call<List<RecordResponse>> call, Response<List<RecordResponse>> response) {

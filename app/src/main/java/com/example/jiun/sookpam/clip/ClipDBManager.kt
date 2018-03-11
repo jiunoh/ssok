@@ -23,7 +23,6 @@ class ClipDBManager(val realm: Realm) {
             var record: DualVO = realm.createObject(DualVO::class.java)
             record.title = title
             record.type = type
-            Log.v("> ", record.title)
         }
     }
 
@@ -51,8 +50,7 @@ class ClipDBManager(val realm: Realm) {
 
     private fun webFilter(charText: String) : ArrayList<RecordResponse>{
         val service = ApiUtils.getSearchableService()
-        val query = charText.replace(" ", "-")
-        Log.v("query> ",query)
+        val query = charText.replace("\\s+".toRegex(), "-")
         var tempList :  ArrayList<RecordResponse> = ArrayList()
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>){
