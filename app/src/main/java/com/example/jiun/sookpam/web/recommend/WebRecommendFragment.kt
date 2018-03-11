@@ -17,6 +17,7 @@ import retrofit2.*
 
 class WebRecommendFragment : Fragment() {
     private lateinit var service: RecordService
+    private lateinit var call: Call<List<RecordResponse>>
     private lateinit var webRecommendRecyclerView: RecyclerView
     private lateinit var connectErrorLinearLayout: LinearLayout
     private lateinit var connectErrorTextView: TextView
@@ -44,8 +45,22 @@ class WebRecommendFragment : Fragment() {
             startActivity(intent)
         }))
         service = ApiUtils.getRecordService()
+        loadData()
+        refreshImageButton = activity!!.web_base_refresh_img_btn
+        refreshImageButton.setOnClickListener {
+            val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
+            refreshImageButton.startAnimation(rotateAnimation)
+            if (!isRefreshAlreadyStarted) {
+                loadData()
+            } else {
+                CustomToast.showLastToast(context!!, getString(R.string.refresh_already_started))
+            }
+        }
+    }
+
+    private fun loadData() {
         val userInformation = UserInformation(context!!)
-        loadData(userInformation.studentGrade,
+        call = service.getRecommendRecords(userInformation.studentGrade.split(" ")[0],
                 userInformation.studentYear,
                 userInformation.major1,
                 userInformation.major2,
@@ -61,50 +76,15 @@ class WebRecommendFragment : Fragment() {
                 userInformation.interestGlobal,
                 userInformation.interestCareer,
                 userInformation.interestStudent)
-        refreshImageButton = activity!!.web_base_refresh_img_btn
-        refreshImageButton.setOnClickListener {
-            val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
-            refreshImageButton.startAnimation(rotateAnimation)
-            if (!isRefreshAlreadyStarted) {
-                loadData(userInformation.studentGrade,
-                        userInformation.studentYear,
-                        userInformation.major1,
-                        userInformation.major2,
-                        userInformation.schoolScholar,
-                        userInformation.governmentScholar,
-                        userInformation.externalScholar,
-                        userInformation.studentStatus,
-                        userInformation.interestScholarship,
-                        userInformation.interestAcademic,
-                        userInformation.interestEvent,
-                        userInformation.interestRecruit,
-                        userInformation.interestSystem,
-                        userInformation.interestGlobal,
-                        userInformation.interestCareer,
-                        userInformation.interestStudent)
-            } else {
-                CustomToast.showLastToast(context!!, getString(R.string.refresh_already_started))
-            }
-        }
-    }
-
-    private fun loadData(studentGrade: String, studentYear: String, major1: String, major2: String,
-                         schoolScholar: Boolean, governmentScholar: Boolean, externalScholar: Boolean,
-                         studentStatus: Boolean, interestScholarship: Int, interestAcademic: Int,
-                         interestEvent: Int, interestRecruit: Int, interestSystem: Int,
-                         interestGlobal: Int, interestCareer: Int, interestStudent: Int) {
+        progressBar.visibility = View.VISIBLE
         isRefreshAlreadyStarted = true
-        service.getRecommendRecords(studentGrade.split(" ")[0], studentYear, major1, major2, schoolScholar,
-                governmentScholar, externalScholar, studentStatus, interestScholarship, interestAcademic,
-                interestEvent, interestRecruit, interestSystem, interestGlobal, interestCareer,
-                interestStudent).enqueue(object : Callback<List<RecordResponse>> {
+        call.enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
                 isRefreshAlreadyStarted = false
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
-                progressBar.visibility = View.VISIBLE
                 records = response!!.body()
                 webRecommendRecyclerView.adapter = WebRecommendRecyclerAdapter(records)
                 if (records!!.isNotEmpty()) {
@@ -119,12 +99,13 @@ class WebRecommendFragment : Fragment() {
     }
 
     private fun showInternetConnectionError() {
-        progressBar.visibility = View.INVISIBLE
-        connectErrorLinearLayout.visibility = View.INVISIBLE
-        webRecommendRecyclerView.visibility = View.INVISIBLE
-        connectErrorLinearLayout.visibility = View.VISIBLE
         if (isAdded) {
+            progressBar.visibility = View.INVISIBLE
+            connectErrorLinearLayout.visibility = View.INVISIBLE
+            webRecommendRecyclerView.visibility = View.INVISIBLE
+            connectErrorLinearLayout.visibility = View.VISIBLE
             connectErrorTextView.text = getString(R.string.internet_connect_error)
+            CustomToast.showLastToast(context!!, getString(R.string.internet_connect_error))
         }
     }
 }
