@@ -13,12 +13,13 @@ data class RecordResponse(
         var url: String = "",
         var date: String = "",
         var title: String = "",
-        var content: String = ""
+        var content: String = "",
+        var attach: String = ""
 ) : Serializable, DualModel {
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder) {
         val webHolder = viewHolder as ViewHolderFactory.SearchHolder
-        webHolder.categoryTextView.text = "웹"+"-"+category+"-"+division
+        webHolder.categoryTextView.text = "웹" + "-" + category + "-" + division
         webHolder.titleTextVIew.text = title
     }
 

@@ -20,5 +20,19 @@ class WebRecordReformation {
             }
             return resultTitle
         }
+
+        fun getAttachUrlShortcutHtml(attach: String): ArrayList<String>? {
+            if (attach.isEmpty()) return null
+            val htmlAttachShortcut: ArrayList<String> = ArrayList()
+            val attachList = attach.split(',')
+            for (i in 0..attachList.size step 2) {
+                if (i + 1 < attachList.size) {
+                    htmlAttachShortcut.add("<a href=\"${attachList[i + 1]}\">${attachList[i].replace(" 다운로드","")}</a><br/>")
+                } else {
+                    break
+                }
+            }
+            return htmlAttachShortcut
+        }
     }
 }

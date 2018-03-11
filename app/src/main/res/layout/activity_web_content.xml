@@ -104,15 +104,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"
                 android:paddingEnd="8dp"
                 android:paddingStart="8dp"
+                android:paddingTop="8dp"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="17sp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
@@ -120,9 +120,11 @@
                 android:paddingTop="8dp">
 
                 <TextView
+                    android:id="@+id/web_content_id"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
+                    android:gravity="center"
                     android:text="@string/web_content_id"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
@@ -130,35 +132,82 @@
                 <TextView
                     android:id="@+id/web_content_id_txt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@id/web_content_id"
+                    android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/web_content_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_toEndOf="@id/web_content_id_txt"
+                    android:gravity="center"
                     android:text="@string/web_content_date"
-                    android:textAlignment="viewEnd"
                     android:textColor="@android:color/black"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/web_content_date_txt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:textAlignment="viewEnd"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_toEndOf="@id/web_content_date"
+                    android:gravity="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp" />
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/web_content_attach_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/web_content_attach"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/web_content_attach_file"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/web_content_attach_files_count_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/web_content_attach_expandable_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/attach_expandable_image"
+                        android:src="@drawable/ic_expandable_arrow" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@color/colorGray" />
+
+            <TextView
+                android:id="@+id/web_content_attach_files_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <WebView
