@@ -20,6 +20,7 @@ data class RecordResponse(
         val webHolder = viewHolder as ViewHolderFactory.DualHolder
         webHolder.categoryTextView.text = "웹-$category-$division"
         webHolder.titleTextVIew.text = title
+        webHolder.dateTextView.text = date
     }
 
     override fun getItemViewType(): Int {

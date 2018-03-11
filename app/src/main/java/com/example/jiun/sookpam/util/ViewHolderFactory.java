@@ -16,11 +16,15 @@ public class ViewHolderFactory {
     public static class DualHolder extends RecyclerView.ViewHolder {
         public TextView categoryTextView;
         public TextView titleTextVIew;
+        public TextView dateTextView;
+        public ImageView starView;
 
         public DualHolder(View itemView) {
             super(itemView);
             categoryTextView = itemView.findViewById(R.id.category_view);
             titleTextVIew = itemView.findViewById(R.id.title_view);
+            dateTextView = itemView.findViewById(R.id.date_view);
+            starView = itemView.findViewById(R.id.clip_star);
         }
 
     }

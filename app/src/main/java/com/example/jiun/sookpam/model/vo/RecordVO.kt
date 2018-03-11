@@ -7,6 +7,8 @@ import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.util.ViewHolderFactory.DualHolder
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 @RealmClass
 open class RecordVO : RealmModel, DualModel {
@@ -26,7 +28,10 @@ open class RecordVO : RealmModel, DualModel {
             realmHolder.categoryTextView.text = "문자-$category-$division"
             val body = message!!.body
             val title = body.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
-            realmHolder.titleTextVIew.setText(title)
+            realmHolder.titleTextVIew.text = title
+            val pattern = "yyyy-MM-dd"
+            var simpleDateFormat = SimpleDateFormat(pattern)
+            realmHolder.dateTextView.text = simpleDateFormat.format(message!!.date)
         }
     }
 
