@@ -2,6 +2,7 @@ package com.example.jiun.sookpam.web
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -60,7 +61,7 @@ class WebContentActivity : AppCompatActivity() {
         toolbar = web_content_toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-        toolbar.setTitleTextColor(resources.getColor(R.color.colorPrimary))
+        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
         toolbar.title = "웹 > ${category} > ${division}"
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener({
