@@ -2,16 +2,22 @@ package com.example.jiun.sookpam.model.vo
 
 
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
+import android.widget.ImageView
+import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.util.ViewHolderFactory.DualHolder
+import io.realm.Realm
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 
 @RealmClass
 open class RecordVO : RealmModel, DualModel {
+    var category: String? = null
+    var division: String? = null
+    var message: MessageVO? = null
+
     override fun toString(): String {
         val body = message!!.body
         val title = body.split("\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[2]
@@ -32,10 +38,16 @@ open class RecordVO : RealmModel, DualModel {
             val pattern = "yyyy-MM-dd"
             var simpleDateFormat = SimpleDateFormat(pattern)
             realmHolder.dateTextView.text = simpleDateFormat.format(message!!.date)
+            setStarIcon(realmHolder.starView, body)
         }
     }
 
-    var category: String? = null
-    var division: String? = null
-    var message: MessageVO? = null
+    private fun setStarIcon(view : ImageView, body : String) {
+        val dbmanager = ClipDBManager(Realm.getDefaultInstance());
+        if (dbmanager.doesNotExist(body)) {
+            view.setImageResource(R.drawable.star_off)
+        } else {
+            view.setImageResource(R.drawable.star_on)
+        }
+    }
 }
