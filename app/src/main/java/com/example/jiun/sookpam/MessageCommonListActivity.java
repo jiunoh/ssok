@@ -3,6 +3,7 @@ package com.example.jiun.sookpam;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,7 +29,6 @@ public class MessageCommonListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String category = intent.getStringExtra("category");
-
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
         ListView listView = findViewById(R.id.message_common_listview);
         listView.setAdapter(adapter);

@@ -57,10 +57,13 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
         messageCommonRecyclerView = view.findViewById(R.id.message_common_topic_recycler);
         messageCommonRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         messageCommonRecyclerView.setAdapter(new CommonTopicRecyclerAdapter(topics));
-        messageCommonRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener(){
+        messageCommonRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener (context, new RecyclerItemClickListener.OnItemClickListener(){
             @Override
             public void onItemClick(View view, int position) {
                 //여기에서 topics[position]을 사용하는 방식으로 액티비티를 연결하시면 됩니다.
+                Intent intent = new Intent(getContext(), MessageCommonListActivity.class);
+                intent.putExtra("category",topics.get(position).getTopicTitle());
+                startActivity(intent);
             }
         }));
         progressbar = activity.findViewById(R.id.message_base_progressbar);
