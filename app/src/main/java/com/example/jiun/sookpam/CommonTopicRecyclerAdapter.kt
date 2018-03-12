@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : RecyclerView.Adapter<CommonTopicRecyclerAdapter.ViewHolder>() {
@@ -28,9 +30,13 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
         holder!!.topicTitleTextView.text = topic.topicTitle
         holder.topicDetailTextView.text = topic.topicDetail
         holder.topicStatusTextView.text = topic.topicStatus
-        Glide.with(context)
-                .load(topic.topicImage)
-                .into(holder.topicBackImageView)
+        Glide.with(context).asBitmap().load(topic.topicImage)
+                .into(object:SimpleTarget<Bitmap>(){
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        holder.topicBackImageView.setImageBitmap(resource)
+                    }
+                } )
+
         if (topic.topicStatus != "INTEREST") {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryAccent))
         } else {
