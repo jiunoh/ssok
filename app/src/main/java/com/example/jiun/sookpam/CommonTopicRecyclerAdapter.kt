@@ -1,15 +1,11 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : RecyclerView.Adapter<CommonTopicRecyclerAdapter.ViewHolder>() {
@@ -30,12 +26,7 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
         holder!!.topicTitleTextView.text = topic.topicTitle
         holder.topicDetailTextView.text = topic.topicDetail
         holder.topicStatusTextView.text = topic.topicStatus
-        Glide.with(context).asBitmap().load(topic.topicImage)
-                .into(object:SimpleTarget<Bitmap>(){
-                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                        holder.topicBackImageView.setImageBitmap(resource)
-                    }
-                } )
+        AppGlideModule().setImageByGlide(holder.topicBackImageView, topic.topicImage, context)
 
         if (topic.topicStatus != "INTEREST") {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryAccent))
@@ -45,9 +36,9 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var topicBackImageView = view.common_topic_img
-        var topicTitleTextView = view.common_topic_title_txt
-        var topicDetailTextView = view.common_topic_detail_txt
-        var topicStatusTextView = view.common_topic_status_txt
+        var topicBackImageView = view.common_topic_img!!
+        var topicTitleTextView = view.common_topic_title_txt!!
+        var topicDetailTextView = view.common_topic_detail_txt!!
+        var topicStatusTextView = view.common_topic_status_txt!!
     }
 }
