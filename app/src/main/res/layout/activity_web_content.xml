@@ -161,7 +161,7 @@
                 <LinearLayout
                     android:id="@+id/web_content_attach_linear"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
@@ -205,9 +205,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhiteGray"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:paddingTop="16dp"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical"
                 android:textColorLink="@color/colorPrimaryDark"
                 android:visibility="gone" />
         </LinearLayout>
