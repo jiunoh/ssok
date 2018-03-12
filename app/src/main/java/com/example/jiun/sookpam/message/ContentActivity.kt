@@ -11,6 +11,8 @@ import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ContentActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class ContentActivity : AppCompatActivity() {
     private lateinit var dbmanager: ClipDBManager
     private lateinit var title: String
     private lateinit var body: String
+    private lateinit var date: String
     private var category: String? = ""
     private var division: String? = ""
 
@@ -38,6 +41,10 @@ class ContentActivity : AppCompatActivity() {
         title_view.text = title
         content_view.text = body
         info_view.text = "$division / ${record.phone}"
+        val pattern = "yyyy-MM-dd"
+        var simpleDateFormat = SimpleDateFormat(pattern)
+        date =simpleDateFormat.format( record.date)
+        date_view.text = date
     }
 
     private fun setToolbar(path: String) {
