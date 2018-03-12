@@ -102,11 +102,6 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     }
 
     @Override
-    public void showToastMessage(@NotNull String string, int toastTime) {
-        Toast.makeText(getContext(), string, toastTime).show();
-    }
-
-    @Override
     public MessageContract.Presenter getPresenter() {
         return presenter;
     }

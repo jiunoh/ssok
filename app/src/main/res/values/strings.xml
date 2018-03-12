@@ -114,4 +114,10 @@
     <string name="notice">NOTICE</string>
     <string name="career">CAREER</string>
     <string name="collapsing_toolbar_image_view">collapsing toolbar image view</string>
+    <string name="department_major_min_count">학부/학과는 1개 이상 선택해야 합니다.</string>
+    <string name="refresh_already_started">이미 동기화가 진행중입니다.</string>
+    <string name="calcel_request">요청이 취소되었습니다.</string>
+    <string name="web_content_attach_file">첨부파일</string>
+    <string name="attach_expandable_image">expandable image for showing web content\'s attach file</string>
+    <string name="server_invalid_error">서버에 문제가 발생했습니다.\n잠시 후에 재시도 해주시기바랍니다.</string>
 </resources>

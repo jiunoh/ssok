@@ -33,6 +33,8 @@ class WebRecyclerActivity : AppCompatActivity() {
     private lateinit var titleTextView: TextView
     private lateinit var category: String
     private lateinit var division: String
+    private lateinit var call: Call<List<RecordResponse>>
+    private var isStop = false
     private var records: List<RecordResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +73,12 @@ class WebRecyclerActivity : AppCompatActivity() {
         titleTextView.text = title
     }
 
+    override fun onStop() {
+        super.onStop()
+        isStop = true
+        call.cancel()
+    }
+
     private fun setToolbar() {
         appBarLayout = web_common_appbar_layout
         toolbar = web_common_toolbar
@@ -84,9 +92,13 @@ class WebRecyclerActivity : AppCompatActivity() {
     }
 
     private fun loadRecords() {
-        service.getRecords(category, division).enqueue(object : Callback<List<RecordResponse>> {
+        call = service.getRecords(category, division)
+        progressBar.visibility = View.VISIBLE
+        call.enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
-                showInternetConnectionError()
+                if (!isStop) {
+                    showInternetConnectionError()
+                }
                 progressBar.visibility = View.INVISIBLE
             }
 
@@ -121,6 +133,7 @@ class WebRecyclerActivity : AppCompatActivity() {
         imageFrameLayout.visibility = View.GONE
         titleTextView.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.internet_connect_error)
+        CustomToast.showLastToast(applicationContext, getString(R.string.internet_connect_error))
     }
 
     private fun showNoDataInServer() {
@@ -130,5 +143,6 @@ class WebRecyclerActivity : AppCompatActivity() {
         imageFrameLayout.visibility = View.GONE
         titleTextView.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
+        CustomToast.showLastToast(applicationContext, getString(R.string.no_data_in_server))
     }
 }

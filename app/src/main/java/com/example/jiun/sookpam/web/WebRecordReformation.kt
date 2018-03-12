@@ -3,7 +3,8 @@ package com.example.jiun.sookpam.web
 class WebRecordReformation {
     companion object {
         fun getTitleSubstring(title: String, category: String, division: String): String {
-            if (category != "공통") return title
+            if (category != "공통" && category != "취업")
+                return title
             else if (division == "국제") return title
             val titleChars = title.toCharArray()
             var resultTitle: String = title
@@ -18,6 +19,20 @@ class WebRecordReformation {
                 }
             }
             return resultTitle
+        }
+
+        fun getAttachUrlShortcutHtml(attach: String): ArrayList<String>? {
+            if (attach.isEmpty()) return null
+            val htmlAttachShortcut: ArrayList<String> = ArrayList()
+            val attachList = attach.split(',')
+            for (i in 0..attachList.size step 2) {
+                if (i + 1 < attachList.size) {
+                    htmlAttachShortcut.add("<a href=\"${attachList[i + 1].replace("/download.php?", "/viewer.php?")}\">${attachList[i].replace(" 다운로드", "")}</a>" + if (i + 1 != attachList.size - 1) "<br/><br/>" else "")
+                } else {
+                    break
+                }
+            }
+            return htmlAttachShortcut
         }
     }
 }

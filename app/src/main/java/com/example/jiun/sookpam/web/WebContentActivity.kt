@@ -1,12 +1,19 @@
 package com.example.jiun.sookpam.web
 
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.view.View
+import android.webkit.WebView
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
@@ -16,17 +23,18 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_web_content.*
 
 class WebContentActivity : AppCompatActivity() {
-    lateinit var toolbar: Toolbar
-    lateinit var idTextView: TextView
-    lateinit var dateTextView: TextView
-    lateinit var urlTextView: TextView
-    lateinit var titleTextView: TextView
-    lateinit var contentTextView: TextView
-    private lateinit var dbmanager: ClipDBManager
-    private lateinit var title: String
+    private lateinit var toolbar: Toolbar
+    private lateinit var idTextView: TextView
+    private lateinit var dateTextView: TextView
+    private lateinit var titleTextView: TextView
     private lateinit var category: String
-    private lateinit  var division: String
-
+    private lateinit var division: String
+    private lateinit var dbmanager: ClipDBManager
+    private lateinit var contentWebView: WebView
+    private lateinit var expandableLinear: LinearLayout
+    private lateinit var expandableAttachImageView: ImageView
+    private lateinit var attachFilesCountTextView: TextView
+    private lateinit var attachFilesTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,9 +47,33 @@ class WebContentActivity : AppCompatActivity() {
     private fun initialize() {
         idTextView = web_content_id_txt
         dateTextView = web_content_date_txt
-        urlTextView = web_content_url_txt
         titleTextView = web_content_title_txt
-        contentTextView = web_content_content_txt
+        expandableLinear = web_content_attach_linear
+        expandableAttachImageView = web_content_attach_expandable_img
+        attachFilesCountTextView = web_content_attach_files_count_txt
+        attachFilesTextView = web_content_attach_files_txt
+        setExpandListener()
+        setWebView()
+    }
+
+    private fun setExpandListener() {
+        expandableLinear.setOnClickListener {
+            if (expandableAttachImageView.rotation == 0.0f) {
+                attachFilesTextView.visibility = View.VISIBLE
+                expandableAttachImageView.rotation = 180.0f
+            } else {
+                attachFilesTextView.visibility = View.GONE
+                expandableAttachImageView.rotation = 0.0f
+            }
+        }
+    }
+
+    private fun setWebView() {
+        contentWebView = web_content_web_view
+        contentWebView.settings.builtInZoomControls = true
+        contentWebView.settings.supportZoom()
+        contentWebView.settings.displayZoomControls = false
+        contentWebView.isScrollbarFadingEnabled = true
     }
 
     private fun setContentData() {
@@ -51,10 +83,34 @@ class WebContentActivity : AppCompatActivity() {
         division = record.division
         idTextView.text = record.id.toString()
         dateTextView.text = record.date
-        urlTextView.text = record.url
         titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
-        title = titleTextView.text.toString()
-        contentTextView.text = record.content.replace("[\n", "").replace("\n]", "").replace("\n\n", "\n")
+        contentWebView.loadData(record.content, "text/html; charset=utf-8", "UTF-8")
+        checkAttachFilesAndApplyView(record)
+    }
+
+    private fun checkAttachFilesAndApplyView(record: RecordResponse) {
+        val attachFilesShortCutHtml = WebRecordReformation.getAttachUrlShortcutHtml(record.attach)
+        if (attachFilesShortCutHtml == null) {
+            expandableAttachImageView.visibility = View.GONE
+            expandableLinear.setOnClickListener(null)
+            attachFilesCountTextView.text = "0"
+        } else {
+            attachFilesCountTextView.text = attachFilesShortCutHtml.size.toString()
+            fromHtml(attachFilesTextView, attachFilesShortCutHtml)
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private fun fromHtml(attachFilesTextView: TextView, attachFilesShortCutHtml: ArrayList<String>) {
+        attachFilesTextView.let {
+            it.autoLinkMask = 0
+            it.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Html.fromHtml(attachFilesShortCutHtml.joinToString(""), Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(attachFilesShortCutHtml.joinToString(""))
+            }
+            it.movementMethod = LinkMovementMethod.getInstance()
+        }
     }
 
     private fun setToolbar() {
@@ -73,7 +129,7 @@ class WebContentActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_content, menu)
         var star = menu!!.findItem(R.id.action_star)
         dbmanager = ClipDBManager(Realm.getDefaultInstance());
-        if (dbmanager.doesNotExist(title)) {
+        if (dbmanager.doesNotExist(titleTextView.text.toString())) {
             star.icon = resources.getDrawable(R.drawable.star_off)
         } else {
             star.icon = resources.getDrawable(R.drawable.star_on)
@@ -84,6 +140,7 @@ class WebContentActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_star -> {
+                val title = titleTextView.text.toString()
                 if (dbmanager.doesNotExist(title)) {
                     item.icon = resources.getDrawable(R.drawable.star_on)
                     dbmanager.insert(title, DualModel.RECORD_RESPONSE, dateTextView.text.toString())
