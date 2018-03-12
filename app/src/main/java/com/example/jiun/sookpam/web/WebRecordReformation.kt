@@ -27,7 +27,7 @@ class WebRecordReformation {
             val attachList = attach.split(',')
             for (i in 0..attachList.size step 2) {
                 if (i + 1 < attachList.size) {
-                    htmlAttachShortcut.add("<a href=\"${attachList[i + 1]}\">${attachList[i].replace(" 다운로드","")}</a><br/>")
+                    htmlAttachShortcut.add("<a href=\"${attachList[i + 1]}\">${attachList[i].replace(" 다운로드","")}</a><br/><br/>")
                 } else {
                     break
                 }
