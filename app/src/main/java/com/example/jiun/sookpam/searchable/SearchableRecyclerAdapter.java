@@ -11,7 +11,7 @@ import io.realm.Realm;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     private List<DualModel> dualList;
-    private ArrayList<? extends DualModel> responseList;
+    private ArrayList<? extends DualModel> recordVoList;
 
     SearchableRecyclerAdapter(List<DualModel> items) {
         dualList = items;
@@ -40,14 +40,14 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     public List<DualModel> searchInRealm(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
-        responseList = recordManager.contains(charText);
-        dualList.addAll(responseList);
+        recordVoList = recordManager.contains(charText);
+        dualList.addAll(recordVoList);
         notifyDataSetChanged();
         return dualList;
     }
 
     public void clear() {
-        dualList.removeAll(responseList);
+        dualList.removeAll(recordVoList);
         dualList.clear();
         notifyDataSetChanged();
     }
