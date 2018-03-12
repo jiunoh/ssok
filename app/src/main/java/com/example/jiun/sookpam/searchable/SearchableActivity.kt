@@ -24,11 +24,15 @@ import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
 import com.example.jiun.sookpam.model.DualModel
+import com.example.jiun.sookpam.server.ApiUtils
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-    private lateinit var responseList: ArrayList<DualModel>
+    private lateinit var responseList: List<DualModel>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
     private lateinit var errorLinearLayout: LinearLayout
@@ -46,10 +50,6 @@ class SearchableActivity : AppCompatActivity() {
         setRestOfTheView()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
@@ -58,9 +58,8 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 search_recycler_view.visibility = View.VISIBLE
-                val empty = adapter.filter(query)
-                if(empty)
-                    showNoData()
+                errorLinearLayout.visibility = View.INVISIBLE
+                search(query)
                 editsearch.clearFocus()
                 return true
             }
@@ -85,7 +84,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-
     private fun setToolbar() {
         toolbar = search_toolbar
         setSupportActionBar(toolbar)
@@ -109,12 +107,31 @@ class SearchableActivity : AppCompatActivity() {
         search_recycler_view.visibility = View.VISIBLE
         errorLinearLayout.visibility = View.INVISIBLE
     }
-    
+
+    private fun search(query: String)  {
+        val service = ApiUtils.getSearchableService()
+        val query = query.replace("\\s+".toRegex(), "-")
+        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
+            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+                val records = response.body()
+                adapter = SearchableRecyclerAdapter(records)
+                search_recycler_view.adapter = adapter
+                responseList = adapter.searchInRealm(query)
+            }
+
+            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+                Log.v("onFailure:", "onFailure")
+            }
+        })
+    }
+
     private fun setRecyclerView() {
-        adapter = SearchableRecyclerAdapter(responseList)
         search_recycler_view.visibility = View.VISIBLE
         search_recycler_view.bringToFront()
-        search_recycler_view.adapter = adapter
         search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
@@ -122,7 +139,6 @@ class SearchableActivity : AppCompatActivity() {
                     showMessageBody(data)
                 }))
     }
-
 
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
