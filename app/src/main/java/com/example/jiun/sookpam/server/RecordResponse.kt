@@ -26,7 +26,6 @@ data class RecordResponse(
         webHolder.categoryTextView.text = "웹-$category-$division"
         webHolder.titleTextVIew.text = title
         webHolder.dateTextView.text = date
-        setStarIcon(webHolder.starView, title)
     }
 
 

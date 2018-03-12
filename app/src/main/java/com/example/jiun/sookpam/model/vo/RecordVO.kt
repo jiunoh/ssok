@@ -38,7 +38,6 @@ open class RecordVO : RealmModel, DualModel {
             val pattern = "yyyy-MM-dd"
             var simpleDateFormat = SimpleDateFormat(pattern)
             realmHolder.dateTextView.text = simpleDateFormat.format(message!!.date)
-            setStarIcon(realmHolder.starView, body)
         }
     }
 
