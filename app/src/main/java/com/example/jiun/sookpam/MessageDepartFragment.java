@@ -15,6 +15,7 @@ import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
 import com.example.jiun.sookpam.user.major.MajorList;
+import com.example.jiun.sookpam.util.MsgContentGenerator;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class MessageDepartFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RecordVO data = datalist.get(position);
-                showMessageBody(data);
+                MsgContentGenerator.showMessageBody(getContext(), data);
             }
         });
 
@@ -92,18 +93,5 @@ public class MessageDepartFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private void showMessageBody(RecordVO data) {
-        Intent intent = new Intent(getContext(), ContentActivity.class);
-        ContentItem contentItem  = new ContentItem();
-        contentItem.setCategory(data.getCategory());
-        contentItem.setDivision(data.getDivision());
-        contentItem.setBody(data.getMessage().getBody());
-        contentItem.setPhone(data.getMessage().getPhoneNumber());
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT", contentItem);
-        intent.putExtras(bundle);
-        startActivity(intent);
     }
 }

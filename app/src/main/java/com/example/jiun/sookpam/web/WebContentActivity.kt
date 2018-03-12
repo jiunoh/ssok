@@ -86,7 +86,7 @@ class WebContentActivity : AppCompatActivity() {
             R.id.action_star -> {
                 if (dbmanager.doesNotExist(title)) {
                     item.icon = resources.getDrawable(R.drawable.star_on)
-                    dbmanager.insert(title, DualModel.RECORD_RESPONSE)
+                    dbmanager.insert(title, DualModel.RECORD_RESPONSE, dateTextView.text.toString())
                 } else {
                     item.icon = resources.getDrawable(R.drawable.star_off)
                     dbmanager.delete(title)

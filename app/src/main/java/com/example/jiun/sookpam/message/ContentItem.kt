@@ -11,4 +11,6 @@ class ContentItem : Serializable{
     var division: String? = null
 
     var category: String? = null
+
+    lateinit var date: Date
 }

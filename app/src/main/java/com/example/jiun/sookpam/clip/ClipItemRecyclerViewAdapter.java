@@ -38,6 +38,11 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void add(DualModel items) {
+        modelList.add(items);
+        notifyDataSetChanged();
+    }
+
     public List<DualModel> update() {
         return modelList;
     }

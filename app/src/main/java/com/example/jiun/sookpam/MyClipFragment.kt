@@ -10,14 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
-import com.example.jiun.sookpam.message.ContentActivity
-import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import io.realm.Realm
 import kotlinx.android.synthetic.main.fragment_my_clip.view.*
@@ -36,7 +35,6 @@ class MyClipFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         val view = inflater.inflate(R.layout.fragment_my_clip, container, false)
         view.recylerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         view.recylerView.addOnItemTouchListener(RecyclerItemClickListener(context,
@@ -70,17 +68,16 @@ class MyClipFragment : Fragment() {
             adapter!!.add(recordVos)
         } else if(record.type == DualModel.RECORD_RESPONSE){
             try {
-                searchInWeb(record.title)
+                searchInWeb(record.title,  record.date!!)
             } catch (exception : IndexOutOfBoundsException ){
                 Log.v("getModelBy","데이터가 없습니다.");
             }
         }
     }
 
-    private fun searchInWeb(charText: String){
+    private fun searchInWeb(charText: String, date:String ){
         val service = ApiUtils.getSearchableService()
         val query = charText.replace("\\s+".toRegex(), "-")
-        var tempList :  ArrayList<RecordResponse> = ArrayList()
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>){
                 if (!response.isSuccessful) {
@@ -89,7 +86,10 @@ class MyClipFragment : Fragment() {
                 }
                 Log.v("response.body>", response.body().toString())
                 val records = response.body()
-                adapter!!.add(records)
+                records!!.forEach { record ->
+                    if (record.date == date)
+                            adapter!!.add(record)
+                }
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -101,22 +101,14 @@ class MyClipFragment : Fragment() {
 
 
     private fun showMessageBody(data: DualModel) {
-        val bundle = Bundle()
-        var intent: Intent? = null
         if (data is RecordVO) {
-            var contentItem: ContentItem = ContentItem()
-            contentItem.category = data.category
-            contentItem.division = data.division
-            contentItem.body = data.message!!.body
-            contentItem.phone = data.message!!.phoneNumber
-            intent = Intent(context, ContentActivity::class.java)
-            bundle.putSerializable("OBJECT", contentItem)
-
+            MsgContentGenerator.showMessageBody(context, data)
         } else {
-            intent = Intent(context, WebContentActivity::class.java)
+            val intent = Intent(context, WebContentActivity::class.java)
+            val bundle = Bundle()
             bundle.putSerializable("record", data as RecordResponse)
+            intent!!.putExtras(bundle)
+            startActivity(intent)
         }
-        intent!!.putExtras(bundle)
-        startActivity(intent)
     }
 }

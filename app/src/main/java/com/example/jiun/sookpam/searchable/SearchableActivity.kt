@@ -25,6 +25,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.server.ApiUtils
+import com.example.jiun.sookpam.util.MsgContentGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -142,22 +143,14 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
-        var intent: Intent
         if (data is RecordVO) {
-            var contentItem: ContentItem = ContentItem()
-            contentItem.category = data.category
-            contentItem.division = data.division
-            contentItem.body = data.message!!.body
-            contentItem.phone = data.message!!.phoneNumber
-            intent = Intent(this, ContentActivity::class.java)
-            bundle.putSerializable("OBJECT", contentItem)
-
+            MsgContentGenerator.showMessageBody(baseContext, data)
         } else {
-            intent = Intent(applicationContext, WebContentActivity::class.java)
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
             bundle.putSerializable("record", data as RecordResponse)
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
-        intent.putExtras(bundle)
-        startActivity(intent)
     }
 
     fun showNoData() {
