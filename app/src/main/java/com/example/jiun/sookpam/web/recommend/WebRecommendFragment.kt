@@ -62,8 +62,7 @@ class WebRecommendFragment : Fragment() {
         val userInformation = UserInformation(context!!)
         call = service.getRecommendRecords(userInformation.studentGrade.split(" ")[0],
                 userInformation.studentYear,
-                userInformation.major1,
-                userInformation.major2,
+                userInformation.majors,
                 userInformation.schoolScholar,
                 userInformation.governmentScholar,
                 userInformation.externalScholar,
