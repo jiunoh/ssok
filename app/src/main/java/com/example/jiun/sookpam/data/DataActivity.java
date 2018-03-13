@@ -64,7 +64,7 @@ public class DataActivity extends AppCompatActivity {
     private ArrayList<RecordVO> getDataByDivision(String division) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
         ArrayList<RecordVO> response;
-        if (!division.equals("공지"))
+        if (!division.equals("기타"))
             response = categoryManager.getDataByDivision(division);
         else
             response = handleUnclipedCategories();
