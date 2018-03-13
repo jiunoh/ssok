@@ -14,8 +14,6 @@ import android.view.View
 import android.support.v7.widget.SearchView
 import android.util.Log
 import com.example.jiun.sookpam.RecyclerItemClickListener
-import com.example.jiun.sookpam.message.ContentActivity
-import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.web.WebContentActivity
@@ -23,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
+import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.util.MsgContentGenerator
@@ -33,7 +32,7 @@ import retrofit2.Response
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-    private lateinit var responseList: List<DualModel>
+    private lateinit var modelList: List<DualModel>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
     private lateinit var errorLinearLayout: LinearLayout
@@ -45,7 +44,7 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        responseList = ArrayList<DualModel>()
+        modelList = ArrayList()
         setToolbar()
         setRecyclerView()
         setRestOfTheView()
@@ -119,9 +118,10 @@ class SearchableActivity : AppCompatActivity() {
                     return
                 }
                 val records = response.body()
-                adapter = SearchableRecyclerAdapter(records)
-                search_recycler_view.adapter = adapter
-                responseList = adapter.searchInRealm(query)
+                adapter.searchInRealm(query)
+                modelList = adapter.add( records)
+                if(modelList.isEmpty() )
+                    showNoData()
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -131,11 +131,13 @@ class SearchableActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
+        adapter = SearchableRecyclerAdapter(modelList)
+        search_recycler_view.adapter = adapter
         search_recycler_view.visibility = View.VISIBLE
         search_recycler_view.bringToFront()
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = responseList.get(position)
+                    val data = modelList.get(position)
                     showMessageBody(data)
                 }))
     }

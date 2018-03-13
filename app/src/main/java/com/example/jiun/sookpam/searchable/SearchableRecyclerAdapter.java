@@ -10,11 +10,11 @@ import java.util.List;
 import io.realm.Realm;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
-    private List<DualModel> dualList;
+    private List<DualModel> modelList;
     private ArrayList<? extends DualModel> recordVoList;
 
     SearchableRecyclerAdapter(List<DualModel> items) {
-        dualList = items;
+        modelList = items;
     }
 
     @Override
@@ -24,31 +24,36 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return dualList.get(position).getItemViewType();
+        return modelList.get(position).getItemViewType();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        dualList.get(position).onBindViewHolder(holder);
+        modelList.get(position).onBindViewHolder(holder);
     }
 
 
     @Override
     public int getItemCount() {
-        return dualList.size();
+        return modelList.size();
     }
 
-    public List<DualModel> searchInRealm(String charText) {
+    public void searchInRealm(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
         recordVoList = recordManager.contains(charText);
-        dualList.addAll(recordVoList);
+        modelList.addAll(recordVoList);
         notifyDataSetChanged();
-        return dualList;
+    }
+
+    public List<DualModel> add(List<DualModel> items) {
+        modelList.addAll(items);
+        notifyDataSetChanged();
+        return  modelList;
     }
 
     public void clear() {
-        dualList.removeAll(recordVoList);
-        dualList.clear();
+        modelList.removeAll(recordVoList);
+        modelList.clear();
         notifyDataSetChanged();
     }
 
