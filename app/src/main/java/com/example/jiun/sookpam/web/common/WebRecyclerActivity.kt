@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.*
 import android.support.v7.widget.Toolbar
@@ -81,6 +82,15 @@ class WebRecyclerActivity : AppCompatActivity() {
 
     private fun setToolbar() {
         appBarLayout = web_common_appbar_layout
+        appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
+            if (collapseToolbar.height + verticalOffset < 2 * ViewCompat.getMinimumHeight(collapseToolbar)) {
+                backButton.setImageResource(R.drawable.ic_back_button)
+                refreshButton.setImageResource(R.drawable.ic_refresh)
+            } else {
+                backButton.setImageResource(R.drawable.white_back)
+                refreshButton.setImageResource(R.drawable.white_refresh)
+            }
+        }
         toolbar = web_common_toolbar
         setSupportActionBar(toolbar)
         collapseToolbar = web_common_collapsing
@@ -104,10 +114,10 @@ class WebRecyclerActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
                 records = response!!.body()
-                if (division != "취업") {
-                    webRecyclerView.adapter = WebCommonRecyclerAdapter(records)
-                } else {
+                if (category == "공통" && division == "취업") {
                     webRecyclerView.adapter = WebCareerRecyclerAdapter(records)
+                } else {
+                    webRecyclerView.adapter = WebCommonRecyclerAdapter(records)
                 }
                 val context = webRecyclerView.context
                 if (records!!.isNotEmpty()) {

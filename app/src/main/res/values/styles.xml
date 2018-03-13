@@ -17,10 +17,12 @@
 
     <style name="CollapsedAppBar" parent="Widget.AppCompat.Toolbar">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="ExpandedAppBar" parent="Widget.AppCompat.Toolbar">
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="CustomTabText" parent="TextAppearance.Design.Tab">
