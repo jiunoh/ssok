@@ -133,7 +133,6 @@ class SearchableActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
         search_recycler_view.bringToFront()
-        search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
         search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = responseList.get(position)

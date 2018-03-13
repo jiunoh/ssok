@@ -36,7 +36,6 @@ class MyClipFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my_clip, container, false)
-        view.recylerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         view.recylerView.addOnItemTouchListener(RecyclerItemClickListener(context,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = modelList!!.get(position)

@@ -60,6 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="2017-04-02"
+                        android:textAlignment="textEnd"
                         android:textSize="12sp"
                         android:textStyle="italic" />
                 </LinearLayout>
