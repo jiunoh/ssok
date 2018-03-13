@@ -42,7 +42,7 @@ open class RecordVO : RealmModel, DualModel {
         }
     }
 
-    private fun setStarIcon(view : ImageView, body : String) {
+    override fun setStarIcon(view : ImageView, body : String) {
         val dbmanager = ClipDBManager(Realm.getDefaultInstance());
         if (dbmanager.doesNotExist(body)) {
             view.setImageResource(R.drawable.star_off)

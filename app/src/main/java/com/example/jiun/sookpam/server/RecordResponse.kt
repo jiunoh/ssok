@@ -30,7 +30,7 @@ data class RecordResponse(
     }
 
 
-    private fun setStarIcon(view : ImageView, title : String) {
+    override fun setStarIcon(view : ImageView, title : String) {
         val dbmanager = ClipDBManager(Realm.getDefaultInstance());
         if (dbmanager.doesNotExist(title)) {
             view.setImageResource(R.drawable.star_off)

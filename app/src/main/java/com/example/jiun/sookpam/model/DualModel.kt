@@ -4,6 +4,7 @@
 package com.example.jiun.sookpam.model
 
 import android.support.v7.widget.RecyclerView
+import android.widget.ImageView
 
 interface DualModel {
     companion object {
@@ -16,4 +17,6 @@ interface DualModel {
     fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
 
     override fun toString():String
+
+    fun setStarIcon(view : ImageView, title : String)
 }
