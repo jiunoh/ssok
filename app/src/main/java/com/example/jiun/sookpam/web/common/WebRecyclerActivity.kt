@@ -35,6 +35,7 @@ class WebRecyclerActivity : AppCompatActivity() {
     private lateinit var category: String
     private lateinit var division: String
     private lateinit var call: Call<List<RecordResponse>>
+    private var isRefreshAlreadyStarted = false
     private var isStop = false
     private var records: List<RecordResponse>? = null
 
@@ -62,9 +63,13 @@ class WebRecyclerActivity : AppCompatActivity() {
         backButton.setOnClickListener { finish() }
         refreshButton = web_common_refresh_img_btn
         refreshButton.setOnClickListener {
-            val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
-            refreshButton.startAnimation(rotateAnimation)
-            loadRecords()
+            if (!isRefreshAlreadyStarted) {
+                val rotateAnimation = UIAnimation.setRotateAnimation(refreshButton)
+                refreshButton.startAnimation(rotateAnimation)
+                loadRecords()
+            } else {
+                CustomToast.showLastToast(applicationContext, getString(R.string.refresh_already_started))
+            }
         }
         errorImageView = web_common_error_img
         errorTextView = web_common_error_txt
@@ -102,6 +107,7 @@ class WebRecyclerActivity : AppCompatActivity() {
     }
 
     private fun loadRecords() {
+        isRefreshAlreadyStarted = true
         call = service.getRecords(category, division)
         progressBar.visibility = View.VISIBLE
         call.enqueue(object : Callback<List<RecordResponse>> {
@@ -110,6 +116,7 @@ class WebRecyclerActivity : AppCompatActivity() {
                     showInternetConnectionError()
                 }
                 progressBar.visibility = View.INVISIBLE
+                isRefreshAlreadyStarted = false
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
@@ -119,21 +126,39 @@ class WebRecyclerActivity : AppCompatActivity() {
                 } else {
                     webRecyclerView.adapter = WebCommonRecyclerAdapter(records)
                 }
-                val context = webRecyclerView.context
-                if (records!!.isNotEmpty()) {
-                    appBarLayout.setExpanded(true)
-                    titleTextView.visibility = View.GONE
-                    errorImageView.visibility = View.INVISIBLE
-                    errorTextView.visibility = View.INVISIBLE
-                    imageFrameLayout.visibility = View.VISIBLE
-                    UIAnimation.setLoadingRecyclerViewAnimation(context, webRecyclerView)
+                if (records == null) {
+                    call!!.cancel()
+                    showServerInvalidError()
                 } else {
-                    showNoDataInServer()
+                    successGettingData()
                 }
-                appBarLayout.setExpanded(true)
                 progressBar.visibility = View.INVISIBLE
+                isRefreshAlreadyStarted = false
             }
         })
+    }
+
+    private fun showServerInvalidError() {
+        webRecyclerView.visibility = View.INVISIBLE
+        errorImageView.visibility = View.VISIBLE
+        errorTextView.visibility = View.VISIBLE
+        imageFrameLayout.visibility = View.GONE
+        errorTextView.text = getString(R.string.server_invalid_error)
+        CustomToast.showLastToast(applicationContext, getString(R.string.server_invalid_error))
+    }
+
+    private fun successGettingData() {
+        if (records!!.isNotEmpty()) {
+            appBarLayout.setExpanded(true)
+            titleTextView.visibility = View.GONE
+            errorImageView.visibility = View.INVISIBLE
+            errorTextView.visibility = View.INVISIBLE
+            imageFrameLayout.visibility = View.VISIBLE
+            UIAnimation.setLoadingRecyclerViewAnimation(webRecyclerView.context, webRecyclerView)
+        } else {
+            showNoDataInServer()
+        }
+        appBarLayout.setExpanded(true)
     }
 
     private fun showInternetConnectionError() {
@@ -150,9 +175,9 @@ class WebRecyclerActivity : AppCompatActivity() {
         appBarLayout.setExpanded(false, false)
         errorImageView.visibility = View.VISIBLE
         errorTextView.visibility = View.VISIBLE
+        errorTextView.text = getString(R.string.no_data_in_server)
         imageFrameLayout.visibility = View.GONE
         titleTextView.visibility = View.VISIBLE
-        errorTextView.text = getString(R.string.no_data_in_server)
         CustomToast.showLastToast(applicationContext, getString(R.string.no_data_in_server))
     }
 }
