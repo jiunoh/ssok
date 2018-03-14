@@ -24,6 +24,10 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    
+    <style name="SplashScreenTheme" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/ssok_splash</item>
+    </style>
 
     <style name="CustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">12sp</item>
