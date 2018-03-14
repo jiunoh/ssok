@@ -32,13 +32,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Realm.init(this);
+        initialize();
+        setUpElements();
 
         if (isFirstUserInfoSetting()) {
             Intent intent = new Intent(this, UserInfoActivity.class);
             startActivityForResult(intent, USER_ACTIVITY_REQUEST);
-        } else {
-            initialize();
-            setUpElements();
         }
     }
 
@@ -111,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 finish();
             }
+        } else if (requestCode == 0) {
+            MyPageBaseFragment.myPageViewPagerAdapter.notifyDataSetChanged();
         }
     }
 }

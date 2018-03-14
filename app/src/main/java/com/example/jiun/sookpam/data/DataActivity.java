@@ -13,6 +13,7 @@ import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
+import com.example.jiun.sookpam.util.MsgContentGenerator;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import java.text.ParseException;
@@ -44,7 +45,7 @@ public class DataActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 RecordVO data = responseList.get(position);
-                showMessageBody(data);
+                MsgContentGenerator.showMessageBody(getApplicationContext(), data);
             }
         }));
     }
@@ -60,24 +61,10 @@ public class DataActivity extends AppCompatActivity {
         });
     }
 
-
-    private void showMessageBody(RecordVO data) {
-        Intent intent = new Intent(this, ContentActivity.class);
-        ContentItem contentItem  = new ContentItem();
-        contentItem.setCategory(data.getCategory());
-        contentItem.setDivision(data.getDivision());
-        contentItem.setBody(data.getMessage().getBody());
-        contentItem.setPhone(data.getMessage().getPhoneNumber());
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("OBJECT", contentItem);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
     private ArrayList<RecordVO> getDataByDivision(String division) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
         ArrayList<RecordVO> response;
-        if (!division.equals("공지"))
+        if (!division.equals("기타"))
             response = categoryManager.getDataByDivision(division);
         else
             response = handleUnclipedCategories();
