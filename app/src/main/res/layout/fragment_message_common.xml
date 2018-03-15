@@ -5,8 +5,10 @@
     android:layout_margin="16dp"
     tools:context="com.example.jiun.sookpam.MessageCommonFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/message_common_topic_recycler"
+    <ListView
+        android:id="@+id/message_common_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice" />
+
 </RelativeLayout>
