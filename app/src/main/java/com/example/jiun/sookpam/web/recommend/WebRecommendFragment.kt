@@ -48,9 +48,9 @@ class WebRecommendFragment : Fragment() {
         loadData()
         refreshImageButton = activity!!.web_base_refresh_img_btn
         refreshImageButton.setOnClickListener {
-            val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
-            refreshImageButton.startAnimation(rotateAnimation)
             if (!isRefreshAlreadyStarted) {
+                val rotateAnimation = UIAnimation.setRotateAnimation(refreshImageButton)
+                refreshImageButton.startAnimation(rotateAnimation)
                 loadData()
             } else {
                 CustomToast.showLastToast(context!!, getString(R.string.refresh_already_started))
@@ -62,8 +62,7 @@ class WebRecommendFragment : Fragment() {
         val userInformation = UserInformation(context!!)
         call = service.getRecommendRecords(userInformation.studentGrade.split(" ")[0],
                 userInformation.studentYear,
-                userInformation.major1,
-                userInformation.major2,
+                userInformation.majors,
                 userInformation.schoolScholar,
                 userInformation.governmentScholar,
                 userInformation.externalScholar,
@@ -81,6 +80,8 @@ class WebRecommendFragment : Fragment() {
         call.enqueue(object : Callback<List<RecordResponse>> {
             override fun onFailure(call: Call<List<RecordResponse>>?, t: Throwable?) {
                 showInternetConnectionError()
+                progressBar.visibility = View.INVISIBLE
+                isRefreshAlreadyStarted = false
             }
 
             override fun onResponse(call: Call<List<RecordResponse>>?, response: Response<List<RecordResponse>>?) {
@@ -89,24 +90,17 @@ class WebRecommendFragment : Fragment() {
                 if (records == null) {
                     call!!.cancel()
                     showServerInvalidError()
-                } else if (records!!.isNotEmpty()) {
+                } else {
                     successGettingData()
                 }
+                progressBar.visibility = View.INVISIBLE
+                isRefreshAlreadyStarted = false
             }
         })
     }
 
-    private fun successGettingData() {
-        UIAnimation.setLoadingRecyclerViewAnimation(webRecommendRecyclerView.context, webRecommendRecyclerView)
-        progressBar.visibility = View.INVISIBLE
-        webRecommendRecyclerView.visibility = View.VISIBLE
-        connectErrorLinearLayout.visibility = View.INVISIBLE
-    }
-
     private fun showServerInvalidError() {
         if (isAdded) {
-            progressBar.visibility = View.INVISIBLE
-            connectErrorLinearLayout.visibility = View.INVISIBLE
             webRecommendRecyclerView.visibility = View.INVISIBLE
             connectErrorLinearLayout.visibility = View.VISIBLE
             connectErrorTextView.text = getString(R.string.server_invalid_error)
@@ -115,10 +109,29 @@ class WebRecommendFragment : Fragment() {
         }
     }
 
+    private fun successGettingData() {
+        if (records!!.isNotEmpty()) {
+            UIAnimation.setLoadingRecyclerViewAnimation(webRecommendRecyclerView.context, webRecommendRecyclerView)
+            webRecommendRecyclerView.visibility = View.VISIBLE
+            connectErrorLinearLayout.visibility = View.INVISIBLE
+        } else {
+            showNoDataInServer()
+        }
+    }
+
+    private fun showNoDataInServer() {
+        if (isAdded) {
+            webRecommendRecyclerView.visibility = View.INVISIBLE
+            connectErrorLinearLayout.visibility = View.VISIBLE
+            connectErrorTextView.visibility = View.VISIBLE
+            connectErrorTextView.text = getString(R.string.no_data_in_server)
+            CustomToast.showLastToast(context!!, getString(R.string.no_data_in_server))
+        }
+    }
+
     private fun showInternetConnectionError() {
         if (isAdded) {
             progressBar.visibility = View.INVISIBLE
-            connectErrorLinearLayout.visibility = View.INVISIBLE
             webRecommendRecyclerView.visibility = View.INVISIBLE
             connectErrorLinearLayout.visibility = View.VISIBLE
             connectErrorTextView.text = getString(R.string.internet_connect_error)

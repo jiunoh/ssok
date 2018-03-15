@@ -95,6 +95,7 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
                 Animation rotateAnimation = UIAnimation.Companion.setRotateAnimation(refreshImageButton);
                 refreshImageButton.startAnimation(rotateAnimation);
                 presenter.start();
+                MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged();
             }
         });
         presenter.start();

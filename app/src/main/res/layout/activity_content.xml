@@ -11,7 +11,7 @@
         android:id="@+id/content_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
+        android:background="@android:color/white"
         android:theme="?attr/actionBarTheme" />
 
     <ScrollView

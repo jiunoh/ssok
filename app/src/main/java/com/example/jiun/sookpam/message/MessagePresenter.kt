@@ -37,7 +37,7 @@ class MessagePresenter(
             }
 
             override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-               CustomToast.showLastToast(context, context.getString(R.string.message_permission_denied))
+                CustomToast.showLastToast(context, context.getString(R.string.message_permission_denied))
             }
         }
         messagePermissionView.showPermissionMessage(permissionListener)
@@ -59,7 +59,7 @@ class MessagePresenter(
             super.onPreExecute()
             isFirstLoading = SharedPreferenceUtil.get(context, IS_FIRST_LOADING, true)
             if (isFirstLoading) {
-                CustomToast.showLastToast(context,"메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.")
+                CustomToast.showLastToast(context, "메세지를 목록을 가져옵니다.\n첫 로딩 시 시간이 다소 소요될 수 있습니다.")
                 loadingDialog.show()
             } else {
                 progressBar.visibility = View.VISIBLE
@@ -70,7 +70,6 @@ class MessagePresenter(
         override fun doInBackground(vararg p0: Unit?) {
             var realm: Realm? = null
             publishProgress()
-            Thread.sleep(500)
             try {
                 realm = Realm.getDefaultInstance()
                 smsReader = SmsReader(realm)
@@ -90,9 +89,9 @@ class MessagePresenter(
             progressBar.visibility = View.GONE
             if (isFirstLoading) {
                 loadingDialog.dismiss()
-                CustomToast.showLastToast(context,context.getString(R.string.end_synchronization))
-                MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged()
+                CustomToast.showLastToast(context, context.getString(R.string.end_synchronization))
                 SharedPreferenceUtil.set(context, IS_FIRST_LOADING, false)
+                MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged()
             }
         }
     }

@@ -9,9 +9,7 @@ data class UserInformation(
         val studentGrade: String = SharedPreferenceUtil.get(context, UserSettingLibrary.STUDENT_GRADE, "1 학년"),
         val studentYear: String = SharedPreferenceUtil.get(context,
                 UserSettingLibrary.STUDENT_YEAR, "18"),
-        val major1: String = UserSettingLibrary.getSelectedMajors(context)[0],
-        val major2: String =
-                if (UserSettingLibrary.getSelectedMajors(context).size > 1) UserSettingLibrary.getSelectedMajors(context)[1] else "null",
+        val majors: String = UserSettingLibrary.getSelectedMajors(context).joinToString("-"),
         val schoolScholar: Boolean = SharedPreferenceUtil.get(context, "교내 장학금", false),
         val governmentScholar: Boolean = SharedPreferenceUtil.get(context, "국가 장학금", false),
         val externalScholar: Boolean = SharedPreferenceUtil.get(context, "교외 장학금", false),

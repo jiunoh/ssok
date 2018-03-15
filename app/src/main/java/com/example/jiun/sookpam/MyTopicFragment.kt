@@ -31,7 +31,6 @@ class MyTopicFragment : Fragment() {
         topicButtons.add(view.my_topic_student_btn)
         for (button in topicButtons) button.setOnClickListener {
             settingCategory!!.setCategoryButtonListener(button, getString(R.string.interest_category_min))
-            MessageBaseFragment.messageViewPagerAdapter.notifyDataSetChanged()
         }
         settingCategory!!.setColorsOf(topicButtons)
     }

@@ -18,16 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleGravity="center"
+            app:contentScrim="@android:color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <TextView
                 android:id="@+id/web_title_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/white"
                 android:gravity="center"
-                android:visibility="gone"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <FrameLayout
                 android:id="@+id/web_common_img_frame"

@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -26,9 +27,11 @@ class WebDepartmentRecyclerAdapter(private val departments: List<WebDepartmentFr
         if (department.division == "공지") {
             AppGlideModule().setImageByGlide(holder.departmentImageView, R.drawable.department_notice, context)
             holder.divisionTextView.text = context.getString(R.string.notice)
+            holder.divisionTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
         } else {
             AppGlideModule().setImageByGlide(holder.departmentImageView, R.drawable.department_career, context)
             holder.divisionTextView.text = context.getString(R.string.career)
+            holder.divisionTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryAccent))
         }
     }
 
