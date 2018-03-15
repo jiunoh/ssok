@@ -65,11 +65,12 @@ class SearchableActivity : AppCompatActivity() {
         keyword2.setText("afafafggaf")
         keyword3.setText("afaafagfaf")
         keyword4.setText("afafGAHAAHfaf")
-        
+
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                similarKeywords.visibility = View.INVISIBLE
                 search_recycler_view.visibility = View.VISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
                 search(query)
