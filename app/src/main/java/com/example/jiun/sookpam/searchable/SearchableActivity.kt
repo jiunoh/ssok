@@ -7,7 +7,6 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
 import android.support.v7.appcompat.R.id.search_mag_icon
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -16,21 +15,17 @@ import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
-import com.example.jiun.sookpam.message.ContentActivity
-import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
+import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
-import java.util.ArrayList
-import android.widget.*
-import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
-import com.example.jiun.sookpam.server.ApiUtils
-import com.example.jiun.sookpam.util.MsgContentGenerator
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -59,6 +54,7 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
+
         var similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
         similarKeywords.visibility = View.VISIBLE
         keyword1 = findViewById(R.id.search_keyword_1)
@@ -69,21 +65,17 @@ class SearchableActivity : AppCompatActivity() {
         keyword2.setText("afafafggaf")
         keyword3.setText("afaafagfaf")
         keyword4.setText("afafGAHAAHfaf")
+        
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                similarKeywords.visibility = View.INVISIBLE
-                val empty = adapter.filter(query)
-                if (empty)
-                    showNoData();
                 search_recycler_view.visibility = View.VISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
                 search(query)
                 editsearch.clearFocus()
                 return true
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
