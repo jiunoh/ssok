@@ -17,7 +17,7 @@ class SmsReader(realm: Realm) : MessageReader {
                 = contentResolver.query(uri, null, null, null, null)
 
         if (cursor.moveToFirst()) {
-            for (i: Int in messageList.getList().size until cursor.count) {
+            for (i: Int in messageList.getListBy(MessageVO.TYPE_SMS).size until cursor.count) {
                 setDbFieldsFromMessageInbox(cursor)
                 cursor.moveToNext()
             }
