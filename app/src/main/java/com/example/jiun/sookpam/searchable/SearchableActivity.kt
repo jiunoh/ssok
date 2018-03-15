@@ -1,30 +1,30 @@
 package com.example.jiun.sookpam.searchable
 
 
-import android.os.Bundle
-import com.example.jiun.sookpam.R
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
 import android.support.v7.appcompat.R.id.search_mag_icon
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.support.v7.widget.SearchView
-import android.util.Log
+import android.widget.*
+import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.message.ContentActivity
 import com.example.jiun.sookpam.message.ContentItem
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
-import kotlinx.android.synthetic.main.activity_searchable.*
-import java.util.ArrayList
-import android.support.v7.widget.DividerItemDecoration
-import android.widget.*
-import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.web.WebContentActivity
+import kotlinx.android.synthetic.main.activity_searchable.*
+import java.util.*
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -36,6 +36,10 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
     private lateinit var progressBar: ProgressBar
+    private lateinit var keyword1: TextView
+    private lateinit var keyword2: TextView
+    private lateinit var keyword3: TextView
+    private lateinit var keyword4: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +53,21 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
+        var similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
+        similarKeywords.visibility = View.VISIBLE
+        keyword1 = findViewById(R.id.search_keyword_1)
+        keyword2 = findViewById(R.id.search_keyword_2)
+        keyword3 = findViewById(R.id.search_keyword_3)
+        keyword4 = findViewById(R.id.search_keyword_4)
+        keyword1.setText("afafaf")
+        keyword2.setText("afafafggaf")
+        keyword3.setText("afaafagfaf")
+        keyword4.setText("afafGAHAAHfaf")
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                similarKeywords.visibility = View.INVISIBLE
                 val empty = adapter.filter(query)
                 if (empty)
                     showNoData();

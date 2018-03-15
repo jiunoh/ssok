@@ -54,6 +54,69 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/search_keyword_layout"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="장학"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/search_keyword_1"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="등록"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/search_keyword_2"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="학사"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/search_keyword_3"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="외부장학금"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:id="@+id/search_keyword_4"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
     </FrameLayout>
 
 </LinearLayout>
