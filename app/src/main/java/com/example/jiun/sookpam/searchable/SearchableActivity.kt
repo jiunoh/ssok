@@ -13,21 +13,22 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
-import com.example.jiun.sookpam.CommonTopic
-import com.example.jiun.sookpam.CommonTopicAdapter
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.util.MsgContentGenerator
+import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -43,7 +44,6 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var keyword2: TextView
     private lateinit var keyword3: TextView
     private lateinit var keyword4: TextView
-    lateinit var topics: List<CommonTopic>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,11 +75,17 @@ class SearchableActivity : AppCompatActivity() {
         var key_chuiup: Array<String> = arrayOf("공기업", "서류", "직무", "파견")
         var key_haksaeng: Array<String> = arrayOf("워크숍", "학생지원팀")
 
+        var topics: ArrayList<String> = ArrayList()
         val random = Random()
 
-        topics = CommonTopicAdapter.getInterestOrNormalTopics(this)
+        for (topic in SettingCategory.categories) {
+            if (SharedPreferenceUtil.get(this, topic, 0) == 1) {
+                topics.add(topic)
+            }
+        }
+
         for (topic in topics) {
-            when (topic.topicTitle) {
+            when (topic) {
                 "장학" -> keywordRecomList?.add(key_janghak[random.nextInt(key_janghak.size)])
                 "학사" -> keywordRecomList?.add(key_haksa[random.nextInt(key_haksa.size)])
                 "행사" -> keywordRecomList?.add(key_haengsa[random.nextInt(key_haengsa.size)])
