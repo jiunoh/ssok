@@ -91,10 +91,23 @@ class SearchableActivity : AppCompatActivity() {
             }
         }
 
-        keyword1.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
-        keyword2.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
-        keyword3.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
-        keyword4.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
+        var max = keywordRecomList?.size
+        var indices: IntArray = intArrayOf(0, 0, 0, 0)
+        var i = 0
+        while (i < 4) {
+            indices[i] = random.nextInt(max!!)
+            for (j in 0 until i) {
+                if (indices[i] === indices[j]) {
+                    i--
+                }
+            }
+            i++
+        }
+
+        keyword1.setText(keywordRecomList?.get(indices[0]))
+        keyword2.setText(keywordRecomList?.get(indices[1]))
+        keyword3.setText(keywordRecomList?.get(indices[2]))
+        keyword4.setText(keywordRecomList?.get(indices[3]))
 
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
