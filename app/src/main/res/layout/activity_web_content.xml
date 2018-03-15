@@ -56,7 +56,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
-                        android:gravity="center"
                         android:text="@string/web_content_id"
                         android:textColor="@android:color/black"
                         android:textSize="12sp" />
@@ -67,7 +66,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:layout_toEndOf="@id/web_content_id"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
@@ -77,7 +75,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:layout_toEndOf="@id/web_content_id_txt"
-                        android:gravity="center"
                         android:text="@string/web_content_date"
                         android:textColor="@android:color/black"
                         android:textSize="12sp" />
@@ -88,7 +85,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@id/web_content_date"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
@@ -100,7 +96,6 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -150,8 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"></WebView>
+                android:focusableInTouchMode="true"/>
 
             <TextView
                 android:id="@+id/related_view"
@@ -162,16 +156,15 @@
                 android:gravity="center_vertical"
                 android:padding="8dp"
                 android:text="@string/related"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/recommend_view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/related_view"
                 android:background="@drawable/list_item"
                 android:gravity="center_vertical"
+                android:clickable="true"
                 android:padding="8dp"
                 android:text="추천1" />
 
@@ -179,9 +172,9 @@
                 android:id="@+id/recommend_view2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:background="@drawable/list_item"
                 android:gravity="center_vertical"
+                android:clickable="true"
                 android:padding="8dp"
                 android:text="추천2" />
         </LinearLayout>
