@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="20dp"
                 >
 
                 <TextView
@@ -72,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="장학"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:gravity="center"
                     android:id="@+id/search_keyword_1"
                     />
@@ -82,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="등록"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:gravity="center"
                     android:id="@+id/search_keyword_2"
                     />
@@ -99,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="학사"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:gravity="center"
                     android:id="@+id/search_keyword_3"
                     />
@@ -109,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="외부장학금"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:gravity="center"
                     android:id="@+id/search_keyword_4"
                     />
