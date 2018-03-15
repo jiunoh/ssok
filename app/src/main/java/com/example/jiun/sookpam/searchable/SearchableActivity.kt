@@ -13,6 +13,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.*
+import com.example.jiun.sookpam.CommonTopic
+import com.example.jiun.sookpam.CommonTopicAdapter
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.model.DualModel
@@ -41,6 +43,7 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var keyword2: TextView
     private lateinit var keyword3: TextView
     private lateinit var keyword4: TextView
+    lateinit var topics: List<CommonTopic>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +64,37 @@ class SearchableActivity : AppCompatActivity() {
         keyword2 = findViewById(R.id.search_keyword_2)
         keyword3 = findViewById(R.id.search_keyword_3)
         keyword4 = findViewById(R.id.search_keyword_4)
-        keyword1.setText("afafaf")
-        keyword2.setText("afafafggaf")
-        keyword3.setText("afaafagfaf")
-        keyword4.setText("afafGAHAAHfaf")
+
+        var keywordRecomList: ArrayList<String>? = ArrayList()
+        var key_janghak: Array<String> = arrayOf("대정", "홍산", "자기계발", "선발")
+        var key_haksa: Array<String> = arrayOf("안내", "신청서", "합격자", "배치", "추가합격자")
+        var key_haengsa: Array<String> = arrayOf("특강", "축제", "눈송이")
+        var key_mojip: Array<String> = arrayOf("무관", "마감", "월급", "스피킹", "토익")
+        var key_system: Array<String> = arrayOf("포털", "블루리본", "웹메일")
+        var key_gukje: Array<String> = arrayOf("협력", "교환학생")
+        var key_chuiup: Array<String> = arrayOf("공기업", "서류", "직무", "파견")
+        var key_haksaeng: Array<String> = arrayOf("워크숍", "학생지원팀")
+
+        val random = Random()
+
+        topics = CommonTopicAdapter.getInterestOrNormalTopics(this)
+        for (topic in topics) {
+            when (topic.topicTitle) {
+                "장학" -> keywordRecomList?.add(key_janghak[random.nextInt(key_janghak.size)])
+                "학사" -> keywordRecomList?.add(key_haksa[random.nextInt(key_haksa.size)])
+                "행사" -> keywordRecomList?.add(key_haengsa[random.nextInt(key_haengsa.size)])
+                "모집" -> keywordRecomList?.add(key_mojip[random.nextInt(key_mojip.size)])
+                "시스템" -> keywordRecomList?.add(key_system[random.nextInt(key_system.size)])
+                "국제" -> keywordRecomList?.add(key_gukje[random.nextInt(key_gukje.size)])
+                "취업" -> keywordRecomList?.add(key_chuiup[random.nextInt(key_chuiup.size)])
+                "학생" -> keywordRecomList?.add(key_haksaeng[random.nextInt(key_haksaeng.size)])
+            }
+        }
+
+        keyword1.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
+        keyword2.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
+        keyword3.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
+        keyword4.setText(keywordRecomList?.get(random.nextInt(keywordRecomList.size)))
 
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
@@ -77,12 +107,13 @@ class SearchableActivity : AppCompatActivity() {
                 editsearch.clearFocus()
                 return true
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
         })
-        val icon =  editsearch.findViewById(search_mag_icon) as ImageView
-        icon.layoutParams = LinearLayout.LayoutParams(0,0)
+        val icon = editsearch.findViewById(search_mag_icon) as ImageView
+        icon.layoutParams = LinearLayout.LayoutParams(0, 0)
         icon.visibility = View.GONE
         setCloseEventListener()
         return super.onCreateOptionsMenu(menu)
@@ -92,7 +123,7 @@ class SearchableActivity : AppCompatActivity() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
             cleanRecyclerView()
-            editsearch.setQuery("",false)
+            editsearch.setQuery("", false)
             adapter.clear()
         })
     }
@@ -121,7 +152,7 @@ class SearchableActivity : AppCompatActivity() {
         errorLinearLayout.visibility = View.INVISIBLE
     }
 
-    private fun search(query: String)  {
+    private fun search(query: String) {
         val service = ApiUtils.getSearchableService()
         val query = query.replace("\\s+".toRegex(), "-")
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
@@ -132,8 +163,8 @@ class SearchableActivity : AppCompatActivity() {
                 }
                 val records = response.body()
                 adapter.searchInRealm(query)
-                modelList = adapter.add( records)
-                if(modelList.isEmpty() )
+                modelList = adapter.add(records)
+                if (modelList.isEmpty())
                     showNoData()
             }
 
