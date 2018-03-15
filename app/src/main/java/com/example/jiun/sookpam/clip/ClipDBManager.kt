@@ -1,16 +1,25 @@
 package com.example.jiun.sookpam.clip
 
+
 import android.util.Log
 import com.example.jiun.sookpam.model.vo.DualVO
-import com.example.jiun.sookpam.model.vo.RecordVO
-import com.example.jiun.sookpam.model.DualModel
-import com.example.jiun.sookpam.server.WebFilter
 import io.realm.Realm
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ClipDBManager(val realm: Realm) {
     fun doesNotExist(value: String?): Boolean {
         var result = realm.where(DualVO::class.java).equalTo("title", value).findFirst()
         return (result == null)
+    }
+
+    fun insert(title: String, type: Int, date : String) {
+        realm.executeTransaction { realm ->
+            var record: DualVO = realm.createObject(DualVO::class.java)
+            record.title = title
+            record.type = type
+            record.date = date
+        }
     }
 
     fun insert(title: String, type: Int) {
@@ -28,25 +37,8 @@ class ClipDBManager(val realm: Realm) {
         }
     }
 
-    private fun getModelBy(record: DualVO): DualModel? {
-        if (record.type == DualModel.RECORD_VO) {
-            return realm.where(RecordVO::class.java).contains("message.body", record.title).findFirst()
-        } else if(record.type == DualModel.RECORD_RESPONSE){
-            return WebFilter.webFilter(record.title)[0]
-        }
-        else
-            return null
-    }
-
-    fun select(): ArrayList<DualModel> {
-        var result: ArrayList<DualModel> = ArrayList<DualModel>()
-        var voList = realm.where(DualVO::class.java).findAll()
-        for (clip in voList) {
-            var model = getModelBy(clip)
-            if(model != null)
-                result.add(model)
-            Log.v("> ", clip.toString())
-        }
-        return result
+    fun select(): List<DualVO> {
+        val voList = realm.where(DualVO::class.java).findAll()
+        return voList.subList(0, voList.size);
     }
 }

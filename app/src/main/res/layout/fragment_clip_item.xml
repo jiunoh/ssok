@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeightLarge"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="20"
+        android:layout_marginLeft="?listPreferredItemPaddingLeft"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/clip_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/title_example"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/clip_category"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:text="@string/category_example"
+            android:textSize="12sp"
+            android:textStyle="italic" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/clip_star"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@drawable/star_off" />
 </LinearLayout>

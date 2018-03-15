@@ -7,26 +7,29 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.model.DualModel;
 
 
 public class ViewHolderFactory {
+    public static int SEARCH_HOLDER = 0;
+    public static int CLIP_HOLDER = 1;
 
-    public static class SearchHolder extends RecyclerView.ViewHolder {
+    public static class DualHolder extends RecyclerView.ViewHolder {
         public TextView categoryTextView;
         public TextView titleTextVIew;
+        public TextView dateTextView;
+        public ImageView starView;
 
-        public SearchHolder(View itemView) {
+        public DualHolder(View itemView) {
             super(itemView);
             categoryTextView = itemView.findViewById(R.id.category_view);
             titleTextVIew = itemView.findViewById(R.id.title_view);
+            dateTextView = itemView.findViewById(R.id.date_view);
+            starView = itemView.findViewById(R.id.clip_star);
         }
 
     }
 
-    public static class ClipHolder extends RecyclerView.ViewHolder {
-        public TextView categoryTextView;
-        public TextView titleTextVIew;
+    public static class ClipHolder extends DualHolder {
         public ImageView starView;
 
         public ClipHolder(View itemView) {
@@ -34,15 +37,13 @@ public class ViewHolderFactory {
             categoryTextView = itemView.findViewById(R.id.clip_category);
             titleTextVIew = itemView.findViewById(R.id.clip_title);
             starView = itemView.findViewById(R.id.clip_star);
-            starView.setImageResource(R.drawable.star_on);
         }
-
     }
 
-    public static RecyclerView.ViewHolder create(ViewGroup parent, int viewType) {
-        if (viewType == DualModel.RECORD_RESPONSE || viewType == DualModel.RECORD_VO) {
+    public static RecyclerView.ViewHolder create(ViewGroup parent, int holderType) {
+        if (holderType == SEARCH_HOLDER) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.searchable_recycler_item, parent, false);
-            return new SearchHolder(view);
+            return new DualHolder(view);
         }
         else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_clip_item_list, parent, false);

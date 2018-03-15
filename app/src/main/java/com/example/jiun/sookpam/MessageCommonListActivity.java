@@ -2,10 +2,11 @@ package com.example.jiun.sookpam;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -14,7 +15,6 @@ import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
-import com.example.jiun.sookpam.user.major.MajorList;
 import com.example.jiun.sookpam.util.MsgContentGenerator;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
@@ -22,54 +22,61 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-
-public class MessageDepartFragment extends Fragment {
+public class MessageCommonListActivity extends AppCompatActivity {
     private RecordDBManager categoryManager;
-
-    public MessageDepartFragment() {
-        // Required empty public constructor
-    }
+    private Toolbar toolbar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_message_common_list);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_message_depart, container, false);
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+        setToolbar(category);
+
         MessageDepartListAdapter adapter = new MessageDepartListAdapter();
-        ListView listView = view.findViewById(R.id.message_depart_listview);
+        ListView listView = findViewById(R.id.message_common_listview);
         listView.setAdapter(adapter);
 
         final ArrayList<RecordVO> datalist = new ArrayList<RecordVO>();
+        ContactDBManager contactDBManager = (ContactDBManager) this.getApplicationContext();
+        ArrayList<String> divisionList = contactDBManager.getDivisionList(category, Realm.getDefaultInstance());
 
-        ArrayList<ArrayList<String>> collegeAndMajors = MajorList.Companion.getCollegeAndMajors();
-        for (ArrayList<String> college: collegeAndMajors) {
-            for (String major: college) {
-                boolean isSelected = SharedPreferenceUtil.get(getContext(), major, false);
-                if (isSelected) {
-                    datalist.addAll(getDataByDivision(major));
-                    adapter.addItem(datalist);
-                }
-            }
-        }
+        for (String division : divisionList)
+            datalist.addAll(getDataByDivision(division));
+
+        adapter.addItem(datalist);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 RecordVO data = datalist.get(position);
-                MsgContentGenerator.showMessageBody(getContext(), data);
+                MsgContentGenerator.showMessageBody(getApplicationContext(), data);
             }
         });
 
-        return view;
+    }
+
+    private void setToolbar(String category) {
+        toolbar = (Toolbar) findViewById(R.id.list_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+        toolbar.setTitle("문자 > " + category);
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private ArrayList<RecordVO> getDataByDivision(String division) {
         categoryManager = new RecordDBManager(Realm.getDefaultInstance());
         ArrayList<RecordVO> response;
-        if (!division.equals("공지"))
+        if (!division.equals("기타"))
             response = categoryManager.getDataByDivision(division);
         else
             response = handleUnclipedCategories();
@@ -78,20 +85,13 @@ public class MessageDepartFragment extends Fragment {
     }
 
     private ArrayList<RecordVO> handleUnclipedCategories() {
-        ContactDBManager contactDBManager =  (ContactDBManager)getActivity().getApplicationContext();
+        ContactDBManager contactDBManager = (ContactDBManager) getApplicationContext();
         ArrayList<String> divisionList = contactDBManager.getDepartmentList();
         ArrayList<RecordVO> response = new ArrayList<>();
         for (String division : divisionList) {
-            if (!SharedPreferenceUtil.get(getContext(), division, false))
+            if (!SharedPreferenceUtil.get(this, division, false))
                 response.addAll(categoryManager.getDataByDivision(division));
         }
         return response;
-    }
-
-    public static MessageDepartFragment newInstance() {
-        MessageDepartFragment fragment = new MessageDepartFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 }
