@@ -72,6 +72,7 @@ class WebContentActivity : AppCompatActivity() {
         contentWebView.settings.supportZoom()
         contentWebView.settings.displayZoomControls = false
         contentWebView.isScrollbarFadingEnabled = true
+        contentWebView.isScrollContainer = false
     }
 
     private fun setContentData() {

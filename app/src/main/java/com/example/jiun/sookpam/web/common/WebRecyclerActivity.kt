@@ -150,6 +150,7 @@ class WebRecyclerActivity : AppCompatActivity() {
     private fun successGettingData() {
         if (records!!.isNotEmpty()) {
             appBarLayout.setExpanded(true)
+            webRecyclerView.visibility = View.VISIBLE
             titleTextView.visibility = View.GONE
             errorImageView.visibility = View.INVISIBLE
             errorTextView.visibility = View.INVISIBLE
@@ -163,6 +164,7 @@ class WebRecyclerActivity : AppCompatActivity() {
 
     private fun showInternetConnectionError() {
         appBarLayout.setExpanded(false, false)
+        webRecyclerView.visibility = View.INVISIBLE
         errorImageView.visibility = View.VISIBLE
         errorTextView.visibility = View.VISIBLE
         imageFrameLayout.visibility = View.GONE
@@ -173,6 +175,7 @@ class WebRecyclerActivity : AppCompatActivity() {
 
     private fun showNoDataInServer() {
         appBarLayout.setExpanded(false, false)
+        webRecyclerView.visibility = View.INVISIBLE
         errorImageView.visibility = View.VISIBLE
         errorTextView.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
