@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.web
 
+import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -9,18 +10,22 @@ import android.view.Menu
 import android.view.MenuItem
 import android.text.Html
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.View
 import android.webkit.WebView
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
+import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_web_content.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class WebContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
@@ -35,6 +40,8 @@ class WebContentActivity : AppCompatActivity() {
     private lateinit var expandableAttachImageView: ImageView
     private lateinit var attachFilesCountTextView: TextView
     private lateinit var attachFilesTextView: TextView
+    private lateinit var recommendView1: TextView
+    private lateinit var recommendView2: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,7 @@ class WebContentActivity : AppCompatActivity() {
         initialize()
         setContentData()
         setToolbar()
+        requestRecommends()
     }
 
     private fun initialize() {
@@ -52,6 +60,8 @@ class WebContentActivity : AppCompatActivity() {
         expandableAttachImageView = web_content_attach_expandable_img
         attachFilesCountTextView = web_content_attach_files_count_txt
         attachFilesTextView = web_content_attach_files_txt
+        recommendView1 = recommend_view1
+        recommendView2 = recommend_view2
         setExpandListener()
         setWebView()
     }
@@ -153,5 +163,41 @@ class WebContentActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun requestRecommends() {
+        val service = ApiUtils.getNgramService()
+        val title = titleTextView.text.toString().replace("\\s+".toRegex(), "-")
+        service.getItems(title).enqueue(object : Callback<List<RecordResponse>> {
+            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+                setRequestedRecommends(response.body())
+            }
+            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+                Log.v("onFailure:", "onFailure")
+            }
+        })
+    }
+
+    private fun setRequestedRecommends(records : List<RecordResponse>?) {
+       recommendView1.text = records!![0].title
+        recommendView1.setOnClickListener({
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("record", records!![0])
+            intent!!.putExtras(bundle)
+            startActivity(intent)
+        })
+        recommendView2.text = records!![1].title
+        recommendView2.setOnClickListener({
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
+            val bundle = Bundle()
+            bundle.putSerializable("record", records!![1])
+            intent!!.putExtras(bundle)
+            startActivity(intent)
+        })
     }
 }

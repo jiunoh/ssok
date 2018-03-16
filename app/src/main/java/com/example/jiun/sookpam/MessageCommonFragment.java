@@ -8,19 +8,28 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.*;
 import android.view.*;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.example.jiun.sookpam.message.ContentActivity;
+
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.message.MessagePresenter;
-import com.example.jiun.sookpam.user.setting.SettingCategory;
+import com.example.jiun.sookpam.model.ContactDBManager;
+import com.example.jiun.sookpam.model.RecordDBManager;
+import com.example.jiun.sookpam.model.vo.RecordVO;
+import com.example.jiun.sookpam.util.MsgContentGenerator;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
+
+import static io.realm.internal.SyncObjectServerFacade.getApplicationContext;
 
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
     Context context;
@@ -30,9 +39,8 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     ImageButton refreshImageButton;
     LoadingDialog loadingDialog;
     ProgressBar progressbar;
-    RecyclerView messageCommonRecyclerView;
-    List<CommonTopic> topics;
-
+    RecordDBManager recordDBManager;
+    ListView messageCommonView;
 
     public MessageCommonFragment() {
         // Required empty public constructor
@@ -46,26 +54,36 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_message_common, container, false);
+        MessageDepartListAdapter adapter = new MessageDepartListAdapter();
+        messageCommonView = view.findViewById(R.id.message_common_listview);
+        messageCommonView.setAdapter(adapter);
         context = view.getContext();
         activity = getActivity();
         initialize();
+        messageCommonView.setVisibility(View.VISIBLE);
+        final ArrayList<RecordVO> dataList = new ArrayList<RecordVO>();
+        try {
+            recordDBManager = new RecordDBManager(Realm.getDefaultInstance());
+            dataList.addAll(recordDBManager.getCommonMessages());
+            adapter.addItem(dataList);
+        }
+        catch (NullPointerException exception) {
+            // mesages are not loaded yet
+        }
+        messageCommonView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RecordVO data = dataList.get(position);
+                MsgContentGenerator.showMessageBody(getContext(), data);
+            }
+        });
+
+
+
         return view;
     }
 
     private void initialize() {
-        topics = CommonTopicAdapter.Companion.getInterestOrNormalTopics(context);
-        messageCommonRecyclerView = view.findViewById(R.id.message_common_topic_recycler);
-        messageCommonRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        messageCommonRecyclerView.setAdapter(new CommonTopicRecyclerAdapter(topics));
-        messageCommonRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener (context, new RecyclerItemClickListener.OnItemClickListener(){
-            @Override
-            public void onItemClick(View view, int position) {
-                //여기에서 topics[position]을 사용하는 방식으로 액티비티를 연결하시면 됩니다.
-                Intent intent = new Intent(getContext(), MessageCommonListActivity.class);
-                intent.putExtra("category",topics.get(position).getTopicTitle());
-                startActivity(intent);
-            }
-        }));
         progressbar = activity.findViewById(R.id.message_base_progressbar);
         loadingDialog = new LoadingDialog(context);
         setPresenter(new MessagePresenter(context.getApplicationContext(), MessageCommonFragment

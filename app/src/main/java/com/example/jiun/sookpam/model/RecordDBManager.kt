@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
+import android.util.Log
 import com.example.jiun.sookpam.message.MessageList
 import com.example.jiun.sookpam.model.vo.ContactVO
 import com.example.jiun.sookpam.model.vo.MessageVO
@@ -49,6 +50,21 @@ class RecordDBManager(val realm: Realm) {
 
     fun contains(query : String): ArrayList<RecordVO>{
         var msgResponse = realm.where(RecordVO::class.java).contains("message.body", query).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
+        return responseList
+    }
+
+    fun getCommonMessages() : ArrayList<RecordVO> {
+        var msgResponse = realm.where(RecordVO::class.java).equalTo("category", "공통").or()
+                .equalTo("category", "취업").or()
+                .equalTo("category", "모집").or()
+                .equalTo("category", "학사").or()
+                .equalTo("category", "학생").or()
+                .equalTo("category", "장학").or()
+                .equalTo("category", "입학").or()
+                .equalTo("category", "시스템").findAll()
+
         var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
         responseList.addAll(msgResponse)
         return responseList

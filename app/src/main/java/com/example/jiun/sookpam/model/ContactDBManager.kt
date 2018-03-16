@@ -82,7 +82,7 @@ class ContactDBManager : Application() {
 
     fun getCategory(division: String?, realm: Realm): String? {
         var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
-        return categoryObj?.value ?: "공지"
+        return categoryObj?.value ?: "공통"
     }
 
     fun getDivisionList(category: String?, realm:Realm): ArrayList<String> {

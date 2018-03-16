@@ -1,17 +1,19 @@
 package com.example.jiun.sookpam;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.jiun.sookpam.message.ContentActivity;
-import com.example.jiun.sookpam.message.ContentItem;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
@@ -93,5 +95,67 @@ public class MessageCommonListActivity extends AppCompatActivity {
                 response.addAll(categoryManager.getDataByDivision(division));
         }
         return response;
+    }
+
+    public static class MessageCommonListAdapter extends BaseAdapter {
+        private ArrayList<RecordVO> messageDepartItems = new ArrayList<RecordVO>();
+
+        public static class MessageDepartViewHolder {
+            TextView category;
+            TextView title;
+        }
+
+        @Override
+        public int getCount() {
+            return messageDepartItems.size();
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            final Context context = parent.getContext();
+            MessageDepartViewHolder holder;
+            holder = new MessageDepartViewHolder();
+
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.message_depart_item, parent, false);
+                holder.category = (TextView) convertView.findViewById(R.id.message_depart_category);
+                holder.title = (TextView) convertView.findViewById(R.id.message_depart_title);
+                convertView.setTag(holder);
+            } else
+                holder = (MessageDepartViewHolder) convertView.getTag();
+
+            RecordVO messageDepartItem = messageDepartItems.get(position);
+
+            String messageBody = messageDepartItem.getMessage().getBody();
+            if (messageBody.contains("[Web발신]"))
+                messageBody = messageBody.replace("[Web발신]", "");
+
+            messageBody = messageBody.replaceAll("\n", " ");
+            messageBody = messageBody.replaceFirst(" ", "");
+
+            holder.title.setText(messageBody);
+            holder.category.setText(messageDepartItem.getDivision());
+
+            return convertView;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return messageDepartItems.get(position);
+        }
+
+        public void addItem(ArrayList<RecordVO> itemList) {
+            messageDepartItems.addAll(itemList);
+        }
+
+        public void clear() {
+            messageDepartItems.clear();
+        }
     }
 }
