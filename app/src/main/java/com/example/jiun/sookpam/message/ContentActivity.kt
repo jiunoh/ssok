@@ -39,11 +39,7 @@ class ContentActivity : AppCompatActivity() {
         if (body!!.contains("[Web발신]"))
             body = body.replace("[Web발신]", "")
         body = body.replaceFirst("\n".toRegex(), "")
-        if (body.length < 20)
-            title = body
-        else
-            title = body.substring(0, 20)
-        title_view.text = title
+        title_view.text = body
         content_view.text = body
         info_view.text = "$division / ${record.phone}"
         val pattern = "yyyy-MM-dd"

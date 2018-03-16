@@ -58,7 +58,10 @@
                 android:layout_margin="8dp"
                 android:padding="8dp"
                 android:text="[장학]아산장학재단 장학금 신청 안내"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                />
 
 
             <TextView
