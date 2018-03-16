@@ -17,6 +17,4 @@ interface DualModel {
     fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder)
 
     override fun toString():String
-
-    fun setStarIcon(view : ImageView, title : String)
 }
