@@ -6,14 +6,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.web_department_item.view.*
+import kotlinx.android.synthetic.main.common_topic_item.view.*
 
 class WebDepartmentRecyclerAdapter(private val departments: List<WebDepartmentFragment.Department>?) : RecyclerView.Adapter<WebDepartmentRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        val view = LayoutInflater.from(context).inflate(R.layout.web_department_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.common_topic_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -37,8 +37,8 @@ class WebDepartmentRecyclerAdapter(private val departments: List<WebDepartmentFr
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var titleTextView = view.web_department_title_txt!!
-        var divisionTextView = view.web_department_division_txt!!
-        var departmentImageView = view.web_department_img!!
+        var titleTextView = view.common_topic_title_txt!!
+        var divisionTextView = view.common_topic_description_txt!!
+        var departmentImageView = view.common_topic_img!!
     }
 }

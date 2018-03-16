@@ -24,11 +24,10 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val topic = topics[position]
         holder!!.topicTitleTextView.text = topic.topicTitle
-        holder.topicDetailTextView.text = topic.topicDetail
         holder.topicStatusTextView.text = topic.topicStatus
         AppGlideModule().setImageByGlide(holder.topicBackImageView, topic.topicImage, context)
 
-        if (topic.topicStatus != "INTEREST") {
+        if (topic.topicStatus != "관심 카테고리") {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorPrimaryAccent))
         } else {
             holder.topicStatusTextView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
@@ -38,7 +37,6 @@ class CommonTopicRecyclerAdapter(private val topics: List<CommonTopic>) : Recycl
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var topicBackImageView = view.common_topic_img!!
         var topicTitleTextView = view.common_topic_title_txt!!
-        var topicDetailTextView = view.common_topic_detail_txt!!
-        var topicStatusTextView = view.common_topic_status_txt!!
+        var topicStatusTextView = view.common_topic_description_txt!!
     }
 }

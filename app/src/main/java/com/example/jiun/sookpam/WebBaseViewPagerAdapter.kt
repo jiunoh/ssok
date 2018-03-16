@@ -8,7 +8,7 @@ import android.support.v4.view.PagerAdapter
 import com.example.jiun.sookpam.web.recommend.WebRecommendFragment
 
 class WebBaseViewPagerAdapter(fm: FragmentManager, context: Context, private val numberOfPage: Int) : FragmentStatePagerAdapter(fm) {
-    private val tabTitles = arrayListOf(context.getString(R.string.recommend), context.getString(R.string.common), context.getString(R.string.depart))
+    private val tabTitles = arrayListOf(context.getString(R.string.common), context.getString(R.string.depart), context.getString(R.string.recommend))
 
     override fun getPageTitle(position: Int): CharSequence? {
         return tabTitles[position]
@@ -34,8 +34,8 @@ class WebBaseViewPagerAdapter(fm: FragmentManager, context: Context, private val
     }
 
     companion object {
-        const val RECOMMEND_FRAGMENT = 0
-        const val COMMON_FRAGMENT = 1
-        const val DEPART_FRAGMENT = 2
+        const val COMMON_FRAGMENT = 0
+        const val DEPART_FRAGMENT = 1
+        const val RECOMMEND_FRAGMENT = 2
     }
 }
