@@ -61,11 +61,20 @@
             android:orientation="vertical"
             android:id="@+id/search_keyword_layout"
             >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="나의 추천 검색어"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
+                android:paddingTop="8dp"
                 >
 
                 <TextView
