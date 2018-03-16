@@ -2,64 +2,59 @@ package com.example.jiun.sookpam.searchable;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
 import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.model.RecordDBManager;
-import com.example.jiun.sookpam.server.WebFilter;
 import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.List;
 import io.realm.Realm;
 
 public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
-    private ArrayList<DualModel> itemList;
-    private ArrayList<? extends DualModel> responseList;
+    private List<DualModel> modelList;
+    private ArrayList<? extends DualModel> recordVoList;
 
-    public SearchableRecyclerAdapter(ArrayList<DualModel> items) {
-        itemList = items;
+    SearchableRecyclerAdapter(List<DualModel> items) {
+        modelList = items;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return ViewHolderFactory.create(parent, viewType);
+        return ViewHolderFactory.create(parent);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return itemList.get(position).getItemViewType();
+        return modelList.get(position).getItemViewType();
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        itemList.get(position).onBindViewHolder(holder);
+        modelList.get(position).onBindViewHolder(holder);
     }
 
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return modelList.size();
     }
 
-    public boolean filter(String charText) {
-        charText = charText.toLowerCase(Locale.getDefault());
-        itemList.addAll(WebFilter.webFilter(charText));
-        notifyDataSetChanged();
-        realmFilter(charText);
-        notifyDataSetChanged();
-        return itemList.size() == 0;
-    }
-
-    private void realmFilter(String charText) {
+    public void searchInRealm(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
-        responseList = recordManager.contains(charText);
-        itemList.clear();
-        itemList.addAll(responseList);
+        recordVoList = recordManager.contains(charText);
+        modelList.addAll(recordVoList);
         notifyDataSetChanged();
+    }
+
+    public List<DualModel> add(List<DualModel> items) {
+        modelList.addAll(items);
+        notifyDataSetChanged();
+        return  modelList;
     }
 
     public void clear() {
-        itemList.removeAll(responseList);
-        itemList.clear();
+        modelList.removeAll(recordVoList);
+        modelList.clear();
         notifyDataSetChanged();
     }
+
 }

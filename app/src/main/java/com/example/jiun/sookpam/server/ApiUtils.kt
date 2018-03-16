@@ -11,7 +11,11 @@ class ApiUtils {
         }
 
         fun getSearchableService() : SearchableService{
-            return RetrofitClient.getClient(BASE_URL+"search/").create(SearchableService::class.java)
+            return RetrofitClient.getClient(BASE_URL).create(SearchableService::class.java)
+        }
+
+        fun getNgramService() : NgramService {
+            return RetrofitClient.getClient(BASE_URL).create(NgramService ::class.java)
         }
     }
 }

@@ -4,6 +4,7 @@
 package com.example.jiun.sookpam.model
 
 import android.support.v7.widget.RecyclerView
+import android.widget.ImageView
 
 interface DualModel {
     companion object {

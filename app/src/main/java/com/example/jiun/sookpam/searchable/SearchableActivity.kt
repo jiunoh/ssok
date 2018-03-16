@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam.searchable
 
-
 import android.os.Bundle
 import com.example.jiun.sookpam.R
 import android.content.Intent
@@ -15,21 +14,25 @@ import android.view.View
 import android.support.v7.widget.SearchView
 import android.util.Log
 import com.example.jiun.sookpam.RecyclerItemClickListener
-import com.example.jiun.sookpam.message.ContentActivity
-import com.example.jiun.sookpam.message.ContentItem
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import java.util.ArrayList
 import android.support.v7.widget.DividerItemDecoration
 import android.widget.*
+import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
 import com.example.jiun.sookpam.model.DualModel
-import com.example.jiun.sookpam.web.WebContentActivity
+import com.example.jiun.sookpam.server.ApiUtils
+import com.example.jiun.sookpam.util.MsgContentGenerator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class SearchableActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
-    private lateinit var responseList: ArrayList<DualModel>
+    private lateinit var modelList: List<DualModel>
     private lateinit var editsearch: SearchView
     private lateinit var adapter: SearchableRecyclerAdapter
     private lateinit var errorLinearLayout: LinearLayout
@@ -37,10 +40,11 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var errorTextView: TextView
     private lateinit var progressBar: ProgressBar
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchable)
-        responseList = ArrayList<DualModel>()
+        modelList = ArrayList()
         setToolbar()
         setRecyclerView()
         setRestOfTheView()
@@ -53,9 +57,9 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                val empty = adapter.filter(query)
-                if (empty)
-                    showNoData();
+                search_recycler_view.visibility = View.VISIBLE
+                errorLinearLayout.visibility = View.INVISIBLE
+                search(query)
                 editsearch.clearFocus()
                 return true
             }
@@ -64,7 +68,7 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
-        var icon =  editsearch.findViewById(search_mag_icon) as ImageView
+        val icon =  editsearch.findViewById(search_mag_icon) as ImageView
         icon.layoutParams = LinearLayout.LayoutParams(0,0)
         icon.visibility = View.GONE
         setCloseEventListener()
@@ -74,7 +78,7 @@ class SearchableActivity : AppCompatActivity() {
     private fun setCloseEventListener() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
-            Log.v("CLosed", "CLosed")
+            cleanRecyclerView()
             editsearch.setQuery("",false)
             adapter.clear()
         })
@@ -90,19 +94,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRecyclerView() {
-        adapter = SearchableRecyclerAdapter(responseList)
-        search_recycler_view.visibility = View.VISIBLE
-        search_recycler_view.bringToFront()
-        search_recycler_view.adapter = adapter
-        search_recycler_view.addItemDecoration(DividerItemDecoration(application, DividerItemDecoration.VERTICAL))
-        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
-                RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = responseList.get(position)
-                    showMessageBody(data)
-                }))
-    }
-
     private fun setRestOfTheView() {
         errorLinearLayout = web_common_error_linear
         errorLinearLayout.visibility = View.INVISIBLE
@@ -112,24 +103,55 @@ class SearchableActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
     }
 
+    private fun cleanRecyclerView() {
+        search_recycler_view.visibility = View.VISIBLE
+        errorLinearLayout.visibility = View.INVISIBLE
+    }
+
+    private fun search(query: String)  {
+        val service = ApiUtils.getSearchableService()
+        val query = query.replace("\\s+".toRegex(), "-")
+        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
+            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+                val records = response.body()
+                adapter.searchInRealm(query)
+                modelList = adapter.add( records)
+                if(modelList.isEmpty() )
+                    showNoData()
+            }
+
+            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+                Log.v("onFailure:", "onFailure")
+            }
+        })
+    }
+
+    private fun setRecyclerView() {
+        adapter = SearchableRecyclerAdapter(modelList)
+        search_recycler_view.adapter = adapter
+        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.bringToFront()
+        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
+                RecyclerItemClickListener.OnItemClickListener { view, position ->
+                    val data = modelList.get(position)
+                    showMessageBody(data)
+                }))
+    }
+
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
-        var intent: Intent? = null
         if (data is RecordVO) {
-            var contentItem: ContentItem = ContentItem()
-            contentItem.category = data.category
-            contentItem.division = data.division
-            contentItem.body = data.message!!.body
-            contentItem.phone = data.message!!.phoneNumber
-            intent = Intent(this, ContentActivity::class.java)
-            bundle.putSerializable("OBJECT", contentItem)
-
+            MsgContentGenerator.showMessageBody(baseContext, data)
         } else {
-            intent = Intent(applicationContext, WebContentActivity::class.java)
+            val intent = Intent(applicationContext, WebContentActivity::class.java)
             bundle.putSerializable("record", data as RecordResponse)
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
-        intent!!.putExtras(bundle)
-        startActivity(intent)
     }
 
     fun showNoData() {

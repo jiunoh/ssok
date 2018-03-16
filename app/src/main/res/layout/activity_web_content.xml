@@ -1,93 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jiun.sookpam.web.WebContentActivity">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/web_content_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="4dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/web_content_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
-            android:minHeight="56dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp">
-
-                <ImageButton
-                    android:id="@+id/web_content_back_image_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/back_to_main"
-                    android:src="@drawable/ic_back_button" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="8dp"
-                        android:gravity="center"
-                        android:text="@string/web"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="8dp"
-                        android:gravity="center"
-                        android:text="@string/division_character"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/web_content_category_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="8dp"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/division_character"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/web_content_division_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp" />
-                </LinearLayout>
-            </FrameLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.v7.widget.CardView>
+        android:background="@android:color/white"
+        android:theme="?attr/actionBarTheme" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -131,7 +56,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
-                        android:gravity="center"
                         android:text="@string/web_content_id"
                         android:textColor="@android:color/black"
                         android:textSize="12sp" />
@@ -142,7 +66,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:layout_toEndOf="@id/web_content_id"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
@@ -152,7 +75,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="8dp"
                         android:layout_toEndOf="@id/web_content_id_txt"
-                        android:gravity="center"
                         android:text="@string/web_content_date"
                         android:textColor="@android:color/black"
                         android:textSize="12sp" />
@@ -163,7 +85,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@id/web_content_date"
-                        android:gravity="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
 
@@ -175,7 +96,6 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:focusable="true"
-                        android:gravity="center"
                         android:orientation="horizontal">
 
                         <TextView
@@ -225,9 +145,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center">
-            </WebView>
+                android:focusableInTouchMode="true"/>
+
+            <TextView
+                android:id="@+id/related_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/content_view"
+                android:background="@drawable/title"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/related"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/recommend_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_item"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:padding="8dp"
+                android:text="추천1" />
+
+            <TextView
+                android:id="@+id/recommend_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_item"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:padding="8dp"
+                android:text="추천2" />
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

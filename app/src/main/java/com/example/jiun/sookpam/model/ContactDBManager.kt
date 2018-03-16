@@ -28,13 +28,16 @@ class ContactDBManager : Application() {
                 } catch (exception: IOException) {
                     exception.printStackTrace()
                 } finally {
-                    closeBufferedReader()
+                    if (doesNotExist(bgRealm))
+                        closeBufferedReader()
                 }
             }, { printLogInSuccess() }) { error ->
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
         } catch (exception: RuntimeException) {
+            //Realm already exist
+        } catch (exception: UninitializedPropertyAccessException) {
             //Realm already exist
         }
     }
@@ -79,7 +82,16 @@ class ContactDBManager : Application() {
 
     fun getCategory(division: String?, realm: Realm): String? {
         var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
-        return categoryObj?.value ?: "공지"
+        return categoryObj?.value ?: "공통"
+    }
+
+    fun getDivisionList(category: String?, realm:Realm): ArrayList<String> {
+        var divisionObjList = realm.where(CategoryVO::class.java).equalTo("value", category).findAll()
+        var responseList: ArrayList<String> = ArrayList<String>()
+        for (record in divisionObjList)
+            responseList.add(record.key)
+
+        return responseList
     }
 
     fun getCategoryList(): ArrayList<String> {
@@ -121,7 +133,7 @@ class ContactDBManager : Application() {
         return responseList
     }
 
-    fun getInfo(division: String) : String {
+    fun getInfo(division: String): String {
         val result = realm.where(ContactVO::class.java).distinctValues("class2").findFirst()
         return result!!.phone
     }

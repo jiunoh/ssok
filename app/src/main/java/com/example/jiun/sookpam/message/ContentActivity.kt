@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.message
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -10,37 +11,48 @@ import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ContentActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var dbmanager: ClipDBManager
-    lateinit var title: String
-    lateinit var body: String
+    private lateinit var title: String
+    private lateinit var body: String
+    private lateinit var date: String
     private var category: String? = ""
     private var division: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_content)
+        setContentData()
+        setToolbar("메세지 > $category > $division")
+    }
+
+    private fun setContentData() {
         val intent = intent
         val record: ContentItem = intent.getSerializableExtra("OBJECT") as ContentItem
         division = record.division
         category = record.category
-        setToolbar(category + " > " + division)
         body = record.body
         title = body.split("\n")[1]
         title_view.text = title
         content_view.text = body
-        val info = record.phone
-        info_view.text = division + "\t" + info
+        info_view.text = "$division / ${record.phone}"
+        val pattern = "yyyy-MM-dd"
+        var simpleDateFormat = SimpleDateFormat(pattern)
+        date =simpleDateFormat.format( record.date)
+        date_view.text = date
     }
 
-    private fun setToolbar(category: String) {
+    private fun setToolbar(path: String) {
         toolbar = content_toolbar
         setSupportActionBar(toolbar)
-        toolbar.title = category
-        toolbar.setTitleTextColor(resources.getColor(R.color.colorPrimary))
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        toolbar.title = path
+        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationOnClickListener({
             finish()
