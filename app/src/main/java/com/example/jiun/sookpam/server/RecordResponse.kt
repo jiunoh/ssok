@@ -26,17 +26,6 @@ data class RecordResponse(
         webHolder.categoryTextView.text = "웹-$category-$division"
         webHolder.titleTextVIew.text = title
         webHolder.dateTextView.text = date
-        setStarIcon(webHolder.starView, title)
-    }
-
-
-    override fun setStarIcon(view : ImageView, title : String) {
-        val dbmanager = ClipDBManager(Realm.getDefaultInstance());
-        if (dbmanager.doesNotExist(title)) {
-            view.setImageResource(R.drawable.star_off)
-        } else {
-            view.setImageResource(R.drawable.star_on)
-        }
     }
 
     override fun getItemViewType(): Int {

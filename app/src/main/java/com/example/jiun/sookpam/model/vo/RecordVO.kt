@@ -38,16 +38,6 @@ open class RecordVO : RealmModel, DualModel {
             val pattern = "yyyy-MM-dd"
             var simpleDateFormat = SimpleDateFormat(pattern)
             realmHolder.dateTextView.text = simpleDateFormat.format(message!!.date)
-            setStarIcon(realmHolder.starView, body)
-        }
-    }
-
-    override fun setStarIcon(view : ImageView, body : String) {
-        val dbmanager = ClipDBManager(Realm.getDefaultInstance());
-        if (dbmanager.doesNotExist(body)) {
-            view.setImageResource(R.drawable.star_off)
-        } else {
-            view.setImageResource(R.drawable.star_on)
         }
     }
 }
