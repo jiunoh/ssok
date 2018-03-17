@@ -59,6 +59,9 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:text="@string/major_select_confirm"
         android:textColor="@android:color/white"
         android:textSize="18sp" />

@@ -41,7 +41,7 @@
     <string name="user_status_in">재학</string>
     <string name="user_status_out">휴학</string>
     <string name="category_interest_title">카테고리 관심 여부 설정</string>
-    <string name="category_interest_description">카테고리의 관심/일반/무관심 여부를 선택해주세요. 관심 카테고리는 3개 이상이어야 합니다.</string>
+    <string name="category_interest_description">카테고리의 관심/일반/무관심 여부를 지정해주세요. 단, 관심 카테고리는 3개 이상 선택해주셔야 합니다.</string>
     <string name="category_scholarship">장학</string>
     <string name="category_academic">학사</string>
     <string name="category_event">행사</string>

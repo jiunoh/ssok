@@ -56,7 +56,7 @@ class UserInfoActivity : AppCompatActivity() {
     }
 
     private fun initializeCircleImages() {
-        (0..3)
+        (0..2)
                 .map {
                     resources.getIdentifier("user_info_circle" + it + "_img", "id"
                             , packageName)
@@ -88,27 +88,36 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun moveNext() {
         nextButton.setOnClickListener {
-            if (currentPage < UserInfoFragmentPagerAdapter.USER_INFO_3) {
+            if (currentPage <= UserInfoFragmentPagerAdapter.USER_INFO_3) {
                 if (isConditionsFulfilled()) {
-                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_2) {
-                        nextButton.text = getText(R.string.user_info_done)
-                        pagerAdapter.notifyDataSetChanged()
+                    when (currentPage) {
+                        UserInfoFragmentPagerAdapter.USER_INFO_1 -> {
+                            previousButton.visibility = View.VISIBLE
+                            increasePage()
+                        }
+                        UserInfoFragmentPagerAdapter.USER_INFO_2 -> {
+                            nextButton.text = getText(R.string.user_info_done)
+                            pagerAdapter.notifyDataSetChanged()
+                            increasePage()
+                        }
+                        else -> {
+                            SharedPreferenceUtil.set(applicationContext, "first_setting_user_info", false)
+                            setResult(Activity.RESULT_OK)
+                            finish()
+                        }
                     }
-                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_1) {
-                        previousButton.visibility = View.VISIBLE
-                    }
-                    currentPage += 1
-                    viewPager.setCurrentItem(currentPage, true)
-                    changeCircleColor(MOVE_NEXT_PAGE)
+
                 } else {
                     Toast.makeText(applicationContext, "선택되지 않은 항목이 존재합니다", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                SharedPreferenceUtil.set(applicationContext, "first_setting_user_info", false)
-                setResult(Activity.RESULT_OK)
-                finish()
             }
         }
+    }
+
+    private fun increasePage() {
+        currentPage += 1
+        viewPager.setCurrentItem(currentPage, true)
+        changeCircleColor(MOVE_NEXT_PAGE)
     }
 
     private fun isConditionsFulfilled(): Boolean {

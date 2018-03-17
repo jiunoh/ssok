@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="24dp"
+    android:layout_marginBottom="16dp"
     android:layout_marginEnd="24dp"
     android:layout_marginStart="24dp"
-    android:layout_marginTop="36dp"
+    android:layout_marginTop="24dp"
     tools:context="com.example.jiun.sookpam.user.info.UserInfoActivity">
 
     <com.example.jiun.sookpam.SimpleViewPager
@@ -62,10 +62,12 @@
             android:id="@+id/user_info_next_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/blue_button_selector"
             android:text="@string/user_info_next_page"
+            android:textAlignment="center"
             android:textColor="@color/blue_text_color_selector"
             android:textColorHighlight="@color/blue_text_color_selector"
             android:textColorLink="@color/blue_text_color_selector"
