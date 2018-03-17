@@ -7,7 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.jiun.sookpam.CustomToast
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.category_interest_item.view.*
 
@@ -48,11 +50,23 @@ class CustomCategoryInterestItem : LinearLayout {
         val categoryName = categoryItemNameTextView.text.toString()
         val categoryStatus = SharedPreferenceUtil.get(context, categoryName, 0)
         when (categoryStatus) {
-            0 -> SharedPreferenceUtil.set(context, categoryName, 1)
-            1 -> SharedPreferenceUtil.set(context, categoryName, 2)
-            else -> SharedPreferenceUtil.set(context, categoryName, 0)
+            0 -> {
+                SharedPreferenceUtil.set(context, categoryName, 1)
+                setStatusTextView()
+            }
+            1 -> {
+                if (SettingCategory.countInterestCategories(context) <= 3) {
+                    CustomToast.showLastToast(context, context.getString(R.string.interest_category_min))
+                } else {
+                    SharedPreferenceUtil.set(context, categoryName, 2)
+                    setStatusTextView()
+                }
+            }
+            else -> {
+                SharedPreferenceUtil.set(context, categoryName, 0)
+                setStatusTextView()
+            }
         }
-        setStatusTextView()
     }
 
     private fun getAttributeSet(attributeSet: AttributeSet?, defStyle: Int? = null) {

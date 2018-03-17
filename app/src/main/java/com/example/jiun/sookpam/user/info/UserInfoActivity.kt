@@ -132,7 +132,7 @@ class UserInfoActivity : AppCompatActivity() {
                 if (selectedMajorCount < 1) return false
             }
             UserInfoFragmentPagerAdapter.USER_INFO_3 -> {
-                if (countInterestCategories(applicationContext) < 3) return false
+                if (SettingCategory.countInterestCategories(applicationContext) < 3) return false
             }
         }
         return true
@@ -167,13 +167,5 @@ class UserInfoActivity : AppCompatActivity() {
         const val MAX_PAGE_SIZE = 3
         const val MOVE_PREVIOUS_PAGE = true
         const val MOVE_NEXT_PAGE = false
-
-        fun countInterestCategories(context: Context): Int {
-            return SettingCategory.categories.count { getCategoryStatus(it, context) == SettingCategory.INTEREST_CATEGORY }
-        }
-
-        private fun getCategoryStatus(key: String, context: Context): Int {
-            return SharedPreferenceUtil.get(context, key, SettingCategory.NORMAL_CATEGORY)
-        }
     }
 }
