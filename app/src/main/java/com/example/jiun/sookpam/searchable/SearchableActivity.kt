@@ -17,6 +17,14 @@ import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_chuiup
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_gukje
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haengsa
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haksa
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haksaeng
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_janghak
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_mojip
+import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_system
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.user.setting.SettingCategory
@@ -198,15 +206,6 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun setSearchKeywords() {
         var keywordRecomList: ArrayList<String>? = ArrayList()
-        var key_janghak: Array<String> = arrayOf("우덕", "금옥", "정산", "재단", "한국장학재단", "장학생", "자기계발", "선발", "공고")
-        var key_haksa: Array<String> = arrayOf("사정", "소멸", "인증대체", "성적")
-        var key_haengsa: Array<String> = arrayOf("특강", "축제", "눈송이", "초대", "만남")
-        var key_mojip: Array<String> = arrayOf("단기", "근로", "행정", "마감", "월급", "조교", "급여", "출퇴근")
-        var key_system: Array<String> = arrayOf("포털", "블루리본", "웹메일", "스노보드", "포털시스템", "커뮤니티")
-        var key_gukje: Array<String> = arrayOf("협력", "교환학생", "교류", "해외", "파견")
-        var key_chuiup: Array<String> = arrayOf("공기업", "IPP", "인턴", "토익", "재직", "선배", "강소기업", "업계", "서류", "직무", "자문", "멘토링")
-        var key_haksaeng: Array<String> = arrayOf("청각장애", "속기", "안내견", "학생지원팀")
-
         var topics: ArrayList<String> = ArrayList()
         val random = Random()
 
@@ -236,6 +235,17 @@ class SearchableActivity : AppCompatActivity() {
             max = 4
         }
 
+        var indices = getRandomindices(max)
+
+        keyword1.setText(keywordRecomList?.get(indices[0]))
+        keyword2.setText(keywordRecomList?.get(indices[1]))
+        keyword3.setText(keywordRecomList?.get(indices[2]))
+        keyword4.setText(keywordRecomList?.get(indices[3]))
+    }
+
+    private fun getRandomindices(max:Int):IntArray {
+        val random = Random()
+
         var indices: IntArray = intArrayOf(0, 0, 0, 0)
         var i = 0
         while (i < 4) {
@@ -248,9 +258,6 @@ class SearchableActivity : AppCompatActivity() {
             i++
         }
 
-        keyword1.setText(keywordRecomList?.get(indices[0]))
-        keyword2.setText(keywordRecomList?.get(indices[1]))
-        keyword3.setText(keywordRecomList?.get(indices[2]))
-        keyword4.setText(keywordRecomList?.get(indices[3]))
+        return indices
     }
 }
