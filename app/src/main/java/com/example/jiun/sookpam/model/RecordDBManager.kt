@@ -1,49 +1,72 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
+import android.util.Log
 import com.example.jiun.sookpam.message.MessageList
-import com.example.jiun.sookpam.model.vo.*
+import com.example.jiun.sookpam.model.vo.ContactVO
+import com.example.jiun.sookpam.model.vo.MessageVO
+import com.example.jiun.sookpam.model.vo.RecordVO
 import io.realm.Realm
+import java.util.*
 
 class RecordDBManager(val realm: Realm) {
     private lateinit var context: ContactDBManager
+
     fun categorizeMessages(context: Context) {
         this.context = context as ContactDBManager
         var messageList = MessageList(realm).getList()
         for (message in messageList) {
-            if (doesMessageNotExist(message.body))
+            if (fromUniversity(message.phoneNumber) and doesNotExist(message.body))
                 createMessageCategory(message)
         }
     }
 
-    fun doesMessageNotExist(value: String?): Boolean {
+    private fun fromUniversity(phoneNumber: String?): Boolean {
+        var result = realm.where(ContactVO::class.java).equalTo("phone", phoneNumber).findFirst()
+        return (result != null)
+    }
+
+    private fun doesNotExist(value: String?): Boolean {
         var result = realm.where(RecordVO::class.java).equalTo("message.body", value).findFirst()
         return (result == null)
     }
 
-    fun createMessageCategory(message: MessageVO) {
+    private fun createMessageCategory(message: MessageVO) {
         realm.executeTransaction { realm ->
             var recordRecord: RecordVO = realm.createObject(RecordVO::class.java)
-            val department: String? = context.getKeywordOf(message.phoneNumber, realm)
-            recordRecord.keyword = department
+            val department: String? = context.getDepartmentOf(message.phoneNumber, realm)
             recordRecord.message = message
             recordRecord.division = department
             recordRecord.category = context.getCategory(department,realm)
         }
     }
 
-    fun getDataByCategory(request: String): ArrayList<String> {
+    fun getDataByDivision(request: String): ArrayList<RecordVO> {
+        var  msgResponse = realm.where(RecordVO::class.java).equalTo("division", request).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
+        return responseList
+    }
 
-        var messageList = realm.where(RecordVO::class.java).equalTo("category", request).findAll()
-        var responseList: ArrayList<String> = ArrayList<String>()
+    fun contains(query : String): ArrayList<RecordVO>{
+        var msgResponse = realm.where(RecordVO::class.java).contains("message.body", query).findAll()
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
+        return responseList
+    }
 
-        for (record in messageList) {
-            if (record.message != null) {
-                val msgBody: String by lazy<String> { (record.message as MessageVO).body }
+    fun getCommonMessages() : ArrayList<RecordVO> {
+        var msgResponse = realm.where(RecordVO::class.java).equalTo("category", "공통").or()
+                .equalTo("category", "취업").or()
+                .equalTo("category", "모집").or()
+                .equalTo("category", "학사").or()
+                .equalTo("category", "학생").or()
+                .equalTo("category", "장학").or()
+                .equalTo("category", "입학").or()
+                .equalTo("category", "시스템").findAll()
 
-                responseList.add(msgBody)
-            }
-        }
+        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
+        responseList.addAll(msgResponse)
         return responseList
     }
 }

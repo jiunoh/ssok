@@ -12,6 +12,11 @@ class MessageList(var realm: Realm) {
         return realm.where(MessageVO::class.java).findAll()
     }
 
+    fun getListBy(messageType: Boolean): RealmResults<MessageVO> {
+        return realm.where(MessageVO::class.java)
+                .equalTo("messageType", messageType).findAll()
+    }
+
     fun addToList(phoneNumber: String, date: Date, body: String, messageType: Boolean) {
         realm.beginTransaction()
         val mms: MessageVO = realm.createObject(MessageVO::class.java, messageList.size.toLong())

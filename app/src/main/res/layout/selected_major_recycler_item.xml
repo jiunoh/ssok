@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.jiun.sookpam.user.SelectedMajorRecyclerAdapter">
+    tools:context="com.example.jiun.sookpam.user.setting.SelectedMajorRecyclerAdapter">
 
     <android.support.v7.widget.CardView
         android:id="@+id/major_card_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        card_view:cardCornerRadius="3dp">
+        android:layout_height="48dp"
+        app:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="3dp"
+        card_view:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/selected_major_txt"

@@ -4,7 +4,7 @@ import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
 import android.util.SparseBooleanArray
 import android.view.*
 import android.widget.*
@@ -12,7 +12,6 @@ import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.*
-import com.github.aakira.expandablelayout.Utils
 import kotlinx.android.synthetic.main.college_recycler_item.view.*
 import kotlinx.android.synthetic.main.major_recycler_item.view.*
 import kotlin.collections.ArrayList
@@ -31,7 +30,7 @@ class CollegeRecyclerAdapter(val data: List<MajorItemModel>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         context = parent!!.context
-        layoutManager = CustomLinearLayoutManager(context)
+        layoutManager = CustomLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val view = LayoutInflater.from(context).inflate(R.layout.college_recycler_item, parent, false)
         return ViewHolder(view)
     }

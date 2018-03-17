@@ -42,7 +42,7 @@ class MmsReader(realm: Realm) : MessageReader {
         setIdList()
 
         if (cursor.moveToFirst()) {
-            for (i: Int in messageList.getList().size until cursor.count) {
+            for (i: Int in messageList.getListBy(MessageVO.TYPE_MMS).size until cursor.count) {
                 setDbFieldsFromMessageInbox(cursor)
                 cursor.moveToNext()
             }

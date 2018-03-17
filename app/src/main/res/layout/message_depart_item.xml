@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5" />
+
+        <TextView
+            android:id="@+id/message_depart_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9.5"
+            android:text="소프트웨어학부"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            />
+
+        <TextView
+            android:id="@+id/message_depart_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9.5"
+            android:text="안녕하세요! 소프트웨어학부 공공기기실"
+            android:textSize="18sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

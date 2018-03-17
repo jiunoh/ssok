@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="36dp"
-    tools:context="com.example.jiun.sookpam.user.UserInfoActivity">
+    tools:context="com.example.jiun.sookpam.user.info.UserInfoActivity">
 
-    <com.example.jiun.sookpam.user.CustomViewPager
+    <com.example.jiun.sookpam.SimpleViewPager
         android:id="@+id/user_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

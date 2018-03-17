@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.example.jiun.sookpam.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
+    <com.example.jiun.sookpam.SimpleViewPager
+        android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <FrameLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/main_listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice" />
-
-        <ProgressBar
-            android:id="@+id/main_message_prograssbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </FrameLayout>
-
+        android:layout_height="60dp"
+        android:theme="@style/ToolbarTheme"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextAppearance="@style/CustomTabText" />
 </LinearLayout>
-

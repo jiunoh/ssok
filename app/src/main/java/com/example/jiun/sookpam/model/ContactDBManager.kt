@@ -9,35 +9,57 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
-
 class ContactDBManager : Application() {
     lateinit private var bufferedReader: BufferedReader
     lateinit var realm: Realm
-    lateinit var inputStreamReader : InputStreamReader
-    val VOID:String  = "VOID"
+    lateinit var inputStreamReader: InputStreamReader
 
     override fun onCreate() {
         super.onCreate()
         Realm.init(this)
-        realm = Realm.getDefaultInstance()
-
-        if (!realm!!.isEmpty) {
-            Log.v("DB", "already there!!")
-        } else {
-            Log.v("DB", "Not Found!!")
+        try {
+            realm = Realm.getDefaultInstance()
             realm!!.executeTransactionAsync({ bgRealm ->
                 try {
-                    parseStringToRealm(bgRealm)
-                    loadCategory(bgRealm)
+                    if (doesNotExist(bgRealm)) {
+                        loadContact(bgRealm)
+                        loadCategory(bgRealm)
+                    }
                 } catch (exception: IOException) {
                     exception.printStackTrace()
                 } finally {
-                    closeBufferedReader()
+                    if (doesNotExist(bgRealm))
+                        closeBufferedReader()
                 }
             }, { printLogInSuccess() }) { error ->
                 error.printStackTrace()
                 Log.v("TAGGED", "FAILED")
             }
+        } catch (exception: RuntimeException) {
+            //Realm already exist
+        } catch (exception: UninitializedPropertyAccessException) {
+            //Realm already exist
+        }
+    }
+
+    private fun doesNotExist(backgroundRealm: Realm): Boolean {
+        val existence = backgroundRealm.where(ContactVO::class.java).findFirst()
+        return existence == null
+    }
+
+    private fun loadContact(backgroundRealm: Realm) {
+        val cvsSplitBy = ","
+        val csvFile = "contact.csv"
+        inputStreamReader = InputStreamReader(assets.open(csvFile))
+        bufferedReader = BufferedReader(inputStreamReader)
+
+        while (true) {
+            var line = bufferedReader.readLine() ?: break
+            val record = backgroundRealm.createObject(ContactVO::class.java)
+            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            record.class1 = value[0]
+            record.class2 = value[1]
+            record.phone = "02" + value[2]
         }
     }
 
@@ -53,45 +75,32 @@ class ContactDBManager : Application() {
             val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
             record.key = value[0]
             record.value = value[1]
-            Log.v("Category",record.key+" "+record.value)
         }
         bufferedReader.close()
         inputStreamReader.close()
     }
 
-    fun getCategory(keyword:String?, realm: Realm) : String? {
-        if(keyword.equals(VOID))
-            return VOID
-        else {
-            var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", keyword).findFirst()
-            return categoryObj?.value ?:"기타"
-        }
+    fun getCategory(division: String?, realm: Realm): String? {
+        var categoryObj = realm.where(CategoryVO::class.java).equalTo("key", division).findFirst()
+        return categoryObj?.value ?: "공통"
     }
 
+    fun getDivisionList(category: String?, realm:Realm): ArrayList<String> {
+        var divisionObjList = realm.where(CategoryVO::class.java).equalTo("value", category).findAll()
+        var responseList: ArrayList<String> = ArrayList<String>()
+        for (record in divisionObjList)
+            responseList.add(record.key)
 
-    fun getCategoryList() :ArrayList<String> {
-        var categoryVOList= realm.where(CategoryVO::class.java).distinctValues("value").findAll()
+        return responseList
+    }
+
+    fun getCategoryList(): ArrayList<String> {
+        var categoryVOList = realm.where(CategoryVO::class.java).distinctValues("value").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
         for (record in categoryVOList)
             responseList.add(record.value)
         return responseList
-    }
-
-    private fun parseStringToRealm(backgroundRealm: Realm) {
-        val cvsSplitBy = ","
-        val csvFile = "contact.csv"
-        inputStreamReader = InputStreamReader(assets.open(csvFile))
-        bufferedReader = BufferedReader(inputStreamReader)
-
-        while (true) {
-            var line = bufferedReader.readLine() ?: break
-            val record = backgroundRealm.createObject(ContactVO::class.java)
-            val value = line.split(cvsSplitBy.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            record.class1 = value[0]
-            record.class2 = value[1]
-            record.phone = "02" + value[2]
-        }
     }
 
     private fun closeBufferedReader() {
@@ -110,20 +119,22 @@ class ContactDBManager : Application() {
         Log.v("SUCCESS", "size : " + results.size)
     }
 
-    fun getKeywordOf(value: String, realm: Realm): String {
+    fun getDepartmentOf(value: String, realm: Realm): String {
         val record = realm.where(ContactVO::class.java).equalTo("phone", value).findFirst()
-        if (record == null)
-            return VOID
-        else
-            return record.class2
+        return record!!.class2
     }
 
-    fun getKeywordList(): ArrayList<String> {
-        var keywordVOLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
+    fun getDepartmentList(): ArrayList<String> {
+        var departmentLists = realm.where(ContactVO::class.java).distinctValues("class2").findAll()
         var responseList: ArrayList<String> = ArrayList<String>()
 
-        for (record in keywordVOLists)
+        for (record in departmentLists)
             responseList.add(record.class2)
         return responseList
+    }
+
+    fun getInfo(division: String): String {
+        val result = realm.where(ContactVO::class.java).distinctValues("class2").findFirst()
+        return result!!.phone
     }
 }

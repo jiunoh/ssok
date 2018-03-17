@@ -8,7 +8,7 @@ import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.major_recycler_item.view.*
 
-class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorRecyclerAdapter.ViewHolder>() {
+class MajorRecyclerAdapter(val data: List<String>?) : RecyclerView.Adapter<MajorRecyclerAdapter.ViewHolder>() {
     lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -18,11 +18,11 @@ class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorR
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data?.size ?: 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val item = data[position]
+        val item = data!![position]
         holder!!.majorTextView.text = item
         holder.itemView.setBackgroundColor(Color.WHITE)
         val isMajorChecked = SharedPreferenceUtil.get(context, item, false)
@@ -35,7 +35,7 @@ class MajorRecyclerAdapter(val data: List<String>) : RecyclerView.Adapter<MajorR
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var majorTextView = v.major_txt!!
-        var majorCheckImageView = v.major_check_img
+        var majorCheckImageView = v.major_check_img!!
     }
 
     companion object {

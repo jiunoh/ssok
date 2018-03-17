@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     tools:context="com.example.jiun.sookpam.user.major.CollegeRecyclerAdapter">
 
     <TextView
@@ -13,6 +16,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_toStartOf="@id/major_college_relative"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:padding="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp" />
@@ -24,6 +30,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center">
 
         <View
@@ -44,6 +53,6 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/major_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 </RelativeLayout>
