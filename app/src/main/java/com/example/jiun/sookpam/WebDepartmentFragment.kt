@@ -29,7 +29,7 @@ class WebDepartmentFragment : Fragment() {
         webDepartmentRecyclerView = view.web_department_recycler
         webDepartmentRecyclerView.layoutManager = LinearLayoutManager(context)
         webDepartmentRecyclerView.adapter = WebDepartmentRecyclerAdapter(departments)
-        webDepartmentRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { item_view, position ->
+        webDepartmentRecyclerView.addOnItemTouchListener(RecyclerItemClickListener(context, RecyclerItemClickListener.OnItemClickListener { _, position ->
             val intent = Intent(context, WebRecyclerActivity::class.java)
             intent.putExtra("category", departments[position].category)
             intent.putExtra("division", departments[position].division)

@@ -23,7 +23,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:contentDescription="@string/refresh_current_page"
+                android:focusable="true"
                 android:src="@drawable/information" />
 
             <TextView
