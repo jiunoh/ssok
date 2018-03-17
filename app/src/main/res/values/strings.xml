@@ -121,4 +121,6 @@
     <string name="category_status_interest">관심</string>
     <string name="category_status_normal">일반</string>
     <string name="category_status_uninterest">무관심</string>
+    <string name="expand">펼치기</string>
+    <string name="shrink">접기</string>
 </resources>

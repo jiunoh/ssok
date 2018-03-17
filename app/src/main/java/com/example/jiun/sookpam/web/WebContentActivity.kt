@@ -7,16 +7,13 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.util.Log
-import android.view.View
+import android.view.*
 import android.webkit.WebView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.webkit.WebViewClient
+import android.widget.*
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
@@ -41,8 +38,12 @@ class WebContentActivity : AppCompatActivity() {
     private lateinit var expandableAttachImageView: ImageView
     private lateinit var attachFilesCountTextView: TextView
     private lateinit var attachFilesTextView: TextView
+    private lateinit var headerRelativeLayout: RelativeLayout
+    private lateinit var recommendLinearLayout: LinearLayout
     private lateinit var recommendView1: TextView
     private lateinit var recommendView2: TextView
+    private lateinit var recommendExpandTextView: TextView
+    private lateinit var recommendExpandFrame: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +61,29 @@ class WebContentActivity : AppCompatActivity() {
         expandableAttachImageView = web_content_attach_expandable_img
         attachFilesCountTextView = web_content_attach_files_count_txt
         attachFilesTextView = web_content_attach_files_txt
+        headerRelativeLayout = web_content_header_relative
+        recommendLinearLayout = web_content_recommend_linear
         recommendView1 = recommend_view1
         recommendView2 = recommend_view2
+        recommendExpandTextView = web_content_recommend_expand_txt
+        recommendExpandFrame = web_content_recommend_expand_frame
+        setRecommendExpandListener()
         setExpandListener()
         setWebView()
+    }
+
+    private fun setRecommendExpandListener() {
+        recommendExpandFrame.setOnClickListener {
+            if (recommendExpandTextView.text == getString(R.string.expand)) {
+                recommendExpandTextView.text = getString(R.string.shrink)
+                recommendView1.visibility = View.VISIBLE
+                recommendView2.visibility = View.VISIBLE
+            } else {
+                recommendExpandTextView.text = getString(R.string.expand)
+                recommendView1.visibility = View.GONE
+                recommendView2.visibility = View.GONE
+            }
+        }
     }
 
     private fun setExpandListener() {
@@ -85,6 +105,24 @@ class WebContentActivity : AppCompatActivity() {
         contentWebView.settings.displayZoomControls = false
         contentWebView.isScrollbarFadingEnabled = true
         contentWebView.isScrollContainer = false
+        contentWebView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                contentWebView.loadUrl("javascript:AndroidFunction.resize(document.body.scrollHeight)")
+            }
+        }
+        contentWebView.viewTreeObserver.addOnScrollChangedListener {
+            if (contentWebView.scrollY == 0) {
+                headerRelativeLayout.postDelayed({
+                    headerRelativeLayout.visibility = View.VISIBLE
+                }, 400)
+            } else {
+                headerRelativeLayout.postDelayed({
+                    headerRelativeLayout.visibility = View.GONE
+                }, 400)
+            }
+        }
+
     }
 
     private fun setContentData() {
@@ -95,7 +133,8 @@ class WebContentActivity : AppCompatActivity() {
         idTextView.text = record.id.toString()
         dateTextView.text = record.date
         titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
-        contentWebView.loadData(record.content, "text/html; charset=utf-8", "UTF-8")
+        contentWebView.loadData(record.content + "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>",
+                "text/html; charset=utf-8", "UTF-8")
         checkAttachFilesAndApplyView(record)
         requestRecommends(record.title)
     }
@@ -141,7 +180,7 @@ class WebContentActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_content, menu)
         val star = menu!!.findItem(R.id.action_star)
-        dbmanager = ClipDBManager(Realm.getDefaultInstance());
+        dbmanager = ClipDBManager(Realm.getDefaultInstance())
         if (dbmanager.doesNotExist(titleTextView.text.toString())) {
             star.icon = resources.getDrawable(R.drawable.star_off)
         } else {
