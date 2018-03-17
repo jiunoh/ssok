@@ -14,7 +14,7 @@
         android:gravity="center_horizontal"
         android:text="@string/user_info1_title"
         android:textColor="@android:color/black"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,11 +24,11 @@
         android:gravity="center_vertical"
         android:text="@string/user_info1_student_year"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/user_info1_student_year_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:entries="@array/student_year" />
@@ -40,34 +40,41 @@
         android:gravity="center_vertical"
         android:text="@string/user_info1_student_grade"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/user_info1_student_grade_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:entries="@array/student_grade" />
 
-    <TextView
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:text="@string/user_info1_major"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:columnCount="2">
 
-    <Button
-        android:id="@+id/user_info1_major_btn"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.6"
-        android:background="@drawable/rectangle_shape"
-        android:padding="12dp"
-        android:text="@string/info_add_major"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/user_info1_major"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/user_info1_major_img_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:src="@drawable/ic_add_major" />
+    </GridLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/user_info1_majors_recycler_view"
