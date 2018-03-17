@@ -67,12 +67,12 @@ class SearchableActivity : AppCompatActivity() {
 
         var keywordRecomList: ArrayList<String>? = ArrayList()
         var key_janghak: Array<String> = arrayOf("대정", "홍산", "성음", "장학생", "자기계발", "재단법인")
-        var key_haksa: Array<String> = arrayOf("사정", "소멸", "인증대체", "반환")
+        var key_haksa: Array<String> = arrayOf("사정", "소멸", "인증대체", "성적")
         var key_haengsa: Array<String> = arrayOf("특강", "축제", "눈송이", "초대", "만남")
-        var key_mojip: Array<String> = arrayOf("단기", "행정", "마감", "월급")
+        var key_mojip: Array<String> = arrayOf("단기", "행정", "마감", "월급", "조교", "급여", "출퇴근")
         var key_system: Array<String> = arrayOf("포털", "블루리본", "웹메일", "스노보드", "포털시스템", "커뮤니티")
-        var key_gukje: Array<String> = arrayOf("협력", "교환학생")
-        var key_chuiup: Array<String> = arrayOf("공기업", "강소기업", "업계", "서류", "직무", "파견")
+        var key_gukje: Array<String> = arrayOf("협력", "교환학생", "교류", "해외")
+        var key_chuiup: Array<String> = arrayOf("공기업", "토익", "재직", "선배", "강소기업", "업계", "서류", "직무", "자문", "멘토링")
         var key_haksaeng: Array<String> = arrayOf("청각장애", "속기", "안내견", "학생지원팀")
 
         var topics: ArrayList<String> = ArrayList()
@@ -97,11 +97,17 @@ class SearchableActivity : AppCompatActivity() {
             }
         }
 
-        var max = keywordRecomList?.size
+        var max = keywordRecomList?.size!!
+
+        if (max < 4) {
+            keywordRecomList.add("안내")
+            max = 4
+        }
+
         var indices: IntArray = intArrayOf(0, 0, 0, 0)
         var i = 0
         while (i < 4) {
-            indices[i] = random.nextInt(max!!)
+            indices[i] = random.nextInt(max)
             for (j in 0 until i) {
                 if (indices[i] === indices[j]) {
                     i--
@@ -135,6 +141,23 @@ class SearchableActivity : AppCompatActivity() {
         icon.layoutParams = LinearLayout.LayoutParams(0, 0)
         icon.visibility = View.GONE
         setCloseEventListener()
+
+        keyword1.setOnClickListener{
+            var query = keyword1.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword2.setOnClickListener{
+            var query = keyword2.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword3.setOnClickListener{
+            var query = keyword3.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword4.setOnClickListener{
+            var query = keyword4.text.toString()
+            editsearch.setQuery(query, true)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
