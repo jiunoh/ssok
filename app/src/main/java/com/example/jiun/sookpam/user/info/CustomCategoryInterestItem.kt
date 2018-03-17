@@ -2,6 +2,7 @@ package com.example.jiun.sookpam.user.info
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -11,9 +12,10 @@ import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import kotlinx.android.synthetic.main.category_interest_item.view.*
 
 class CustomCategoryInterestItem : LinearLayout {
-    lateinit var categoryItemStatusTextView: TextView
-    lateinit var categoryItemNameTextView: TextView
-    lateinit var typedArray: TypedArray
+    private lateinit var categoryCardView: CardView
+    private lateinit var categoryItemStatusTextView: TextView
+    private lateinit var categoryItemNameTextView: TextView
+    private lateinit var typedArray: TypedArray
 
     constructor(context: Context) : this(context, null) {
         initView()
@@ -36,16 +38,21 @@ class CustomCategoryInterestItem : LinearLayout {
         layoutInflater.inflate(R.layout.category_interest_item, this)
         categoryItemStatusTextView = category_item_status_txt
         categoryItemNameTextView = category_item_name_txt
-        categoryItemNameTextView.setOnClickListener {
-            val categoryName = categoryItemNameTextView.text.toString()
-            val categoryStatus = SharedPreferenceUtil.get(context, categoryName, 0)
-            when (categoryStatus) {
-                0 -> SharedPreferenceUtil.set(context, categoryName, 1)
-                1 -> SharedPreferenceUtil.set(context, categoryName, 2)
-                else -> SharedPreferenceUtil.set(context, categoryName, 0)
-            }
-            setStatusTextView()
+        categoryCardView = category_card_view
+        categoryCardView.setOnClickListener {
+            changeStatus()
         }
+    }
+
+    private fun changeStatus() {
+        val categoryName = categoryItemNameTextView.text.toString()
+        val categoryStatus = SharedPreferenceUtil.get(context, categoryName, 0)
+        when (categoryStatus) {
+            0 -> SharedPreferenceUtil.set(context, categoryName, 1)
+            1 -> SharedPreferenceUtil.set(context, categoryName, 2)
+            else -> SharedPreferenceUtil.set(context, categoryName, 0)
+        }
+        setStatusTextView()
     }
 
     private fun getAttributeSet(attributeSet: AttributeSet?, defStyle: Int? = null) {

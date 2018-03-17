@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="@string/user_info2_title"
         android:textColor="@android:color/black"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_marginBottom="20dp"
         android:text="@string/user_info2_scholarship"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <CheckBox
         android:id="@+id/user_info2_school_scholarship_checkbox"
@@ -54,7 +54,7 @@
         android:layout_marginBottom="20dp"
         android:text="@string/user_info2_status"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <RadioGroup
         android:id="@+id/user_info2_status_radio_group"

@@ -1,55 +1,28 @@
 package com.example.jiun.sookpam.user.info
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
-import android.widget.Button
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.user.setting.SettingCategory
-import kotlinx.android.synthetic.main.fragment_user_info3.*
+import kotlinx.android.synthetic.main.fragment_category_interest.view.*
 
 class UserInfo3Fragment : Fragment() {
-    private var userInfo3View: View? = null
-    private var userInfo3Activity: Activity? = null
-    private var userInfo3Context: Context? = null
-    private var settingCategory: SettingCategory? = null
-    private var detailButtons: ArrayList<Button> = ArrayList()
+    private val customCategoryList = ArrayList<CustomCategoryInterestItem>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        userInfo3View = inflater.inflate(R.layout.fragment_user_info3, container, false)
-        userInfo3Activity = activity
-        userInfo3Context = userInfo3View!!.context
-        settingCategory = SettingCategory(userInfo3Context!!, SettingCategory.PAGE3)
-        return userInfo3View
+        val view = inflater.inflate(R.layout.fragment_user_info3, container, false)
+        initializeCustomCategories(view)
+        return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        initializeDetailButtons()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        settingCategory!!.setColorsOf(detailButtons)
-    }
-
-    private fun initializeDetailButtons() {
-        detailButtons.add(user_info3_scholarship_btn)
-        detailButtons.add(user_info3_academic_btn)
-        detailButtons.add(user_info3_event_btn)
-        detailButtons.add(user_info3_recruit_btn)
-        detailButtons.add(user_info3_system_btn)
-        detailButtons.add(user_info3_global_btn)
-        detailButtons.add(user_info3_career_btn)
-        detailButtons.add(user_info3_student_btn)
-
-        for (button in detailButtons) {
-            button.setOnClickListener {
-                settingCategory!!.setCategoryButtonListener(button
-                        , getString(R.string.user_info3_uninterest_already_checked))
-            }
-        }
+    private fun initializeCustomCategories(view: View) {
+        customCategoryList.add(view.category_academic_custom)
+        customCategoryList.add(view.category_career_custom)
+        customCategoryList.add(view.category_event_custom)
+        customCategoryList.add(view.category_global_custom)
+        customCategoryList.add(view.category_scholarship_custom)
+        customCategoryList.add(view.category_recruit_custom)
+        customCategoryList.add(view.category_system_custom)
+        customCategoryList.add(view.category_student_custom)
     }
 }

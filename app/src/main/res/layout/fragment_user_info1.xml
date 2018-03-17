@@ -9,8 +9,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:gravity="center_horizontal"
         android:text="@string/user_info1_title"
         android:textColor="@android:color/black"
@@ -19,8 +19,8 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:gravity="center_vertical"
         android:text="@string/user_info1_student_year"
         android:textColor="@android:color/black"
@@ -29,14 +29,14 @@
     <Spinner
         android:id="@+id/user_info1_student_year_spinner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:entries="@array/student_year" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:gravity="center_vertical"
         android:text="@string/user_info1_student_grade"
         android:textColor="@android:color/black"
@@ -45,14 +45,14 @@
     <Spinner
         android:id="@+id/user_info1_student_grade_spinner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:entries="@array/student_grade" />
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:columnCount="2">
 
         <TextView
@@ -80,7 +80,7 @@
         android:id="@+id/user_info1_majors_recycler_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="64dp"
         android:layout_weight="1"
         android:fadeScrollbars="false"
         android:scrollbars="vertical"

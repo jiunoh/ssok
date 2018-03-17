@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,141 +15,126 @@
         android:gravity="center"
         android:text="@string/category_interest_title"
         android:textColor="@android:color/black"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="24dp"
         android:text="@string/category_interest_description"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/user_info3_scholarship_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="28dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_scholarship"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/user_info3_academic_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_academic"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-    </LinearLayout>
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.jiun.sookpam.CategoryInterestFragment">
 
-        <Button
-            android:id="@+id/user_info3_event_btn"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="28dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_event"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/user_info3_recruit_btn"
-            android:layout_width="0dp"
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_scholarship_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_scholarship"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_academic_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_academic"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_recruit"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_event_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_event"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
 
-        <Button
-            android:id="@+id/user_info3_system_btn"
-            android:layout_width="0dp"
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_recruit_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_recruit"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="28dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_system"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/user_info3_global_btn"
-            android:layout_width="0dp"
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_system_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_system"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_global_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_global"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_global"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_career_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_career"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
 
-        <Button
-            android:id="@+id/user_info3_career_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="40dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_career"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/user_info3_student_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="40dp"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/category_student"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+                android:id="@+id/category_student_custom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                app:name_txt="@string/category_student"
+                app:status_background="@color/colorPrimary"
+                app:status_txt="@string/category_status_normal" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

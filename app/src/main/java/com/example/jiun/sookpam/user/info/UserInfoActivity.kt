@@ -45,7 +45,7 @@ class UserInfoActivity : AppCompatActivity() {
         viewPager.apply {
             this.setPagingEnabled(false)
             this.adapter = pagerAdapter
-            this.offscreenPageLimit = 3
+            this.offscreenPageLimit = 2
             currentFragment = pagerAdapter.getItem(currentPage)
         }
     }
@@ -71,7 +71,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun movePrevious() {
         previousButton.setOnClickListener {
-            if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_4) {
+            if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_3) {
                 nextButton.text = getText(R.string.user_info_next_page)
                 pagerAdapter.notifyDataSetChanged()
             }
@@ -88,9 +88,9 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun moveNext() {
         nextButton.setOnClickListener {
-            if (currentPage < UserInfoFragmentPagerAdapter.USER_INFO_4) {
+            if (currentPage < UserInfoFragmentPagerAdapter.USER_INFO_3) {
                 if (isConditionsFulfilled()) {
-                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_3) {
+                    if (currentPage == UserInfoFragmentPagerAdapter.USER_INFO_2) {
                         nextButton.text = getText(R.string.user_info_done)
                         pagerAdapter.notifyDataSetChanged()
                     }
@@ -155,7 +155,7 @@ class UserInfoActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MAX_PAGE_SIZE = 4
+        const val MAX_PAGE_SIZE = 3
         const val MOVE_PREVIOUS_PAGE = true
         const val MOVE_NEXT_PAGE = false
 

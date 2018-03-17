@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam.user.info
+package com.example.jiun.sookpam
 
 
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
 import kotlinx.android.synthetic.main.fragment_category_interest.view.*
 
 

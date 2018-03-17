@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.PagerAdapter
-import com.example.jiun.sookpam.user.info.CategoryInterestFragment
 
 class MyPageBaseViewPagerAdapter(fm: FragmentManager, context: Context, private val numberOfPage: Int) : FragmentStatePagerAdapter(fm) {
     private val tabTitles = arrayListOf(context.getString(R.string.my_topic), context.getString(R.string.my_info), context.getString(R.string.my_clip))

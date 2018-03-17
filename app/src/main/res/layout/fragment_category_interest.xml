@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.info.CategoryInterestFragment">
+    tools:context="com.example.jiun.sookpam.CategoryInterestFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
