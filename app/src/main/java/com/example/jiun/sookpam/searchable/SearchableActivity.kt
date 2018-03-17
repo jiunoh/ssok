@@ -28,7 +28,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -65,61 +64,7 @@ class SearchableActivity : AppCompatActivity() {
         keyword3 = findViewById(R.id.search_keyword_3)
         keyword4 = findViewById(R.id.search_keyword_4)
 
-        var keywordRecomList: ArrayList<String>? = ArrayList()
-        var key_janghak: Array<String> = arrayOf("대정", "홍산", "성음", "장학생", "자기계발", "재단법인")
-        var key_haksa: Array<String> = arrayOf("사정", "소멸", "인증대체", "성적")
-        var key_haengsa: Array<String> = arrayOf("특강", "축제", "눈송이", "초대", "만남")
-        var key_mojip: Array<String> = arrayOf("단기", "행정", "마감", "월급", "조교", "급여", "출퇴근")
-        var key_system: Array<String> = arrayOf("포털", "블루리본", "웹메일", "스노보드", "포털시스템", "커뮤니티")
-        var key_gukje: Array<String> = arrayOf("협력", "교환학생", "교류", "해외")
-        var key_chuiup: Array<String> = arrayOf("공기업", "토익", "재직", "선배", "강소기업", "업계", "서류", "직무", "자문", "멘토링")
-        var key_haksaeng: Array<String> = arrayOf("청각장애", "속기", "안내견", "학생지원팀")
-
-        var topics: ArrayList<String> = ArrayList()
-        val random = Random()
-
-        for (topic in SettingCategory.categories) {
-            if (SharedPreferenceUtil.get(this, topic, 0) == 1) {
-                topics.add(topic)
-            }
-        }
-
-        for (topic in topics) {
-            when (topic) {
-                "장학" -> keywordRecomList?.add(key_janghak[random.nextInt(key_janghak.size)])
-                "학사" -> keywordRecomList?.add(key_haksa[random.nextInt(key_haksa.size)])
-                "행사" -> keywordRecomList?.add(key_haengsa[random.nextInt(key_haengsa.size)])
-                "모집" -> keywordRecomList?.add(key_mojip[random.nextInt(key_mojip.size)])
-                "시스템" -> keywordRecomList?.add(key_system[random.nextInt(key_system.size)])
-                "국제" -> keywordRecomList?.add(key_gukje[random.nextInt(key_gukje.size)])
-                "취업" -> keywordRecomList?.add(key_chuiup[random.nextInt(key_chuiup.size)])
-                "학생" -> keywordRecomList?.add(key_haksaeng[random.nextInt(key_haksaeng.size)])
-            }
-        }
-
-        var max = keywordRecomList?.size!!
-
-        if (max < 4) {
-            keywordRecomList.add("안내")
-            max = 4
-        }
-
-        var indices: IntArray = intArrayOf(0, 0, 0, 0)
-        var i = 0
-        while (i < 4) {
-            indices[i] = random.nextInt(max)
-            for (j in 0 until i) {
-                if (indices[i] === indices[j]) {
-                    i--
-                }
-            }
-            i++
-        }
-
-        keyword1.setText(keywordRecomList?.get(indices[0]))
-        keyword2.setText(keywordRecomList?.get(indices[1]))
-        keyword3.setText(keywordRecomList?.get(indices[2]))
-        keyword4.setText(keywordRecomList?.get(indices[3]))
+        setSearchKeywords()
 
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
@@ -142,22 +87,7 @@ class SearchableActivity : AppCompatActivity() {
         icon.visibility = View.GONE
         setCloseEventListener()
 
-        keyword1.setOnClickListener{
-            var query = keyword1.text.toString()
-            editsearch.setQuery(query, true)
-        }
-        keyword2.setOnClickListener{
-            var query = keyword2.text.toString()
-            editsearch.setQuery(query, true)
-        }
-        keyword3.setOnClickListener{
-            var query = keyword3.text.toString()
-            editsearch.setQuery(query, true)
-        }
-        keyword4.setOnClickListener{
-            var query = keyword4.text.toString()
-            editsearch.setQuery(query, true)
-        }
+        setKeywordListener()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -245,5 +175,82 @@ class SearchableActivity : AppCompatActivity() {
         search_recycler_view.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
+    }
+
+    private fun setKeywordListener() {
+        keyword1.setOnClickListener{
+            var query = keyword1.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword2.setOnClickListener{
+            var query = keyword2.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword3.setOnClickListener{
+            var query = keyword3.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword4.setOnClickListener{
+            var query = keyword4.text.toString()
+            editsearch.setQuery(query, true)
+        }
+    }
+
+    private fun setSearchKeywords() {
+        var keywordRecomList: ArrayList<String>? = ArrayList()
+        var key_janghak: Array<String> = arrayOf("우덕", "금옥", "정산", "재단", "한국장학재단", "장학생", "자기계발", "선발", "공고")
+        var key_haksa: Array<String> = arrayOf("사정", "소멸", "인증대체", "성적")
+        var key_haengsa: Array<String> = arrayOf("특강", "축제", "눈송이", "초대", "만남")
+        var key_mojip: Array<String> = arrayOf("단기", "근로", "행정", "마감", "월급", "조교", "급여", "출퇴근")
+        var key_system: Array<String> = arrayOf("포털", "블루리본", "웹메일", "스노보드", "포털시스템", "커뮤니티")
+        var key_gukje: Array<String> = arrayOf("협력", "교환학생", "교류", "해외", "파견")
+        var key_chuiup: Array<String> = arrayOf("공기업", "IPP", "인턴", "토익", "재직", "선배", "강소기업", "업계", "서류", "직무", "자문", "멘토링")
+        var key_haksaeng: Array<String> = arrayOf("청각장애", "속기", "안내견", "학생지원팀")
+
+        var topics: ArrayList<String> = ArrayList()
+        val random = Random()
+
+        for (topic in SettingCategory.categories) {
+            if (SharedPreferenceUtil.get(this, topic, 0) == 1) {
+                topics.add(topic)
+            }
+        }
+
+        for (topic in topics) {
+            when (topic) {
+                "장학" -> keywordRecomList?.add(key_janghak[random.nextInt(key_janghak.size)])
+                "학사" -> keywordRecomList?.add(key_haksa[random.nextInt(key_haksa.size)])
+                "행사" -> keywordRecomList?.add(key_haengsa[random.nextInt(key_haengsa.size)])
+                "모집" -> keywordRecomList?.add(key_mojip[random.nextInt(key_mojip.size)])
+                "시스템" -> keywordRecomList?.add(key_system[random.nextInt(key_system.size)])
+                "국제" -> keywordRecomList?.add(key_gukje[random.nextInt(key_gukje.size)])
+                "취업" -> keywordRecomList?.add(key_chuiup[random.nextInt(key_chuiup.size)])
+                "학생" -> keywordRecomList?.add(key_haksaeng[random.nextInt(key_haksaeng.size)])
+            }
+        }
+
+        var max = keywordRecomList?.size!!
+
+        if (max < 4) {
+            keywordRecomList.add("안내")
+            max = 4
+        }
+
+        var indices: IntArray = intArrayOf(0, 0, 0, 0)
+        var i = 0
+        while (i < 4) {
+            indices[i] = random.nextInt(max)
+            for (j in 0 until i) {
+                if (indices[i] === indices[j]) {
+                    i--
+                }
+            }
+            i++
+        }
+
+        keyword1.setText(keywordRecomList?.get(indices[0]))
+        keyword2.setText(keywordRecomList?.get(indices[1]))
+        keyword3.setText(keywordRecomList?.get(indices[2]))
+        keyword4.setText(keywordRecomList?.get(indices[3]))
     }
 }
