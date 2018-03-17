@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:gravity="center"
-        android:text="@string/user_info3_title"
+        android:text="@string/category_interest_title"
         android:textColor="@android:color/black"
         android:textSize="28sp"
         android:textStyle="bold" />
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="@string/user_info3_category"
+        android:text="@string/category_interest_description"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
@@ -40,7 +40,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_scholarship"
+            android:text="@string/category_scholarship"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_academic"
+            android:text="@string/category_academic"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -72,7 +72,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_event"
+            android:text="@string/category_event"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -84,7 +84,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_recruit"
+            android:text="@string/category_recruit"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
     </LinearLayout>
@@ -103,7 +103,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_system"
+            android:text="@string/category_system"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -115,7 +115,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_global"
+            android:text="@string/category_global"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
     </LinearLayout>
@@ -134,7 +134,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_info_detail_career"
+            android:text="@string/category_career"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
@@ -147,7 +147,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/circle_shape_white_blue"
-            android:text="@string/user_detail_student_btn"
+            android:text="@string/category_student"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
     </LinearLayout>
