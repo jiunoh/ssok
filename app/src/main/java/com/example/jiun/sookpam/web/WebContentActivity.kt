@@ -170,7 +170,11 @@ class WebContentActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
-        toolbar.title = "웹 > ${category} > ${division}"
+        if (category == "공통") {
+            toolbar.title = "웹 > 학교소식 > ${division}"
+        } else {
+            toolbar.title = "웹 > ${category} > ${division}"
+        }
         toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material)
         toolbar.setNavigationOnClickListener({
             finish()
