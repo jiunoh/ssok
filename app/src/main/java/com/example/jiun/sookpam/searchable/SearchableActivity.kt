@@ -97,9 +97,8 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                search(query)
                 editsearch.clearFocus()
-                modelList = adapter.modelList
+                search(query)
                 return true
             }
 
@@ -141,6 +140,8 @@ class SearchableActivity : AppCompatActivity() {
                 val records = response.body()
                 adapter.searchInRealm(query)
                 adapter.add(records)
+                if(adapter.modelList.isEmpty())
+                    showNoData()
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -148,7 +149,6 @@ class SearchableActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
