@@ -50,6 +50,40 @@ class SearchableActivity : AppCompatActivity() {
         setRestOfTheView()
     }
 
+
+    private fun setToolbar() {
+        toolbar = search_toolbar
+        setSupportActionBar(toolbar)
+        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(View.OnClickListener {
+            finish()
+        })
+    }
+
+
+    private fun setRecyclerView() {
+        adapter = SearchableRecyclerAdapter(modelList)
+        search_recycler_view.adapter = adapter
+        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.bringToFront()
+        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
+                RecyclerItemClickListener.OnItemClickListener { view, position ->
+                    val data = modelList.get(position)
+                    showMessageBody(data)
+                }))
+    }
+
+
+    private fun setRestOfTheView() {
+        errorLinearLayout = web_common_error_linear
+        errorLinearLayout.visibility = View.INVISIBLE
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
+        progressBar.visibility = View.INVISIBLE
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
@@ -57,10 +91,16 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                search_recycler_view.visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
+                search_recycler_view.visibility = View.INVISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
                 search(query)
+                progressBar.visibility = View.INVISIBLE
+                search_recycler_view.visibility = View.VISIBLE
                 editsearch.clearFocus()
+                modelList = adapter.modelList
+                if (modelList.isEmpty())
+                    showNoData()
                 return true
             }
 
@@ -84,24 +124,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setToolbar() {
-        toolbar = search_toolbar
-        setSupportActionBar(toolbar)
-        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
-        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(View.OnClickListener {
-            finish()
-        })
-    }
-
-    private fun setRestOfTheView() {
-        errorLinearLayout = web_common_error_linear
-        errorLinearLayout.visibility = View.INVISIBLE
-        errorImageView = web_common_error_img
-        errorTextView = web_common_error_txt
-        progressBar = web_common_progressbar
-        progressBar.visibility = View.INVISIBLE
-    }
 
     private fun cleanRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
@@ -119,9 +141,7 @@ class SearchableActivity : AppCompatActivity() {
                 }
                 val records = response.body()
                 adapter.searchInRealm(query)
-                modelList = adapter.add( records)
-                if(modelList.isEmpty() )
-                    showNoData()
+                adapter.add(records)
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -130,17 +150,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setRecyclerView() {
-        adapter = SearchableRecyclerAdapter(modelList)
-        search_recycler_view.adapter = adapter
-        search_recycler_view.visibility = View.VISIBLE
-        search_recycler_view.bringToFront()
-        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
-                RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = modelList.get(position)
-                    showMessageBody(data)
-                }))
-    }
 
     private fun showMessageBody(data: DualModel) {
         val bundle = Bundle()
