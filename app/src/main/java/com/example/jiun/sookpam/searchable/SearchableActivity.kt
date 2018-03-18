@@ -97,6 +97,7 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                progressBar.visibility = View.VISIBLE
                 editsearch.clearFocus()
                 search(query)
                 return true
@@ -137,6 +138,7 @@ class SearchableActivity : AppCompatActivity() {
                     Log.v("response", " disconnected")
                     return
                 }
+                progressBar.visibility = View.INVISIBLE
                 val records = response.body()
                 adapter.searchInRealm(query)
                 adapter.add(records)
