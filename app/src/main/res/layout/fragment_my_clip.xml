@@ -1,14 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.jiun.sookpam.MyClipFragment">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerView"
             android:layout_width="match_parent"
@@ -31,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:contentDescription="@string/error_or_no_data"
                 android:src="@drawable/clip_box" />
 
@@ -41,6 +37,5 @@
                 android:text="보관함이 비어 있습니다."
                 android:textAlignment="center" />
         </LinearLayout>
-    </FrameLayout>
 
-</FrameLayout>
+</RelativeLayout>

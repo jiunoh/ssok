@@ -72,7 +72,13 @@ class MyClipFragment : Fragment() {
         val voList = dbManager.select()
         for (vo in voList)
             getModelBy(vo)
-        modelList = adapter!!.update()
+        modelList = adapter!!.modelList
+        if (modelList.isEmpty())
+            showNoData()
+        else {
+            errorLinearLayout.visibility = View.INVISIBLE
+            view!!.recylerView.visibility = View.VISIBLE
+        }
     }
 
     private fun getModelBy(record: DualVO) {

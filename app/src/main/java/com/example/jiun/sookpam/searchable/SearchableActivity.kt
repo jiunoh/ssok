@@ -25,6 +25,7 @@ import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.util.MsgContentGenerator
+import kotlinx.android.synthetic.main.fragment_my_clip.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -74,7 +75,6 @@ class SearchableActivity : AppCompatActivity() {
                 }))
     }
 
-
     private fun setRestOfTheView() {
         errorLinearLayout = web_common_error_linear
         errorLinearLayout.visibility = View.INVISIBLE
@@ -84,6 +84,12 @@ class SearchableActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
     }
 
+    override fun onResume() {
+        super.onResume()
+        errorLinearLayout.visibility = View.INVISIBLE
+        search_recycler_view.visibility = View.VISIBLE
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
@@ -91,12 +97,7 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                progressBar.visibility = View.VISIBLE
-                search_recycler_view.visibility = View.VISIBLE
-                errorLinearLayout.visibility = View.INVISIBLE
                 search(query)
-                progressBar.visibility = View.INVISIBLE
-                search_recycler_view.visibility = View.VISIBLE
                 editsearch.clearFocus()
                 modelList = adapter.modelList
                 return true
@@ -130,7 +131,7 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun search(query: String)  {
         val service = ApiUtils.getSearchableService()
-        val query = query.replace("\\s+".toRegex(), "-")
+        val query = query.replace("\\s+".toRegex(), "-").replace("/","__")
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {

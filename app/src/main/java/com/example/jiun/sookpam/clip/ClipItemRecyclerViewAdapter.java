@@ -7,8 +7,7 @@ import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.List;
 
 public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
-    private List<DualModel> modelList;
-
+    public List<DualModel> modelList;
     public ClipItemRecyclerViewAdapter(List<DualModel> items) {
         modelList = items;
     }
@@ -42,9 +41,4 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
         modelList.add(items);
         notifyDataSetChanged();
     }
-
-    public List<DualModel> update() {
-        return modelList;
-    }
-
  }
