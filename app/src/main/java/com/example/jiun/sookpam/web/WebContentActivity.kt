@@ -38,12 +38,13 @@ class WebContentActivity : AppCompatActivity() {
     private lateinit var expandableAttachImageView: ImageView
     private lateinit var attachFilesCountTextView: TextView
     private lateinit var attachFilesTextView: TextView
-    private lateinit var headerRelativeLayout: RelativeLayout
+    private lateinit var headerLinearLayout: LinearLayout
     private lateinit var recommendLinearLayout: LinearLayout
     private lateinit var recommendView1: TextView
     private lateinit var recommendView2: TextView
     private lateinit var recommendExpandTextView: TextView
     private lateinit var recommendExpandFrame: FrameLayout
+    private lateinit var toolbarTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +62,13 @@ class WebContentActivity : AppCompatActivity() {
         expandableAttachImageView = web_content_attach_expandable_img
         attachFilesCountTextView = web_content_attach_files_count_txt
         attachFilesTextView = web_content_attach_files_txt
-        headerRelativeLayout = web_content_header_relative
+        headerLinearLayout = web_content_header_linear
         recommendLinearLayout = web_content_recommend_linear
         recommendView1 = recommend_view1
         recommendView2 = recommend_view2
         recommendExpandTextView = web_content_recommend_expand_txt
         recommendExpandFrame = web_content_recommend_expand_frame
+        toolbarTextView = web_content_toolbar_txt
         setRecommendExpandListener()
         setExpandListener()
         setWebView()
@@ -113,10 +115,10 @@ class WebContentActivity : AppCompatActivity() {
             }
         }
         contentWebView.viewTreeObserver.addOnScrollChangedListener {
-            if (contentWebView.scrollY <= expandableLinear.height + attachFilesTextView.height) {
-                headerRelativeLayout.visibility = View.VISIBLE
+            if (contentWebView.scrollY == 0) {
+                headerLinearLayout.visibility = View.VISIBLE
             } else {
-                headerRelativeLayout.visibility = View.GONE
+                headerLinearLayout.visibility = View.GONE
                 attachFilesTextView.visibility = View.GONE
                 expandableAttachImageView.rotation = 0.0f
             }
@@ -170,11 +172,11 @@ class WebContentActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
         if (category == "공통") {
-            toolbar.title = "웹 > 학교소식 > ${division}"
+            toolbarTextView.text = "웹 > 학교소식 > $division"
         } else {
-            toolbar.title = "웹 > ${category} > ${division}"
+            toolbarTextView.text = "웹 > $category > $division"
         }
-        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material)
+        toolbar.navigationIcon = ContextCompat.getDrawable(applicationContext, R.drawable.ic_back_button)
         toolbar.setNavigationOnClickListener({
             finish()
         })
@@ -197,10 +199,10 @@ class WebContentActivity : AppCompatActivity() {
             R.id.action_star -> {
                 val title = titleTextView.text.toString()
                 if (dbmanager.doesNotExist(title)) {
-                    item.icon = resources.getDrawable(R.drawable.star_on)
+                    item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_on)
                     dbmanager.insert(title, DualModel.RECORD_RESPONSE, dateTextView.text.toString())
                 } else {
-                    item.icon = resources.getDrawable(R.drawable.star_off)
+                    item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
                     dbmanager.delete(title)
                 }
                 true
