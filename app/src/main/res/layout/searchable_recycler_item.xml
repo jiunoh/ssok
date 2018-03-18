@@ -12,7 +12,8 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:cardBackgroundColor="@android:color/white"
         app:cardUseCompatPadding="true">
 
@@ -46,18 +47,15 @@
                     android:layout_weight="1"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/category_example"
-                    android:textSize="12sp"
-                    android:textStyle="italic" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/date_view"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="2017-04-02"
                     android:textAlignment="textEnd"
-                    android:textSize="12sp"
-                    android:textStyle="italic" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 

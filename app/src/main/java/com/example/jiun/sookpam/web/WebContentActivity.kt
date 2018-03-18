@@ -1,5 +1,6 @@
 package com.example.jiun.sookpam.web
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -49,7 +50,6 @@ class WebContentActivity : AppCompatActivity() {
         initialize()
         setContentData()
         setToolbar()
-        requestRecommends()
     }
 
     private fun initialize() {
@@ -97,6 +97,7 @@ class WebContentActivity : AppCompatActivity() {
         titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
         contentWebView.loadData(record.content, "text/html; charset=utf-8", "UTF-8")
         checkAttachFilesAndApplyView(record)
+        requestRecommends(record.title)
     }
 
     private fun checkAttachFilesAndApplyView(record: RecordResponse) {
@@ -124,13 +125,14 @@ class WebContentActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("PrivateResource")
     private fun setToolbar() {
         toolbar = web_content_toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
         toolbar.title = "웹 > ${category} > ${division}"
-        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material)
         toolbar.setNavigationOnClickListener({
             finish()
         })
@@ -138,7 +140,7 @@ class WebContentActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_content, menu)
-        var star = menu!!.findItem(R.id.action_star)
+        val star = menu!!.findItem(R.id.action_star)
         dbmanager = ClipDBManager(Realm.getDefaultInstance());
         if (dbmanager.doesNotExist(titleTextView.text.toString())) {
             star.icon = resources.getDrawable(R.drawable.star_off)
@@ -165,10 +167,10 @@ class WebContentActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestRecommends() {
+    private fun requestRecommends(title: String) {
         val service = ApiUtils.getNgramService()
-        val title = titleTextView.text.toString().replace("\\s+".toRegex(), "-")
-        service.getItems(title).enqueue(object : Callback<List<RecordResponse>> {
+        val reformattedTitle = title.replace(" ", "--").replace("/", "__")
+        service.getItems(reformattedTitle).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
@@ -176,27 +178,28 @@ class WebContentActivity : AppCompatActivity() {
                 }
                 setRequestedRecommends(response.body())
             }
+
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
                 Log.v("onFailure:", "onFailure")
             }
         })
     }
 
-    private fun setRequestedRecommends(records : List<RecordResponse>?) {
-       recommendView1.text = records!![0].title
+    private fun setRequestedRecommends(records: List<RecordResponse>?) {
+        recommendView1.text = WebRecordReformation.getTitleSubstring(records!![0].title, records[0].category, records[0].division)
         recommendView1.setOnClickListener({
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("record", records!![0])
-            intent!!.putExtras(bundle)
+            bundle.putSerializable("record", records[0])
+            intent.putExtras(bundle)
             startActivity(intent)
         })
-        recommendView2.text = records!![1].title
+        recommendView2.text = WebRecordReformation.getTitleSubstring(records[1].title, records[1].category, records[1].division)
         recommendView2.setOnClickListener({
             val intent = Intent(applicationContext, WebContentActivity::class.java)
             val bundle = Bundle()
-            bundle.putSerializable("record", records!![1])
-            intent!!.putExtras(bundle)
+            bundle.putSerializable("record", records[1])
+            intent.putExtras(bundle)
             startActivity(intent)
         })
     }

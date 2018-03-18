@@ -75,7 +75,11 @@ class WebRecyclerActivity : AppCompatActivity() {
         errorTextView = web_common_error_txt
         progressBar = web_common_progressbar
         titleTextView = web_title_txt
-        val title = "웹 > $category > $division"
+        val title = if (category == "공통") {
+            "웹 > 학교소식 > $division"
+        } else {
+            "웹 > $category > $division"
+        }
         titleTextView.text = title
     }
 
@@ -98,8 +102,13 @@ class WebRecyclerActivity : AppCompatActivity() {
         }
         toolbar = web_common_toolbar
         setSupportActionBar(toolbar)
+        val title = if (category == "공통") {
+            "웹 > 학교소식 > $division"
+        } else {
+            "웹 > $category > $division"
+        }
         collapseToolbar = web_common_collapsing
-        collapseToolbar.title = "웹 > $category > $division"
+        collapseToolbar.title = title
         collapseToolbar.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
         collapseToolbar.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
         web_common_toolbar_img.setImageResource(intent.getIntExtra("background", 0))
