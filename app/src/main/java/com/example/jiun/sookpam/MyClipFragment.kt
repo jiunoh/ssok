@@ -3,6 +3,7 @@ package com.example.jiun.sookpam
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,8 @@ class MyClipFragment : Fragment() {
     private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
+    private lateinit var recyclerView: RecyclerView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +45,13 @@ class MyClipFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my_clip, container, false)
-        view.recylerView.addOnItemTouchListener(RecyclerItemClickListener(context,
+        recyclerView = view.recylerView
+        recyclerView.visibility = View.VISIBLE
+        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = modelList!!.get(position)
                     showMessageBody(data)
                 }))
-
         errorLinearLayout = view.common_empty_linear
         errorLinearLayout.visibility = View.INVISIBLE
         errorImageView = view.common_error_img
@@ -90,7 +94,8 @@ class MyClipFragment : Fragment() {
     private fun searchInWeb(charText: String, date: String) {
         val service = ApiUtils.getSearchableService()
         val query = charText.replace("\\s+".toRegex(), "-")
-        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
+        val request = query.replace("/".toRegex(),"__")
+        service.getItems(request).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
@@ -107,7 +112,6 @@ class MyClipFragment : Fragment() {
                 Log.v("onFailure:", "onFailure")
             }
         })
-
     }
 
 
@@ -123,7 +127,7 @@ class MyClipFragment : Fragment() {
         }
     }
 
-    fun showNoData() {
+    private fun showNoData() {
         recylerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
     }
