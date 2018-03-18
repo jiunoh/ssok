@@ -92,15 +92,13 @@ class SearchableActivity : AppCompatActivity() {
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 progressBar.visibility = View.VISIBLE
-                search_recycler_view.visibility = View.INVISIBLE
+                search_recycler_view.visibility = View.VISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
                 search(query)
                 progressBar.visibility = View.INVISIBLE
                 search_recycler_view.visibility = View.VISIBLE
                 editsearch.clearFocus()
                 modelList = adapter.modelList
-                if (modelList.isEmpty())
-                    showNoData()
                 return true
             }
 

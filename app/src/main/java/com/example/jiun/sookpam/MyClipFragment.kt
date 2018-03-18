@@ -73,8 +73,6 @@ class MyClipFragment : Fragment() {
         for (vo in voList)
             getModelBy(vo)
         modelList = adapter!!.update()
-        if (modelList.isEmpty())
-            showNoData()
     }
 
     private fun getModelBy(record: DualVO) {
