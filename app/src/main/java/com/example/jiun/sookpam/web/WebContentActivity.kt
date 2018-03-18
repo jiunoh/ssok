@@ -105,6 +105,7 @@ class WebContentActivity : AppCompatActivity() {
         contentWebView.settings.displayZoomControls = false
         contentWebView.isScrollbarFadingEnabled = true
         contentWebView.isScrollContainer = false
+        contentWebView.overScrollMode = View.OVER_SCROLL_NEVER
         contentWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
@@ -112,16 +113,12 @@ class WebContentActivity : AppCompatActivity() {
             }
         }
         contentWebView.viewTreeObserver.addOnScrollChangedListener {
-            if (contentWebView.scrollY == 0) {
-                headerRelativeLayout.postDelayed({
-                    headerRelativeLayout.visibility = View.VISIBLE
-                }, 400)
+            if (contentWebView.scrollY <= expandableLinear.height + attachFilesTextView.height) {
+                headerRelativeLayout.visibility = View.VISIBLE
             } else {
-                headerRelativeLayout.postDelayed({
-                    headerRelativeLayout.visibility = View.GONE
-                    attachFilesTextView.visibility = View.GONE
-                    expandableAttachImageView.rotation = 0.0f
-                }, 400)
+                headerRelativeLayout.visibility = View.GONE
+                attachFilesTextView.visibility = View.GONE
+                expandableAttachImageView.rotation = 0.0f
             }
         }
 
@@ -135,7 +132,7 @@ class WebContentActivity : AppCompatActivity() {
         idTextView.text = record.id.toString()
         dateTextView.text = record.date
         titleTextView.text = WebRecordReformation.getTitleSubstring(record.title, record.category, record.division)
-        contentWebView.loadData(record.content + "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>",
+        contentWebView.loadData("<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>" + record.content + "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>",
                 "text/html; charset=utf-8", "UTF-8")
         checkAttachFilesAndApplyView(record)
         requestRecommends(record.title)
