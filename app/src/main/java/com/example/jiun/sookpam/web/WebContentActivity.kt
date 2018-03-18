@@ -119,6 +119,8 @@ class WebContentActivity : AppCompatActivity() {
             } else {
                 headerRelativeLayout.postDelayed({
                     headerRelativeLayout.visibility = View.GONE
+                    attachFilesTextView.visibility = View.GONE
+                    expandableAttachImageView.rotation = 0.0f
                 }, 400)
             }
         }
