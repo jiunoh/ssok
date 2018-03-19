@@ -1,5 +1,7 @@
 package com.example.jiun.sookpam
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -22,7 +24,6 @@ class MyInfoFragment : Fragment() {
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var studentMajorButton: ImageButton
     private lateinit var studentMajorRecyclerView: RecyclerView
-    private var selectedMajors = ArrayList<String>()
     private lateinit var schoolScholarshipCheckBox: CheckBox
     private lateinit var externalScholarshipCheckBox: CheckBox
     private lateinit var governmentScholarshipCheckBox: CheckBox
@@ -60,10 +61,7 @@ class MyInfoFragment : Fragment() {
     private fun initializeMajors(view: View) {
         studentMajorButton = view.my_info_major_img_btn
         studentMajorButton.setOnClickListener {
-            val intent = Intent(context, MajorActivity::class.java)
-            selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
-            intent.putExtra("selectedMajors", selectedMajors)
-            activity!!.startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
+            selectMajors(context!!, activity!!)
         }
         studentMajorRecyclerView = view.my_info_majors_recycler_view
         studentMajorRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -96,5 +94,17 @@ class MyInfoFragment : Fragment() {
         UserSettingLibrary.loadCheckBoxData(externalScholarshipCheckBox, context!!)
         UserSettingLibrary.loadCheckBoxData(governmentScholarshipCheckBox, context!!)
         UserSettingLibrary.loadRadioGroupData(studentStatusRadioGroup, statusInRadioButton, statusOutRadioButton, context!!)
+    }
+
+    companion object {
+        private var selectedMajors = ArrayList<String>()
+
+        fun selectMajors(context: Context, activity: Activity) {
+            val intent = Intent(context, MajorActivity::class.java)
+            selectedMajors = UserSettingLibrary.getSelectedMajors(context)
+            intent.putExtra("selectedMajors", selectedMajors)
+            activity.startActivityForResult(intent, UserSettingLibrary.MAJOR_REQUEST_CODE)
+        }
+
     }
 }
