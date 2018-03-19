@@ -33,14 +33,18 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
         return modelList.size();
     }
 
-    public void add(List<DualModel> items) {
+    public void addWithDelay(List<DualModel> items) {
         modelList.addAll(items);
+        notifyDataSetChanged();
+
+    }
+
+    public void addWithDelay(DualModel items) {
+        modelList.add(items);
         notifyDataSetChanged();
     }
 
-    public void add(DualModel items) {
-        modelList.add(items);
+    public void notifyChange() {
         notifyDataSetChanged();
-        Log.v("list size: ", "" + modelList.size());
     }
  }

@@ -33,9 +33,6 @@ class ClipDBManager(val realm: Realm) {
     fun select(): List<DualVO> {
         val voResult = realm.where(DualVO::class.java).findAll()
         var voList  = voResult.subList(0, voResult.size)
-        val temp =  voList.sortedByDescending { it.date }
-        for (tmi in temp)
-            Log.v("date: ", tmi.date)
         return voList.sortedByDescending { it.date }
     }
 }

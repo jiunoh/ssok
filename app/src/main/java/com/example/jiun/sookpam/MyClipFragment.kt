@@ -37,6 +37,7 @@ class MyClipFragment : Fragment() {
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var dbManager : ClipDBManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,30 +63,34 @@ class MyClipFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        search()
-//        if (adapter!!.modelList.isEmpty())
-//            showNoData()
-//        else {
-//            errorLinearLayout.visibility = View.INVISIBLE
-//            view!!.recylerView.visibility = View.VISIBLE
-//        }
+        dbManager = ClipDBManager(Realm.getDefaultInstance())
+
+        for (item in dbManager.select())
+            Log.v(">" , "${item.title} / ${item.date}")
+        if (dbManager.select().isEmpty()) {
+            showNoData()
+        }
+        else {
+            Log.v("clip state :" , "exist")
+            search()
+        }
     }
 
     fun search() {
         modelList = ArrayList<DualModel>()
         adapter = ClipItemRecyclerViewAdapter(modelList)
         view!!.recylerView.adapter = adapter
-        val dbManager = ClipDBManager(Realm.getDefaultInstance())
         val voList = dbManager.select()
         for (vo in voList)
             getModelBy(vo)
+        adapter!!.notifyChange()
     }
 
     private fun getModelBy(record: DualVO) {
         if (record.type == DualModel.RECORD_VO) {
             val recordManager = RecordDBManager(Realm.getDefaultInstance())
             val recordVos = recordManager.contains(record.title) as List<RecordVO>
-            adapter!!.add(recordVos)
+            adapter!!.addWithDelay(recordVos)
         } else if (record.type == DualModel.RECORD_RESPONSE) {
             try {
                 searchInWeb(record.title, record.date!!)
@@ -108,7 +113,7 @@ class MyClipFragment : Fragment() {
                 val records = response.body()
                 records!!.forEach { record ->
                     if (record.date == date)
-                        adapter!!.add(record)
+                        adapter!!.addWithDelay(record)
                 }
             }
 
