@@ -17,19 +17,9 @@ import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_chuiup
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_gukje
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haengsa
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haksa
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_haksaeng
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_janghak
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_mojip
-import com.example.jiun.sookpam.searchable.SearchKeywords.Companion.key_system
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
-import com.example.jiun.sookpam.user.setting.SettingCategory
 import com.example.jiun.sookpam.util.MsgContentGenerator
-import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
 import retrofit2.Call
@@ -51,6 +41,8 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var keyword2: TextView
     private lateinit var keyword3: TextView
     private lateinit var keyword4: TextView
+    private lateinit var similarKeywords: LinearLayout
+    private lateinit var searchQuery: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,15 +57,10 @@ class SearchableActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
 
-        var similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
+        similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
         similarKeywords.visibility = View.VISIBLE
-        keyword1 = findViewById(R.id.search_keyword_1)
-        keyword2 = findViewById(R.id.search_keyword_2)
-        keyword3 = findViewById(R.id.search_keyword_3)
-        keyword4 = findViewById(R.id.search_keyword_4)
 
-        setSearchKeywords()
-
+        initializeKeywordsAndSetListener()
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -81,6 +68,7 @@ class SearchableActivity : AppCompatActivity() {
                 similarKeywords.visibility = View.INVISIBLE
                 search_recycler_view.visibility = View.VISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
+                searchQuery = query
                 search(query)
                 editsearch.clearFocus()
                 return true
@@ -95,7 +83,6 @@ class SearchableActivity : AppCompatActivity() {
         icon.visibility = View.GONE
         setCloseEventListener()
 
-        setKeywordListener()
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -130,6 +117,8 @@ class SearchableActivity : AppCompatActivity() {
     private fun cleanRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
         errorLinearLayout.visibility = View.INVISIBLE
+        requestSearchKeywords(searchQuery)
+        similarKeywords.visibility = View.VISIBLE
     }
 
     private fun search(query: String) {
@@ -185,7 +174,12 @@ class SearchableActivity : AppCompatActivity() {
         errorTextView.text = getString(R.string.no_data_in_server)
     }
 
-    private fun setKeywordListener() {
+    private fun initializeKeywordsAndSetListener() {
+        keyword1 = findViewById(R.id.search_keyword_1)
+        keyword2 = findViewById(R.id.search_keyword_2)
+        keyword3 = findViewById(R.id.search_keyword_3)
+        keyword4 = findViewById(R.id.search_keyword_4)
+
         keyword1.setOnClickListener{
             var query = keyword1.text.toString()
             editsearch.setQuery(query, true)
@@ -204,60 +198,32 @@ class SearchableActivity : AppCompatActivity() {
         }
     }
 
-    private fun setSearchKeywords() {
-        var keywordRecomList: ArrayList<String>? = ArrayList()
-        var topics: ArrayList<String> = ArrayList()
-        val random = Random()
-
-        for (topic in SettingCategory.categories) {
-            if (SharedPreferenceUtil.get(this, topic, 0) == 1) {
-                topics.add(topic)
+    private fun requestSearchKeywords(query: String) {
+        val service = ApiUtils.getSearchKeywordService()
+        service.getItems(query).enqueue(object : Callback<List<String>> {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+                setSearchKeywords(response.body())
             }
-        }
 
-        for (topic in topics) {
-            when (topic) {
-                "장학" -> keywordRecomList?.add(key_janghak[random.nextInt(key_janghak.size)])
-                "학사" -> keywordRecomList?.add(key_haksa[random.nextInt(key_haksa.size)])
-                "행사" -> keywordRecomList?.add(key_haengsa[random.nextInt(key_haengsa.size)])
-                "모집" -> keywordRecomList?.add(key_mojip[random.nextInt(key_mojip.size)])
-                "시스템" -> keywordRecomList?.add(key_system[random.nextInt(key_system.size)])
-                "국제" -> keywordRecomList?.add(key_gukje[random.nextInt(key_gukje.size)])
-                "취업" -> keywordRecomList?.add(key_chuiup[random.nextInt(key_chuiup.size)])
-                "학생" -> keywordRecomList?.add(key_haksaeng[random.nextInt(key_haksaeng.size)])
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                Log.v("onFailure:", "onFailure")
             }
-        }
-
-        var max = keywordRecomList?.size!!
-
-        if (max < 4) {
-            keywordRecomList.add("안내")
-            max = 4
-        }
-
-        var indices = getRandomindices(max)
-
-        keyword1.setText(keywordRecomList?.get(indices[0]))
-        keyword2.setText(keywordRecomList?.get(indices[1]))
-        keyword3.setText(keywordRecomList?.get(indices[2]))
-        keyword4.setText(keywordRecomList?.get(indices[3]))
+        })
     }
 
-    private fun getRandomindices(max:Int):IntArray {
-        val random = Random()
+    private fun setSearchKeywords(response: List<String>?) {
+        val keywordViews:IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
 
-        var indices: IntArray = intArrayOf(0, 0, 0, 0)
-        var i = 0
-        while (i < 4) {
-            indices[i] = random.nextInt(max)
-            for (j in 0 until i) {
-                if (indices[i] === indices[j]) {
-                    i--
-                }
-            }
+        var i:Int = 0
+        for (view in keywordViews) {
+            var textView:TextView = findViewById<TextView>(view)
+            textView.text = response!!.get(i)
             i++
         }
-
-        return indices
     }
+
 }
