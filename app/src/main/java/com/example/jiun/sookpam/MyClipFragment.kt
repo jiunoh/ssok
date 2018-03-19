@@ -97,7 +97,7 @@ class MyClipFragment : Fragment() {
 
     private fun searchInWeb(charText: String, date: String) {
         val service = ApiUtils.getSearchableService()
-        val query = charText.replace("\\s+".toRegex(), "-")
+        val query = charText.replace("\\s+".toRegex(), "--")
         val request = query.replace("/".toRegex(),"__")
         service.getItems(request).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {

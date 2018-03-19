@@ -131,7 +131,7 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun search(query: String)  {
         val service = ApiUtils.getSearchableService()
-        val query = query.replace("\\s+".toRegex(), "-").replace("/","__")
+        val query = query.replace("\\s+".toRegex(), "--").replace("/","__")
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
