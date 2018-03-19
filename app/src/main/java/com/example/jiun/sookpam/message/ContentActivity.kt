@@ -64,9 +64,9 @@ class ContentActivity : AppCompatActivity() {
         var star = menu!!.findItem(R.id.action_star)
         dbmanager = ClipDBManager(Realm.getDefaultInstance());
         if (dbmanager.doesNotExist(body)) {
-            star.icon = resources.getDrawable(R.drawable.star_off)
+            star.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
         } else {
-            star.icon = resources.getDrawable(R.drawable.star_on)
+            star.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_on)
         }
         return true
     }
@@ -75,10 +75,10 @@ class ContentActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_star -> {
                 if (dbmanager.doesNotExist(body)) {
-                    item.icon = resources.getDrawable(R.drawable.star_on)
+                    item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_on)
                     dbmanager.insert(body, DualModel.RECORD_VO)
                 } else {
-                    item.icon = resources.getDrawable(R.drawable.star_off)
+                    item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
                     dbmanager.delete(body)
                 }
                 true

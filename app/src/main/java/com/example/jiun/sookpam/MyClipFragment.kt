@@ -29,6 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.ArrayList
 
+
 class MyClipFragment : Fragment() {
     private lateinit var modelList: List<DualModel>
     private var adapter: ClipItemRecyclerViewAdapter? = null
