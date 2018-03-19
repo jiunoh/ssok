@@ -63,6 +63,12 @@ class MyClipFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         search()
+//        if (adapter!!.modelList.isEmpty())
+//            showNoData()
+//        else {
+//            errorLinearLayout.visibility = View.INVISIBLE
+//            view!!.recylerView.visibility = View.VISIBLE
+//        }
     }
 
     fun search() {
@@ -73,12 +79,6 @@ class MyClipFragment : Fragment() {
         val voList = dbManager.select()
         for (vo in voList)
             getModelBy(vo)
-        if (adapter!!.modelList.isEmpty())
-            showNoData()
-        else {
-            errorLinearLayout.visibility = View.INVISIBLE
-            view!!.recylerView.visibility = View.VISIBLE
-        }
     }
 
     private fun getModelBy(record: DualVO) {

@@ -1,6 +1,7 @@
 package com.example.jiun.sookpam.clip;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.util.ViewHolderFactory;
@@ -40,5 +41,6 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
     public void add(DualModel items) {
         modelList.add(items);
         notifyDataSetChanged();
+        Log.v("list size: ", "" + modelList.size());
     }
  }
