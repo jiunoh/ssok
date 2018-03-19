@@ -1,6 +1,5 @@
 package com.example.jiun.sookpam
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,7 +20,7 @@ class MyInfoFragment : Fragment() {
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var studentGradeSpinner: Spinner
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
-    private lateinit var studentMajorButton: Button
+    private lateinit var studentMajorButton: ImageButton
     private lateinit var studentMajorRecyclerView: RecyclerView
     private var selectedMajors = ArrayList<String>()
     private lateinit var schoolScholarshipCheckBox: CheckBox
@@ -59,7 +58,7 @@ class MyInfoFragment : Fragment() {
     }
 
     private fun initializeMajors(view: View) {
-        studentMajorButton = view.my_info_major_btn
+        studentMajorButton = view.my_info_major_img_btn
         studentMajorButton.setOnClickListener {
             val intent = Intent(context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)
