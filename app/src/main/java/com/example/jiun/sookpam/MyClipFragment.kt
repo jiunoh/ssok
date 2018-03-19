@@ -73,8 +73,7 @@ class MyClipFragment : Fragment() {
         val voList = dbManager.select()
         for (vo in voList)
             getModelBy(vo)
-        modelList = adapter!!.modelList
-        if (modelList.isEmpty())
+        if (adapter!!.modelList.isEmpty())
             showNoData()
         else {
             errorLinearLayout.visibility = View.INVISIBLE

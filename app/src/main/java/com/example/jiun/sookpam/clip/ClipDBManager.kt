@@ -22,13 +22,6 @@ class ClipDBManager(val realm: Realm) {
         }
     }
 
-    fun insert(title: String, type: Int) {
-        realm.executeTransaction { realm ->
-            var record: DualVO = realm.createObject(DualVO::class.java)
-            record.title = title
-            record.type = type
-        }
-    }
 
     fun delete(title: String) {
         realm.executeTransaction { realm ->
@@ -38,7 +31,7 @@ class ClipDBManager(val realm: Realm) {
     }
 
     fun select(): List<DualVO> {
-        val voList = realm.where(DualVO::class.java).findAll()
+        val voList = realm.where(DualVO::class.java).sort("date").findAll()
         return voList.subList(0, voList.size);
     }
 }

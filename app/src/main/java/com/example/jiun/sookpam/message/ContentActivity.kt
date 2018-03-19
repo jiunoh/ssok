@@ -76,7 +76,7 @@ class ContentActivity : AppCompatActivity() {
             R.id.action_star -> {
                 if (dbmanager.doesNotExist(body)) {
                     item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_on)
-                    dbmanager.insert(body, DualModel.RECORD_VO)
+                    dbmanager.insert(body, DualModel.RECORD_VO, date)
                 } else {
                     item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
                     dbmanager.delete(body)
