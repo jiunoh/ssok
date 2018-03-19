@@ -17,5 +17,9 @@ class ApiUtils {
         fun getNgramService() : NgramService {
             return RetrofitClient.getClient(BASE_URL).create(NgramService ::class.java)
         }
+
+        fun getSearchKeywordService() : SearchKeywordService {
+            return RetrofitClient.getClient(BASE_URL).create(SearchKeywordService ::class.java)
+        }
     }
 }
