@@ -2,6 +2,7 @@ package com.example.jiun.sookpam.clip
 
 
 import android.util.Log
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.DualVO
 import io.realm.Realm
 import java.text.SimpleDateFormat

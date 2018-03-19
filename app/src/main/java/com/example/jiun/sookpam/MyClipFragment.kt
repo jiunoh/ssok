@@ -64,16 +64,10 @@ class MyClipFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         dbManager = ClipDBManager(Realm.getDefaultInstance())
-
-        for (item in dbManager.select())
-            Log.v(">" , "${item.title} / ${item.date}")
-        if (dbManager.select().isEmpty()) {
+        if (dbManager.select().isEmpty())
             showNoData()
-        }
-        else {
-            Log.v("clip state :" , "exist")
+        else
             search()
-        }
     }
 
     fun search() {
@@ -83,14 +77,13 @@ class MyClipFragment : Fragment() {
         val voList = dbManager.select()
         for (vo in voList)
             getModelBy(vo)
-        adapter!!.notifyChange()
     }
 
     private fun getModelBy(record: DualVO) {
         if (record.type == DualModel.RECORD_VO) {
             val recordManager = RecordDBManager(Realm.getDefaultInstance())
             val recordVos = recordManager.contains(record.title) as List<RecordVO>
-            adapter!!.addWithDelay(recordVos)
+            adapter!!.addWithDelay(recordVos[0])
         } else if (record.type == DualModel.RECORD_RESPONSE) {
             try {
                 searchInWeb(record.title, record.date!!)
