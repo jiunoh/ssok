@@ -123,4 +123,18 @@
     <string name="category_status_uninterest">무관심</string>
     <string name="expand">펼치기</string>
     <string name="shrink">접기</string>
+    <string name="app_information">앱 정보</string>
+    <string name="version">버전</string>
+    <string name="license">라이센스</string>
+    <string name="feedback">피드백</string>
+    <string name="show_licenses">Show licenses</string>
+    <string name="app_developer">어플리케이션 개발자</string>
+    <string name="team_name">팀 명</string>
+    <string name="id3">ID3</string>
+    <string name="department">소속</string>
+    <string name="sookmyung_software">숙명여자대학교 소프트웨어학부</string>
+    <string name="professor">지도교수</string>
+    <string name="kiyong_lee">이기용</string>
+    <string name="developers">개발자</string>
+    <string name="our_name">김혜민 오지은 정혜린</string>
 </resources>

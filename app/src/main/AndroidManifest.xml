@@ -49,7 +49,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MessageCommonListActivity"/>
+        <activity android:name=".MessageCommonListActivity" />
+        <activity android:name=".setting.LicenseActivity" />
+        <activity android:name=".setting.DeveloperInfoActivity"></activity>
     </application>
 
 </manifest>
