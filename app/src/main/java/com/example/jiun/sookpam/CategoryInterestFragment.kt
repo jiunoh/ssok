@@ -1,16 +1,22 @@
-package com.example.jiun.sookpam.user.info
+package com.example.jiun.sookpam
+
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.*
-import com.example.jiun.sookpam.R
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+import com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
 import kotlinx.android.synthetic.main.fragment_category_interest.view.*
 
-class UserInfo3Fragment : Fragment() {
+
+class CategoryInterestFragment : Fragment() {
     private val customCategoryList = ArrayList<CustomCategoryInterestItem>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_user_info3, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_category_interest, container, false)
         initializeCustomCategories(view)
         return view
     }

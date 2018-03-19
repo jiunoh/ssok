@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CategoryInterest">
+        <attr name="status_background" format="reference|color" />
+        <attr name="status_txt" format="reference|string" />
+        <attr name="name_txt" format="reference|string" />
+    </declare-styleable>
+</resources>
