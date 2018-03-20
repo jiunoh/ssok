@@ -21,7 +21,7 @@ class UserInfo1Fragment : Fragment() {
     private lateinit var studentYearSpinner: Spinner
     private lateinit var studentGradeSpinner: Spinner
     private lateinit var majorsRecyclerView: RecyclerView
-    private lateinit var majorSelectingButton: Button
+    private lateinit var majorSelectingButton: ImageButton
     private lateinit var yearSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var gradeSpinnerArrayAdapter: ArrayAdapter<String>
     private lateinit var selectedMajors:ArrayList<String>
@@ -46,7 +46,7 @@ class UserInfo1Fragment : Fragment() {
         studentGradeSpinner = userInfo1View.user_info1_student_grade_spinner
         UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, userInfo1Context)
         UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, userInfo1Context)
-        majorSelectingButton = userInfo1View.user_info1_major_btn
+        majorSelectingButton = userInfo1View.user_info1_major_img_btn
         majorSelectingButton.setOnClickListener {
             val intent = Intent(userInfo1Context, MajorActivity::class.java)
             selectedMajors = UserSettingLibrary.getSelectedMajors(context!!)

@@ -1,14 +1,14 @@
 package com.example.jiun.sookpam.clip;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 import com.example.jiun.sookpam.model.DualModel;
 import com.example.jiun.sookpam.util.ViewHolderFactory;
 import java.util.List;
 
 public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
-    private List<DualModel> modelList;
-
+    public List<DualModel> modelList;
     public ClipItemRecyclerViewAdapter(List<DualModel> items) {
         modelList = items;
     }
@@ -33,18 +33,8 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
         return modelList.size();
     }
 
-    public void add(List<DualModel> items) {
-        modelList.addAll(items);
-        notifyDataSetChanged();
-    }
-
-    public void add(DualModel items) {
+    public void addWithDelay(DualModel items) {
         modelList.add(items);
         notifyDataSetChanged();
     }
-
-    public List<DualModel> update() {
-        return modelList;
-    }
-
  }

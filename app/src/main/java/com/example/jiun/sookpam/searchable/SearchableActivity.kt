@@ -22,10 +22,10 @@ import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
+import java.util.ArrayList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -53,6 +53,45 @@ class SearchableActivity : AppCompatActivity() {
         setRestOfTheView()
     }
 
+
+    private fun setToolbar() {
+        toolbar = search_toolbar
+        setSupportActionBar(toolbar)
+        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
+        toolbar.setNavigationOnClickListener(View.OnClickListener {
+            finish()
+        })
+    }
+
+
+    private fun setRecyclerView() {
+        adapter = SearchableRecyclerAdapter(modelList)
+        search_recycler_view.adapter = adapter
+        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.bringToFront()
+        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
+                RecyclerItemClickListener.OnItemClickListener { view, position ->
+                    val data = modelList.get(position)
+                    showMessageBody(data)
+                }))
+    }
+
+    private fun setRestOfTheView() {
+        errorLinearLayout = web_common_error_linear
+        errorLinearLayout.visibility = View.INVISIBLE
+        errorImageView = web_common_error_img
+        errorTextView = web_common_error_txt
+        progressBar = web_common_progressbar
+        progressBar.visibility = View.INVISIBLE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        errorLinearLayout.visibility = View.INVISIBLE
+        search_recycler_view.visibility = View.VISIBLE
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
@@ -70,7 +109,9 @@ class SearchableActivity : AppCompatActivity() {
                 errorLinearLayout.visibility = View.INVISIBLE
                 searchQuery = query
                 search(query)
+                progressBar.visibility = View.VISIBLE
                 editsearch.clearFocus()
+                search(query)
                 return true
             }
 
@@ -95,24 +136,6 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setToolbar() {
-        toolbar = search_toolbar
-        setSupportActionBar(toolbar)
-        toolbar.setTitleTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
-        toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
-        toolbar.setNavigationOnClickListener(View.OnClickListener {
-            finish()
-        })
-    }
-
-    private fun setRestOfTheView() {
-        errorLinearLayout = web_common_error_linear
-        errorLinearLayout.visibility = View.INVISIBLE
-        errorImageView = web_common_error_img
-        errorTextView = web_common_error_txt
-        progressBar = web_common_progressbar
-        progressBar.visibility = View.INVISIBLE
-    }
 
     private fun cleanRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
@@ -123,17 +146,18 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun search(query: String) {
         val service = ApiUtils.getSearchableService()
-        val query = query.replace("\\s+".toRegex(), "-")
+        val query = query.replace("\\s+".toRegex(), "--").replace("/","__")
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
+                progressBar.visibility = View.INVISIBLE
                 val records = response.body()
                 adapter.searchInRealm(query)
-                modelList = adapter.add(records)
-                if (modelList.isEmpty())
+                adapter.add(records)
+                if(adapter.modelList.isEmpty())
                     showNoData()
             }
 
@@ -141,18 +165,6 @@ class SearchableActivity : AppCompatActivity() {
                 Log.v("onFailure:", "onFailure")
             }
         })
-    }
-
-    private fun setRecyclerView() {
-        adapter = SearchableRecyclerAdapter(modelList)
-        search_recycler_view.adapter = adapter
-        search_recycler_view.visibility = View.VISIBLE
-        search_recycler_view.bringToFront()
-        search_recycler_view.addOnItemTouchListener(RecyclerItemClickListener(this,
-                RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = modelList.get(position)
-                    showMessageBody(data)
-                }))
     }
 
     private fun showMessageBody(data: DualModel) {

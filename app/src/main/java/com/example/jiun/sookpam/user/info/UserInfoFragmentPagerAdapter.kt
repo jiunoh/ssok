@@ -11,7 +11,6 @@ internal class UserInfoFragmentPagerAdapter(fm: FragmentManager, private val num
             USER_INFO_1 -> UserInfo1Fragment()
             USER_INFO_2 -> UserInfo2Fragment()
             USER_INFO_3 -> UserInfo3Fragment()
-            USER_INFO_4 -> UserInfo4Fragment()
             else -> null
         }
     }
@@ -28,6 +27,5 @@ internal class UserInfoFragmentPagerAdapter(fm: FragmentManager, private val num
         const val USER_INFO_1 = 0
         const val USER_INFO_2 = 1
         const val USER_INFO_3 = 2
-        const val USER_INFO_4 = 3
     }
 }

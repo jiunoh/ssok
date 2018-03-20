@@ -21,7 +21,7 @@ class MyPageBaseViewPagerAdapter(fm: FragmentManager, context: Context, private 
         if (position < 0 || position >= numberOfPage)
             return null
         return when (position) {
-            MY_TOPIC_FRAGMENT -> MyTopicFragment()
+            MY_TOPIC_FRAGMENT -> CategoryInterestFragment()
             MY_INFO_FRAGMENT -> MyInfoFragment()
             MY_CLIP_FRAGMENT -> MyClipFragment()
             else -> null

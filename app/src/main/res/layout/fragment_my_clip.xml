@@ -1,19 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.jiun.sookpam.MyClipFragment">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:context=".clip.ClipFragment"
+            tools:listitem="@layout/searchable_recycler_item" />
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recylerView"
-        android:name="com.example.jiun.sookpam.clip.ClipFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context=".clip.ClipFragment"
-        tools:listitem="@layout/fragment_clip_item" />
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/common_empty_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="invisible">
+
+            <ImageView
+                android:id="@+id/common_error_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:contentDescription="@string/error_or_no_data"
+                android:src="@drawable/clip_box" />
+
+            <TextView
+                android:id="@+id/common_error_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="보관함이 비어 있습니다."
+                android:textAlignment="center" />
+        </LinearLayout>
+
+</RelativeLayout>

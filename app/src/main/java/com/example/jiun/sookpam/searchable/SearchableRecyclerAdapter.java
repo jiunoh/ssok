@@ -41,14 +41,18 @@ public class SearchableRecyclerAdapter extends RecyclerView.Adapter {
     public void searchInRealm(String charText) {
         RecordDBManager recordManager = new RecordDBManager(Realm.getDefaultInstance());
         recordVoList = recordManager.contains(charText);
+        modelList.clear();
         modelList.addAll(recordVoList);
         notifyDataSetChanged();
     }
 
-    public List<DualModel> add(List<DualModel> items) {
+    public void add(List<DualModel> items) {
         modelList.addAll(items);
         notifyDataSetChanged();
-        return  modelList;
+    }
+
+    public List<DualModel> getModelList() {
+        return modelList;
     }
 
     public void clear() {

@@ -34,12 +34,12 @@ class UserSettingLibrary {
             }
         }
 
-        fun loadMajors(majorSelectingButton: Button, majorsRecyclerView: RecyclerView, context: Context) {
+        fun loadMajors(majorSelectingButton: ImageButton, majorsRecyclerView: RecyclerView, context: Context) {
             val selectedMajors = getSelectedMajors(context)
             if (selectedMajors.size > 0) {
-                majorSelectingButton.text = context.getString(R.string.info_change_major)
+                majorSelectingButton.setImageResource(R.drawable.ic_edit_major)
             } else {
-                majorSelectingButton.text = context.getString(R.string.info_add_major)
+                majorSelectingButton.setImageResource(R.drawable.ic_add_major)
             }
             majorsRecyclerView.adapter = SelectedMajorRecyclerAdapter(selectedMajors)
         }
