@@ -135,8 +135,8 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-
     private fun cleanRecyclerView() {
+        progressBar.visibility = View.INVISIBLE
         search_recycler_view.visibility = View.VISIBLE
         errorLinearLayout.visibility = View.INVISIBLE
         similarKeywords.visibility = View.VISIBLE
