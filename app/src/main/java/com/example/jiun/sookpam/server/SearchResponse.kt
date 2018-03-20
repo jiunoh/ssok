@@ -1,4 +1,4 @@
-package com.example.jiun.sookpam
+package com.example.jiun.sookpam.server
 
 import com.example.jiun.sookpam.server.RecordResponse
 
