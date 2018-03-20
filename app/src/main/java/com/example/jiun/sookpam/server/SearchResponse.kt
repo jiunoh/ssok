@@ -1,8 +1,10 @@
 package com.example.jiun.sookpam.server
 
-import com.example.jiun.sookpam.server.RecordResponse
+import com.google.gson.annotations.SerializedName
 
 data class SearchResponse(
-        var search_keywords:ArrayList<String> = ArrayList(),
-        var search_lists:ArrayList<RecordResponse> = ArrayList()
+        @SerializedName("search_keywords")
+        var search_keywords: ArrayList<String>,
+        @SerializedName("search_list")
+        var search_list: ArrayList<RecordResponse>
 )
