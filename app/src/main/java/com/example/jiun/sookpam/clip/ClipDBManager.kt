@@ -23,6 +23,14 @@ class ClipDBManager(val realm: Realm) {
         }
     }
 
+    fun insert(title: String, id :Int, type: Int) {
+        realm.executeTransaction { realm ->
+            var record: DualVO = realm.createObject(DualVO::class.java)
+            record.title = title
+            record.type = type
+            record.db_id = id
+        }
+    }
 
     fun delete(title: String) {
         realm.executeTransaction { realm ->
@@ -35,5 +43,15 @@ class ClipDBManager(val realm: Realm) {
         val voResult = realm.where(DualVO::class.java).findAll()
         var voList  = voResult.subList(0, voResult.size)
         return voList.sortedByDescending { it.date }
+    }
+
+    fun selectMessages(): List<DualVO> {
+        val voResult = realm.where(DualVO::class.java).equalTo("type", DualModel.RECORD_VO).findAll()
+        return voResult.subList(0, voResult.size)
+    }
+
+    fun selectWebs(): List<DualVO> {
+        val voResult = realm.where(DualVO::class.java).equalTo("type", DualModel.RECORD_RESPONSE).findAll()
+        return voResult.subList(0, voResult.size)
     }
 }
