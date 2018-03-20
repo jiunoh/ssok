@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.jiun.sookpam.model.vo.RecordVO;
+import com.example.jiun.sookpam.util.DateFormatter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -17,6 +20,7 @@ public class MessageDepartListAdapter extends BaseAdapter {
     public static class MessageDepartViewHolder {
         TextView category;
         TextView title;
+        TextView date;
     }
 
     @Override
@@ -32,9 +36,10 @@ public class MessageDepartListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.message_depart_item, parent, false);
-            holder.category = (TextView) convertView.findViewById(R.id.message_depart_category);
-            holder.title = (TextView) convertView.findViewById(R.id.message_depart_title);
+            convertView = inflater.inflate(R.layout.searchable_recycler_item, parent, false);
+            holder.category = (TextView) convertView.findViewById(R.id.category_view);
+            holder.title = (TextView) convertView.findViewById(R.id.title_view);
+            holder.date = (TextView) convertView.findViewById(R.id.date_view);
             convertView.setTag(holder);
         } else
             holder = (MessageDepartViewHolder) convertView.getTag();
@@ -50,7 +55,8 @@ public class MessageDepartListAdapter extends BaseAdapter {
 
         holder.title.setText(messageBody);
         holder.category.setText(messageDepartItem.getDivision());
-
+        String date = DateFormatter.getFormatted(messageDepartItem.getMessage().getDate());
+        holder.date.setText(date);
         return convertView;
     }
 
