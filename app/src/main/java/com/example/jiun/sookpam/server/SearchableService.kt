@@ -8,5 +8,5 @@ interface SearchableService {
     @GET("search/{query}")
     fun getItems(
             @Path("query") query: String
-    ): Call<List<RecordResponse>>
+    ): Call<SearchResponse>
 }

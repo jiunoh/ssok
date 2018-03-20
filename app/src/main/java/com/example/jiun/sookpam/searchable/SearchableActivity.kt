@@ -19,6 +19,7 @@ import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.server.SearchResponse
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
@@ -138,29 +139,29 @@ class SearchableActivity : AppCompatActivity() {
     private fun cleanRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
         errorLinearLayout.visibility = View.INVISIBLE
-        requestSearchKeywords(searchQuery)
         similarKeywords.visibility = View.VISIBLE
     }
 
     private fun search(query: String) {
         val service = ApiUtils.getSearchableService()
         val query = query.replace("\\s+".toRegex(), "--").replace("/","__")
-        searchQuery = query
-        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
-            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+        service.getItems(query).enqueue(object : Callback<SearchResponse> {
+            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
                 progressBar.visibility = View.INVISIBLE
-                val records = response.body()
+                val records = response.body()!!.search_lists
                 adapter.searchInRealm(query)
-                adapter.add(records)
+                adapter.add(records as List<RecordResponse>?)
                 if(adapter.modelList.isEmpty())
                     showNoData()
+
+                setSearchKeywords(response.body()!!.search_keywords)
             }
 
-            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 Log.v("onFailure:", "onFailure")
             }
         })
@@ -217,7 +218,7 @@ class SearchableActivity : AppCompatActivity() {
                     Log.v("response", " disconnected")
                     return
                 }
-                setSearchKeywords(response.body())
+//                setSearchKeywords(response.body())
             }
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
@@ -226,7 +227,7 @@ class SearchableActivity : AppCompatActivity() {
         })
     }
 
-    private fun setSearchKeywords(response: List<String>?) {
+    private fun setSearchKeywords(response: ArrayList<String>?) {
         val keywordViews:IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
 
         var i:Int = 0
