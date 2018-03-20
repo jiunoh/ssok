@@ -78,8 +78,6 @@ public class MessageCommonFragment extends Fragment implements MessageContract.V
             }
         });
 
-
-
         return view;
     }
 
