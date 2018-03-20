@@ -107,9 +107,9 @@ class SearchableActivity : AppCompatActivity() {
                 similarKeywords.visibility = View.INVISIBLE
                 search_recycler_view.visibility = View.VISIBLE
                 errorLinearLayout.visibility = View.INVISIBLE
-                search(query)
                 progressBar.visibility = View.VISIBLE
                 editsearch.clearFocus()
+                search(query)
                 return true
             }
 
