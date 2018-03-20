@@ -22,10 +22,10 @@ import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
-import java.util.ArrayList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -111,7 +111,6 @@ class SearchableActivity : AppCompatActivity() {
                 search(query)
                 progressBar.visibility = View.VISIBLE
                 editsearch.clearFocus()
-                search(query)
                 return true
             }
 
@@ -231,9 +230,14 @@ class SearchableActivity : AppCompatActivity() {
         val keywordViews:IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
 
         var i:Int = 0
+        var text:String = ""
         for (view in keywordViews) {
             var textView:TextView = findViewById<TextView>(view)
-            textView.text = response!!.get(i)
+            text = response!!.get(i)
+            if (text == null)
+                ;
+            else
+                textView.text = text
             i++
         }
     }
