@@ -19,6 +19,7 @@ import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.util.DateFormatter
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import io.realm.Realm
@@ -89,7 +90,7 @@ class MyClipFragment : Fragment() {
                     val recordVos = recordManager.contains(unit.title) as List<RecordVO>
                     modelList.add(recordVos[0])}
                 //sortBy comparator
-
+                modelList.sortByDescending { sorter(it) }
                 adapter = ClipItemRecyclerViewAdapter(modelList)
                 view!!.recylerView.adapter = adapter
                 recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
@@ -105,6 +106,12 @@ class MyClipFragment : Fragment() {
         })
     }
 
+    private fun sorter(item : DualModel) : String{
+        if (item is RecordVO)
+            return DateFormatter.getFormatted(item.message!!.date)
+        else
+            return (item as RecordResponse).date
+    }
 
     private fun showMessageBody(data: DualModel) {
         if (data is RecordVO) {
