@@ -2,6 +2,7 @@ package com.example.jiun.sookpam.clip
 
 
 import android.util.Log
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.DualVO
 import io.realm.Realm
 import java.text.SimpleDateFormat
@@ -22,13 +23,6 @@ class ClipDBManager(val realm: Realm) {
         }
     }
 
-    fun insert(title: String, type: Int) {
-        realm.executeTransaction { realm ->
-            var record: DualVO = realm.createObject(DualVO::class.java)
-            record.title = title
-            record.type = type
-        }
-    }
 
     fun delete(title: String) {
         realm.executeTransaction { realm ->
@@ -38,7 +32,8 @@ class ClipDBManager(val realm: Realm) {
     }
 
     fun select(): List<DualVO> {
-        val voList = realm.where(DualVO::class.java).findAll()
-        return voList.subList(0, voList.size);
+        val voResult = realm.where(DualVO::class.java).findAll()
+        var voList  = voResult.subList(0, voResult.size)
+        return voList.sortedByDescending { it.date }
     }
 }
