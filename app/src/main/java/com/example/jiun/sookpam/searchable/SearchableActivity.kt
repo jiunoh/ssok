@@ -1,34 +1,32 @@
 package com.example.jiun.sookpam.searchable
 
-import android.os.Bundle
-import com.example.jiun.sookpam.R
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.appcompat.R.id.search_close_btn
 import android.support.v7.appcompat.R.id.search_mag_icon
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.View
-import android.support.v7.widget.SearchView
-import android.util.Log
+import android.widget.*
+import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.RecyclerItemClickListener
+import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
+import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.server.SearchResponse
+import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_searchable.*
-import java.util.ArrayList
-import android.support.v7.widget.DividerItemDecoration
-import android.widget.*
-import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
-import com.example.jiun.sookpam.model.DualModel
-import com.example.jiun.sookpam.server.ApiUtils
-import com.example.jiun.sookpam.util.MsgContentGenerator
-import kotlinx.android.synthetic.main.fragment_my_clip.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 
 class SearchableActivity : AppCompatActivity() {
@@ -40,7 +38,12 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var errorImageView: ImageView
     private lateinit var errorTextView: TextView
     private lateinit var progressBar: ProgressBar
-
+    private lateinit var keyword1: TextView
+    private lateinit var keyword2: TextView
+    private lateinit var keyword3: TextView
+    private lateinit var keyword4: TextView
+    private lateinit var similarKeywords: LinearLayout
+    private lateinit var searchQuery: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,10 +96,18 @@ class SearchableActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
         val searchItem = menu!!.findItem(R.id.action_search)
+
+        similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
+        similarKeywords.visibility = View.VISIBLE
+
+        initializeKeywordsAndSetListener()
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+                similarKeywords.visibility = View.INVISIBLE
+                search_recycler_view.visibility = View.VISIBLE
+                errorLinearLayout.visibility = View.INVISIBLE
                 progressBar.visibility = View.VISIBLE
                 editsearch.clearFocus()
                 search(query)
@@ -107,10 +118,11 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
-        val icon =  editsearch.findViewById(search_mag_icon) as ImageView
-        icon.layoutParams = LinearLayout.LayoutParams(0,0)
+        val icon = editsearch.findViewById(search_mag_icon) as ImageView
+        icon.layoutParams = LinearLayout.LayoutParams(0, 0)
         icon.visibility = View.GONE
         setCloseEventListener()
+
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -118,7 +130,7 @@ class SearchableActivity : AppCompatActivity() {
         val closeButton = editsearch.findViewById(search_close_btn) as ImageView
         closeButton.setOnClickListener(View.OnClickListener {
             cleanRecyclerView()
-            editsearch.setQuery("",false)
+            editsearch.setQuery("", false)
             adapter.clear()
         })
     }
@@ -127,26 +139,29 @@ class SearchableActivity : AppCompatActivity() {
     private fun cleanRecyclerView() {
         search_recycler_view.visibility = View.VISIBLE
         errorLinearLayout.visibility = View.INVISIBLE
+        similarKeywords.visibility = View.VISIBLE
     }
 
-    private fun search(query: String)  {
+    private fun search(query: String) {
         val service = ApiUtils.getSearchableService()
         val query = query.replace("\\s+".toRegex(), "--").replace("/","__")
-        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
-            override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
+        service.getItems(query).enqueue(object : Callback<SearchResponse> {
+            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
                 progressBar.visibility = View.INVISIBLE
-                val records = response.body()
+                val records = response.body()!!.search_lists
                 adapter.searchInRealm(query)
-                adapter.add(records)
+                adapter.add(records as List<RecordResponse>?)
                 if(adapter.modelList.isEmpty())
                     showNoData()
+
+                setSearchKeywords(response.body()!!.search_keywords)
             }
 
-            override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 Log.v("onFailure:", "onFailure")
             }
         })
@@ -170,4 +185,62 @@ class SearchableActivity : AppCompatActivity() {
         errorLinearLayout.visibility = View.VISIBLE
         errorTextView.text = getString(R.string.no_data_in_server)
     }
+
+    private fun initializeKeywordsAndSetListener() {
+        keyword1 = findViewById(R.id.search_keyword_1)
+        keyword2 = findViewById(R.id.search_keyword_2)
+        keyword3 = findViewById(R.id.search_keyword_3)
+        keyword4 = findViewById(R.id.search_keyword_4)
+
+        keyword1.setOnClickListener{
+            var query = keyword1.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword2.setOnClickListener{
+            var query = keyword2.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword3.setOnClickListener{
+            var query = keyword3.text.toString()
+            editsearch.setQuery(query, true)
+        }
+        keyword4.setOnClickListener{
+            var query = keyword4.text.toString()
+            editsearch.setQuery(query, true)
+        }
+    }
+
+    private fun requestSearchKeywords(query: String) {
+        val service = ApiUtils.getSearchKeywordService()
+        service.getItems(query).enqueue(object : Callback<List<String>> {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (!response.isSuccessful) {
+                    Log.v("response", " disconnected")
+                    return
+                }
+//                setSearchKeywords(response.body())
+            }
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                Log.v("onFailure:", "onFailure")
+            }
+        })
+    }
+
+    private fun setSearchKeywords(response: ArrayList<String>?) {
+        val keywordViews:IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
+
+        var i:Int = 0
+        var text:String = ""
+        for (view in keywordViews) {
+            var textView:TextView = findViewById<TextView>(view)
+            text = response!!.get(i)
+            if (text == null)
+                ;
+            else
+                textView.text = text
+            i++
+        }
+    }
+
 }

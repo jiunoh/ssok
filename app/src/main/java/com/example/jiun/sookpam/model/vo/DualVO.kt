@@ -10,4 +10,5 @@ open class DualVO : RealmModel{
     lateinit var title:String
     var type:Int = DualModel.RECORD_VO
     var date: String? = null
+    var db_id:Int ?= null
 }

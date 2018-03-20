@@ -2,11 +2,11 @@ package com.example.jiun.sookpam;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.*;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -15,21 +15,17 @@ import android.widget.ProgressBar;
 
 import com.example.jiun.sookpam.message.MessageContract;
 import com.example.jiun.sookpam.message.MessagePresenter;
-import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
 import com.example.jiun.sookpam.util.MsgContentGenerator;
-import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
-
-import static io.realm.internal.SyncObjectServerFacade.getApplicationContext;
 
 public class MessageCommonFragment extends Fragment implements MessageContract.View {
     Context context;

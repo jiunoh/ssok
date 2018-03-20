@@ -12,7 +12,6 @@ import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ContentActivity : AppCompatActivity() {
@@ -37,8 +36,10 @@ class ContentActivity : AppCompatActivity() {
         division = record.division
         category = record.category
         body = record.body
-        title = body.split("\n")[1]
-        title_view.text = title
+        if (body!!.contains("[Web발신]"))
+            body = body.replace("[Web발신]", "")
+        body = body.replaceFirst("\n".toRegex(), "")
+        title_view.text = body
         content_view.text = body
         info_view.text = "$division / ${record.phone}"
         val pattern = "yyyy-MM-dd"
