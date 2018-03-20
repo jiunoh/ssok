@@ -152,7 +152,7 @@ class SearchableActivity : AppCompatActivity() {
                     return
                 }
                 progressBar.visibility = View.INVISIBLE
-                val records = response.body()!!.search_lists
+                val records = response.body()!!.search_list
                 adapter.searchInRealm(query)
                 adapter.add(records as List<RecordResponse>?)
                 if(adapter.modelList.isEmpty())
