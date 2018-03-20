@@ -20,6 +20,9 @@ class ApiUtils {
 
         fun getSearchKeywordService() : SearchKeywordService {
             return RetrofitClient.getClient(BASE_URL).create(SearchKeywordService ::class.java)
+
+        fun getClipService() : ClipService {
+            return RetrofitClient.getClient(BASE_URL).create(ClipService::class.java)
         }
     }
 }

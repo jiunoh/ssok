@@ -19,6 +19,7 @@ import com.example.jiun.sookpam.model.RecordDBManager
 import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
+import com.example.jiun.sookpam.util.DateFormatter
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import io.realm.Realm
@@ -31,7 +32,6 @@ import java.util.ArrayList
 
 
 class MyClipFragment : Fragment() {
-    private lateinit var modelList: List<DualModel>
     private var adapter: ClipItemRecyclerViewAdapter? = null
     private lateinit var errorLinearLayout: LinearLayout
     private lateinit var errorImageView: ImageView
@@ -39,21 +39,14 @@ class MyClipFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbManager : ClipDBManager
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        modelList = ArrayList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my_clip, container, false)
         recyclerView = view.recylerView
         recyclerView.visibility = View.VISIBLE
-        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
-                RecyclerItemClickListener.OnItemClickListener { view, position ->
-                    val data = modelList!!.get(position)
-                    showMessageBody(data)
-                }))
         errorLinearLayout = view.common_empty_linear
         errorLinearLayout.visibility = View.INVISIBLE
         errorImageView = view.common_error_img
@@ -71,43 +64,40 @@ class MyClipFragment : Fragment() {
     }
 
     fun search() {
-        modelList = ArrayList<DualModel>()
-        adapter = ClipItemRecyclerViewAdapter(modelList)
-        view!!.recylerView.adapter = adapter
-        val voList = dbManager.select()
-        for (vo in voList)
-            getModelBy(vo)
+        val webList = dbManager.selectWebs()
+        var query = ""
+        webList.forEach { unit ->
+            query = "$query&${unit.db_id}"}
+        Log.v("query>", query.substring(1))
+        searchInWeb(query.substring(1))
     }
 
-    private fun getModelBy(record: DualVO) {
-        if (record.type == DualModel.RECORD_VO) {
-            val recordManager = RecordDBManager(Realm.getDefaultInstance())
-            val recordVos = recordManager.contains(record.title) as List<RecordVO>
-            adapter!!.addWithDelay(recordVos[0])
-        } else if (record.type == DualModel.RECORD_RESPONSE) {
-            try {
-                searchInWeb(record.title, record.date!!)
-            } catch (exception: IndexOutOfBoundsException) {
-                Log.v("getModelBy", "데이터가 없습니다.");
-            }
-        }
-    }
-
-    private fun searchInWeb(charText: String, date: String) {
-        val service = ApiUtils.getSearchableService()
-        val query = charText.replace("\\s+".toRegex(), "--")
-        val request = query.replace("/".toRegex(),"__")
-        service.getItems(request).enqueue(object : Callback<List<RecordResponse>> {
+    private fun searchInWeb(query : String) {
+        val service = ApiUtils.getClipService()
+        service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
+                var modelList = ArrayList<DualModel>()
+
                 val records = response.body()
-                records!!.forEach { record ->
-                    if (record.date == date)
-                        adapter!!.addWithDelay(record)
-                }
+                modelList.addAll(records!!.toList())
+                val msgList = dbManager.selectMessages()
+                msgList.forEach { unit ->
+                    val recordManager = RecordDBManager(Realm.getDefaultInstance())
+                    val recordVos = recordManager.contains(unit.title) as List<RecordVO>
+                    modelList.add(recordVos[0])}
+                //sortBy comparator
+                modelList.sortByDescending { sorter(it) }
+                adapter = ClipItemRecyclerViewAdapter(modelList)
+                view!!.recylerView.adapter = adapter
+                recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
+                        RecyclerItemClickListener.OnItemClickListener { view, position ->
+                            val data = modelList!!.get(position)
+                            showMessageBody(data)
+                        }))
             }
 
             override fun onFailure(call: Call<List<RecordResponse>>, t: Throwable) {
@@ -116,6 +106,12 @@ class MyClipFragment : Fragment() {
         })
     }
 
+    private fun sorter(item : DualModel) : String{
+        if (item is RecordVO)
+            return DateFormatter.getFormatted(item.message!!.date)
+        else
+            return (item as RecordResponse).date
+    }
 
     private fun showMessageBody(data: DualModel) {
         if (data is RecordVO) {

@@ -32,9 +32,4 @@ public class ClipItemRecyclerViewAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return modelList.size();
     }
-
-    public void addWithDelay(DualModel items) {
-        modelList.add(items);
-        notifyDataSetChanged();
-    }
  }

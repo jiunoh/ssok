@@ -45,6 +45,7 @@ class WebContentActivity : AppCompatActivity() {
     private lateinit var recommendExpandTextView: TextView
     private lateinit var recommendExpandFrame: FrameLayout
     private lateinit var toolbarTextView: TextView
+    private  var db_id:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,6 +130,7 @@ class WebContentActivity : AppCompatActivity() {
     private fun setContentData() {
         val intent = intent
         val record = intent.getSerializableExtra("record") as RecordResponse
+        db_id = record.db_id
         category = record.category
         division = record.division
         idTextView.text = record.id.toString()
@@ -200,7 +202,7 @@ class WebContentActivity : AppCompatActivity() {
                 val title = titleTextView.text.toString()
                 if (dbmanager.doesNotExist(title)) {
                     item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_on)
-                    dbmanager.insert(title, DualModel.RECORD_RESPONSE, dateTextView.text.toString())
+                    dbmanager.insert(title, db_id, DualModel.RECORD_RESPONSE)
                 } else {
                     item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
                     dbmanager.delete(title)
