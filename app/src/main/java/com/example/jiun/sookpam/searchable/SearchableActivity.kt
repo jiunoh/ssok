@@ -43,7 +43,6 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var keyword3: TextView
     private lateinit var keyword4: TextView
     private lateinit var similarKeywords: LinearLayout
-    private lateinit var searchQuery: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -228,19 +227,18 @@ class SearchableActivity : AppCompatActivity() {
     }
 
     private fun setSearchKeywords(response: ArrayList<String>?) {
-//        val keywordViews: IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
-//
-//        var i: Int = 0
-//        var text: String = ""
-//        for (view in keywordViews) {
-//            var textView: TextView = findViewById<TextView>(view)
-//            text = response!!.get(i)
-//            if (text == null)
-//                ;
-//            else
-//                textView.text = text
-//            i++
-//        }
+        val keywordViews: Array<TextView> = arrayOf(keyword1, keyword2, keyword3, keyword4)
+
+        var i = 0
+        var text = ""
+        for (view in keywordViews) {
+            text = response!!.get(i)
+            if (text == null)
+                ;
+            else
+                view.text = text
+            i++
+        }
     }
 
 }
