@@ -232,11 +232,10 @@ class SearchableActivity : AppCompatActivity() {
         var i = 0
         var text = ""
         for (view in keywordViews) {
-            text = response!!.get(i)
-            if (text == null)
+            if (response!!.size == 0)
                 ;
             else
-                view.text = text
+                view.text = response!!.get(i)
             i++
         }
     }
