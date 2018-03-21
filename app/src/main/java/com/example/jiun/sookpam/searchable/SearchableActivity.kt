@@ -209,28 +209,10 @@ class SearchableActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestSearchKeywords(query: String) {
-        val service = ApiUtils.getSearchKeywordService()
-        service.getItems(query).enqueue(object : Callback<List<String>> {
-            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if (!response.isSuccessful) {
-                    Log.v("response", " disconnected")
-                    return
-                }
-//                setSearchKeywords(response.body())
-            }
-
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                Log.v("onFailure:", "onFailure")
-            }
-        })
-    }
-
     private fun setSearchKeywords(response: ArrayList<String>?) {
         val keywordViews: Array<TextView> = arrayOf(keyword1, keyword2, keyword3, keyword4)
 
         var i = 0
-        var text = ""
         for (view in keywordViews) {
             if (response!!.size == 0)
                 ;
