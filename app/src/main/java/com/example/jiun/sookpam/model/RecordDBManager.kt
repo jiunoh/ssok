@@ -55,7 +55,7 @@ class RecordDBManager(val realm: Realm) {
         return responseList
     }
 
-    fun getCommonMessages() : ArrayList<RecordVO> {
+    fun getCommonMessages() : List<RecordVO> {
         var msgResponse = realm.where(RecordVO::class.java).equalTo("category", "공통").or()
                 .equalTo("category", "취업").or()
                 .equalTo("category", "모집").or()
@@ -64,9 +64,6 @@ class RecordDBManager(val realm: Realm) {
                 .equalTo("category", "장학").or()
                 .equalTo("category", "입학").or()
                 .equalTo("category", "시스템").findAll()
-
-        var responseList: ArrayList<RecordVO> = ArrayList<RecordVO>()
-        responseList.addAll(msgResponse)
-        return responseList
+        return msgResponse.subList(0, msgResponse.size).sortedByDescending { it.message!!.date }
     }
 }
