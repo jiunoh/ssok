@@ -37,7 +37,6 @@ class MyClipFragment : Fragment() {
     private lateinit var errorTextView: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbManager : ClipDBManager
-    private lateinit var modelList : ArrayList<DualModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,22 +50,18 @@ class MyClipFragment : Fragment() {
         errorLinearLayout.visibility = View.INVISIBLE
         errorImageView = view.common_error_img
         errorTextView = view.common_error_txt
-        return view
-    }
 
-    override fun onResume() {
-        super.onResume()
         dbManager = ClipDBManager(Realm.getDefaultInstance())
 
         if (dbManager.select().isEmpty())
             showNoData()
         else
             search()
+        return view
     }
 
     fun search() {
         val webList = dbManager.selectWebs()
-        modelList =  ArrayList<DualModel>()
         if(webList.isNotEmpty()) {
             var query = ""
             webList.forEach { unit ->
@@ -100,7 +95,7 @@ class MyClipFragment : Fragment() {
                 //sortBy comparator
                 modelList.sortByDescending { sorter(it) }
                 adapter = ClipItemRecyclerViewAdapter(modelList)
-                view!!.recylerView.adapter = adapter
+                recyclerView.adapter = adapter
                 recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
                         RecyclerItemClickListener.OnItemClickListener { view, position ->
                             val data = modelList!!.get(position)
@@ -115,6 +110,7 @@ class MyClipFragment : Fragment() {
     }
 
     private fun searchOnlyMessage() {
+        var modelList = ArrayList<DualModel>()
         val msgList = dbManager.selectMessages()
         msgList.forEach { unit ->
             val recordManager = RecordDBManager(Realm.getDefaultInstance())
@@ -123,7 +119,7 @@ class MyClipFragment : Fragment() {
         //sortBy comparator
         modelList.sortByDescending { sorter(it) }
         adapter = ClipItemRecyclerViewAdapter(modelList)
-        view!!.recylerView.adapter = adapter
+        recyclerView.adapter = adapter
         recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
                 RecyclerItemClickListener.OnItemClickListener { view, position ->
                     val data = modelList!!.get(position)

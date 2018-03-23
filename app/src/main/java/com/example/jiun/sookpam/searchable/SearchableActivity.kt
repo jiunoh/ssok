@@ -43,7 +43,6 @@ class SearchableActivity : AppCompatActivity() {
     private lateinit var keyword3: TextView
     private lateinit var keyword4: TextView
     private lateinit var similarKeywords: LinearLayout
-    private lateinit var searchQuery: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,24 +143,24 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun search(query: String) {
         val service = ApiUtils.getSearchableService()
-        val query = query.replace("\\s+".toRegex(), "--").replace("/","__")
-        service.getItems(query).enqueue(object : Callback<SearchResponse> {
-            override fun onResponse(call: Call<SearchResponse>, response: Response<SearchResponse>) {
+        val query = query.replace("\\s+".toRegex(), "--").replace("/", "__")
+        service.getItems(query).enqueue(object : Callback<List<SearchResponse>> {
+            override fun onResponse(call: Call<List<SearchResponse>>, response: Response<List<SearchResponse>>) {
                 if (!response.isSuccessful) {
                     Log.v("response", " disconnected")
                     return
                 }
                 progressBar.visibility = View.INVISIBLE
-                val records = response.body()!!.search_lists
+                val records = response.body()!![0].search_list
                 adapter.searchInRealm(query)
                 adapter.add(records as List<RecordResponse>?)
-                if(adapter.modelList.isEmpty())
+                if (adapter.modelList.isEmpty())
                     showNoData()
 
-                setSearchKeywords(response.body()!!.search_keywords)
+                setSearchKeywords(response.body()!![0].search_keywords)
             }
 
-            override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<SearchResponse>>, t: Throwable) {
                 Log.v("onFailure:", "onFailure")
             }
         })
@@ -192,53 +191,33 @@ class SearchableActivity : AppCompatActivity() {
         keyword3 = findViewById(R.id.search_keyword_3)
         keyword4 = findViewById(R.id.search_keyword_4)
 
-        keyword1.setOnClickListener{
+        keyword1.setOnClickListener {
             var query = keyword1.text.toString()
             editsearch.setQuery(query, true)
         }
-        keyword2.setOnClickListener{
+        keyword2.setOnClickListener {
             var query = keyword2.text.toString()
             editsearch.setQuery(query, true)
         }
-        keyword3.setOnClickListener{
+        keyword3.setOnClickListener {
             var query = keyword3.text.toString()
             editsearch.setQuery(query, true)
         }
-        keyword4.setOnClickListener{
+        keyword4.setOnClickListener {
             var query = keyword4.text.toString()
             editsearch.setQuery(query, true)
         }
     }
 
-    private fun requestSearchKeywords(query: String) {
-        val service = ApiUtils.getSearchKeywordService()
-        service.getItems(query).enqueue(object : Callback<List<String>> {
-            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if (!response.isSuccessful) {
-                    Log.v("response", " disconnected")
-                    return
-                }
-//                setSearchKeywords(response.body())
-            }
-
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                Log.v("onFailure:", "onFailure")
-            }
-        })
-    }
-
     private fun setSearchKeywords(response: ArrayList<String>?) {
-        val keywordViews:IntArray = intArrayOf(R.id.search_keyword_1, R.id.search_keyword_2, R.id.search_keyword_3, R.id.search_keyword_4)
+        val keywordViews: Array<TextView> = arrayOf(keyword1, keyword2, keyword3, keyword4)
 
-        var i:Int = 0
-        var text:String = ""
+        var i = 0
         for (view in keywordViews) {
-            var textView:TextView = findViewById<TextView>(view)
-            text = response!!.get(i)
-            if (text == null)
+            if (response!!.size == 0)
                 ;
             else
-                textView.text = text
+                view.text = response!!.get(i)
             i++
         }
     }
