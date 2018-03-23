@@ -16,7 +16,6 @@ import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.RecordDBManager
-import com.example.jiun.sookpam.model.vo.DualVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.util.DateFormatter
@@ -38,6 +37,7 @@ class MyClipFragment : Fragment() {
     private lateinit var errorTextView: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var dbManager : ClipDBManager
+    private lateinit var modelList : ArrayList<DualModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +57,7 @@ class MyClipFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         dbManager = ClipDBManager(Realm.getDefaultInstance())
+
         if (dbManager.select().isEmpty())
             showNoData()
         else
@@ -65,14 +66,21 @@ class MyClipFragment : Fragment() {
 
     fun search() {
         val webList = dbManager.selectWebs()
-        var query = ""
-        webList.forEach { unit ->
-            query = "$query&${unit.db_id}"}
-        Log.v("query>", query.substring(1))
-        searchInWeb(query.substring(1))
+        modelList =  ArrayList<DualModel>()
+        if(webList.isNotEmpty()) {
+            var query = ""
+            webList.forEach { unit ->
+                query = "$query&${unit.db_id}"
+            }
+            Log.v("query>", query.substring(1))
+            searchBoth(query.substring(1))
+        }
+        else {
+            searchOnlyMessage()
+        }
     }
 
-    private fun searchInWeb(query : String) {
+    private fun searchBoth(query : String) {
         val service = ApiUtils.getClipService()
         service.getItems(query).enqueue(object : Callback<List<RecordResponse>> {
             override fun onResponse(call: Call<List<RecordResponse>>, response: Response<List<RecordResponse>>) {
@@ -104,6 +112,23 @@ class MyClipFragment : Fragment() {
                 Log.v("onFailure:", "onFailure")
             }
         })
+    }
+
+    private fun searchOnlyMessage() {
+        val msgList = dbManager.selectMessages()
+        msgList.forEach { unit ->
+            val recordManager = RecordDBManager(Realm.getDefaultInstance())
+            val recordVos = recordManager.contains(unit.title) as List<RecordVO>
+            modelList.add(recordVos[0])}
+        //sortBy comparator
+        modelList.sortByDescending { sorter(it) }
+        adapter = ClipItemRecyclerViewAdapter(modelList)
+        view!!.recylerView.adapter = adapter
+        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(context,
+                RecyclerItemClickListener.OnItemClickListener { view, position ->
+                    val data = modelList!!.get(position)
+                    showMessageBody(data)
+                }))
     }
 
     private fun sorter(item : DualModel) : String{

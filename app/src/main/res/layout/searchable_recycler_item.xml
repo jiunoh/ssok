@@ -11,8 +11,6 @@
         android:layout_height="?listPreferredItemHeightLarge"
         android:layout_marginBottom="8dp"
         android:padding="8dp"
-        android:clickable="true"
-        android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="@android:color/white"
         app:cardUseCompatPadding="true">
