@@ -49,6 +49,7 @@ class SearchableActivity : AppCompatActivity() {
         setContentView(R.layout.activity_searchable)
         modelList = ArrayList()
         setToolbar()
+        initializeKeywordViews()
         setRecyclerView()
         setRestOfTheView()
     }
@@ -63,7 +64,6 @@ class SearchableActivity : AppCompatActivity() {
             finish()
         })
     }
-
 
     private fun setRecyclerView() {
         adapter = SearchableRecyclerAdapter(modelList)
@@ -99,7 +99,6 @@ class SearchableActivity : AppCompatActivity() {
         similarKeywords = findViewById<LinearLayout>(R.id.search_keyword_layout)
         similarKeywords.visibility = View.VISIBLE
 
-        initializeKeywordsAndSetListener()
         editsearch = MenuItemCompat.getActionView(searchItem) as SearchView
         editsearch.setIconifiedByDefault(false)
         editsearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -117,6 +116,9 @@ class SearchableActivity : AppCompatActivity() {
                 return false
             }
         })
+
+        setKeywordListener()
+
         val icon = editsearch.findViewById(search_mag_icon) as ImageView
         icon.layoutParams = LinearLayout.LayoutParams(0, 0)
         icon.visibility = View.GONE
@@ -136,7 +138,7 @@ class SearchableActivity : AppCompatActivity() {
 
     private fun cleanRecyclerView() {
         progressBar.visibility = View.INVISIBLE
-        search_recycler_view.visibility = View.VISIBLE
+        search_recycler_view.visibility = View.GONE
         errorLinearLayout.visibility = View.INVISIBLE
         similarKeywords.visibility = View.VISIBLE
     }
@@ -185,24 +187,29 @@ class SearchableActivity : AppCompatActivity() {
         errorTextView.text = getString(R.string.no_data_in_server)
     }
 
-    private fun initializeKeywordsAndSetListener() {
+    private fun initializeKeywordViews() {
         keyword1 = findViewById(R.id.search_keyword_1)
         keyword2 = findViewById(R.id.search_keyword_2)
         keyword3 = findViewById(R.id.search_keyword_3)
         keyword4 = findViewById(R.id.search_keyword_4)
+    }
 
+    private fun setKeywordListener() {
         keyword1.setOnClickListener {
             var query = keyword1.text.toString()
             editsearch.setQuery(query, true)
         }
+
         keyword2.setOnClickListener {
             var query = keyword2.text.toString()
             editsearch.setQuery(query, true)
         }
+
         keyword3.setOnClickListener {
             var query = keyword3.text.toString()
             editsearch.setQuery(query, true)
         }
+
         keyword4.setOnClickListener {
             var query = keyword4.text.toString()
             editsearch.setQuery(query, true)

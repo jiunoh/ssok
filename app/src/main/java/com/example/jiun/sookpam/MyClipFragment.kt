@@ -13,21 +13,20 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.clip.ClipItemRecyclerViewAdapter
-import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.RecordDBManager
+import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.util.DateFormatter
 import com.example.jiun.sookpam.util.MsgContentGenerator
 import com.example.jiun.sookpam.web.WebContentActivity
 import io.realm.Realm
-import kotlinx.android.synthetic.main.fragment_my_clip.*
 import kotlinx.android.synthetic.main.fragment_my_clip.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
+import java.util.*
 
 
 class MyClipFragment : Fragment() {
@@ -147,7 +146,7 @@ class MyClipFragment : Fragment() {
     }
 
     private fun showNoData() {
-        recylerView.visibility = View.INVISIBLE
+        recyclerView.visibility = View.INVISIBLE
         errorLinearLayout.visibility = View.VISIBLE
     }
 
