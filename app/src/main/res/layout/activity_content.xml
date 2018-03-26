@@ -80,9 +80,10 @@
                 android:padding="8dp"
                 android:textSize="16sp"
                 android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다."
-                android:textColor="#000000"
+                android:textColor="@android:color/black"
                 android:lineSpacingExtra="8dp"
                 android:autoLink="web"
+                android:textColorLink="@android:color/holo_red_light"
                 />
 
         </LinearLayout>
