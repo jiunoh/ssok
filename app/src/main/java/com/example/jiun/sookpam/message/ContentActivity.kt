@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import com.example.jiun.sookpam.MyPageBaseFragment
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
@@ -82,6 +83,7 @@ class ContentActivity : AppCompatActivity() {
                     item.icon = ContextCompat.getDrawable(applicationContext, R.drawable.star_off)
                     dbmanager.delete(body)
                 }
+                MyPageBaseFragment.myPageViewPagerAdapter.notifyDataSetChanged()
                 true
             }
             else -> super.onOptionsItemSelected(item)
