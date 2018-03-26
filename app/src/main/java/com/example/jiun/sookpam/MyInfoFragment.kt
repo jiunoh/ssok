@@ -48,13 +48,13 @@ class MyInfoFragment : Fragment() {
 
     private fun initializeGradeSpinner(view: View) {
         studentGradeSpinner = view.my_info_student_grade_spinner
-        gradeSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
+        gradeSpinnerArrayAdapter = CustomArrayAdapter(context!!, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
         UserSettingLibrary.setSpinnerAdapter(studentGradeSpinner, gradeSpinnerArrayAdapter, UserSettingLibrary.STUDENT_GRADE, context!!)
     }
 
     private fun initializeYearSpinner(view: View) {
         studentYearSpinner = view.my_info_student_year_spinner
-        yearSpinnerArrayAdapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
+        yearSpinnerArrayAdapter = CustomArrayAdapter(context!!, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
         UserSettingLibrary.setSpinnerAdapter(studentYearSpinner, yearSpinnerArrayAdapter, UserSettingLibrary.STUDENT_YEAR, context!!)
     }
 

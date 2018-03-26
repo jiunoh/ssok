@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.*
 import android.view.*
 import android.widget.*
+import com.example.jiun.sookpam.CustomArrayAdapter
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.user.major.*
@@ -30,8 +31,8 @@ class UserInfo1Fragment : Fragment() {
         userInfo1View = inflater.inflate(R.layout.fragment_user_info1, container, false)
         userInfo1Activity = activity!!
         userInfo1Context = userInfo1View.context
-        yearSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
-        gradeSpinnerArrayAdapter = ArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
+        yearSpinnerArrayAdapter = CustomArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_year))
+        gradeSpinnerArrayAdapter = CustomArrayAdapter(userInfo1Context, android.R.layout.simple_spinner_item, resources.getStringArray(R.array.student_grade))
         initialize()
         return userInfo1View
     }
