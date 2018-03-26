@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.jiun.sookpam.web.common.WebCommonRecyclerAdapter">
+    tools:context="com.example.jiun.ssok.web.common.WebCommonRecyclerAdapter">
 
     <android.support.v7.widget.CardView
         android:id="@+id/web_common_card_view"

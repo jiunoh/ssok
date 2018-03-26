@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.mypage.MyPageBaseFragment">
+    tools:context="com.example.jiun.ssok.user.mypage.MyPageBaseFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_page_base_toolbar"
@@ -50,7 +50,7 @@
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary" />
 
-    <com.example.jiun.sookpam.SimpleViewPager
+    <com.example.jiun.ssok.SimpleViewPager
         android:id="@+id/my_page_base_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

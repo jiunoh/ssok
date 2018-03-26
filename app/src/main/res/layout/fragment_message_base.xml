@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.message.MessageBaseFragment">
+    tools:context="com.example.jiun.ssok.message.MessageBaseFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/message_base_toolbar"
@@ -63,7 +63,7 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <com.example.jiun.sookpam.SimpleViewPager
+    <com.example.jiun.ssok.SimpleViewPager
         android:id="@+id/message_base_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

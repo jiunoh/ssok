@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.example.jiun.sookpam.web.common.WebCareerRecyclerAdapter">
+    tools:context="com.example.jiun.ssok.web.common.WebCareerRecyclerAdapter">
 
     <android.support.v7.widget.CardView
         android:id="@+id/web_career_card_view"

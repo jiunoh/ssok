@@ -7,7 +7,7 @@
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    tools:context="com.example.jiun.sookpam.user.major.CollegeRecyclerAdapter">
+    tools:context="com.example.jiun.ssok.user.major.CollegeRecyclerAdapter">
 
     <TextView
         android:id="@+id/major_college_txt"

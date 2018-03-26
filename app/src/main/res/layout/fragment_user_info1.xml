@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.info.UserInfo1Fragment">
+    tools:context="com.example.jiun.ssok.user.info.UserInfo1Fragment">
 
     <TextView
         android:layout_width="match_parent"

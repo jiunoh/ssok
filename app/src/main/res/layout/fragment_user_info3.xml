@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.user.info.UserInfo3Fragment">
+    tools:context="com.example.jiun.ssok.user.info.UserInfo3Fragment">
 
     <TextView
         android:layout_width="match_parent"
@@ -30,14 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.jiun.sookpam.user.mypage.CategoryInterestFragment">
+        tools:context="com.example.jiun.ssok.user.mypage.CategoryInterestFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_scholarship_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 app:status_background="@color/colorPrimary"
                 app:status_txt="@string/category_status_normal" />
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_academic_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_event_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
                 app:status_background="@color/colorPrimary"
                 app:status_txt="@string/category_status_normal" />
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_recruit_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_system_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                 app:status_background="@color/colorPrimary"
                 app:status_txt="@string/category_status_normal" />
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_global_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_career_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                 app:status_background="@color/colorPrimary"
                 app:status_txt="@string/category_status_normal" />
 
-            <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
+            <com.example.jiun.ssok.user.mypage.CustomCategoryInterestItem
                 android:id="@+id/category_student_custom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

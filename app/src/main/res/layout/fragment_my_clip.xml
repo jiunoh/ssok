@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.jiun.sookpam.user.mypage.clip.MyClipFragment">
+    tools:context="com.example.jiun.ssok.user.mypage.clip.MyClipFragment">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recylerView"
             android:layout_width="match_parent"

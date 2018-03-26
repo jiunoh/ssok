@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.MainActivity">
+    tools:context="com.example.jiun.ssok.MainActivity">
 
-    <com.example.jiun.sookpam.SimpleViewPager
+    <com.example.jiun.ssok.SimpleViewPager
         android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

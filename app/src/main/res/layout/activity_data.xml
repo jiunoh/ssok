@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.data.DataActivity">
+    tools:context="com.example.jiun.ssok.data.DataActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/data_toolbar"
