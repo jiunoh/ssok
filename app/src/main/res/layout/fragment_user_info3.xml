@@ -15,12 +15,13 @@
         android:gravity="center"
         android:text="@string/category_interest_title"
         android:textColor="@android:color/black"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="4dp"
         android:layout_marginBottom="8dp"
         android:text="@string/category_interest_description"
         android:textColor="@android:color/black"
@@ -29,7 +30,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical"
+        android:paddingBottom="40dp"
         tools:context="com.example.jiun.ssok.user.mypage.CategoryInterestFragment">
 
         <LinearLayout
