@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context="com.example.jiun.sookpam.user.major.CollegeRecyclerAdapter">
+
+    <TextView
+        android:id="@+id/major_college_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_toStartOf="@id/major_college_relative"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="20dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:id="@+id/major_college_relative"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center">
+
+        <View
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_expandable_arrow" />
+    </RelativeLayout>
+
+    <com.github.aakira.expandablelayout.ExpandableLinearLayout
+        android:id="@+id/major_expandable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/major_college_txt"
+        android:orientation="vertical"
+        app:ael_duration="400"
+        app:ael_expanded="false">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/major_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+</RelativeLayout>

@@ -13,7 +13,7 @@ open class MessageVO : RealmObject() {
     var messageType: Boolean = true
 
     companion object {
-        val TYPE_SMS = true
-        val TYPE_MMS = false
+        const val TYPE_SMS = true
+        const val TYPE_MMS = false
     }
 }
