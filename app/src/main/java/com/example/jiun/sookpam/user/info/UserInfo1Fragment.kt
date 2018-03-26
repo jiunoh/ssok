@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.*
 import android.view.*
 import android.widget.*
-import com.example.jiun.sookpam.CustomArrayAdapter
+import com.example.jiun.sookpam.util.CustomArrayAdapter
 import com.example.jiun.sookpam.R
 import com.example.jiun.sookpam.user.setting.UserSettingLibrary
 import com.example.jiun.sookpam.user.major.*

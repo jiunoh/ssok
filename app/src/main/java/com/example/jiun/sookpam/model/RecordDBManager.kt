@@ -1,8 +1,7 @@
 package com.example.jiun.sookpam.model
 
 import android.content.Context
-import android.util.Log
-import com.example.jiun.sookpam.message.MessageList
+import com.example.jiun.sookpam.message.synchronization.MessageList
 import com.example.jiun.sookpam.model.vo.ContactVO
 import com.example.jiun.sookpam.model.vo.MessageVO
 import com.example.jiun.sookpam.model.vo.RecordVO

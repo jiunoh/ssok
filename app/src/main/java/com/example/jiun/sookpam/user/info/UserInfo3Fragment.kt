@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
 import kotlinx.android.synthetic.main.fragment_category_interest.view.*
 
 class UserInfo3Fragment : Fragment() {

@@ -14,9 +14,9 @@ import android.view.*
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.*
-import com.example.jiun.sookpam.MyPageBaseFragment
+import com.example.jiun.sookpam.user.mypage.MyPageBaseFragment
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.clip.ClipDBManager
+import com.example.jiun.sookpam.user.mypage.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse

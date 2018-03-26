@@ -14,7 +14,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.*
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.RecyclerItemClickListener
+import com.example.jiun.sookpam.util.RecyclerItemClickListener
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.model.vo.RecordVO
 import com.example.jiun.sookpam.server.ApiUtils

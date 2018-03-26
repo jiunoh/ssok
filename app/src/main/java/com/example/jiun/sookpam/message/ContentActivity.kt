@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.example.jiun.sookpam.MyPageBaseFragment
+import com.example.jiun.sookpam.user.mypage.MyPageBaseFragment
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.clip.ClipDBManager
+import com.example.jiun.sookpam.user.mypage.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_content.*

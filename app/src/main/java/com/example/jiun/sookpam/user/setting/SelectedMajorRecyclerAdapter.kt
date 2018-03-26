@@ -2,12 +2,10 @@ package com.example.jiun.sookpam.user.setting
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.*
-import com.example.jiun.sookpam.MyInfoFragment
+import com.example.jiun.sookpam.user.mypage.MyInfoFragment
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.user.major.MajorActivity
 import kotlinx.android.synthetic.main.selected_major_recycler_item.view.*
 
 class SelectedMajorRecyclerAdapter(val data: List<String>?) : RecyclerView.Adapter<SelectedMajorRecyclerAdapter.ViewHolder>() {

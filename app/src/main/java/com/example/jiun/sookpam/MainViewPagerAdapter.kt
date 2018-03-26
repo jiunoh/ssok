@@ -3,6 +3,9 @@ package com.example.jiun.sookpam
 import android.content.Context
 import android.support.v4.app.*
 import android.support.v4.view.PagerAdapter
+import com.example.jiun.sookpam.message.MessageBaseFragment
+import com.example.jiun.sookpam.user.mypage.MyPageBaseFragment
+import com.example.jiun.sookpam.web.WebBaseFragment
 
 class MainViewPagerAdapter(fm: FragmentManager, context: Context, private val numberOfPage: Int) : FragmentStatePagerAdapter(fm) {
     private val tabTitles = arrayListOf(context.getString(R.string.web), context.getString(R.string.message), context.getString(R.string.my_page))

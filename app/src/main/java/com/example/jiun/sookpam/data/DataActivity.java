@@ -1,22 +1,18 @@
 package com.example.jiun.sookpam.data;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.example.jiun.sookpam.R;
-import com.example.jiun.sookpam.RecyclerItemClickListener;
-import com.example.jiun.sookpam.message.ContentActivity;
-import com.example.jiun.sookpam.message.ContentItem;
+import com.example.jiun.sookpam.util.RecyclerItemClickListener;
 import com.example.jiun.sookpam.model.ContactDBManager;
 import com.example.jiun.sookpam.model.RecordDBManager;
 import com.example.jiun.sookpam.model.vo.RecordVO;
 import com.example.jiun.sookpam.util.MsgContentGenerator;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import io.realm.Realm;
 

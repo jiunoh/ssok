@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.jiun.sookpam.MessageDepartFragment">
+    tools:context="com.example.jiun.sookpam.message.MessageDepartFragment">
 
     <ListView
         android:id="@+id/message_depart_listview"

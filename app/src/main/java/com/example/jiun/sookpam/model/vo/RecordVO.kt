@@ -2,12 +2,8 @@ package com.example.jiun.sookpam.model.vo
 
 
 import android.support.v7.widget.RecyclerView
-import android.widget.ImageView
-import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.clip.ClipDBManager
 import com.example.jiun.sookpam.model.DualModel
 import com.example.jiun.sookpam.util.ViewHolderFactory.DualHolder
-import io.realm.Realm
 import io.realm.RealmModel
 import io.realm.annotations.RealmClass
 import java.text.SimpleDateFormat

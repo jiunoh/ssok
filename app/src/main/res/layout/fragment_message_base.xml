@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.MessageBaseFragment">
+    tools:context="com.example.jiun.sookpam.message.MessageBaseFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/message_base_toolbar"

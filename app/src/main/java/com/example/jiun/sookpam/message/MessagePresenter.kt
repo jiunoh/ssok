@@ -5,9 +5,13 @@ import android.content.Context
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ProgressBar
-import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.message.synchronization.LoadingDialog
+import com.example.jiun.sookpam.message.synchronization.MessageContract
+import com.example.jiun.sookpam.message.synchronization.MmsReader
+import com.example.jiun.sookpam.message.synchronization.SmsReader
 import com.example.jiun.sookpam.model.RecordDBManager
+import com.example.jiun.sookpam.util.CustomToast
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.gun0912.tedpermission.PermissionListener
 import io.realm.Realm

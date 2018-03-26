@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.jiun.sookpam.CategoryInterestFragment">
+    tools:context="com.example.jiun.sookpam.user.mypage.CategoryInterestFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:layout_marginStart="16dp"
         android:orientation="horizontal">
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_scholarship_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             app:status_background="@color/colorPrimary"
             app:status_txt="@string/category_status_normal" />
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_academic_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:layout_marginStart="16dp"
         android:orientation="horizontal">
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_event_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             app:status_background="@color/colorPrimary"
             app:status_txt="@string/category_status_normal" />
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_recruit_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:orientation="horizontal">
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_system_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             app:status_background="@color/colorPrimary"
             app:status_txt="@string/category_status_normal" />
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_global_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
         android:layout_marginStart="16dp"
         android:orientation="horizontal">
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_career_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
             app:status_background="@color/colorPrimary"
             app:status_txt="@string/category_status_normal" />
 
-        <com.example.jiun.sookpam.user.info.CustomCategoryInterestItem
+        <com.example.jiun.sookpam.user.mypage.CustomCategoryInterestItem
             android:id="@+id/category_student_custom"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

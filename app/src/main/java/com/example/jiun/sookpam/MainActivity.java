@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.example.jiun.sookpam.user.info.UserInfoActivity;
+import com.example.jiun.sookpam.user.mypage.MyPageBaseFragment;
 import com.example.jiun.sookpam.util.SharedPreferenceUtil;
 
 import io.realm.Realm;

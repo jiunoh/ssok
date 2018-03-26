@@ -7,9 +7,11 @@ import android.support.v7.widget.*
 import android.view.*
 import android.widget.*
 import com.example.jiun.sookpam.R
-import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.server.*
 import com.example.jiun.sookpam.user.UserInformation
+import com.example.jiun.sookpam.util.CustomToast
+import com.example.jiun.sookpam.util.RecyclerItemClickListener
+import com.example.jiun.sookpam.util.UIAnimation
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.fragment_web_base.*
 import kotlinx.android.synthetic.main.fragment_web_recommend.view.*

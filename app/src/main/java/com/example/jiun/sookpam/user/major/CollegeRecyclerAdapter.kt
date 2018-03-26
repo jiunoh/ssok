@@ -8,8 +8,9 @@ import android.support.v7.widget.*
 import android.util.SparseBooleanArray
 import android.view.*
 import android.widget.*
-import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.R
+import com.example.jiun.sookpam.util.CustomLinearLayoutManager
+import com.example.jiun.sookpam.util.RecyclerItemClickListener
 import com.example.jiun.sookpam.util.SharedPreferenceUtil
 import com.github.aakira.expandablelayout.*
 import kotlinx.android.synthetic.main.college_recycler_item.view.*

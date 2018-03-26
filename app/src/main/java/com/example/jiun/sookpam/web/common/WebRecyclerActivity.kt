@@ -15,6 +15,9 @@ import com.example.jiun.sookpam.*
 import com.example.jiun.sookpam.server.ApiUtils
 import com.example.jiun.sookpam.server.RecordResponse
 import com.example.jiun.sookpam.server.RecordService
+import com.example.jiun.sookpam.util.CustomToast
+import com.example.jiun.sookpam.util.RecyclerItemClickListener
+import com.example.jiun.sookpam.util.UIAnimation
 import com.example.jiun.sookpam.web.WebContentActivity
 import kotlinx.android.synthetic.main.activity_web_common_recycler.*
 
