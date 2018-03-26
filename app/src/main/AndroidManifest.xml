@@ -19,6 +19,7 @@
         <activity
             android:name="com.example.jiun.ssok.MainActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
