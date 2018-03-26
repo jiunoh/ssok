@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpElements() {
         mainViewPager.setAdapter(mainViewPagerAdapter);
+        mainViewPager.setOffscreenPageLimit(2);
         mainTabLayout.setupWithViewPager(mainViewPager);
         setDefaultTabIcons();
         mainViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mainTabLayout));
