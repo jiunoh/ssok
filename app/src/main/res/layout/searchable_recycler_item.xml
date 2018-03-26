@@ -31,7 +31,9 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/title_example"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +55,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textAlignment="textEnd"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    />
             </LinearLayout>
         </LinearLayout>
 
