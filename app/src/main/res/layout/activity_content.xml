@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".message.ContentActivity">
+    tools:context=".message.ContentActivity"
+    android:background="#ffffff"
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/content_toolbar"
@@ -32,11 +34,13 @@
                 <TextView
                     android:id="@+id/info_view"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:padding="8dp"
-                    android:text="장학팀 02-0505-9898" />
+                    android:text="장학팀 02-0505-9898"
+                    android:textColor="#000000"
+                    />
 
                 <TextView
                     android:id="@+id/date_view"
@@ -46,7 +50,9 @@
                     android:layout_margin="8dp"
                     android:padding="8dp"
                     android:textAlignment="textEnd"
-                    android:text="2017-09-03" />
+                    android:text="2017-09-03"
+                    android:textColor="#000000"
+                    />
             </LinearLayout>
 
 
@@ -58,9 +64,10 @@
                 android:layout_margin="8dp"
                 android:padding="8dp"
                 android:text="[장학]아산장학재단 장학금 신청 안내"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:singleLine="true"
                 android:ellipsize="end"
+                android:textColor="#000000"
                 />
 
 
@@ -71,7 +78,11 @@
                 android:layout_below="@id/title_view"
                 android:layout_margin="8dp"
                 android:padding="8dp"
-                android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다." />
+                android:textSize="16sp"
+                android:text="아산장학재단 장학금 신청 안내 아산장학재단 장학금 신청이 마감됩니다."
+                android:textColor="#000000"
+                android:lineSpacingExtra="8dp"
+                />
 
         </LinearLayout>
     </ScrollView>
