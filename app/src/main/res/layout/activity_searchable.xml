@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:contentDescription="@string/error_or_no_data"
+                android:paddingBottom="16dp"
                 android:src="@drawable/error_image" />
 
             <TextView
@@ -57,74 +58,75 @@
             android:visibility="visible" />
 
         <LinearLayout
+            android:id="@+id/search_keyword_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/search_keyword_layout"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="나의 추천 검색어"
                 android:gravity="center"
                 android:paddingTop="8dp"
-                />
+                android:text="나의 추천 검색어" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="8dp"
-                >
+                android:paddingTop="8dp">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:gravity="center"
                     android:id="@+id/search_keyword_1"
-                    />
-
-                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
+                    android:textSize="18sp" />
+
+                <TextView
                     android:id="@+id/search_keyword_2"
-                    />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
-                >
+                android:paddingTop="10dp">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="18sp"
-                    android:gravity="center"
                     android:id="@+id/search_keyword_3"
-                    />
-
-                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
-                    android:id="@+id/search_keyword_4"
-                    />
+                    android:textSize="18sp" />
 
+                <TextView
+                    android:id="@+id/search_keyword_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
-
     </FrameLayout>
-
 </LinearLayout>
