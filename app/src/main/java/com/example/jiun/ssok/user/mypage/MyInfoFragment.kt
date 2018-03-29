@@ -76,7 +76,7 @@ class MyInfoFragment : Fragment() {
         externalScholarshipCheckBox = view.my_info_external_scholarship_checkbox
         UserSettingLibrary.setCheckBoxListener(externalScholarshipCheckBox, context!!)
         governmentScholarshipCheckBox = view.my_info_government_scholarship_checkbox
-        UserSettingLibrary.setCheckBoxListener(externalScholarshipCheckBox, context!!)
+        UserSettingLibrary.setCheckBoxListener(governmentScholarshipCheckBox, context!!)
     }
 
     private fun initializeStatusRadio(view: View) {
