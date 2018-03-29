@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="24dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="24dp"
+    tools:context="com.example.jiun.ssok.user.info.UserInfoActivity">
+
+    <com.example.jiun.ssok.SimpleViewPager
+        android:id="@+id/user_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/user_info_previous_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/blue_button_selector"
+            android:text="@string/user_info_previous"
+            android:textColor="@color/blue_text_color_selector"
+            android:textColorHighlight="@color/blue_text_color_selector"
+            android:textColorLink="@color/blue_text_color_selector"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/user_info_circle0_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/user_info_first_page"
+            android:src="@drawable/ic_pink_circle" />
+
+        <ImageView
+            android:id="@+id/user_info_circle1_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/user_info_second_page"
+            android:src="@drawable/ic_default_circle" />
+
+        <ImageView
+            android:id="@+id/user_info_circle2_img"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/user_info_third_page"
+            android:src="@drawable/ic_default_circle" />
+
+        <Button
+            android:id="@+id/user_info_next_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/blue_button_selector"
+            android:text="@string/user_info_next_page"
+            android:textAlignment="center"
+            android:textColor="@color/blue_text_color_selector"
+            android:textColorHighlight="@color/blue_text_color_selector"
+            android:textColorLink="@color/blue_text_color_selector"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,21 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jiun.sookpam">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.jiun.ssok">
+
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- check internet connection state -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
+        android:name="com.example.jiun.ssok.model.ContactDBManager"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/ToolbarTheme">
+        <activity
+            android:name="com.example.jiun.ssok.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.gun0912.tedpermission.TedPermissionActivity"
+            android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|screenSize|layoutDirection"
+            android:screenOrientation="unspecified"
+            android:theme="@style/Theme.Transparent.Permission"
+            tools:replace="android:screenOrientation" />
+        <activity android:name="com.example.jiun.ssok.category.CategoryActivity" />
+        <activity android:name="com.example.jiun.ssok.setting.InfoActivity" />
+        <activity android:name="com.example.jiun.ssok.data.DataActivity" />
+        <activity android:name="com.example.jiun.ssok.web.WebContentActivity" />
+        <activity android:name="com.example.jiun.ssok.web.common.WebRecyclerActivity" />
+        <activity android:name="com.example.jiun.ssok.user.major.MajorActivity" />
+        <activity android:name="com.example.jiun.ssok.user.info.UserInfoActivity" />
+        <activity android:name="com.example.jiun.ssok.message.ContentActivity" />
+        <activity android:name="com.example.jiun.ssok.searchable.SearchableActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name="com.example.jiun.ssok.setting.LicenseActivity" />
+        <activity android:name="com.example.jiun.ssok.setting.DeveloperInfoActivity"></activity>
     </application>
 
 </manifest>

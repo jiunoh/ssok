@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.jiun.ssok.setting.CheckableLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="25dp"
+    android:id="@+id/checkable_layout_id"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    >
+
+    <CheckBox
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:id="@+id/category_checkbox"
+        android:clickable="false"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8"
+        android:text="demo item"
+        android:textSize="20dp"
+        android:id="@+id/category"
+        />
+
+</com.example.jiun.ssok.setting.CheckableLinearLayout>
